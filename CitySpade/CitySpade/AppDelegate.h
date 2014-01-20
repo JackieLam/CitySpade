@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CTMapViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) CTMapViewController *mapView;
 
 @end
