@@ -1,0 +1,13 @@
+PODS:
+  - LBBlurredImage (0.1.0)
+  - MFSideMenu (0.5.4)
+
+DEPENDENCIES:
+  - LBBlurredImage
+  - MFSideMenu (~> 0.5.4)
+
+SPEC CHECKSUMS:
+  LBBlurredImage: f44c432794e2a8a225f4c8a563aa1bd713b6b4c5
+  MFSideMenu: f59e25c080097a701e108459c207fb22e1f62c30
+
+COCOAPODS: 0.27.1

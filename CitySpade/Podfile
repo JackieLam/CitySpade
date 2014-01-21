@@ -1,0 +1,4 @@
+platform :ios, '7.0'
+
+pod 'MFSideMenu', '~> 0.5.4'
+pod 'LBBlurredImage'
