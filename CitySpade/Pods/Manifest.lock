@@ -4,7 +4,7 @@ PODS:
 
 DEPENDENCIES:
   - LBBlurredImage
-  - MFSideMenu (~> 0.5.4)
+  - MFSideMenu
 
 SPEC CHECKSUMS:
   LBBlurredImage: f44c432794e2a8a225f4c8a563aa1bd713b6b4c5
