@@ -7,6 +7,7 @@
 //
 
 #import "CTMapViewController.h"
+#import "CTListViewController.h"
 #import "MFSideMenu.h"
 #import <GoogleMaps/GoogleMaps.h>
 
@@ -37,16 +38,7 @@
     [self setupFrames];
 }
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86 longitude:151.20 zoom:6];
-//    mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-//    mapView.myLocationEnabled = YES;
-//    self.view = mapView;
-//    [self setupFrames];
-//}
-
+#pragma mark - User Interface Setup
 - (void)setupFrames
 {
     CGRect screenFrame = [UIScreen mainScreen].bounds;
@@ -70,10 +62,18 @@
     logoImageView.alpha = 1.0f;
     logoImageView.contentMode = UIViewContentModeScaleAspectFill;
     [mapView addSubview:logoImageView];
+    //toList Button
+    CGRect buttonFrame = CGRectMake(200, 400, 60, 20);
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = buttonFrame;
+    button.backgroundColor = [UIColor redColor];
+    button.titleLabel.text = @"List";
+    [button addTarget:self action:@selector(listButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [mapView addSubview:button];
 
 //SearchBarch
     CGFloat searchBarLeftInset = 10;
-    CGFloat searchBarTopInset = 20;
+    CGFloat searchBarTopInset = 60;
     CGFloat searchBarWidth = screenFrame.size.width - 2 * searchBarLeftInset;
     CGFloat searchBarHeight = 50;
     CGRect searchBarFrame = CGRectMake(searchBarLeftInset, searchBarTopInset, searchBarWidth, searchBarHeight);
@@ -101,7 +101,7 @@
     textField.placeholder = @"e.g. New York, Timesquare";
     textField.enabled = YES;
     [searchBar addSubview:textField];
-    //Filter Button
+    
     
     [mapView addSubview:searchBar];
 }
@@ -164,10 +164,16 @@
 #pragma mark -
 #pragma mark - IBActions
 
-- (IBAction)pushAnotherPressed:(id)sender {
+- (void)pushAnotherPressed:(id)sender {
     
 }
 
-
+#pragma mark - Handle the button click
+- (void)listButtonClicked
+{
+    NSLog(@"list button clicked");
+    CTListViewController *listVC = [[CTListViewController alloc] init];
+    [self.navigationController pushViewController:listVC animated:YES];
+}
 
 @end
