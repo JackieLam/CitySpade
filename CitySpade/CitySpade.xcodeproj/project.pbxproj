@@ -36,6 +36,7 @@
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
 		189EC105188F796600DC485F /* CTListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EC104188F796600DC485F /* CTListViewController.m */; };
+		189EC111188FB44E00DC485F /* CTMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EC110188FB44E00DC485F /* CTMapView.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,8 @@
 		188F6CFD188E85D900EAEEFD /* CTMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewController.h; sourceTree = "<group>"; };
 		189EC103188F796600DC485F /* CTListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTListViewController.h; sourceTree = "<group>"; };
 		189EC104188F796600DC485F /* CTListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTListViewController.m; sourceTree = "<group>"; };
+		189EC10F188FB44E00DC485F /* CTMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTMapView.h; path = Views/CTMapView.h; sourceTree = "<group>"; };
+		189EC110188FB44E00DC485F /* CTMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTMapView.m; path = Views/CTMapView.m; sourceTree = "<group>"; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -179,12 +182,10 @@
 				1817C7A0188D5476003AC430 /* GoogleMapsBundle */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
-				188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */,
-				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
 				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
-				189EC103188F796600DC485F /* CTListViewController.h */,
-				189EC104188F796600DC485F /* CTListViewController.m */,
+				189EC112188FBBBA00DC485F /* Views */,
+				189EC108188F9EFD00DC485F /* ViewControllers */,
 				1817C74D188CBD68003AC430 /* Images.xcassets */,
 				1817C742188CBD68003AC430 /* Supporting Files */,
 			);
@@ -226,6 +227,26 @@
 				1817C79E188D546B003AC430 /* GoogleMaps.bundle */,
 			);
 			name = GoogleMapsBundle;
+			sourceTree = "<group>";
+		};
+		189EC108188F9EFD00DC485F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */,
+				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
+				189EC103188F796600DC485F /* CTListViewController.h */,
+				189EC104188F796600DC485F /* CTListViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		189EC112188FBBBA00DC485F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				189EC10F188FB44E00DC485F /* CTMapView.h */,
+				189EC110188FB44E00DC485F /* CTMapView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,6 +384,7 @@
 				189EC105188F796600DC485F /* CTListViewController.m in Sources */,
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
+				189EC111188FB44E00DC485F /* CTMapView.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

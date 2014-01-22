@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#define botttomHeight 44.0f
+@class CTMapView;
 
 @interface CTMapViewController : UIViewController
+@property (nonatomic, strong) CTMapView *ctmapView;
 
 @end

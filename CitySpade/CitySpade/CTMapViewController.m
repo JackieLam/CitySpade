@@ -8,102 +8,39 @@
 
 #import "CTMapViewController.h"
 #import "CTListViewController.h"
+#import "CTMapView.h"
 #import "MFSideMenu.h"
 #import <GoogleMaps/GoogleMaps.h>
+
+#define botttomHeight 44.0f
 
 @interface CTMapViewController() <GMSMapViewDelegate>
 
 @end
 
-@implementation CTMapViewController {
-    GMSMapView *mapView;
-}
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86 longitude:151.20 zoom:6];
-        mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-        mapView.myLocationEnabled = YES;
-        self.view = mapView;
-    }
-    return self;
-}
+@implementation CTMapViewController
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.ctmapView = [[CTMapView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.view = self.ctmapView;
+    
+    [self.ctmapView.listButton addTarget:self action:@selector(listButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self setupMenuBarButtonItems];
     [self setupFrames];
 }
 
+- (void)viewDidLoad
+{
+    
+}
+
 #pragma mark - User Interface Setup
+
 - (void)setupFrames
 {
-    CGRect screenFrame = [UIScreen mainScreen].bounds;
-    CGFloat bottomHeight = 44;
-    CGFloat bottomInset = 0;
-    CGFloat logoLeftInset = 30;
-    CGFloat logoTopInset = 10;
-    CGFloat logoWidth = 100;
-    CGFloat logoHeight = 30;
-
-//The bottom background
-    CGRect bottomFrame = CGRectMake(bottomInset, screenFrame.size.height - bottomHeight, screenFrame.size.width, bottomHeight);
-    UIView *bottomView = [[UIView alloc] initWithFrame:bottomFrame];
-    bottomView.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.7];
-    [mapView addSubview:bottomView];
-
-//CitySpade Logo
-    CGRect logoFrame = CGRectMake(bottomInset+logoLeftInset, screenFrame.size.height-bottomHeight+logoTopInset, logoWidth, logoHeight);
-    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:logoFrame];
-    logoImageView.image = [UIImage imageNamed:@"cityspade.png"];
-    logoImageView.alpha = 1.0f;
-    logoImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [mapView addSubview:logoImageView];
-    //toList Button
-    CGRect buttonFrame = CGRectMake(200, 400, 60, 20);
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.frame = buttonFrame;
-    button.backgroundColor = [UIColor redColor];
-    button.titleLabel.text = @"List";
-    [button addTarget:self action:@selector(listButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [mapView addSubview:button];
-
-//SearchBarch
-    CGFloat searchBarLeftInset = 10;
-    CGFloat searchBarTopInset = 60;
-    CGFloat searchBarWidth = screenFrame.size.width - 2 * searchBarLeftInset;
-    CGFloat searchBarHeight = 50;
-    CGRect searchBarFrame = CGRectMake(searchBarLeftInset, searchBarTopInset, searchBarWidth, searchBarHeight);
-    UIView *searchBar = [[UIView alloc] initWithFrame:searchBarFrame];
-    searchBar.backgroundColor = [UIColor whiteColor];
-    searchBar.layer.shadowColor = [[UIColor blackColor] CGColor];
-    searchBar.layer.shadowOffset = CGSizeMake(0, 0);
-    searchBar.layer.shadowRadius = 3.0f;
-    searchBar.layer.shadowOpacity = 0.8f;
-    //SearchBar icon
-    CGFloat searchIconLeftInset = 12;
-    CGFloat searchIconTopInset = 12;
-    CGFloat searchIconWidth = 16;
-    CGFloat searchIconHeight = 16;
-    CGRect searchBarIconFrame = CGRectMake(searchIconLeftInset, searchIconTopInset, searchIconWidth, searchIconHeight);
-    UIImageView *searchBarIconImageView = [[UIImageView alloc] initWithFrame:searchBarIconFrame];
-    searchBarIconImageView.image = [UIImage imageNamed:@"Search-icon.png"];
-    [searchBar addSubview:searchBarIconImageView];
-    //SearchBar textfield
-    CGFloat textFieldLeftToSearchIcon = 5;
-    CGFloat textFieldTopToBorder = 5;
-    CGFloat textFieldWidth = screenFrame.size.width * 0.8;
-    CGRect searchBarTextFieldFrame = CGRectMake(searchIconLeftInset + searchIconWidth + textFieldLeftToSearchIcon, textFieldTopToBorder, textFieldWidth, searchBarHeight-2*textFieldTopToBorder);
-    UITextField *textField = [[UITextField alloc] initWithFrame:searchBarTextFieldFrame];
-    textField.placeholder = @"e.g. New York, Timesquare";
-    textField.enabled = YES;
-    [searchBar addSubview:textField];
     
-    
-    [mapView addSubview:searchBar];
 }
 
 #pragma mark -
@@ -169,7 +106,7 @@
 }
 
 #pragma mark - Handle the button click
-- (void)listButtonClicked
+- (void)listButtonClicked:(id)sender
 {
     NSLog(@"list button clicked");
     CTListViewController *listVC = [[CTListViewController alloc] init];
