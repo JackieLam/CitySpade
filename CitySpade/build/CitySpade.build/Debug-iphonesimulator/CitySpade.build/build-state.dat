@@ -1,0 +1,619 @@
+TCitySpade
+v6
+r1
+cCheck dependencies
+cSymLink /Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/CitySpade.app /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app
+cPhaseScriptExecution Check\ Pods\ Manifest.lock /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-9EBD0F3FCDCE431E80D2D2E0.sh
+cProcessPCH /var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bitoyjxqukpqzjczrybirnpmyghr/CitySpade-Prefix.pch.pch CitySpade/CitySpade-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/CitySpade normal i386
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk
+c000000005281AB5B0000000000000176
+t1384229723
+s374
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/SDKSettings.plist
+c00000000524A843400000000000003B5
+t1380615220
+s949
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/CoreServices/SystemVersion.plist
+c00000000526BB79B00000000000001A0
+t1382791067
+s416
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
+c00000000526BB79F000000000047C980
+t1382791071
+s4704640
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/CoreData.framework/CoreData
+c00000000526BB7A000000000006C6DC0
+t1382791072
+s7105984
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c00000000526BB7A00000000000445870
+t1382791072
+s4479088
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
+c00000000526BB7A000000000000EC820
+t1382791072
+s968736
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/CoreText.framework/CoreText
+c00000000526BB7A100000000002F6810
+t1382791073
+s3106832
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c00000000526BB7A3000000000088C680
+t1382791075
+s8963712
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/GLKit.framework/GLKit
+c00000000526BB7A100000000000B9CD0
+t1382791073
+s761040
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/GoogleMaps.framework/GoogleMaps
+c00000000000000000000000000000000
+t2
+s0
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/ImageIO.framework/ImageIO
+c00000000526BB7A30000000000666670
+t1382791075
+s6710896
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/OpenGLES.framework/OpenGLES
+c00000000526BB7A40000000000037620
+t1382791076
+s226848
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
+c00000000526BB7A500000000004848F0
+t1382791077
+s4737264
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
+c00000000526BB7A600000000001081B0
+t1382791078
+s1081776
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c00000000526BB7AE0000000001DB9910
+t1382791086
+s31168784
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/usr/lib/libc++.dylib
+c00000000526BB7BF00000000001720C0
+t1382791103
+s1515712
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/usr/lib/libicucore.dylib
+c00000000526BB7C000000000004F37D0
+t1382791104
+s5191632
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/usr/lib/libz.dylib
+c00000000524A8490000000000002B700
+t1380615312
+s177920
+
+N/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/5.0/include/module.map
+c00000000524A84AB0000000000000AC9
+t1380615339
+s2761
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.h
+c0000000052DF3DCE0000000000000173
+t1390362062
+s371
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m
+c0000000052DF345200000000000005E7
+t1390359634
+s1511
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.h
+c0000000052DDE3420000000000000104
+t1390273346
+s260
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m
+c0000000052DF36D40000000000001750
+t1390360276
+s5968
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/CitySpade-Prefix.pch
+c0000000052DC85E80000000000000158
+t1390183912
+s344
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.h
+c0000000052DE2984000000000000012A
+t1390291332
+s298
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m
+c0000000052DE29840000000000000632
+t1390291332
+s1586
+
+N/Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m
+c0000000052DC85E80000000000000157
+t1390183912
+s343
+
+N/Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/CitySpade
+t2
+s0
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCALayer.h
+c0000000052D4C5E600000000000001FB
+t1389676006
+s507
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCameraPosition.h
+c0000000052D4C5E60000000000001113
+t1389676006
+s4371
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCameraUpdate.h
+c0000000052D4C5E60000000000000CC7
+t1389676006
+s3271
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCircle.h
+c0000000052D4C5E60000000000000587
+t1389676006
+s1415
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCoordinateBounds.h
+c0000000052D4C5E60000000000000B6B
+t1389676006
+s2923
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGeocoder.h
+c0000000052D4C5E600000000000007EB
+t1389676006
+s2027
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGeometryUtils.h
+c0000000052D4C5E600000000000014CB
+t1389676006
+s5323
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGroundOverlay.h
+c0000000052D4C5E60000000000000994
+t1389676006
+s2452
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorBuilding.h
+c0000000052D4C5E60000000000000336
+t1389676006
+s822
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorDisplay.h
+c0000000052D4C5E60000000000000753
+t1389676006
+s1875
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorLevel.h
+c0000000052D4C5E600000000000002CC
+t1389676006
+s716
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapLayer.h
+c0000000052D4C5E60000000000000E55
+t1389676006
+s3669
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView+Animation.h
+c0000000052D4C5E60000000000000737
+t1389676006
+s1847
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView+Overlays.h
+c0000000052D4C5E60000000000000422
+t1389676006
+s1058
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView.h
+c0000000052D4C5E60000000000002BE5
+t1389676006
+s11237
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMarker.h
+c0000000052D4C5E60000000000001466
+t1389676006
+s5222
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMarkerLayer.h
+c0000000052D4C5E60000000000000514
+t1389676006
+s1300
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMutablePath.h
+c0000000052D4C5E600000000000006F9
+t1389676006
+s1785
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSOrientation.h
+c0000000052D4C5E600000000000003FC
+t1389676006
+s1020
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSOverlay.h
+c0000000052D4C5E6000000000000074E
+t1389676006
+s1870
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanorama.h
+c0000000052D4C5E60000000000000348
+t1389676006
+s840
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaCamera.h
+c0000000052D4C5E600000000000009A2
+t1389676006
+s2466
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaCameraUpdate.h
+c0000000052D4C5E6000000000000032E
+t1389676006
+s814
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaLayer.h
+c0000000052D4C5E600000000000004B9
+t1389676006
+s1209
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaLink.h
+c0000000052D4C5E60000000000000260
+t1389676006
+s608
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaService.h
+c0000000052D4C5E600000000000006C9
+t1389676006
+s1737
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaView.h
+c0000000052D4C5E600000000000021C7
+t1389676006
+s8647
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPath.h
+c0000000052D4C5E6000000000000060A
+t1389676006
+s1546
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPolygon.h
+c0000000052D4C5E60000000000000519
+t1389676006
+s1305
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPolyline.h
+c0000000052D4C5E60000000000000460
+t1389676006
+s1120
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSProjection.h
+c0000000052D4C5E60000000000000A6D
+t1389676006
+s2669
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSServices.h
+c0000000052D4C5E6000000000000070E
+t1389676006
+s1806
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSSyncTileLayer.h
+c0000000052D4C5E6000000000000034C
+t1389676006
+s844
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSTileLayer.h
+c0000000052D4C5E60000000000000D92
+t1389676006
+s3474
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSUISettings.h
+c0000000052D4C5E60000000000000CDC
+t1389676006
+s3292
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSURLTileLayer.h
+c0000000052D4C5E60000000000000611
+t1389676006
+s1553
+
+N/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GoogleMaps.h
+c0000000052D4C5E600000000000006CB
+t1389676006
+s1739
+
+N/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenu.h
+c0000000052DDE02D0000000000000100
+t1390272557
+s256
+
+N/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuContainerViewController.h
+c0000000052DE46500000000000000C47
+t1390298704
+s3143
+
+N/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuShadow.h
+c0000000052DDE02D00000000000002DD
+t1390272557
+s733
+
+N/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/UIViewController+MFSideMenuAdditions.h
+c0000000052DDE02D000000000000021F
+t1390272557
+s543
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.o
+t1390362495
+s71804
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.o
+t1390362495
+s63284
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.o
+t1390362495
+s76496
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CitySpade.LinkFileList
+c0000000052DF3F7F0000000000000236
+t1390362495
+s566
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.o
+t1390362495
+s3668
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-9EBD0F3FCDCE431E80D2D2E0.sh
+c0000000052DF3F7F0000000000000103
+t1390362495
+s259
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/CitySpade.app
+t2
+s0
+
+N/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/libPods.a
+c00000000000000000000000000000000
+t2
+s0
+
+N/var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bitoyjxqukpqzjczrybirnpmyghr/CitySpade-Prefix.pch.pch
+t1390360435
+s111336
+
+CCheck dependencies
+r0
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies904b20ff768fb841^1cef26ff768fb841^---0#1#1#--18"Check dependencies36"05B8C1DB-F185-4661-ACAD-6225892C53A9-
+
+CCompileAssetCatalog /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app /Users/apple/Developer/CitySpade/CitySpade/CitySpade/Images.xcassets
+r0
+
+CCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s412055295.174156
+e412055295.239864
+r1
+xCompileC
+xbuild/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.o
+x/Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.h
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.h
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenu.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuContainerViewController.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuShadow.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/UIViewController+MFSideMenuAdditions.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GoogleMaps.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCALayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCameraPosition.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCameraUpdate.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCircle.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSOverlay.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCoordinateBounds.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSProjection.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGeocoder.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGeometryUtils.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGroundOverlay.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorBuilding.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorDisplay.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorLevel.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView+Animation.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSUISettings.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView+Overlays.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMarker.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMarkerLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMutablePath.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPath.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSOrientation.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanorama.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaCamera.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaCameraUpdate.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaLink.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaService.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaView.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPolygon.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPolyline.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSServices.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSSyncTileLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSTileLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSURLTileLayer.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Compile /Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m210"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.o [1mCitySpade/AppDelegate.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compilerb5c62cff768fb841^c7683dff768fb841^---0#0#1#-19%DVTDocumentLocation2@73"file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m0000000000000000^5504"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.o [1mCitySpade/AppDelegate.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/apple/Developer/CitySpade/CitySpade    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=143 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu99 -fobjc-arc -fmodules -fmodules-cache-path=/var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/ModuleCache -fmodules-ignore-macro=FRANKIFIED -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -DCOCOAPODS=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.0 -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-generated-files.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-own-target-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-all-target-headers.hmap -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-project-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/include -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/LBBlurredImage -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources/i386 -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources -F/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator -F. -FCitySpade -FCitySpade.xcworkspace -FCitySpadeTests -FFrank -FPods -FCitySpade/GoogleMaps.bundle -FCitySpade/Images.xcassets -FCitySpade/ViewControllers -FCitySpade.xcworkspace/xcshareddata -FCitySpade.xcworkspace/xcuserdata -FFrank/features -FFrank/frank_static_resources.bundle -FFrank/frankified_build -FFrank/plugins -FPods/BuildHeaders -FPods/Headers -FPods/LBBlurredImage -FPods/MFSideMenu -FCitySpade/GoogleMaps.bundle/GMSCacheStorage.momd -FCitySpade/GoogleMaps.bundle/GMSCoreResources.bundle -FCitySpade/Images.xcassets/AppIcon.appiconset -FCitySpade/Images.xcassets/back-arrow.imageset -FCitySpade/Images.xcassets/cityspade.imageset -FCitySpade/Images.xcassets/LaunchImage.launchimage -FCitySpade/Images.xcassets/menu-icon.imageset -FCitySpade/Images.xcassets/Search-icon.imageset -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad -FFrank/features/step_definitions -FFrank/features/support -FFrank/frank_static_resources.bundle/images -FFrank/frank_static_resources.bundle/js -FFrank/frank_static_resources.bundle/pictos -FFrank/frank_static_resources.bundle/stylesheets -FPods/BuildHeaders/LBBlurredImage -FPods/BuildHeaders/MFSideMenu -FPods/Headers/LBBlurredImage -FPods/Headers/MFSideMenu -FPods/LBBlurredImage/LBBlurredImage -FPods/MFSideMenu/MFSideMenu -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad/xcdebugger -FFrank/frank_static_resources.bundle/js/lib -FFrank/frank_static_resources.bundle/stylesheets/css -FFrank/frank_static_resources.bundle/stylesheets/sass -include /var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bitoyjxqukpqzjczrybirnpmyghr/CitySpade-Prefix.pch -DFRANKIFIED -MMD -MT dependencies -MF /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.d --serialize-diagnostics /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.dia -c /Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.m -o /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/AppDelegate.o36"16A9625A-8110-49DE-8762-91DA76CE36C7-
+b8F2D6C19-51BE-4F7D-9E19-201E0BE336F6
+
+CCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s412055295.173665
+e412055295.233494
+r1
+xCompileC
+xbuild/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.o
+x/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.h
+o[1m/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m:54:2: [0m[0;1;35mwarning: [0m[1mTODO: Setup the cell
+o      [-W#warnings][0m
+o#warning TODO: Setup the cell
+o[0;1;32m ^
+o[0m1 warning generated.
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection107"Compile /Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m260"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.o [1mCitySpade/ViewControllers/CTLeftSideMenuViewController.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler09a42cff768fb841^4bc83bff768fb841^-252"[1m/Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m:54:2: [0m[0;1;35mwarning: [0m[1mTODO: Setup the cell      [-W#warnings][0m#warning TODO: Setup the cell[0;1;32m ^[0m1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@20"TODO: Setup the cell-412055295#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@106"file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m0000000000000000^53#1#53#1#1532#0#18"#warning Directive--0#0#1#-19%DVTDocumentLocation4@106"file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m0000000000000000^5638"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.o [1mCitySpade/ViewControllers/CTLeftSideMenuViewController.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/apple/Developer/CitySpade/CitySpade    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=143 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu99 -fobjc-arc -fmodules -fmodules-cache-path=/var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/ModuleCache -fmodules-ignore-macro=FRANKIFIED -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -DCOCOAPODS=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.0 -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-generated-files.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-own-target-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-all-target-headers.hmap -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-project-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/include -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/LBBlurredImage -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources/i386 -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources -F/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator -F. -FCitySpade -FCitySpade.xcworkspace -FCitySpadeTests -FFrank -FPods -FCitySpade/GoogleMaps.bundle -FCitySpade/Images.xcassets -FCitySpade/ViewControllers -FCitySpade.xcworkspace/xcshareddata -FCitySpade.xcworkspace/xcuserdata -FFrank/features -FFrank/frank_static_resources.bundle -FFrank/frankified_build -FFrank/plugins -FPods/BuildHeaders -FPods/Headers -FPods/LBBlurredImage -FPods/MFSideMenu -FCitySpade/GoogleMaps.bundle/GMSCacheStorage.momd -FCitySpade/GoogleMaps.bundle/GMSCoreResources.bundle -FCitySpade/Images.xcassets/AppIcon.appiconset -FCitySpade/Images.xcassets/back-arrow.imageset -FCitySpade/Images.xcassets/cityspade.imageset -FCitySpade/Images.xcassets/LaunchImage.launchimage -FCitySpade/Images.xcassets/menu-icon.imageset -FCitySpade/Images.xcassets/Search-icon.imageset -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad -FFrank/features/step_definitions -FFrank/features/support -FFrank/frank_static_resources.bundle/images -FFrank/frank_static_resources.bundle/js -FFrank/frank_static_resources.bundle/pictos -FFrank/frank_static_resources.bundle/stylesheets -FPods/BuildHeaders/LBBlurredImage -FPods/BuildHeaders/MFSideMenu -FPods/Headers/LBBlurredImage -FPods/Headers/MFSideMenu -FPods/LBBlurredImage/LBBlurredImage -FPods/MFSideMenu/MFSideMenu -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad/xcdebugger -FFrank/frank_static_resources.bundle/js/lib -FFrank/frank_static_resources.bundle/stylesheets/css -FFrank/frank_static_resources.bundle/stylesheets/sass -include /var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bitoyjxqukpqzjczrybirnpmyghr/CitySpade-Prefix.pch -DFRANKIFIED -MMD -MT dependencies -MF /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.d --serialize-diagnostics /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.dia -c /Users/apple/Developer/CitySpade/CitySpade/CitySpade/ViewControllers/CTLeftSideMenuViewController.m -o /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTLeftSideMenuViewController.o36"6A697311-E6D2-4F96-83DE-4B1C76DE0C81-
+b8F2D6C19-51BE-4F7D-9E19-201E0BE336F6
+
+CCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s412055295.173274
+e412055295.248011
+r1
+xCompileC
+xbuild/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.o
+x/Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenu.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuContainerViewController.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuShadow.h
+d/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/UIViewController+MFSideMenuAdditions.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GoogleMaps.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCALayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCameraPosition.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCameraUpdate.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCircle.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSOverlay.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSCoordinateBounds.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSProjection.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGeocoder.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGeometryUtils.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSGroundOverlay.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorBuilding.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorDisplay.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSIndoorLevel.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView+Animation.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSUISettings.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMapView+Overlays.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMarker.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMarkerLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSMutablePath.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPath.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSOrientation.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanorama.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaCamera.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaCameraUpdate.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaLink.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaService.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPanoramaView.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPolygon.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSPolyline.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSServices.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSSyncTileLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSTileLayer.h
+d/Users/apple/Developer/CitySpade/CitySpade/GoogleMaps.framework/Headers/GMSURLTileLayer.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Compile /Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m226"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.o [1mCitySpade/CTMapViewController.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compilerb7972cff768fb841^067f3fff768fb841^---0#0#1#-19%DVTDocumentLocation2@81"file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m0000000000000000^5552"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.o [1mCitySpade/CTMapViewController.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/apple/Developer/CitySpade/CitySpade    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=143 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu99 -fobjc-arc -fmodules -fmodules-cache-path=/var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/ModuleCache -fmodules-ignore-macro=FRANKIFIED -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -DCOCOAPODS=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.0 -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-generated-files.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-own-target-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-all-target-headers.hmap -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-project-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/include -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/LBBlurredImage -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources/i386 -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources -F/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator -F. -FCitySpade -FCitySpade.xcworkspace -FCitySpadeTests -FFrank -FPods -FCitySpade/GoogleMaps.bundle -FCitySpade/Images.xcassets -FCitySpade/ViewControllers -FCitySpade.xcworkspace/xcshareddata -FCitySpade.xcworkspace/xcuserdata -FFrank/features -FFrank/frank_static_resources.bundle -FFrank/frankified_build -FFrank/plugins -FPods/BuildHeaders -FPods/Headers -FPods/LBBlurredImage -FPods/MFSideMenu -FCitySpade/GoogleMaps.bundle/GMSCacheStorage.momd -FCitySpade/GoogleMaps.bundle/GMSCoreResources.bundle -FCitySpade/Images.xcassets/AppIcon.appiconset -FCitySpade/Images.xcassets/back-arrow.imageset -FCitySpade/Images.xcassets/cityspade.imageset -FCitySpade/Images.xcassets/LaunchImage.launchimage -FCitySpade/Images.xcassets/menu-icon.imageset -FCitySpade/Images.xcassets/Search-icon.imageset -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad -FFrank/features/step_definitions -FFrank/features/support -FFrank/frank_static_resources.bundle/images -FFrank/frank_static_resources.bundle/js -FFrank/frank_static_resources.bundle/pictos -FFrank/frank_static_resources.bundle/stylesheets -FPods/BuildHeaders/LBBlurredImage -FPods/BuildHeaders/MFSideMenu -FPods/Headers/LBBlurredImage -FPods/Headers/MFSideMenu -FPods/LBBlurredImage/LBBlurredImage -FPods/MFSideMenu/MFSideMenu -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad/xcdebugger -FFrank/frank_static_resources.bundle/js/lib -FFrank/frank_static_resources.bundle/stylesheets/css -FFrank/frank_static_resources.bundle/stylesheets/sass -include /var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bitoyjxqukpqzjczrybirnpmyghr/CitySpade-Prefix.pch -DFRANKIFIED -MMD -MT dependencies -MF /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.d --serialize-diagnostics /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.dia -c /Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m -o /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CTMapViewController.o36"5AB2DA5E-7E5C-4317-BDE6-8F684AA250E8-
+b8F2D6C19-51BE-4F7D-9E19-201E0BE336F6
+
+CCompileC build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.o /Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s412055295.174410
+e412055295.203176
+r1
+xCompileC
+xbuild/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.o
+x/Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m
+d/Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppDelegate.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection67"Compile /Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m196"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.o [1mCitySpade/main.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compilerebc52cff768fb841^9b0334ff768fb841^---0#0#1#-19%DVTDocumentLocation2@66"file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m0000000000000000^5462"[1mCompileC[0m build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.o [1mCitySpade/main.m[0m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/apple/Developer/CitySpade/CitySpade    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=143 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu99 -fobjc-arc -fmodules -fmodules-cache-path=/var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/ModuleCache -fmodules-ignore-macro=FRANKIFIED -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -DCOCOAPODS=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.0 -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-generated-files.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-own-target-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-all-target-headers.hmap -iquote /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/CitySpade-project-headers.hmap -I/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/include -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/LBBlurredImage -I/Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources/i386 -I/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/DerivedSources -F/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator -F. -FCitySpade -FCitySpade.xcworkspace -FCitySpadeTests -FFrank -FPods -FCitySpade/GoogleMaps.bundle -FCitySpade/Images.xcassets -FCitySpade/ViewControllers -FCitySpade.xcworkspace/xcshareddata -FCitySpade.xcworkspace/xcuserdata -FFrank/features -FFrank/frank_static_resources.bundle -FFrank/frankified_build -FFrank/plugins -FPods/BuildHeaders -FPods/Headers -FPods/LBBlurredImage -FPods/MFSideMenu -FCitySpade/GoogleMaps.bundle/GMSCacheStorage.momd -FCitySpade/GoogleMaps.bundle/GMSCoreResources.bundle -FCitySpade/Images.xcassets/AppIcon.appiconset -FCitySpade/Images.xcassets/back-arrow.imageset -FCitySpade/Images.xcassets/cityspade.imageset -FCitySpade/Images.xcassets/LaunchImage.launchimage -FCitySpade/Images.xcassets/menu-icon.imageset -FCitySpade/Images.xcassets/Search-icon.imageset -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad -FFrank/features/step_definitions -FFrank/features/support -FFrank/frank_static_resources.bundle/images -FFrank/frank_static_resources.bundle/js -FFrank/frank_static_resources.bundle/pictos -FFrank/frank_static_resources.bundle/stylesheets -FPods/BuildHeaders/LBBlurredImage -FPods/BuildHeaders/MFSideMenu -FPods/Headers/LBBlurredImage -FPods/Headers/MFSideMenu -FPods/LBBlurredImage/LBBlurredImage -FPods/MFSideMenu/MFSideMenu -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad/xcdebugger -FFrank/frank_static_resources.bundle/js/lib -FFrank/frank_static_resources.bundle/stylesheets/css -FFrank/frank_static_resources.bundle/stylesheets/sass -include /var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bitoyjxqukpqzjczrybirnpmyghr/CitySpade-Prefix.pch -DFRANKIFIED -MMD -MT dependencies -MF /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.d --serialize-diagnostics /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.dia -c /Users/apple/Developer/CitySpade/CitySpade/CitySpade/main.m -o /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/main.o36"D9519EA1-76E5-44F9-B530-4C5A8E2E4085-
+b8F2D6C19-51BE-4F7D-9E19-201E0BE336F6
+
+CCopyStringsFile /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/en.lproj/InfoPlist.strings CitySpade/en.lproj/InfoPlist.strings
+r0
+
+CCpResource CitySpade/GoogleMaps.bundle Frank/frankified_build/CitySpade.app/GoogleMaps.bundle
+r0
+
+CGenerateDSYMFile /Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/CitySpade.app.dSYM /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/CitySpade
+r0
+
+CLd /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/CitySpade normal i386
+s412055295.249155
+e412055295.270242
+r0
+xLd
+x/Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/CitySpade
+xnormal
+xi386
+d/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CitySpade.LinkFileList
+old: library not found for -lPods
+oclang: error: linker command failed with exit code 1 (use -v to see invocation)
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection94"Link /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/CitySpade69"[1mLd[0m Frank/frankified_build/CitySpade.app/CitySpade normal i3862ee23fff768fb841^e82e45ff768fb841^-113"ld: library not found for -lPodsclang: error: linker command failed with exit code 1 (use -v to see invocation)2(21%IDEActivityLogMessage2@28"Library not found for -lPods-412055295#0#33#-0#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#26"Apple Mach-O Linker Notice--2@65"Linker command failed with exit code 1 (use -v to see invocation)-412055295#33#80#-2#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#25"Apple Mach-O Linker Error--0#0#1#--3515"[1mLd[0m Frank/frankified_build/CitySpade.app/CitySpade normal i386    cd /Users/apple/Developer/CitySpade/CitySpade    setenv IPHONEOS_DEPLOYMENT_TARGET 7.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk -L/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator -L/Users/apple/Developer/CitySpade/CitySpade/Frank -F/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator -F. -FCitySpade -FCitySpade.xcworkspace -FCitySpadeTests -FFrank -FPods -FCitySpade/GoogleMaps.bundle -FCitySpade/Images.xcassets -FCitySpade/ViewControllers -FCitySpade.xcworkspace/xcshareddata -FCitySpade.xcworkspace/xcuserdata -FFrank/features -FFrank/frank_static_resources.bundle -FFrank/frankified_build -FFrank/plugins -FPods/BuildHeaders -FPods/Headers -FPods/LBBlurredImage -FPods/MFSideMenu -FCitySpade/GoogleMaps.bundle/GMSCacheStorage.momd -FCitySpade/GoogleMaps.bundle/GMSCoreResources.bundle -FCitySpade/Images.xcassets/AppIcon.appiconset -FCitySpade/Images.xcassets/back-arrow.imageset -FCitySpade/Images.xcassets/cityspade.imageset -FCitySpade/Images.xcassets/LaunchImage.launchimage -FCitySpade/Images.xcassets/menu-icon.imageset -FCitySpade/Images.xcassets/Search-icon.imageset -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad -FFrank/features/step_definitions -FFrank/features/support -FFrank/frank_static_resources.bundle/images -FFrank/frank_static_resources.bundle/js -FFrank/frank_static_resources.bundle/pictos -FFrank/frank_static_resources.bundle/stylesheets -FPods/BuildHeaders/LBBlurredImage -FPods/BuildHeaders/MFSideMenu -FPods/Headers/LBBlurredImage -FPods/Headers/MFSideMenu -FPods/LBBlurredImage/LBBlurredImage -FPods/MFSideMenu/MFSideMenu -FCitySpade.xcworkspace/xcuserdata/apple.xcuserdatad/xcdebugger -FFrank/frank_static_resources.bundle/js/lib -FFrank/frank_static_resources.bundle/stylesheets/css -FFrank/frank_static_resources.bundle/stylesheets/sass -filelist /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CitySpade.LinkFileList -Xlinker -objc_abi_version -Xlinker 2 -ObjC -framework CoreGraphics -framework CoreImage -framework QuartzCore -framework UIKit -ObjC -all_load -ObjC -framework CFNetwork -framework Security -lShelley -lCocoaAsyncSocket -lCocoaLumberjack -lCocoaHTTPServer -lFrank -fobjc-arc -fobjc-link-runtime -Xlinker -no_implicit_dylibs -mios-simulator-version-min=7.0 -framework GoogleMaps -framework CoreData -framework SystemConfiguration -framework QuartzCore -framework OpenGLES -lz -licucore -lc++ -framework ImageIO -framework GLKit -framework CoreText -framework CoreLocation -framework AVFoundation -framework CoreGraphics -framework UIKit -framework Foundation -lPods -Xlinker -dependency_info -Xlinker /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Objects-normal/i386/CitySpade_dependency_info.dat -o /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/CitySpade36"422D5979-7B6A-42BD-81AB-061CF72E5D52-
+b8F2D6C19-51BE-4F7D-9E19-201E0BE336F6
+
+CPhaseScriptExecution Check\ Pods\ Manifest.lock /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-9EBD0F3FCDCE431E80D2D2E0.sh
+s412055295.157236
+e412055295.171148
+r1
+xPhaseScriptExecution
+xCheck Pods Manifest.lock
+x/Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-9EBD0F3FCDCE431E80D2D2E0.sh
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection50"Run custom shell script 'Check Pods Manifest.lock'150"[1mPhaseScriptExecution[0m Check\ Pods\ Manifest.lock build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-9EBD0F3FCDCE431E80D2D2E0.shf58128ff768fb841^95d22bff768fb841^---0#0#1#--354"[1mPhaseScriptExecution[0m Check\ Pods\ Manifest.lock build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-9EBD0F3FCDCE431E80D2D2E0.sh    cd /Users/apple/Developer/CitySpade/CitySpade    /bin/sh -c /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-9EBD0F3FCDCE431E80D2D2E0.sh36"6CB6CC21-97D4-4D0D-BF21-31764250112F-
+b8F2D6C19-51BE-4F7D-9E19-201E0BE336F6
+
+CPhaseScriptExecution Copy\ Pods\ Resources /Users/apple/Developer/CitySpade/CitySpade/build/CitySpade.build/Debug-iphonesimulator/CitySpade.build/Script-2AA24853BCF74391BAE74645.sh
+r0
+
+CProcessInfoPlistFile /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app/Info.plist /Users/apple/Developer/CitySpade/CitySpade/CitySpade/CitySpade-Info.plist
+r0
+
+CProcessPCH /var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bitoyjxqukpqzjczrybirnpmyghr/CitySpade-Prefix.pch.pch CitySpade/CitySpade-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+r0
+
+CProcessPCH /var/folders/b8/fs5m2s114rv7cg0qyj520fzh0000gn/C/com.apple.DeveloperTools/5.0.2-5A3005/Xcode/SharedPrecompiledHeaders/CitySpade-Prefix-bvsdzojwhkgntuaxmkarahlviidh/CitySpade-Prefix.pch.pch CitySpade/CitySpade-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+r0
+
+CSymLink /Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/CitySpade.app /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app
+s412055295.152662
+e412055295.156451
+r1
+xSymLink
+x/Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/CitySpade.app
+x/Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection92"Process /Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/CitySpade.app94"[1mSymLink[0m build/Debug-iphonesimulator/CitySpade.app Frank/frankified_build/CitySpade.app882f27ff768fb841^f60d28ff768fb841^---0#0#1#--651"[1mSymLink[0m build/Debug-iphonesimulator/CitySpade.app Frank/frankified_build/CitySpade.app    cd /Users/apple/Developer/CitySpade/CitySpade    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/apple/.rvm/bin"    /bin/ln -sf /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app /Users/apple/Developer/CitySpade/CitySpade/build/Debug-iphonesimulator/CitySpade.app36"2DF6D8FF-CC66-4145-A33B-E6E7EE244EBC-
+b8F2D6C19-51BE-4F7D-9E19-201E0BE336F6
+
+CTouch /Users/apple/Developer/CitySpade/CitySpade/Frank/frankified_build/CitySpade.app
+r0
+
