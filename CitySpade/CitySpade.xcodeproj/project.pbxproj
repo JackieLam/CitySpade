@@ -37,9 +37,12 @@
 		182413B7188FC9D50064B28F /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B6188FC9D50064B28F /* RangeSlider.m */; };
 		182413BA188FDE710064B28F /* JLPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B9188FDE700064B28F /* JLPopupView.m */; };
 		182413BD18901F520064B28F /* FakeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413BC18901F520064B28F /* FakeData.m */; };
+		182D50B11890C05C0079A6DF /* CTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B01890C05C0079A6DF /* CTListView.m */; };
+		182D50B41890D77C0079A6DF /* CTListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B31890D77C0079A6DF /* CTListCell.m */; };
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
-		189EC105188F796600DC485F /* CTListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EC104188F796600DC485F /* CTListViewController.m */; };
+		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
+		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
 		189EC111188FB44E00DC485F /* CTMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EC110188FB44E00DC485F /* CTMapView.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -93,12 +96,18 @@
 		182413B9188FDE700064B28F /* JLPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLPopupView.m; path = Views/JLPopupView.m; sourceTree = "<group>"; };
 		182413BB18901F520064B28F /* FakeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeData.h; path = FakeData/FakeData.h; sourceTree = "<group>"; };
 		182413BC18901F520064B28F /* FakeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeData.m; path = FakeData/FakeData.m; sourceTree = "<group>"; };
+		182D50AF1890C05C0079A6DF /* CTListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListView.h; path = Views/CTListView.h; sourceTree = "<group>"; };
+		182D50B01890C05C0079A6DF /* CTListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListView.m; path = Views/CTListView.m; sourceTree = "<group>"; };
+		182D50B21890D77C0079A6DF /* CTListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListCell.h; path = Cells/CTListCell.h; sourceTree = "<group>"; };
+		182D50B31890D77C0079A6DF /* CTListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListCell.m; path = Cells/CTListCell.m; sourceTree = "<group>"; };
 		188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLeftSideMenuViewController.h; path = ViewControllers/CTLeftSideMenuViewController.h; sourceTree = "<group>"; };
 		188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLeftSideMenuViewController.m; path = ViewControllers/CTLeftSideMenuViewController.m; sourceTree = "<group>"; };
 		188F6CFC188E85D900EAEEFD /* CTMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewController.m; sourceTree = "<group>"; };
 		188F6CFD188E85D900EAEEFD /* CTMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewController.h; sourceTree = "<group>"; };
-		189EC103188F796600DC485F /* CTListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTListViewController.h; sourceTree = "<group>"; };
-		189EC104188F796600DC485F /* CTListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTListViewController.m; sourceTree = "<group>"; };
+		189763C51890FD9C006374E0 /* CTDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailViewController.h; path = ViewControllers/CTDetailViewController.h; sourceTree = "<group>"; };
+		189763C61890FD9C006374E0 /* CTDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailViewController.m; path = ViewControllers/CTDetailViewController.m; sourceTree = "<group>"; };
+		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
+		189763C91890FE6E006374E0 /* CTDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailView.m; path = Views/CTDetailView.m; sourceTree = "<group>"; };
 		189EC10F188FB44E00DC485F /* CTMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTMapView.h; path = Views/CTMapView.h; sourceTree = "<group>"; };
 		189EC110188FB44E00DC485F /* CTMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTMapView.m; path = Views/CTMapView.m; sourceTree = "<group>"; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -196,6 +205,7 @@
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
 				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
+				182D50B51890D7A60079A6DF /* Cells */,
 				182413BE18901F570064B28F /* FakeData */,
 				189EC112188FBBBA00DC485F /* Views */,
 				189EC108188F9EFD00DC485F /* ViewControllers */,
@@ -251,13 +261,22 @@
 			name = FakeData;
 			sourceTree = "<group>";
 		};
+		182D50B51890D7A60079A6DF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				182D50B21890D77C0079A6DF /* CTListCell.h */,
+				182D50B31890D77C0079A6DF /* CTListCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		189EC108188F9EFD00DC485F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				189763C51890FD9C006374E0 /* CTDetailViewController.h */,
+				189763C61890FD9C006374E0 /* CTDetailViewController.m */,
 				188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */,
 				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
-				189EC103188F796600DC485F /* CTListViewController.h */,
-				189EC104188F796600DC485F /* CTListViewController.m */,
 				182413B2188FC7560064B28F /* CTFilterViewController.h */,
 				182413B3188FC7560064B28F /* CTFilterViewController.m */,
 			);
@@ -269,6 +288,10 @@
 			children = (
 				189EC10F188FB44E00DC485F /* CTMapView.h */,
 				189EC110188FB44E00DC485F /* CTMapView.m */,
+				182D50AF1890C05C0079A6DF /* CTListView.h */,
+				182D50B01890C05C0079A6DF /* CTListView.m */,
+				189763C81890FE6E006374E0 /* CTDetailView.h */,
+				189763C91890FE6E006374E0 /* CTDetailView.m */,
 				182413B5188FC9D50064B28F /* RangeSlider.h */,
 				182413B6188FC9D50064B28F /* RangeSlider.m */,
 				182413B8188FDE700064B28F /* JLPopupView.h */,
@@ -412,11 +435,14 @@
 				182413B7188FC9D50064B28F /* RangeSlider.m in Sources */,
 				188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */,
 				182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */,
-				189EC105188F796600DC485F /* CTListViewController.m in Sources */,
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
+				182D50B41890D77C0079A6DF /* CTListCell.m in Sources */,
+				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
+				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
 				182413BD18901F520064B28F /* FakeData.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
 				189EC111188FB44E00DC485F /* CTMapView.m in Sources */,
+				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

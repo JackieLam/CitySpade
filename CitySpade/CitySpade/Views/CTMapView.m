@@ -24,8 +24,8 @@
         self.mapView.frame = screenFrame;
         [self addSubview:self.mapView];
         self.mapView.myLocationEnabled = YES;
-        self.mapView.settings.myLocationButton = YES;
-        self.mapView.settings.compassButton = YES;
+//        self.mapView.settings.myLocationButton = YES;
+//        self.mapView.settings.compassButton = YES;
         // FIXME: memory
         CGFloat bottomHeight = 44;
         CGFloat bottomInset = 0;

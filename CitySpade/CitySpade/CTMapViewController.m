@@ -7,15 +7,17 @@
 //
 
 #import "CTMapViewController.h"
-#import "CTListViewController.h"
+#import "CTDetailViewController.h"
 #import "CTMapView.h"
+#import "CTListView.h"
 #import "MFSideMenu.h"
 #import "FakeData.h"
+#import "CTListCell.h"
 #import <GoogleMaps/GoogleMaps.h>
 
 #define botttomHeight 44.0f
 
-@interface CTMapViewController() <GMSMapViewDelegate>
+@interface CTMapViewController() <GMSMapViewDelegate, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *places;
 
@@ -35,12 +37,16 @@
 {
     [super viewWillAppear:animated];
     _ctmapView = [[CTMapView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.view = _ctmapView;
+    [self.view addSubview:_ctmapView];
     
     [self setupMenuBarButtonItems];
     
+    self.ctlistView = [[CTListView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.ctlistView.delegate = self;
+    
     FakeData *fakeData = [[FakeData alloc] init];
     NSArray *json = [NSJSONSerialization JSONObjectWithData:fakeData.points options:kNilOptions error:nil];
+    NSLog(@"fakeData : %@", fakeData.dataString);
     self.places = [NSArray arrayWithArray:json];
 
 //MapView Setting
@@ -66,6 +72,8 @@
     [self.ctmapView.saveButton addTarget:self action:@selector(saveButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.ctmapView.currentLocationButton addTarget:self action:@selector(currentLocationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.ctmapView.localButton addTarget:self action:@selector(localButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.ctlistView.mapButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Google Map Marker Setup
@@ -160,18 +168,48 @@
 - (void)currentLocationButtonClicked:(id)sender
 {
     NSLog(@"currentLocationButtonClicked");
+
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.ctmapView.mapView.myLocation.coordinate.latitude longitude:self.ctmapView.mapView.myLocation.coordinate.longitude zoom:12];
+    self.ctmapView.mapView.camera = camera;
 }
 
 - (void)listButtonClicked:(id)sender
 {
     NSLog(@"list button clicked");
-    CTListViewController *listVC = [[CTListViewController alloc] init];
-    [self.navigationController pushViewController:listVC animated:YES];
+    
+    [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+        [self.ctmapView removeFromSuperview];
+        [self.view addSubview:self.ctlistView];
+        [self.ctlistView loadPlacesToList:self.places];
+    }];
 }
 
 - (void)localButtonClicked:(id)sender
 {
     NSLog(@"localButtonClicked");
 }
+
+- (void)mapButtonClicked:(id)sender
+{
+    NSLog(@"mapButtonClicked");
+    [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+        [self.ctlistView removeFromSuperview];
+        [self.view addSubview:self.ctmapView];
+    }];
+}
+
+#pragma mark - UITableViewDelegate Methods
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"didSelectRowAtIndexPath : %d", indexPath.row);
+    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
+}
+
 
 @end

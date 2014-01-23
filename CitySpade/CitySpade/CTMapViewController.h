@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class CTMapView;
+@class CTListView;
 
 @interface CTMapViewController : UIViewController
 @property (nonatomic, strong) CTMapView *ctmapView;
+@property (nonatomic, strong) CTListView *ctlistView;
 
 @end
