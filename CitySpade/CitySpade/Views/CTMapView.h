@@ -13,6 +13,12 @@
 @interface CTMapView : UIView
 
 @property (strong, nonatomic) GMSMapView *mapView;
-@property (strong, nonatomic) UIButton *listButton; 
+
+//Bottom Bar
+@property (strong, nonatomic) UIView *bottomView;
+@property (strong, nonatomic) UIButton *saveButton;
+@property (strong, nonatomic) UIButton *currentLocationButton;
+@property (strong, nonatomic) UIButton *listButton;
+@property (strong, nonatomic) UIButton *localButton;
 
 @end

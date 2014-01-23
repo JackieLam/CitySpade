@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CTMapViewController.h"
 #import "CTLeftSideMenuViewController.h"
+#import "CTFilterViewController.h"
 #import <MFSideMenu.h>
 #import <GoogleMaps/GoogleMaps.h>
 
@@ -22,13 +23,15 @@ static NSString *const kAPIKey = @"AIzaSyBscWl3wXUk_Lyfqo1kz8Nljjf2K0-7eCY";
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     CTLeftSideMenuViewController *leftSideMenu = [[CTLeftSideMenuViewController alloc] init];
-    CTLeftSideMenuViewController *rightSideMenu = [[CTLeftSideMenuViewController alloc] init];
+    CTFilterViewController *rightSideMenu = [[CTFilterViewController alloc] init];
     CTMapViewController *mapViewController = [[CTMapViewController alloc] init];
+    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController
                                                     containerWithCenterViewController:navController
                                                     leftMenuViewController:leftSideMenu
                                                     rightMenuViewController:rightSideMenu];
+    container.panMode = MFSideMenuPanModeCenterViewController;
 
     self.window.rootViewController = container;
     [self.window makeKeyAndVisible];

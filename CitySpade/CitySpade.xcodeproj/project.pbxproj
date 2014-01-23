@@ -33,6 +33,10 @@
 		1817C7B6188D5522003AC430 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B5188D5522003AC430 /* SystemConfiguration.framework */; };
 		1817C7B8188D558C003AC430 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B7188D558C003AC430 /* CoreData.framework */; };
 		1817C7BD188D58BD003AC430 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7BC188D58BD003AC430 /* GoogleMaps.framework */; };
+		182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B3188FC7560064B28F /* CTFilterViewController.m */; };
+		182413B7188FC9D50064B28F /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B6188FC9D50064B28F /* RangeSlider.m */; };
+		182413BA188FDE710064B28F /* JLPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B9188FDE700064B28F /* JLPopupView.m */; };
+		182413BD18901F520064B28F /* FakeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413BC18901F520064B28F /* FakeData.m */; };
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
 		189EC105188F796600DC485F /* CTListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EC104188F796600DC485F /* CTListViewController.m */; };
@@ -81,6 +85,14 @@
 		1817C7B5188D5522003AC430 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1817C7B7188D558C003AC430 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1817C7BC188D58BD003AC430 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = System/Library/Frameworks/GoogleMaps.framework; sourceTree = SDKROOT; };
+		182413B2188FC7560064B28F /* CTFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFilterViewController.h; path = ViewControllers/CTFilterViewController.h; sourceTree = "<group>"; };
+		182413B3188FC7560064B28F /* CTFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFilterViewController.m; path = ViewControllers/CTFilterViewController.m; sourceTree = "<group>"; };
+		182413B5188FC9D50064B28F /* RangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeSlider.h; sourceTree = "<group>"; };
+		182413B6188FC9D50064B28F /* RangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeSlider.m; sourceTree = "<group>"; };
+		182413B8188FDE700064B28F /* JLPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLPopupView.h; path = Views/JLPopupView.h; sourceTree = "<group>"; };
+		182413B9188FDE700064B28F /* JLPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLPopupView.m; path = Views/JLPopupView.m; sourceTree = "<group>"; };
+		182413BB18901F520064B28F /* FakeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeData.h; path = FakeData/FakeData.h; sourceTree = "<group>"; };
+		182413BC18901F520064B28F /* FakeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeData.m; path = FakeData/FakeData.m; sourceTree = "<group>"; };
 		188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLeftSideMenuViewController.h; path = ViewControllers/CTLeftSideMenuViewController.h; sourceTree = "<group>"; };
 		188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLeftSideMenuViewController.m; path = ViewControllers/CTLeftSideMenuViewController.m; sourceTree = "<group>"; };
 		188F6CFC188E85D900EAEEFD /* CTMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewController.m; sourceTree = "<group>"; };
@@ -179,14 +191,15 @@
 		1817C741188CBD68003AC430 /* CitySpade */ = {
 			isa = PBXGroup;
 			children = (
-				1817C7A0188D5476003AC430 /* GoogleMapsBundle */,
+				1817C74D188CBD68003AC430 /* Images.xcassets */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
 				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
+				182413BE18901F570064B28F /* FakeData */,
 				189EC112188FBBBA00DC485F /* Views */,
 				189EC108188F9EFD00DC485F /* ViewControllers */,
-				1817C74D188CBD68003AC430 /* Images.xcassets */,
+				1817C7A0188D5476003AC430 /* GoogleMapsBundle */,
 				1817C742188CBD68003AC430 /* Supporting Files */,
 			);
 			path = CitySpade;
@@ -229,6 +242,15 @@
 			name = GoogleMapsBundle;
 			sourceTree = "<group>";
 		};
+		182413BE18901F570064B28F /* FakeData */ = {
+			isa = PBXGroup;
+			children = (
+				182413BB18901F520064B28F /* FakeData.h */,
+				182413BC18901F520064B28F /* FakeData.m */,
+			);
+			name = FakeData;
+			sourceTree = "<group>";
+		};
 		189EC108188F9EFD00DC485F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +258,8 @@
 				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
 				189EC103188F796600DC485F /* CTListViewController.h */,
 				189EC104188F796600DC485F /* CTListViewController.m */,
+				182413B2188FC7560064B28F /* CTFilterViewController.h */,
+				182413B3188FC7560064B28F /* CTFilterViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -245,6 +269,10 @@
 			children = (
 				189EC10F188FB44E00DC485F /* CTMapView.h */,
 				189EC110188FB44E00DC485F /* CTMapView.m */,
+				182413B5188FC9D50064B28F /* RangeSlider.h */,
+				182413B6188FC9D50064B28F /* RangeSlider.m */,
+				182413B8188FDE700064B28F /* JLPopupView.h */,
+				182413B9188FDE700064B28F /* JLPopupView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -380,9 +408,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182413BA188FDE710064B28F /* JLPopupView.m in Sources */,
+				182413B7188FC9D50064B28F /* RangeSlider.m in Sources */,
 				188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */,
+				182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */,
 				189EC105188F796600DC485F /* CTListViewController.m in Sources */,
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
+				182413BD18901F520064B28F /* FakeData.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
 				189EC111188FB44E00DC485F /* CTMapView.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,
