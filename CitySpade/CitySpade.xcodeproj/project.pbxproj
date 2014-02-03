@@ -46,11 +46,11 @@
 		186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012C9189F2E1C002500E6 /* REVClusterPin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012CD189F2E1C002500E6 /* REVClusterAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012CB189F2E1C002500E6 /* REVClusterAnnotationView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012D2189F2F93002500E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186012D1189F2F93002500E6 /* MapKit.framework */; };
+		186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012D4189F3BEC002500E6 /* MapBottomBar.m */; };
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
-		189EC111188FB44E00DC485F /* CTMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EC110188FB44E00DC485F /* CTMapView.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +121,8 @@
 		186012CA189F2E1C002500E6 /* REVClusterAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterAnnotationView.h; sourceTree = "<group>"; };
 		186012CB189F2E1C002500E6 /* REVClusterAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVClusterAnnotationView.m; sourceTree = "<group>"; };
 		186012D1189F2F93002500E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		186012D3189F3BEC002500E6 /* MapBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapBottomBar.h; path = Views/MapBottomBar.h; sourceTree = "<group>"; };
+		186012D4189F3BEC002500E6 /* MapBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapBottomBar.m; path = Views/MapBottomBar.m; sourceTree = "<group>"; };
 		188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLeftSideMenuViewController.h; path = ViewControllers/CTLeftSideMenuViewController.h; sourceTree = "<group>"; };
 		188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLeftSideMenuViewController.m; path = ViewControllers/CTLeftSideMenuViewController.m; sourceTree = "<group>"; };
 		188F6CFC188E85D900EAEEFD /* CTMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewController.m; sourceTree = "<group>"; };
@@ -129,8 +131,6 @@
 		189763C61890FD9C006374E0 /* CTDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailViewController.m; path = ViewControllers/CTDetailViewController.m; sourceTree = "<group>"; };
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
 		189763C91890FE6E006374E0 /* CTDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailView.m; path = Views/CTDetailView.m; sourceTree = "<group>"; };
-		189EC10F188FB44E00DC485F /* CTMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTMapView.h; path = Views/CTMapView.h; sourceTree = "<group>"; };
-		189EC110188FB44E00DC485F /* CTMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTMapView.m; path = Views/CTMapView.m; sourceTree = "<group>"; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -346,8 +346,8 @@
 		189EC112188FBBBA00DC485F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				189EC10F188FB44E00DC485F /* CTMapView.h */,
-				189EC110188FB44E00DC485F /* CTMapView.m */,
+				186012D3189F3BEC002500E6 /* MapBottomBar.h */,
+				186012D4189F3BEC002500E6 /* MapBottomBar.m */,
 				182D50AF1890C05C0079A6DF /* CTListView.h */,
 				182D50B01890C05C0079A6DF /* CTListView.m */,
 				189763C81890FE6E006374E0 /* CTDetailView.h */,
@@ -506,8 +506,8 @@
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
 				182413BD18901F520064B28F /* FakeData.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
-				189EC111188FB44E00DC485F /* CTMapView.m in Sources */,
 				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
+				186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */,
 				186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,
 			);

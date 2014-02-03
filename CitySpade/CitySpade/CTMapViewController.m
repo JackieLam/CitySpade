@@ -8,7 +8,6 @@
 
 #import "CTMapViewController.h"
 #import "CTDetailViewController.h"
-#import "CTMapView.h"
 #import "CTListView.h"
 #import "CTDetailView.h"
 #import "MFSideMenu.h"
@@ -18,6 +17,7 @@
 #import "REVClusterMapView.h"
 #import "REVClusterPin.h"
 #import "REVClusterAnnotationView.h"
+#import "MapBottomBar.h"
 
 #define botttomHeight 44.0f
 
@@ -36,6 +36,7 @@
     [super loadView];
 // Setup the navigation bar
     [self setupMenuBarButtonItems];
+    
 // Setup the map view
     CGRect viewBounds = [[UIScreen mainScreen] applicationFrame];
     
@@ -49,21 +50,26 @@
     coordinate.longitude = -74;
     self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
 
+// Setup the list view
+    CGFloat topInset = [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
+    self.ctlistView = [[CTListView alloc] initWithFrame:CGRectMake(0, topInset, viewBounds.size.width, viewBounds.size.height-topInset)];
+    [self.ctlistView.mapButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+// Setup the bottom bar buttons
+    [self setupButtons];
+
 //Load the pins onto the map
     FakeData *fakeData = [[FakeData alloc] init];
     NSArray *json = [NSJSONSerialization JSONObjectWithData:fakeData.points options:kNilOptions error:nil];
-    NSLog(@"fakeData : %@", fakeData.dataString);
     self.places = [NSArray arrayWithArray:json];
     
     NSMutableArray *pins = [NSMutableArray array];
     
     for (NSDictionary *place in self.places) {
-        CGFloat latDelta = rand()*0.125/RAND_MAX - 0.02;
-        CGFloat lonDelta = rand()*0.130/RAND_MAX - 0.08;
         CGFloat lat = [place[@"lat"] floatValue];
         CGFloat lng = [place[@"lng"] floatValue];
         
-        CLLocationCoordinate2D newCoord = {lat+latDelta, lng+lonDelta};
+        CLLocationCoordinate2D newCoord = {lat, lng};
         REVClusterPin *pin = [[REVClusterPin alloc] init];
         pin.title = place[@"title"];
         pin.subtitle = place[@"contact_name"];
@@ -76,7 +82,15 @@
 
 - (void)setupButtons
 {
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    CGFloat bottomHeight = 60;
+    CGRect bottomFrame = CGRectMake(0, screenFrame.size.height - bottomHeight, screenFrame.size.width, bottomHeight);
+    self.mapBottomBar = [[MapBottomBar alloc] initWithFrame:bottomFrame];
+    [self.ctmapView addSubview:self.mapBottomBar];
     
+    [self.mapBottomBar.saveButton addTarget:self action:@selector(saveButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapBottomBar.currentLocationButton addTarget:self action:@selector(currentLocationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapBottomBar.listButton addTarget:self action:@selector(listButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark -

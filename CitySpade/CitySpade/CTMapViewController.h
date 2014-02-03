@@ -11,10 +11,12 @@
 
 @class REVClusterMapView;
 @class CTListView;
+@class MapBottomBar;
 
 @interface CTMapViewController : UIViewController<MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) REVClusterMapView *ctmapView;
+@property (nonatomic, strong) MapBottomBar *mapBottomBar;
 @property (nonatomic, strong) CTListView *ctlistView;
 
 @end

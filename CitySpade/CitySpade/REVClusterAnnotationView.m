@@ -20,8 +20,9 @@
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if ( self )
     {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 26, 26)];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 26, 26)];
         [self addSubview:label];
+        label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont boldSystemFontOfSize:11];
