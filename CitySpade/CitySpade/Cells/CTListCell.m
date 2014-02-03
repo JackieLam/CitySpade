@@ -21,7 +21,7 @@
 
 - (void)setupLabelsAndImages
 {
-    CGRect cellFrame = self.bounds;
+//    CGRect cellFrame = self.bounds;
 //thumbImageView
     CGFloat imageLeftInset = 10;
     CGFloat imageTopInset = 10;
@@ -31,6 +31,7 @@
     self.thumbImageView.backgroundColor = [UIColor redColor];
 //    self.thumbImageView.frame = imageViewFrame;
     [self addSubview:self.thumbImageView];
+
 //titleLabel
     CGRect titleLabelFrame = CGRectMake(200, imageTopInset, 120, 20);
     self.titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];

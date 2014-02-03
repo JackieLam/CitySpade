@@ -9,7 +9,7 @@
 #import "CTListView.h"
 #import "CTListCell.h"
 
-@interface CTListView()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface CTListView()<UITableViewDataSource, UISearchBarDelegate>
 
 @property (nonatomic, strong) NSArray *places;
 
@@ -22,6 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.separatorColor = [UIColor redColor];
+        self.rowHeight = 100.0f;
         self.dataSource = self;
         [self setupSubviews];
     }
@@ -30,7 +31,7 @@
 
 - (void)setupSubviews
 {
-    //The bottom background
+//The bottom background
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     CGFloat bottomHeight = 44;
     CGFloat bottomInset = 0;
@@ -66,7 +67,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.places count];
-//    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,12 +77,12 @@
         cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
 
-    NSDictionary *place = self.places[indexPath.row];
-    cell.titleLabel.text = place[@"title"];
+    cell.house = self.places[indexPath.row];
+    cell.titleLabel.text = cell.house[@"title"];
 
 //load the picture
-    NSMutableString *urlString = [NSMutableString stringWithString:place[@"images"][0][@"s3_url"]];
-    [urlString appendString:place[@"images"][0][@"sizes"][1]];
+    NSMutableString *urlString = [NSMutableString stringWithString:cell.house[@"images"][0][@"s3_url"]];
+    [urlString appendString:cell.house[@"images"][0][@"sizes"][1]];
     NSLog(@"PICTURE URL STRING : %@", urlString);
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

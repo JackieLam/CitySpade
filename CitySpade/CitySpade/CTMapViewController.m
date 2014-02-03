@@ -10,104 +10,162 @@
 #import "CTDetailViewController.h"
 #import "CTMapView.h"
 #import "CTListView.h"
+#import "CTDetailView.h"
 #import "MFSideMenu.h"
 #import "FakeData.h"
 #import "CTListCell.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "REVClusterMapView.h"
+#import "REVClusterPin.h"
+#import "REVClusterAnnotationView.h"
 
 #define botttomHeight 44.0f
 
-@interface CTMapViewController() <GMSMapViewDelegate, UITableViewDelegate>
+@interface CTMapViewController()
 
 @property (nonatomic, strong) NSArray *places;
 
 @end
 
 @implementation CTMapViewController {
-//    CTMapView *ctmapView;
     BOOL firstLocationUpdate_;
 }
 
-- (void)viewDidLoad
+- (void)loadView
 {
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    _ctmapView = [[CTMapView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.view addSubview:_ctmapView];
-    
+    [super loadView];
+// Setup the navigation bar
     [self setupMenuBarButtonItems];
+// Setup the map view
+    CGRect viewBounds = [[UIScreen mainScreen] applicationFrame];
     
-    self.ctlistView = [[CTListView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.ctlistView.delegate = self;
+    self.ctmapView = [[REVClusterMapView alloc] initWithFrame:viewBounds];
+    self.ctmapView.delegate = self;
     
+    [self.view addSubview:self.ctmapView];
+    
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = 40.747;
+    coordinate.longitude = -74;
+    self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
+
+//Load the pins onto the map
     FakeData *fakeData = [[FakeData alloc] init];
     NSArray *json = [NSJSONSerialization JSONObjectWithData:fakeData.points options:kNilOptions error:nil];
     NSLog(@"fakeData : %@", fakeData.dataString);
     self.places = [NSArray arrayWithArray:json];
-
-//MapView Setting
-    [_ctmapView.mapView addObserver:self forKeyPath:@"myLocation" options:NSKeyValueObservingOptionNew context:NULL];
-    _ctmapView.mapView.delegate = self;
     
-//Setup Markers
-    [self setupMarkers:self.places];
-
-//Setup Buttons
-    [self setupButtons];
+    NSMutableArray *pins = [NSMutableArray array];
+    
+    for (NSDictionary *place in self.places) {
+        CGFloat latDelta = rand()*0.125/RAND_MAX - 0.02;
+        CGFloat lonDelta = rand()*0.130/RAND_MAX - 0.08;
+        CGFloat lat = [place[@"lat"] floatValue];
+        CGFloat lng = [place[@"lng"] floatValue];
+        
+        CLLocationCoordinate2D newCoord = {lat+latDelta, lng+lonDelta};
+        REVClusterPin *pin = [[REVClusterPin alloc] init];
+        pin.title = place[@"title"];
+        pin.subtitle = place[@"contact_name"];
+        pin.coordinate = newCoord;
+        [pins addObject:pin];
+    }
+    [self.ctmapView addAnnotations:pins];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    _ctmapView.mapView.myLocationEnabled = YES;
-}
 
 - (void)setupButtons
 {
-    [self.ctmapView.listButton addTarget:self action:@selector(listButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.ctmapView.saveButton addTarget:self action:@selector(saveButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.ctmapView.currentLocationButton addTarget:self action:@selector(currentLocationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.ctmapView.localButton addTarget:self action:@selector(localButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.ctlistView.mapButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-#pragma mark - Google Map Marker Setup
-- (void)setupMarkers:(NSArray *)points
+#pragma mark -
+#pragma mark Map view delegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    for (NSDictionary *point in points) {
-        GMSMarker *marker = [[GMSMarker alloc] init];
-        double lat = [point[@"lat"] doubleValue];
-        double lng = [point[@"lng"] doubleValue];
-        marker.position = CLLocationCoordinate2DMake(lat, lng);
-        marker.map = self.ctmapView.mapView;
+    if([annotation class] == MKUserLocation.class) {
+		//userLocation = annotation;
+		return nil;
+	}
+    
+    REVClusterPin *pin = (REVClusterPin *)annotation;
+    
+    MKAnnotationView *annView;
+    
+    if( [pin nodeCount] > 0 ){
+        pin.title = @"___";
+        annView = (REVClusterAnnotationView*)
+        [mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
+        
+        if( !annView )
+            annView = (REVClusterAnnotationView*)
+            [[REVClusterAnnotationView alloc] initWithAnnotation:annotation
+                                                  reuseIdentifier:@"cluster"];
+        
+        annView.image = [UIImage imageNamed:@"cluster.png"];
+        
+        [(REVClusterAnnotationView*)annView setClusterText:
+         [NSString stringWithFormat:@"%i",[pin nodeCount]]];
+        
+        annView.canShowCallout = NO;
+    } else {
+        annView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
+        
+        if( !annView )
+            annView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                    reuseIdentifier:@"pin"];
+        
+        annView.image = [UIImage imageNamed:@"pinpoint.png"];
+        annView.canShowCallout = NO;
+        
+        annView.calloutOffset = CGPointMake(-6.0, 0.0);
     }
+    return annView;
 }
 
-#pragma mark - GMSMapViewDelegate Methods
-- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
-    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"default_marker.png"]];
-}
-
-#pragma mark - KVO updates
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (!firstLocationUpdate_) {
-        // If the first location update has not yet been recieved, then jump to that
-        // location.
-        firstLocationUpdate_ = YES;
-        CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-        self.ctmapView.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
-                                                         zoom:14];
+- (void)mapView:(MKMapView *)mapView
+didSelectAnnotationView:(MKAnnotationView *)view
+{
+    NSLog(@"REVMapViewController mapView didSelectAnnotationView:");
+    
+    REVClusterPin *annotation = (REVClusterPin *)view.annotation;
+    
+    if (annotation.nodes > 0) {
+//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 250, self.view.frame.size.width, self.view.frame.size.height-250)];
+//        _collectionView.delegate = self;
+//        _collectionView.dataSource = self;
+        //        _collectionView.collectionViewLayout =
     }
+    
+    //if click on a pin
+    if (![view isKindOfClass:[REVClusterAnnotationView class]]) {
+        //show something at the bottom of the view
+        UIView *annotationUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, self.view.frame.size.height)];
+        annotationUIView.backgroundColor = [UIColor whiteColor];
+        UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 20)];
+        firstLabel.text = annotation.title;
+        [annotationUIView addSubview:firstLabel];
+        UILabel *secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 80, 20)];
+        secondLabel.text = annotation.subtitle;
+        [annotationUIView addSubview:secondLabel];
+        
+//        [self.ctmapView addSubview:annotationUIView];
+        return;
+    }
+    
+    //if click on a cluster group
+    
+    CLLocationCoordinate2D centerCoordinate = [annotation coordinate];
+    
+    MKCoordinateSpan newSpan =
+    MKCoordinateSpanMake(mapView.region.span.latitudeDelta/2.0,
+                         mapView.region.span.longitudeDelta/2.0);
+    
+    [mapView setRegion:MKCoordinateRegionMake(centerCoordinate, newSpan)
+              animated:YES];
 }
+
 
 #pragma mark - NavigationBar Button
 - (void)setupMenuBarButtonItems {
@@ -169,8 +227,6 @@
 {
     NSLog(@"currentLocationButtonClicked");
 
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.ctmapView.mapView.myLocation.coordinate.latitude longitude:self.ctmapView.mapView.myLocation.coordinate.longitude zoom:12];
-    self.ctmapView.mapView.camera = camera;
 }
 
 - (void)listButtonClicked:(id)sender
@@ -184,11 +240,6 @@
     }];
 }
 
-- (void)localButtonClicked:(id)sender
-{
-    NSLog(@"localButtonClicked");
-}
-
 - (void)mapButtonClicked:(id)sender
 {
     NSLog(@"mapButtonClicked");
@@ -199,17 +250,15 @@
 }
 
 #pragma mark - UITableViewDelegate Methods
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 100.0f;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"didSelectRowAtIndexPath : %d", indexPath.row);
     CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
-    
+    CTDetailViewController *detailViewController = [[CTDetailViewController alloc] init];
+    detailViewController.house = [NSDictionary dictionaryWithDictionary:cell.house];
+    detailViewController.houseImage = cell.thumbImageView.image;
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
-
 
 @end

@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class CTDetailView;
+
 @interface CTDetailViewController : UIViewController
-{
-    UIImage *listThumbImage;
-    NSDictionary *place;
-}
+
+@property (nonatomic, strong) UIImage *houseImage;
+@property (nonatomic) NSDictionary *house;
+@property (nonatomic, strong) CTDetailView *ctdetailView;
 
 @end

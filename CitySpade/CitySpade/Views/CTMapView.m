@@ -26,7 +26,6 @@
         self.mapView.myLocationEnabled = YES;
 //        self.mapView.settings.myLocationButton = YES;
 //        self.mapView.settings.compassButton = YES;
-        // FIXME: memory
         CGFloat bottomHeight = 44;
         CGFloat bottomInset = 0;
         CGFloat logoLeftInset = 30;

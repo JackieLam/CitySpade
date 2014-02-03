@@ -32,13 +32,20 @@
 		1817C7B4188D5516003AC430 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B3188D5516003AC430 /* QuartzCore.framework */; };
 		1817C7B6188D5522003AC430 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B5188D5522003AC430 /* SystemConfiguration.framework */; };
 		1817C7B8188D558C003AC430 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B7188D558C003AC430 /* CoreData.framework */; };
-		1817C7BD188D58BD003AC430 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7BC188D58BD003AC430 /* GoogleMaps.framework */; };
 		182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B3188FC7560064B28F /* CTFilterViewController.m */; };
 		182413B7188FC9D50064B28F /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B6188FC9D50064B28F /* RangeSlider.m */; };
 		182413BA188FDE710064B28F /* JLPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B9188FDE700064B28F /* JLPopupView.m */; };
 		182413BD18901F520064B28F /* FakeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413BC18901F520064B28F /* FakeData.m */; };
 		182D50B11890C05C0079A6DF /* CTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B01890C05C0079A6DF /* CTListView.m */; };
 		182D50B41890D77C0079A6DF /* CTListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B31890D77C0079A6DF /* CTListCell.m */; };
+		1849AFC318950A8A00D22363 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1849AFC218950A8A00D22363 /* GoogleMaps.framework */; };
+		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BE189F2E00002500E6 /* REVClusterBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012C0189F2E00002500E6 /* REVClusterManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012C3189F2E00002500E6 /* REVClusterMapView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012C9189F2E1C002500E6 /* REVClusterPin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		186012CD189F2E1C002500E6 /* REVClusterAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012CB189F2E1C002500E6 /* REVClusterAnnotationView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		186012D2189F2F93002500E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186012D1189F2F93002500E6 /* MapKit.framework */; };
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
@@ -87,7 +94,6 @@
 		1817C7B3188D5516003AC430 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1817C7B5188D5522003AC430 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1817C7B7188D558C003AC430 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		1817C7BC188D58BD003AC430 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = System/Library/Frameworks/GoogleMaps.framework; sourceTree = SDKROOT; };
 		182413B2188FC7560064B28F /* CTFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFilterViewController.h; path = ViewControllers/CTFilterViewController.h; sourceTree = "<group>"; };
 		182413B3188FC7560064B28F /* CTFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFilterViewController.m; path = ViewControllers/CTFilterViewController.m; sourceTree = "<group>"; };
 		182413B5188FC9D50064B28F /* RangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeSlider.h; sourceTree = "<group>"; };
@@ -100,6 +106,21 @@
 		182D50B01890C05C0079A6DF /* CTListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListView.m; path = Views/CTListView.m; sourceTree = "<group>"; };
 		182D50B21890D77C0079A6DF /* CTListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListCell.h; path = Cells/CTListCell.h; sourceTree = "<group>"; };
 		182D50B31890D77C0079A6DF /* CTListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListCell.m; path = Cells/CTListCell.m; sourceTree = "<group>"; };
+		1849AFC218950A8A00D22363 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVAnnotationsCollection.h; sourceTree = "<group>"; };
+		186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVAnnotationsCollection.m; sourceTree = "<group>"; };
+		186012BD189F2E00002500E6 /* REVClusterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterBlock.h; sourceTree = "<group>"; };
+		186012BE189F2E00002500E6 /* REVClusterBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVClusterBlock.m; sourceTree = "<group>"; };
+		186012BF189F2E00002500E6 /* REVClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterManager.h; sourceTree = "<group>"; };
+		186012C0189F2E00002500E6 /* REVClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVClusterManager.m; sourceTree = "<group>"; };
+		186012C1189F2E00002500E6 /* REVClusterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterMap.h; sourceTree = "<group>"; };
+		186012C2189F2E00002500E6 /* REVClusterMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterMapView.h; sourceTree = "<group>"; };
+		186012C3189F2E00002500E6 /* REVClusterMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVClusterMapView.m; sourceTree = "<group>"; };
+		186012C8189F2E1C002500E6 /* REVClusterPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterPin.h; sourceTree = "<group>"; };
+		186012C9189F2E1C002500E6 /* REVClusterPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVClusterPin.m; sourceTree = "<group>"; };
+		186012CA189F2E1C002500E6 /* REVClusterAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterAnnotationView.h; sourceTree = "<group>"; };
+		186012CB189F2E1C002500E6 /* REVClusterAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVClusterAnnotationView.m; sourceTree = "<group>"; };
+		186012D1189F2F93002500E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLeftSideMenuViewController.h; path = ViewControllers/CTLeftSideMenuViewController.h; sourceTree = "<group>"; };
 		188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLeftSideMenuViewController.m; path = ViewControllers/CTLeftSideMenuViewController.m; sourceTree = "<group>"; };
 		188F6CFC188E85D900EAEEFD /* CTMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewController.m; sourceTree = "<group>"; };
@@ -119,7 +140,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1817C7BD188D58BD003AC430 /* GoogleMaps.framework in Frameworks */,
+				1817C7A4188D54D1003AC430 /* CoreLocation.framework in Frameworks */,
+				186012D2189F2F93002500E6 /* MapKit.framework in Frameworks */,
 				1817C7B8188D558C003AC430 /* CoreData.framework in Frameworks */,
 				1817C7B6188D5522003AC430 /* SystemConfiguration.framework in Frameworks */,
 				1817C7B4188D5516003AC430 /* QuartzCore.framework in Frameworks */,
@@ -130,10 +152,10 @@
 				1817C7AA188D54EC003AC430 /* ImageIO.framework in Frameworks */,
 				1817C7A8188D54E4003AC430 /* GLKit.framework in Frameworks */,
 				1817C7A6188D54DC003AC430 /* CoreText.framework in Frameworks */,
-				1817C7A4188D54D1003AC430 /* CoreLocation.framework in Frameworks */,
 				1817C7A2188D54C0003AC430 /* AVFoundation.framework in Frameworks */,
 				1817C73E188CBD68003AC430 /* CoreGraphics.framework in Frameworks */,
 				1817C740188CBD68003AC430 /* UIKit.framework in Frameworks */,
+				1849AFC318950A8A00D22363 /* GoogleMaps.framework in Frameworks */,
 				1817C73C188CBD68003AC430 /* Foundation.framework in Frameworks */,
 				AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */,
 			);
@@ -175,7 +197,8 @@
 		1817C73A188CBD68003AC430 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1817C7BC188D58BD003AC430 /* GoogleMaps.framework */,
+				186012D1189F2F93002500E6 /* MapKit.framework */,
+				1849AFC218950A8A00D22363 /* GoogleMaps.framework */,
 				1817C7B7188D558C003AC430 /* CoreData.framework */,
 				1817C7B5188D5522003AC430 /* SystemConfiguration.framework */,
 				1817C7B3188D5516003AC430 /* QuartzCore.framework */,
@@ -205,6 +228,7 @@
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
 				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
+				186012CE189F2E23002500E6 /* REVMapCluster */,
 				182D50B51890D7A60079A6DF /* Cells */,
 				182413BE18901F570064B28F /* FakeData */,
 				189EC112188FBBBA00DC485F /* Views */,
@@ -268,6 +292,42 @@
 				182D50B31890D77C0079A6DF /* CTListCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		186012CE189F2E23002500E6 /* REVMapCluster */ = {
+			isa = PBXGroup;
+			children = (
+				186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */,
+				186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */,
+				186012BD189F2E00002500E6 /* REVClusterBlock.h */,
+				186012BE189F2E00002500E6 /* REVClusterBlock.m */,
+				186012BF189F2E00002500E6 /* REVClusterManager.h */,
+				186012C0189F2E00002500E6 /* REVClusterManager.m */,
+				186012C1189F2E00002500E6 /* REVClusterMap.h */,
+				186012C2189F2E00002500E6 /* REVClusterMapView.h */,
+				186012C3189F2E00002500E6 /* REVClusterMapView.m */,
+				186012CF189F2E50002500E6 /* Annotation */,
+				186012D0189F2E6F002500E6 /* AnnotationView */,
+			);
+			name = REVMapCluster;
+			sourceTree = "<group>";
+		};
+		186012CF189F2E50002500E6 /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				186012C8189F2E1C002500E6 /* REVClusterPin.h */,
+				186012C9189F2E1C002500E6 /* REVClusterPin.m */,
+			);
+			name = Annotation;
+			sourceTree = "<group>";
+		};
+		186012D0189F2E6F002500E6 /* AnnotationView */ = {
+			isa = PBXGroup;
+			children = (
+				186012CA189F2E1C002500E6 /* REVClusterAnnotationView.h */,
+				186012CB189F2E1C002500E6 /* REVClusterAnnotationView.m */,
+			);
+			name = AnnotationView;
 			sourceTree = "<group>";
 		};
 		189EC108188F9EFD00DC485F /* ViewControllers */ = {
@@ -437,12 +497,18 @@
 				182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */,
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
 				182D50B41890D77C0079A6DF /* CTListCell.m in Sources */,
+				186012CD189F2E1C002500E6 /* REVClusterAnnotationView.m in Sources */,
+				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
+				186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */,
+				186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */,
+				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
 				182413BD18901F520064B28F /* FakeData.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
 				189EC111188FB44E00DC485F /* CTMapView.m in Sources */,
 				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
+				186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,6 +632,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
+					/Users/apple/Developer/CitySpade/CitySpade,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CitySpade/CitySpade-Prefix.pch";
@@ -593,6 +660,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
+					/Users/apple/Developer/CitySpade/CitySpade,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CitySpade/CitySpade-Prefix.pch";

@@ -10,6 +10,7 @@
 
 @interface CTListCell : UITableViewCell
 
+@property (nonatomic) NSDictionary *house;
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *bedroomLabel;

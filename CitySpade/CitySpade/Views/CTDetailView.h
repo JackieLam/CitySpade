@@ -10,7 +10,8 @@
 
 @interface CTDetailView : UIView
 
-@property (nonatomic, strong) UIImage *houseImage;
-@property (nonatomic, strong) NSDictionary *place;
+- (void)setHouseImageViewImage:(UIImage *)image;
+- (void)setTitleLabelText:(NSString *)text;
+- (void)setHouseDict:(NSDictionary *)house;
 
 @end

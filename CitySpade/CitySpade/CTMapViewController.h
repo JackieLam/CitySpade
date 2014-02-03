@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
-@class CTMapView;
+@class REVClusterMapView;
 @class CTListView;
 
-@interface CTMapViewController : UIViewController
-@property (nonatomic, strong) CTMapView *ctmapView;
+@interface CTMapViewController : UIViewController<MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) REVClusterMapView *ctmapView;
 @property (nonatomic, strong) CTListView *ctlistView;
 
 @end
