@@ -12,6 +12,7 @@
 
 
 @implementation REVClusterPin
+
 @synthesize title,coordinate,subtitle;
 @synthesize nodes;
 

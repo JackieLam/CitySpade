@@ -49,6 +49,7 @@
 		186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012D4189F3BEC002500E6 /* MapBottomBar.m */; };
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
+		1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061518A4BE7F00EA285E /* CTCollectionCell.m */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
@@ -127,6 +128,8 @@
 		188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLeftSideMenuViewController.m; path = ViewControllers/CTLeftSideMenuViewController.m; sourceTree = "<group>"; };
 		188F6CFC188E85D900EAEEFD /* CTMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewController.m; sourceTree = "<group>"; };
 		188F6CFD188E85D900EAEEFD /* CTMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewController.h; sourceTree = "<group>"; };
+		1893061418A4BE7F00EA285E /* CTCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTCollectionCell.h; path = Cells/CTCollectionCell.h; sourceTree = "<group>"; };
+		1893061518A4BE7F00EA285E /* CTCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTCollectionCell.m; path = Cells/CTCollectionCell.m; sourceTree = "<group>"; };
 		189763C51890FD9C006374E0 /* CTDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailViewController.h; path = ViewControllers/CTDetailViewController.h; sourceTree = "<group>"; };
 		189763C61890FD9C006374E0 /* CTDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailViewController.m; path = ViewControllers/CTDetailViewController.m; sourceTree = "<group>"; };
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
@@ -290,6 +293,8 @@
 			children = (
 				182D50B21890D77C0079A6DF /* CTListCell.h */,
 				182D50B31890D77C0079A6DF /* CTListCell.m */,
+				1893061418A4BE7F00EA285E /* CTCollectionCell.h */,
+				1893061518A4BE7F00EA285E /* CTCollectionCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -503,6 +508,7 @@
 				186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */,
 				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
+				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
 				182413BD18901F520064B28F /* FakeData.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,

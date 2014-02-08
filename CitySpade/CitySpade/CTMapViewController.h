@@ -18,5 +18,6 @@
 @property (nonatomic, strong) REVClusterMapView *ctmapView;
 @property (nonatomic, strong) MapBottomBar *mapBottomBar;
 @property (nonatomic, strong) CTListView *ctlistView;
+@property (nonatomic, strong) UICollectionView *collectionView; 
 
 @end

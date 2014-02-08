@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-CocoaLumberjack.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-LBBlurredImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>40D3B439C2D7488DA80AC31B</key>
+		<key>C9A7F04D14DA4116BB2F7DEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4A6CEF9D95414A808D5E99E2</key>
+		<key>CB95D59852FC4DAD904A0D34</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>91F3CB47C046404C9624CD51</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A81F78004AC649969CCAF7FA</key>
+		<key>D70927B47DE543F782518DE4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -10,13 +10,10 @@
 #import "CTMapViewController.h"
 #import "CTLeftSideMenuViewController.h"
 #import "CTFilterViewController.h"
-#import <DDLog+LOGV.h>
-#import <DDLog.h>
-#import <DDTTYLogger.h>
 #import <MFSideMenu.h>
 #import "REVClusterMapView.h"
 
-static NSString *const kAPIKey = @"AIzaSyBscWl3wXUk_Lyfqo1kz8Nljjf2K0-7eCY";
+//static NSString *const kAPIKey = @"AIzaSyBscWl3wXUk_Lyfqo1kz8Nljjf2K0-7eCY";
 
 @implementation AppDelegate
 
@@ -34,7 +31,7 @@ static NSString *const kAPIKey = @"AIzaSyBscWl3wXUk_Lyfqo1kz8Nljjf2K0-7eCY";
                                                     containerWithCenterViewController:navController
                                                     leftMenuViewController:leftSideMenu
                                                     rightMenuViewController:rightSideMenu];
-    container.panMode = MFSideMenuPanModeCenterViewController;
+    container.panMode = MFSideMenuPanModeNone;
 
     self.window.rootViewController = container;
     [self.window makeKeyAndVisible];

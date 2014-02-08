@@ -13,6 +13,7 @@
 #import "MFSideMenu.h"
 #import "FakeData.h"
 #import "CTListCell.h"
+#import "CTCollectionCell.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "REVClusterMapView.h"
 #import "REVClusterPin.h"
@@ -24,6 +25,7 @@
 @interface CTMapViewController()
 
 @property (nonatomic, strong) NSArray *places;
+@property (nonatomic, strong) NSArray *placesClicked;
 
 @end
 
@@ -34,6 +36,8 @@
 - (void)loadView
 {
     [super loadView];
+    
+    self.places = [NSArray array];
 // Setup the navigation bar
     [self setupMenuBarButtonItems];
     
@@ -79,6 +83,10 @@
     [self.ctmapView addAnnotations:pins];
 }
 
+- (void)viewDidLoad
+{
+    [self setupCollectionView];
+}
 
 - (void)setupButtons
 {
@@ -93,8 +101,23 @@
     [self.mapBottomBar.listButton addTarget:self action:@selector(listButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-#pragma mark -
-#pragma mark Map view delegate
+- (void)setupCollectionView
+{
+    CGRect collectionViewFrame = CGRectMake(0, 400, self.view.frame.size.width, 60);
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [flowLayout setMinimumInteritemSpacing:0.0f];
+    [flowLayout setMinimumLineSpacing:0.0f];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayout];
+    [self.collectionView setPagingEnabled:NO];
+    self.collectionView.alpha = 0.0f;
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.collectionView registerClass:[CTCollectionCell class] forCellWithReuseIdentifier:@"CTCollectionCell"];
+    [self.ctmapView addSubview:self.collectionView];
+}
+
+#pragma mark - MapView delegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
@@ -102,7 +125,6 @@
 		//userLocation = annotation;
 		return nil;
 	}
-    
     REVClusterPin *pin = (REVClusterPin *)annotation;
     
     MKAnnotationView *annView;
@@ -144,42 +166,86 @@ didSelectAnnotationView:(MKAnnotationView *)view
     NSLog(@"REVMapViewController mapView didSelectAnnotationView:");
     
     REVClusterPin *annotation = (REVClusterPin *)view.annotation;
+    self.placesClicked = annotation.nodes;
     
-    if (annotation.nodes > 0) {
-//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 250, self.view.frame.size.width, self.view.frame.size.height-250)];
-//        _collectionView.delegate = self;
-//        _collectionView.dataSource = self;
-        //        _collectionView.collectionViewLayout =
+    //zoom in if click on a cluster less than 20
+    if ([annotation.nodes count] > 20) {
+        CLLocationCoordinate2D centerCoordinate = [annotation coordinate];
+        MKCoordinateSpan newSpan =
+        MKCoordinateSpanMake(mapView.region.span.latitudeDelta/2.0,
+                             mapView.region.span.longitudeDelta/2.0);
+        [mapView setRegion:MKCoordinateRegionMake(centerCoordinate, newSpan)
+                  animated:YES];
     }
-    
-    //if click on a pin
-    if (![view isKindOfClass:[REVClusterAnnotationView class]]) {
-        //show something at the bottom of the view
-        UIView *annotationUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, self.view.frame.size.height)];
-        annotationUIView.backgroundColor = [UIColor whiteColor];
-        UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 20)];
-        firstLabel.text = annotation.title;
-        [annotationUIView addSubview:firstLabel];
-        UILabel *secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 80, 20)];
-        secondLabel.text = annotation.subtitle;
-        [annotationUIView addSubview:secondLabel];
+    else {
+        [self.collectionView reloadData];
         
-//        [self.ctmapView addSubview:annotationUIView];
-        return;
+        CGRect viewFrame = self.collectionView.frame;
+        viewFrame.origin.y = viewFrame.origin.y - 40;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDelay:0.0];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        self.collectionView.backgroundColor = [UIColor whiteColor];
+        self.collectionView.alpha = 1.0f;
+        self.collectionView.frame = viewFrame;
+        [UIView commitAnimations];
     }
-    
-    //if click on a cluster group
-    
-    CLLocationCoordinate2D centerCoordinate = [annotation coordinate];
-    
-    MKCoordinateSpan newSpan =
-    MKCoordinateSpanMake(mapView.region.span.latitudeDelta/2.0,
-                         mapView.region.span.longitudeDelta/2.0);
-    
-    [mapView setRegion:MKCoordinateRegionMake(centerCoordinate, newSpan)
-              animated:YES];
 }
 
+#pragma mark - UITableViewDelegate Methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"didSelectRowAtIndexPath : %d", indexPath.row);
+    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    CTDetailViewController *detailViewController = [[CTDetailViewController alloc] init];
+    detailViewController.house = [NSDictionary dictionaryWithDictionary:cell.house];
+    detailViewController.houseImage = cell.thumbImageView.image;
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - UICollectionView DataSource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.placesClicked count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"CTCollectionCell";
+    CTCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[CTCollectionCell alloc] init];
+    }
+    int count = (int)[indexPath row];
+//    [cell.thumbImageview setImage:self.placesClicked[count][@"images"][0]];
+    REVClusterPin *pin = self.placesClicked[count];
+    cell.titleLabel.text = pin.title;
+    cell.subtitleLabel.text = pin.subtitle;
+    return cell;
+}
+
+#pragma mark - UIBarButtonItem Callbacks
+
+- (void)backButtonPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)leftSideMenuButtonPressed:(id)sender {
+    [self.menuContainerViewController toggleLeftSideMenuCompletion:^{
+        [self setupMenuBarButtonItems];
+    }];
+}
+- (void)rightSideMenuButtonPressed:(id)sender {
+    [self.menuContainerViewController toggleRightSideMenuCompletion:^{
+        [self setupMenuBarButtonItems];
+    }];
+}
 
 #pragma mark - NavigationBar Button
 - (void)setupMenuBarButtonItems {
@@ -213,47 +279,24 @@ didSelectAnnotationView:(MKAnnotationView *)view
                                            action:@selector(backButtonPressed:)];
 }
 
-#pragma mark - UIBarButtonItem Callbacks
-
-- (void)backButtonPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)leftSideMenuButtonPressed:(id)sender {
-    [self.menuContainerViewController toggleLeftSideMenuCompletion:^{
-        [self setupMenuBarButtonItems];
-    }];
-}
-
-- (void)rightSideMenuButtonPressed:(id)sender {
-    [self.menuContainerViewController toggleRightSideMenuCompletion:^{
-        [self setupMenuBarButtonItems];
-    }];
-}
-
 #pragma mark - Handle the button click
 - (void)saveButtonClicked:(id)sender
 {
     NSLog(@"saveButtonClicked");
 }
-
 - (void)currentLocationButtonClicked:(id)sender
 {
     NSLog(@"currentLocationButtonClicked");
-
 }
-
 - (void)listButtonClicked:(id)sender
 {
     NSLog(@"list button clicked");
-    
     [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
         [self.ctmapView removeFromSuperview];
         [self.view addSubview:self.ctlistView];
         [self.ctlistView loadPlacesToList:self.places];
     }];
 }
-
 - (void)mapButtonClicked:(id)sender
 {
     NSLog(@"mapButtonClicked");
@@ -262,17 +305,4 @@ didSelectAnnotationView:(MKAnnotationView *)view
         [self.view addSubview:self.ctmapView];
     }];
 }
-
-#pragma mark - UITableViewDelegate Methods
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"didSelectRowAtIndexPath : %d", indexPath.row);
-    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
-    CTDetailViewController *detailViewController = [[CTDetailViewController alloc] init];
-    detailViewController.house = [NSDictionary dictionaryWithDictionary:cell.house];
-    detailViewController.houseImage = cell.thumbImageView.image;
-    [self.navigationController pushViewController:detailViewController animated:YES];
-}
-
 @end
