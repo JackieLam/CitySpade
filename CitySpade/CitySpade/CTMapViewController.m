@@ -150,34 +150,21 @@
     REVClusterPin *pin = (REVClusterPin *)annotation;
     
     MKAnnotationView *annView;
+    annView = (REVClusterAnnotationView*)
+    [mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
+    if( !annView )
+        annView = (REVClusterAnnotationView*)
+        [[REVClusterAnnotationView alloc] initWithAnnotation:annotation
+                                             reuseIdentifier:@"cluster"];
+    annView.image = [UIImage imageNamed:@"cluster.png"];
+    annView.canShowCallout = NO;
     
     if( [pin nodeCount] > 0 ){
         pin.title = @"___";
-        annView = (REVClusterAnnotationView*)
-        [mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
-        
-        if( !annView )
-            annView = (REVClusterAnnotationView*)
-            [[REVClusterAnnotationView alloc] initWithAnnotation:annotation
-                                                  reuseIdentifier:@"cluster"];
-        annView.image = [UIImage imageNamed:@"cluster.png"];
         [(REVClusterAnnotationView*)annView setClusterText:
          [NSString stringWithFormat:@"%i",[pin nodeCount]]];
-        
-        annView.canShowCallout = NO;
     } else {
-        annView = (REVClusterAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
-        
-        if( !annView )
-            annView = [[REVClusterAnnotationView alloc] initWithAnnotation:annotation
-                                                    reuseIdentifier:@"pin"];
-        
-        annView.image = [UIImage imageNamed:@"cluster.png"];
         [(REVClusterAnnotationView*)annView setClusterText:@"1"];
-//        annView.image = [UIImage imageNamed:@"pinpoint.png"];
-        annView.canShowCallout = NO;
-        
-        annView.calloutOffset = CGPointMake(-6.0, 0.0);
     }
     return annView;
 }
@@ -186,7 +173,9 @@
 didSelectAnnotationView:(MKAnnotationView *)view
 {
     REVClusterPin *annotation = (REVClusterPin *)view.annotation;
-    self.placesClicked = annotation.nodes;
+    if (annotation.nodes == nil) self.placesClicked = [NSArray arrayWithObject:annotation];
+    else
+        self.placesClicked = annotation.nodes;
     //zoom in if click on a cluster less than 20 
     if ([annotation.nodes count] > 20) {
         CLLocationCoordinate2D centerCoordinate = [annotation coordinate];
