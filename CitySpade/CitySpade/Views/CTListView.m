@@ -80,7 +80,6 @@
     cell.house = self.places[indexPath.row];
     cell.titleLabel.text = cell.house[@"title"];
 
-//load the picture
     NSMutableString *urlString = [NSMutableString stringWithString:cell.house[@"images"][0][@"s3_url"]];
     [urlString appendString:cell.house[@"images"][0][@"sizes"][1]];
     NSLog(@"PICTURE URL STRING : %@", urlString);

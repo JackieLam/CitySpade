@@ -13,14 +13,15 @@
 
 @interface REVClusterPin : NSObject  <MKAnnotation> {
     CLLocationCoordinate2D coordinate;
+    NSString *thumbImageLink;
     NSString *title;
     NSString *subtitle;
-    
     NSArray *nodes;
     
 }
 @property(nonatomic, retain) NSArray *nodes;
 @property(nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property(nonatomic, copy) NSString *thumbImageLink;
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) NSString *subtitle;
 

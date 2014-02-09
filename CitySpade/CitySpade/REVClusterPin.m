@@ -13,6 +13,7 @@
 
 @implementation REVClusterPin
 
+@synthesize thumbImageLink;
 @synthesize title,coordinate,subtitle;
 @synthesize nodes;
 
@@ -26,6 +27,7 @@
 #if !__has_feature(objc_arc)
 - (void)dealloc
 {
+    [thumbImageLink release];
     [title release];
     [subtitle release];
     [nodes release];
