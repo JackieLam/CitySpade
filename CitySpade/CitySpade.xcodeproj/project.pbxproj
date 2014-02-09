@@ -13,7 +13,6 @@
 		1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1817C744188CBD68003AC430 /* InfoPlist.strings */; };
 		1817C748188CBD68003AC430 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817C747188CBD68003AC430 /* main.m */; };
 		1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817C74B188CBD68003AC430 /* AppDelegate.m */; };
-		1817C74E188CBD68003AC430 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1817C74D188CBD68003AC430 /* Images.xcassets */; };
 		1817C755188CBD68003AC430 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C754188CBD68003AC430 /* XCTest.framework */; };
 		1817C756188CBD68003AC430 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73B188CBD68003AC430 /* Foundation.framework */; };
 		1817C757188CBD68003AC430 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73F188CBD68003AC430 /* UIKit.framework */; };
@@ -50,6 +49,8 @@
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
 		1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061518A4BE7F00EA285E /* CTCollectionCell.m */; };
+		1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061C18A77E3900EA285E /* AppearanceSetter.m */; };
+		1893061F18A7800F00EA285E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893061E18A7800F00EA285E /* Images.xcassets */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
@@ -76,7 +77,6 @@
 		1817C749188CBD68003AC430 /* CitySpade-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CitySpade-Prefix.pch"; sourceTree = "<group>"; };
 		1817C74A188CBD68003AC430 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1817C74B188CBD68003AC430 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1817C74D188CBD68003AC430 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1817C753188CBD68003AC430 /* CitySpadeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CitySpadeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1817C754188CBD68003AC430 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1817C75C188CBD68003AC430 /* CitySpadeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CitySpadeTests-Info.plist"; sourceTree = "<group>"; };
@@ -130,6 +130,9 @@
 		188F6CFD188E85D900EAEEFD /* CTMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewController.h; sourceTree = "<group>"; };
 		1893061418A4BE7F00EA285E /* CTCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTCollectionCell.h; path = Cells/CTCollectionCell.h; sourceTree = "<group>"; };
 		1893061518A4BE7F00EA285E /* CTCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTCollectionCell.m; path = Cells/CTCollectionCell.m; sourceTree = "<group>"; };
+		1893061B18A77E3900EA285E /* AppearanceSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppearanceSetter.h; sourceTree = "<group>"; };
+		1893061C18A77E3900EA285E /* AppearanceSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppearanceSetter.m; sourceTree = "<group>"; };
+		1893061E18A7800F00EA285E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		189763C51890FD9C006374E0 /* CTDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailViewController.h; path = ViewControllers/CTDetailViewController.h; sourceTree = "<group>"; };
 		189763C61890FD9C006374E0 /* CTDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailViewController.m; path = ViewControllers/CTDetailViewController.m; sourceTree = "<group>"; };
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
@@ -226,9 +229,11 @@
 		1817C741188CBD68003AC430 /* CitySpade */ = {
 			isa = PBXGroup;
 			children = (
-				1817C74D188CBD68003AC430 /* Images.xcassets */,
+				1893061E18A7800F00EA285E /* Images.xcassets */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
+				1893061B18A77E3900EA285E /* AppearanceSetter.h */,
+				1893061C18A77E3900EA285E /* AppearanceSetter.m */,
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
 				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
 				186012CE189F2E23002500E6 /* REVMapCluster */,
@@ -442,9 +447,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1893061F18A7800F00EA285E /* Images.xcassets in Resources */,
 				1817C79F188D546B003AC430 /* GoogleMaps.bundle in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
-				1817C74E188CBD68003AC430 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +517,7 @@
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
 				182413BD18901F520064B28F /* FakeData.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
+				1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */,
 				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
 				186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */,
 				186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */,

@@ -12,6 +12,7 @@
 #import "CTFilterViewController.h"
 #import <MFSideMenu.h>
 #import "REVClusterMapView.h"
+#import "AppearanceSetter.h"
 
 //static NSString *const kAPIKey = @"AIzaSyBscWl3wXUk_Lyfqo1kz8Nljjf2K0-7eCY";
 
@@ -27,12 +28,15 @@
     CTMapViewController *mapViewController = [[CTMapViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    navController.navigationBar.opaque = YES;
+    navController.navigationBar.translucent = NO;
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController
                                                     containerWithCenterViewController:navController
                                                     leftMenuViewController:leftSideMenu
                                                     rightMenuViewController:rightSideMenu];
     container.panMode = MFSideMenuPanModeNone;
-
+// Set appearance
+    [AppearanceSetter setBarButtonAppearance];
     self.window.rootViewController = container;
     [self.window makeKeyAndVisible];
 

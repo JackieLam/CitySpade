@@ -25,9 +25,7 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont boldSystemFontOfSize:11];
-        label.shadowColor = [UIColor blackColor];
-        label.shadowOffset = CGSizeMake(0,-1);
+        label.font = [UIFont fontWithName:@"Verdana-Bold" size:11.0f];
     }
     return self;
 }

@@ -60,8 +60,8 @@
 //titleLabel
     CGFloat labelWidth = infoViewWidth - 24;
     CGFloat labelLeftInset = 12;
-    UIColor *labelGrayColor = [UIColor colorWithRed:77.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0f];
-    UIColor *labelGreenColor = [UIColor colorWithRed:71.0/255.0 green:193.0/255.0 blue:188.0/255.0 alpha:1.0f];
+    UIColor *labelGrayColor = [UIColor colorWithRed:77.0/255.0 green:77.0/255.0 blue:76.0/255.0 alpha:1.0f];
+    UIColor *labelGreenColor = [UIColor colorWithRed:55.0/255.0 green:182.0/255.0 blue:175.0/255.0 alpha:1.0f];
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelLeftInset, labelLeftInset, labelWidth, 20)];
     self.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:15.0f];

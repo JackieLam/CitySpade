@@ -8,4 +8,5 @@ dependencies: \
   /Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuContainerViewController.h \
   /Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/MFSideMenuShadow.h \
   /Users/apple/Developer/CitySpade/CitySpade/Pods/Headers/MFSideMenu/UIViewController+MFSideMenuAdditions.h \
-  /Users/apple/Developer/CitySpade/CitySpade/CitySpade/REVClusterMapView.h
+  /Users/apple/Developer/CitySpade/CitySpade/CitySpade/REVClusterMapView.h \
+  /Users/apple/Developer/CitySpade/CitySpade/CitySpade/AppearanceSetter.h

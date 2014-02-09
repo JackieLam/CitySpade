@@ -14,6 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor colorWithRed:40.0/255.0 green:175.0/255.0 blue:169.0/255.0 alpha:0.9];
         [self setupBottomBar];
     }
     return self;
@@ -21,36 +22,29 @@
 
 - (void)setupBottomBar
 {
-    CGRect saveButtonFrame;
-    CGRect currentLocationButtonFrame;
-    CGRect listButtonFrame;
-    CGFloat topInset = 5.0f;
-    CGFloat buttonSize = 30.0f;
+    CGRect saveButtonRect = CGRectMake(27, 16, 34, 23);
+    CGRect drawButtonRect = CGRectMake(255, 16, 45, 23);
+    CGRect tempImageViewRect = CGRectMake(126, 8, 72, 38);
     
-    saveButtonFrame = CGRectMake(5.0f, topInset, buttonSize, buttonSize);
-    currentLocationButtonFrame = CGRectMake(40.0f, topInset, buttonSize, buttonSize);
-    listButtonFrame = CGRectMake(75.0f, topInset, buttonSize, buttonSize);
-    
-    self.saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.saveButton.frame = saveButtonFrame;
-    self.saveButton.backgroundColor = [UIColor whiteColor];
-    [self.saveButton setImage:[UIImage imageNamed:@"Add-Number"] forState:UIControlStateNormal];
-    [self.saveButton setImage:[UIImage imageNamed:@"Checked"] forState:UIControlStateHighlighted];
+    self.saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.saveButton.frame = saveButtonRect;
+    self.saveButton.backgroundColor = [UIColor clearColor];
+    [self.saveButton setTitle:@"Save" forState:UIControlStateNormal];
+    [self.saveButton.titleLabel setFont:[UIFont fontWithName:@"Avenir-Roman" size:15.0f]];
+    [self.saveButton setTitleColor:[UIColor colorWithRed:172.0/255.0 green:255.0/255.0 blue:250.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self addSubview:self.saveButton];
     
-    self.currentLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.currentLocationButton.frame = currentLocationButtonFrame;
-    self.currentLocationButton.backgroundColor = [UIColor whiteColor];
-    [self.currentLocationButton setImage:[UIImage imageNamed:@"Delete-Entered"] forState:UIControlStateNormal];
-    [self.currentLocationButton setImage:[UIImage imageNamed:@"Checked"] forState:UIControlStateHighlighted];
-    [self addSubview:self.currentLocationButton];
+    self.drawButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.drawButton.frame = drawButtonRect;
+    self.drawButton.backgroundColor = [UIColor clearColor];
+    self.drawButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:15.0f];
+    [self.drawButton setTitle:@"Draw" forState:UIControlStateNormal];
+    [self.drawButton setTitleColor:[UIColor colorWithRed:172.0/255.0 green:255.0/255.0 blue:250.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self addSubview:self.drawButton];
     
-    self.listButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.listButton.frame = listButtonFrame;
-    self.listButton.backgroundColor = [UIColor whiteColor];
-    [self.listButton setImage:[UIImage imageNamed:@"Delete"] forState:UIControlStateNormal];
-    [self.listButton setImage:[UIImage imageNamed:@"Checked"] forState:UIControlStateHighlighted];
-    [self addSubview:self.listButton];
+    self.tempImageView = [[UIImageView alloc] initWithFrame:tempImageViewRect];
+    self.tempImageView.image = [UIImage imageNamed:@"swtich"];
+    [self addSubview:self.tempImageView];
 }
 
 @end

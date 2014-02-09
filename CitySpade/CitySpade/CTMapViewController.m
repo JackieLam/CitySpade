@@ -23,7 +23,7 @@
 #define cellHeight 130.0f
 #define cellWidth 290.0f
 #define cellGap 20.0f
-#define cellOriginFromBottomLine 190.0f
+#define cellOriginFromBottomLine 150.0f
 #define botttomHeight 44.0f
 
 @interface CTMapViewController()
@@ -47,12 +47,11 @@
     [self setupMenuBarButtonItems];
     
 // Setup the map view
-    CGRect viewBounds = [[UIScreen mainScreen] applicationFrame];
-    
+    CGRect viewBounds = [UIScreen mainScreen].bounds;
+    viewBounds.size.height = viewBounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
     self.ctmapView = [[REVClusterMapView alloc] initWithFrame:viewBounds];
     self.ctmapView.delegate = self;
-    
-    [self.view addSubview:self.ctmapView];
+    self.view = self.ctmapView;
     
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = 40.747;
@@ -94,20 +93,28 @@
 
 - (void)viewDidLoad
 {
+    UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
+    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
+    NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
+    [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
+    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
+    
+    self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
+    self.title = @"Fake Data Here";
     [self setupCollectionView];
 }
 
 - (void)setupButtons
 {
     CGRect screenFrame = [UIScreen mainScreen].bounds;
-    CGFloat bottomHeight = 60;
-    CGRect bottomFrame = CGRectMake(0, screenFrame.size.height - bottomHeight, screenFrame.size.width, bottomHeight);
+    CGFloat bottomHeight = 52;
+    CGRect bottomFrame = CGRectMake(0, self.ctmapView.frame.size.height - bottomHeight, screenFrame.size.width, bottomHeight);
     self.mapBottomBar = [[MapBottomBar alloc] initWithFrame:bottomFrame];
     [self.ctmapView addSubview:self.mapBottomBar];
     
     [self.mapBottomBar.saveButton addTarget:self action:@selector(saveButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.mapBottomBar.currentLocationButton addTarget:self action:@selector(currentLocationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.mapBottomBar.listButton addTarget:self action:@selector(listButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.mapBottomBar.currentLocationButton addTarget:self action:@selector(currentLocationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapBottomBar.drawButton addTarget:self action:@selector(listButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupCollectionView
@@ -129,7 +136,7 @@
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
     [self.collectionView registerClass:[CTCollectionCell class] forCellWithReuseIdentifier:@"CTCollectionCell"];
-    [self.ctmapView addSubview:self.collectionView];
+    [self.view addSubview:self.collectionView];
 }
 
 #pragma mark - MapView delegate
@@ -304,14 +311,14 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (UIBarButtonItem *)leftMenuBarButtonItem {
     return [[UIBarButtonItem alloc]
-            initWithImage:[UIImage imageNamed:@"menu-icon.png"] style:UIBarButtonItemStyleBordered
+            initWithImage:[UIImage imageNamed:@"User-Profile"] style:UIBarButtonItemStyleBordered
             target:self
             action:@selector(leftSideMenuButtonPressed:)];
 }
 
 - (UIBarButtonItem *)rightMenuBarButtonItem {
     return [[UIBarButtonItem alloc]
-            initWithImage:[UIImage imageNamed:@"menu-icon.png"] style:UIBarButtonItemStyleBordered
+            initWithImage:[UIImage imageNamed:@"Search"] style:UIBarButtonItemStyleBordered
             target:self
             action:@selector(rightSideMenuButtonPressed:)];
 }
