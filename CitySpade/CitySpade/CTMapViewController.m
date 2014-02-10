@@ -14,7 +14,6 @@
 #import "FakeData.h"
 #import "CTListCell.h"
 #import "CTCollectionCell.h"
-#import <GoogleMaps/GoogleMaps.h>
 #import "REVClusterMapView.h"
 #import "REVClusterPin.h"
 #import "REVClusterAnnotationView.h"
@@ -51,21 +50,25 @@
     viewBounds.size.height = viewBounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
     self.ctmapView = [[REVClusterMapView alloc] initWithFrame:viewBounds];
     self.ctmapView.delegate = self;
-    self.view = self.ctmapView;
+    [self.view addSubview:self.ctmapView];
     
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = 40.747;
     coordinate.longitude = -74;
     self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
+    
+// Setup BottomBar
+    [self setupBottomBar];
 
 // Setup the list view
-    CGFloat topInset = [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
-    self.ctlistView = [[CTListView alloc] initWithFrame:CGRectMake(0, topInset, viewBounds.size.width, viewBounds.size.height-topInset)];
-    [self.ctlistView.mapButton addTarget:self action:@selector(mapButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
 
-// Setup the bottom bar buttons
-    [self setupButtons];
+// Setup collectionView
+    [self setupCollectionView];
+    
 
+    
+    
 //Load the pins onto the map
     FakeData *fakeData = [[FakeData alloc] init];
     NSArray *json = [NSJSONSerialization JSONObjectWithData:fakeData.points options:kNilOptions error:nil];
@@ -81,8 +84,6 @@
         
         CLLocationCoordinate2D newCoord = {lat, lng};
         REVClusterPin *pin = [[REVClusterPin alloc] init];
-//        if ([place[@"images"] count] > 0)
-//            pin.thumbImageLink = [NSString stringWithFormat:@"%@", place[@"images"][0][@"s3_url"], place[@"images"][0][@"sizes"][1]];
         pin.title = place[@"title"];
         pin.subtitle = place[@"contact_tel"];
         pin.coordinate = newCoord;
@@ -101,20 +102,36 @@
     
     self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
     self.title = @"Fake Data Here";
-    [self setupCollectionView];
 }
 
-- (void)setupButtons
+- (void)setupBottomBar
 {
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     CGFloat bottomHeight = 52;
     CGRect bottomFrame = CGRectMake(0, self.ctmapView.frame.size.height - bottomHeight, screenFrame.size.width, bottomHeight);
     self.mapBottomBar = [[MapBottomBar alloc] initWithFrame:bottomFrame];
-    [self.ctmapView addSubview:self.mapBottomBar];
-    
+    [self.mapBottomBar.segmentControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [self.mapBottomBar.saveButton addTarget:self action:@selector(saveButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.mapBottomBar.currentLocationButton addTarget:self action:@selector(currentLocationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.mapBottomBar.drawButton addTarget:self action:@selector(listButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.mapBottomBar];
+}
+
+-(void)segmentAction:(UISegmentedControl*)sender
+{
+    if (sender.selectedSegmentIndex == 0) {
+        [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
+            [self.ctlistView removeFromSuperview];
+            [self.view addSubview:self.ctmapView];
+            [self.view addSubview:self.mapBottomBar];
+        }];
+    }
+    else {
+        [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
+            [self.ctmapView removeFromSuperview];
+            [self.view addSubview:self.ctlistView];
+            [self.view addSubview:self.mapBottomBar];
+            [self.ctlistView loadPlacesToList:self.places];
+        }];
+    }
 }
 
 - (void)setupCollectionView
@@ -327,23 +344,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
 - (void)currentLocationButtonClicked:(id)sender
 {
     NSLog(@"currentLocationButtonClicked");
-}
-- (void)listButtonClicked:(id)sender
-{
-    NSLog(@"list button clicked");
-    [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-        [self.ctmapView removeFromSuperview];
-        [self.view addSubview:self.ctlistView];
-        [self.ctlistView loadPlacesToList:self.places];
-    }];
-}
-- (void)mapButtonClicked:(id)sender
-{
-    NSLog(@"mapButtonClicked");
-    [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-        [self.ctlistView removeFromSuperview];
-        [self.view addSubview:self.ctmapView];
-    }];
 }
 
 @end

@@ -9,9 +9,14 @@
 #import "CTListView.h"
 #import "CTListCell.h"
 
+#define heightForLabel 30.0f
+#define heightForRow 127.0f
+#define tableViewBackgroundColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0]
+
 @interface CTListView()<UITableViewDataSource, UISearchBarDelegate>
 
 @property (nonatomic, strong) NSArray *places;
+@property (nonatomic, strong) UILabel *totalCountLabel;
 
 @end
 
@@ -21,35 +26,20 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.separatorColor = [UIColor redColor];
-        self.rowHeight = 100.0f;
+        self.totalCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, heightForLabel)];
+        self.totalCountLabel.backgroundColor = [UIColor colorWithRed:212.0/255.0 green:239.0/255.0 blue:237.0/255.0 alpha:1.0f];
+        self.totalCountLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f];
+        self.totalCountLabel.textColor = [UIColor colorWithRed:40.0/255.0 green:176.0/255.0 blue:170.0/255.0 alpha:1.0f];
+        self.totalCountLabel.textAlignment = NSTextAlignmentCenter;
+        self.totalCountLabel.text = @"158 results total";
+//        [self addSubview:self.totalCountLabel];
+        self.tableHeaderView = self.totalCountLabel;
+        
+        self.backgroundColor = tableViewBackgroundColor;
+        self.rowHeight = heightForRow;
         self.dataSource = self;
-        [self setupSubviews];
     }
     return self;
-}
-
-- (void)setupSubviews
-{
-//The bottom background
-    CGRect screenFrame = [UIScreen mainScreen].bounds;
-    CGFloat bottomHeight = 44;
-    CGFloat bottomInset = 0;
-    CGRect bottomFrame = CGRectMake(bottomInset, screenFrame.size.height - bottomHeight, screenFrame.size.width, bottomHeight);
-    self.bottomView = [[UIView alloc] initWithFrame:bottomFrame];
-    self.bottomView.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.7];
-    [self addSubview:self.bottomView];
-    
-    CGFloat topInset = 5.0f;
-    CGFloat buttonSize = 30.0f;
-    CGRect mapButtonFrame;
-    mapButtonFrame = CGRectMake(75.0f, topInset, buttonSize, buttonSize);
-    self.mapButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.mapButton.frame = mapButtonFrame;
-    self.mapButton.backgroundColor = [UIColor whiteColor];
-    [self.mapButton setImage:[UIImage imageNamed:@"Delete"] forState:UIControlStateNormal];
-    [self.mapButton setImage:[UIImage imageNamed:@"Checked"] forState:UIControlStateHighlighted];
-    [self.bottomView addSubview:self.mapButton];
 }
 
 - (void)loadPlacesToList:(NSArray *)places
@@ -59,6 +49,7 @@
 }
 
 #pragma mark - UITableView's Delegate and DataSource Methods
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -75,13 +66,14 @@
     CTListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell.frame = CGRectMake(0, 0, self.frame.size.width, heightForRow);
     }
 
     cell.house = self.places[indexPath.row];
     cell.titleLabel.text = cell.house[@"title"];
 
     NSMutableString *urlString = [NSMutableString stringWithString:cell.house[@"images"][0][@"s3_url"]];
-    [urlString appendString:cell.house[@"images"][0][@"sizes"][1]];
+    [urlString appendString:cell.house[@"images"][0][@"sizes"][3]];
     NSLog(@"PICTURE URL STRING : %@", urlString);
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

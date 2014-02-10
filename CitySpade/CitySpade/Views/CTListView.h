@@ -11,8 +11,5 @@
 //FIXME: change it to inherit from UIView
 @interface CTListView : UITableView
 
-@property (nonatomic, strong) UIView *bottomView;
-@property (nonatomic, strong) UIButton *mapButton;
-
 - (void)loadPlacesToList:(NSArray *)places;
 @end

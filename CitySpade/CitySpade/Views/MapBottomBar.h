@@ -11,7 +11,7 @@
 @interface MapBottomBar : UIView
 
 @property (strong, nonatomic) UIButton *saveButton;
-@property (strong, nonatomic) UIImageView *tempImageView; //TODO: 临时的imageView
+@property (strong, nonatomic) UISegmentedControl *segmentControl;
 @property (strong, nonatomic) UIButton * drawButton;
 
 @end

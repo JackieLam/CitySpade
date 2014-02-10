@@ -13,7 +13,11 @@
 @property (nonatomic) NSDictionary *house;
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *bedroomLabel;
-@property (nonatomic, strong) UILabel *bathroomLabel;
+@property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UILabel *bargainLabel;
+@property (nonatomic, strong) UILabel *transportLabel;
+@property (nonatomic, strong) UILabel *bedLabel;
+@property (nonatomic, strong) UILabel *bathLabel;
+
 
 @end
