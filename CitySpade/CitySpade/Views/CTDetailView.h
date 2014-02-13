@@ -10,8 +10,18 @@
 
 @interface CTDetailView : UIView
 
-- (void)setHouseImageViewImage:(UIImage *)image;
-- (void)setTitleLabelText:(NSString *)text;
-- (void)setHouseDict:(NSDictionary *)house;
+//Basic Facts
+@property (nonatomic, strong) UIImageView *houseImageView;
+@property (nonatomic, strong) UILabel *bargainLabel;
+@property (nonatomic, strong) UILabel *transportationLabel;
+@property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UILabel *bedLabel;
+@property (nonatomic, strong) UILabel *bathLabel;
+
+//Transportation Info
+@property (nonatomic, strong) UILabel *subwayLinesLabel;
+@property (nonatomic, strong) UILabel *buslinesLabel;
+
+- (void)setInfosWithJSON:(NSDictionary *)json;
 
 @end

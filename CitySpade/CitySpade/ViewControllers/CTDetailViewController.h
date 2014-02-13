@@ -12,8 +12,6 @@
 
 @interface CTDetailViewController : UIViewController
 
-@property (nonatomic, strong) UIImage *houseImage;
-@property (nonatomic) NSDictionary *house;
 @property (nonatomic, strong) CTDetailView *ctdetailView;
 
 @end

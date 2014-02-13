@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CTMapViewController.h"
 #import "CTLeftSideMenuViewController.h"
+#import "CTDetailViewController.h"
 #import "CTFilterViewController.h"
 #import <MFSideMenu.h>
 #import "REVClusterMapView.h"
@@ -36,13 +37,15 @@
                                                     rightMenuViewController:rightSideMenu];
     container.panMode = MFSideMenuPanModeNone;
     container.shadow.enabled = NO;
-//    [container toggleRightSideMenuCompletion:^{
-//        //TODO: 右边视图push出来以后,给地图加黑
-//    }];
+
+    CTDetailViewController *tempVC = [[CTDetailViewController alloc] init];
+    UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:tempVC];
+    tempNav.navigationBar.opaque = YES;
+    tempNav.navigationBar.translucent = NO;
     
 // Set appearance
     [AppearanceSetter setBarButtonAppearance];
-    self.window.rootViewController = container;
+    self.window.rootViewController = tempNav;
     [self.window makeKeyAndVisible];
 
     return YES;

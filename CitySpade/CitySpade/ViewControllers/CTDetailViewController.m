@@ -16,17 +16,15 @@
     self = [super init];
     if (self) {
         self.view.backgroundColor = [UIColor whiteColor];
-        CGRect screenFrame = [UIScreen mainScreen].bounds;
-        screenFrame = CGRectOffset(screenFrame, 0, -self.navigationController.navigationBar.frame.size.height);
-        self.ctdetailView = [[CTDetailView alloc] initWithFrame:screenFrame];
-        [self.ctdetailView setHouseImageViewImage:self.houseImage];
-        [self.ctdetailView setHouseDict:self.house];
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    screenFrame = CGRectOffset(screenFrame, 0, -self.navigationController.navigationBar.frame.size.height);
+    self.ctdetailView = [[CTDetailView alloc] initWithFrame:screenFrame];
     [self.view addSubview:self.ctdetailView];
 }
 
