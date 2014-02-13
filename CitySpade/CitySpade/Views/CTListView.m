@@ -32,7 +32,6 @@
         self.totalCountLabel.textColor = [UIColor colorWithRed:40.0/255.0 green:176.0/255.0 blue:170.0/255.0 alpha:1.0f];
         self.totalCountLabel.textAlignment = NSTextAlignmentCenter;
         self.totalCountLabel.text = @"158 results total";
-//        [self addSubview:self.totalCountLabel];
         self.tableHeaderView = self.totalCountLabel;
         
         self.backgroundColor = tableViewBackgroundColor;
@@ -48,7 +47,7 @@
     [self reloadData];
 }
 
-#pragma mark - UITableView's Delegate and DataSource Methods
+#pragma mark - UITableView's DataSource Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -85,5 +84,8 @@
     
     return cell;
 }
+
+#pragma mark - UITableViewDelegate Method
+//- (void)ta
 
 @end

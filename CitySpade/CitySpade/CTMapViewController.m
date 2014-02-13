@@ -62,12 +62,10 @@
 
 // Setup the list view
     self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
+    self.ctlistView.delegate = self;
 
 // Setup collectionView
     [self setupCollectionView];
-    
-
-    
     
 //Load the pins onto the map
     FakeData *fakeData = [[FakeData alloc] init];
@@ -213,15 +211,24 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 #pragma mark - UITableViewDelegate Methods
 
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"didSelectRowAtIndexPath : %d", indexPath.row);
     CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
     CTDetailViewController *detailViewController = [[CTDetailViewController alloc] init];
     detailViewController.house = [NSDictionary dictionaryWithDictionary:cell.house];
     detailViewController.houseImage = cell.thumbImageView.image;
     [self.navigationController pushViewController:detailViewController animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
 
 #pragma mark - UICollectionView DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

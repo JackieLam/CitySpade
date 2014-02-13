@@ -18,6 +18,6 @@
 @property (nonatomic, strong) UILabel *transportLabel;
 @property (nonatomic, strong) UILabel *bedLabel;
 @property (nonatomic, strong) UILabel *bathLabel;
-
+@property (nonatomic, strong) UIView *rightView;
 
 @end

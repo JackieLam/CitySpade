@@ -35,6 +35,11 @@
                                                     leftMenuViewController:leftSideMenu
                                                     rightMenuViewController:rightSideMenu];
     container.panMode = MFSideMenuPanModeNone;
+    container.shadow.enabled = NO;
+//    [container toggleRightSideMenuCompletion:^{
+//        //TODO: 右边视图push出来以后,给地图加黑
+//    }];
+    
 // Set appearance
     [AppearanceSetter setBarButtonAppearance];
     self.window.rootViewController = container;
