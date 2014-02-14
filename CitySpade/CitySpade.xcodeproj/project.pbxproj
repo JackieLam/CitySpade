@@ -32,8 +32,6 @@
 		1817C7B6188D5522003AC430 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B5188D5522003AC430 /* SystemConfiguration.framework */; };
 		1817C7B8188D558C003AC430 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B7188D558C003AC430 /* CoreData.framework */; };
 		182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B3188FC7560064B28F /* CTFilterViewController.m */; };
-		182413B7188FC9D50064B28F /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B6188FC9D50064B28F /* RangeSlider.m */; };
-		182413BA188FDE710064B28F /* JLPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B9188FDE700064B28F /* JLPopupView.m */; };
 		182413BD18901F520064B28F /* FakeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413BC18901F520064B28F /* FakeData.m */; };
 		182D50B11890C05C0079A6DF /* CTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B01890C05C0079A6DF /* CTListView.m */; };
 		182D50B41890D77C0079A6DF /* CTListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B31890D77C0079A6DF /* CTListCell.m */; };
@@ -47,6 +45,8 @@
 		186012D2189F2F93002500E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186012D1189F2F93002500E6 /* MapKit.framework */; };
 		186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012D4189F3BEC002500E6 /* MapBottomBar.m */; };
 		18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18645EF818A88C5E009CF97F /* SwitchButton.m */; };
+		187204A718AE65D600C90B31 /* ANPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187204A618AE65D600C90B31 /* ANPopoverView.m */; };
+		18858C0018AE162400F49974 /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 18858BFF18AE162400F49974 /* NMRangeSlider.m */; };
 		188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */; };
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
 		1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061518A4BE7F00EA285E /* CTCollectionCell.m */; };
@@ -54,6 +54,7 @@
 		1893061F18A7800F00EA285E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893061E18A7800F00EA285E /* Images.xcassets */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
+		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -98,10 +99,6 @@
 		1817C7B7188D558C003AC430 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		182413B2188FC7560064B28F /* CTFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFilterViewController.h; path = ViewControllers/CTFilterViewController.h; sourceTree = "<group>"; };
 		182413B3188FC7560064B28F /* CTFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFilterViewController.m; path = ViewControllers/CTFilterViewController.m; sourceTree = "<group>"; };
-		182413B5188FC9D50064B28F /* RangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeSlider.h; sourceTree = "<group>"; };
-		182413B6188FC9D50064B28F /* RangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeSlider.m; sourceTree = "<group>"; };
-		182413B8188FDE700064B28F /* JLPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JLPopupView.h; path = Views/JLPopupView.h; sourceTree = "<group>"; };
-		182413B9188FDE700064B28F /* JLPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JLPopupView.m; path = Views/JLPopupView.m; sourceTree = "<group>"; };
 		182413BB18901F520064B28F /* FakeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeData.h; path = FakeData/FakeData.h; sourceTree = "<group>"; };
 		182413BC18901F520064B28F /* FakeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeData.m; path = FakeData/FakeData.m; sourceTree = "<group>"; };
 		182D50AF1890C05C0079A6DF /* CTListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListView.h; path = Views/CTListView.h; sourceTree = "<group>"; };
@@ -127,6 +124,10 @@
 		186012D4189F3BEC002500E6 /* MapBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapBottomBar.m; path = Views/MapBottomBar.m; sourceTree = "<group>"; };
 		18645EF718A88C5E009CF97F /* SwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwitchButton.h; path = UI/SwitchButton.h; sourceTree = "<group>"; };
 		18645EF818A88C5E009CF97F /* SwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchButton.m; path = UI/SwitchButton.m; sourceTree = "<group>"; };
+		187204A518AE65D600C90B31 /* ANPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPopoverView.h; sourceTree = "<group>"; };
+		187204A618AE65D600C90B31 /* ANPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPopoverView.m; sourceTree = "<group>"; };
+		18858BFE18AE162400F49974 /* NMRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMRangeSlider.h; sourceTree = "<group>"; };
+		18858BFF18AE162400F49974 /* NMRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMRangeSlider.m; sourceTree = "<group>"; };
 		188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLeftSideMenuViewController.h; path = ViewControllers/CTLeftSideMenuViewController.h; sourceTree = "<group>"; };
 		188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLeftSideMenuViewController.m; path = ViewControllers/CTLeftSideMenuViewController.m; sourceTree = "<group>"; };
 		188F6CFC188E85D900EAEEFD /* CTMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewController.m; sourceTree = "<group>"; };
@@ -141,6 +142,8 @@
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
 		189763C91890FE6E006374E0 /* CTDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailView.m; path = Views/CTDetailView.m; sourceTree = "<group>"; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+ProjectButton.h"; sourceTree = "<group>"; };
+		18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+ProjectButton.m"; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -239,6 +242,7 @@
 				1893061C18A77E3900EA285E /* AppearanceSetter.m */,
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
 				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
+				18E58B4218ACE0C200E38583 /* Categories */,
 				18645EFA18A88C62009CF97F /* UI */,
 				186012CE189F2E23002500E6 /* REVMapCluster */,
 				182D50B51890D7A60079A6DF /* Cells */,
@@ -347,6 +351,10 @@
 		18645EFA18A88C62009CF97F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				18858BFE18AE162400F49974 /* NMRangeSlider.h */,
+				18858BFF18AE162400F49974 /* NMRangeSlider.m */,
+				187204A518AE65D600C90B31 /* ANPopoverView.h */,
+				187204A618AE65D600C90B31 /* ANPopoverView.m */,
 				18645EF718A88C5E009CF97F /* SwitchButton.h */,
 				18645EF818A88C5E009CF97F /* SwitchButton.m */,
 				186012D3189F3BEC002500E6 /* MapBottomBar.h */,
@@ -375,12 +383,17 @@
 				182D50B01890C05C0079A6DF /* CTListView.m */,
 				189763C81890FE6E006374E0 /* CTDetailView.h */,
 				189763C91890FE6E006374E0 /* CTDetailView.m */,
-				182413B5188FC9D50064B28F /* RangeSlider.h */,
-				182413B6188FC9D50064B28F /* RangeSlider.m */,
-				182413B8188FDE700064B28F /* JLPopupView.h */,
-				182413B9188FDE700064B28F /* JLPopupView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		18E58B4218ACE0C200E38583 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */,
+				18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -514,8 +527,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				182413BA188FDE710064B28F /* JLPopupView.m in Sources */,
-				182413B7188FC9D50064B28F /* RangeSlider.m in Sources */,
 				188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */,
 				182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */,
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
@@ -533,9 +544,12 @@
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
 				1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */,
 				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
+				18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */,
 				186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */,
 				186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */,
+				18858C0018AE162400F49974 /* NMRangeSlider.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,
+				187204A718AE65D600C90B31 /* ANPopoverView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

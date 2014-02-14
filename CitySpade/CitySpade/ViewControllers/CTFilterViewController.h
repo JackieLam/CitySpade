@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class RangeSlider;
+@class ANPopoverView;
+@class NMRangeSlider;
 
 @interface CTFilterViewController : UIViewController
 
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) RangeSlider *priceRangeSlider;
+@property (nonatomic, strong) NMRangeSlider *rangeSlider;
+@property (nonatomic, strong) ANPopoverView *popoverView; 
+@property (nonatomic, strong) UIButton *applyButton;
 
 @end

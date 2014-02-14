@@ -31,6 +31,18 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
     navController.navigationBar.opaque = YES;
     navController.navigationBar.translucent = NO;
+    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [navController.navigationBar setShadowImage:[UIImage new]];
+    
+//    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:rightSideMenu];
+//    nav3.navigationBar.opaque = YES;
+//    nav3.navigationBar.translucent = NO;
+//    [nav3.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"]
+//                       forBarPosition:UIBarPositionAny
+//                           barMetrics:UIBarMetricsDefault];
+//    
+//    [nav3.navigationBar setShadowImage:[UIImage new]];
+    
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController
                                                     containerWithCenterViewController:navController
                                                     leftMenuViewController:leftSideMenu
@@ -38,14 +50,15 @@
     container.panMode = MFSideMenuPanModeNone;
     container.shadow.enabled = NO;
 
-    CTDetailViewController *tempVC = [[CTDetailViewController alloc] init];
-    UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:tempVC];
-    tempNav.navigationBar.opaque = YES;
-    tempNav.navigationBar.translucent = NO;
+//    CTDetailViewController *tempVC = [[CTDetailViewController alloc] init];
+//    UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:tempVC];
+//    tempNav.navigationBar.opaque = YES;
+//    tempNav.navigationBar.translucent = NO;
     
 // Set appearance
     [AppearanceSetter setBarButtonAppearance];
-    self.window.rootViewController = tempNav;
+    [AppearanceSetter setSearchBarAppearance];
+    self.window.rootViewController = container;
     [self.window makeKeyAndVisible];
 
     return YES;

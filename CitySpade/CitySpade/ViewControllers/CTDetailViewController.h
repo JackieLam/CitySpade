@@ -12,6 +12,7 @@
 
 @interface CTDetailViewController : UIViewController
 
+@property (nonatomic, strong) NSDictionary *basicInfo; 
 @property (nonatomic, strong) CTDetailView *ctdetailView;
 
 @end

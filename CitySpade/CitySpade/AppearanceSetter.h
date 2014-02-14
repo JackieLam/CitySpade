@@ -12,5 +12,6 @@
 
 + (void)setBarButtonAppearance;
 + (void)setNavigationAppearance;
++ (void)setSearchBarAppearance; 
 
 @end

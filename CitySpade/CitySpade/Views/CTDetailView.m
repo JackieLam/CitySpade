@@ -57,6 +57,7 @@
     [self addSubview:self.houseImageView];
     
     [self setupBasicFactsPart];
+    [self setupTransportationInfoPart];
 }
 
 - (void)setupBasicFactsPart
@@ -125,6 +126,8 @@
     titleLabel.textColor = titleTextColor;
     titleLabel.text = @"Transportation Info";
     [self addSubview:titleLabel];
+    
+    
 }
 
 - (void)setInfosWithJSON:(NSDictionary *)json

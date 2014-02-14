@@ -222,10 +222,13 @@ didSelectAnnotationView:(MKAnnotationView *)view
     CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
     CTDetailViewController *detailViewController = [[CTDetailViewController alloc] init];
+    
+    NSDictionary *basicInfo = @{@"title": cell.titleLabel.text, @"price": cell.priceLabel.text, @"bargain": cell.bargainLabel.text, @"transport": cell.transportLabel.text, @"bed": cell.bedLabel.text, @"bath": cell.bathLabel.text};
+    detailViewController.basicInfo = basicInfo;
+    
     [self.navigationController pushViewController:detailViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
 
 
 #pragma mark - UICollectionView DataSource
