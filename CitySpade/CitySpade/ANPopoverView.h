@@ -10,8 +10,9 @@
 
 @interface ANPopoverView : UIView
 
+@property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic) float value;
-@property (nonatomic, retain) UIFont *font;
-@property (nonatomic, retain) NSString *text;
+@property (nonatomic, strong) UIFont *font;
+@property (nonatomic, strong) NSString *text;
 
 @end

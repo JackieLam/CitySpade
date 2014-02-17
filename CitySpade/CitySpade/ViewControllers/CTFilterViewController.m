@@ -138,8 +138,9 @@
     self.rangeSlider.lowerHandleImageHighlighted = image;
     self.rangeSlider.upperHandleImageHighlighted = image;
     
-    self.rangeSlider.lowerValue = 20;
-    self.rangeSlider.upperValue = 80;
+    self.rangeSlider.minimumValue = 0;
+    self.rangeSlider.maximumValue = 9000;
+    self.rangeSlider.minimumRange = 1000;
     
     self.popoverView = [[ANPopoverView alloc] initWithFrame:CGRectZero];
     self.popoverView.backgroundColor = [UIColor clearColor];
@@ -163,7 +164,7 @@
     middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5;
     middleCenter.y = lowerCenter.y;
     self.popoverView.center = middleCenter;
-    self.popoverView.value = slider.upperValue;
+    self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
 }
 
 @end
