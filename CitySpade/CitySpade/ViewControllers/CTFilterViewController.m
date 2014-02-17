@@ -38,6 +38,12 @@
     [self setSegments];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self updateRangeLabel:self.rangeSlider];
+}
+
 - (void)setTitleAttribute
 {
     UIView *white = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-50.0f, 66)];
@@ -125,11 +131,11 @@
     UIImage* image = nil;
     
     image = [UIImage imageNamed:@"slider_bg"];
-    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 5.0, 0.0, 5.0)];
+//    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 5.0, 0.0, 5.0)];
     self.rangeSlider.trackBackgroundImage = image;
     
     image = [UIImage imageNamed:@"slider_highlight_bg"];
-    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 7.0, 0.0, 7.0)];
+//    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 7.0, 0.0, 7.0)];
     self.rangeSlider.trackImage = image;
     
     image = [UIImage imageNamed:@"slider_handle"];
@@ -142,29 +148,33 @@
     
     self.rangeSlider.minimumValue = 0;
     self.rangeSlider.maximumValue = 9000;
+    
+    self.rangeSlider.upperValue = 9000;
+    self.rangeSlider.lowerValue = 0;
+    
     self.rangeSlider.minimumRange = 1000;
+    [self.rangeSlider addTarget:self action:@selector(updateRangeLabel:) forControlEvents:UIControlEventValueChanged];
     
     self.popoverView = [[ANPopoverView alloc] initWithFrame:CGRectZero];
     self.popoverView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.popoverView];
-    [self updateRangeLabel:self.rangeSlider];
     
-    [self.rangeSlider addTarget:self action:@selector(updateRangeLabel:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.popoverView];
+    
     [self.view addSubview:self.rangeSlider];
 }
 
 - (void)updateRangeLabel:(NMRangeSlider *)slider
 {
-    NSLog(@"Slider Range: %f - %f", slider.lowerValue, slider.upperValue);
     CGPoint lowerCenter;
-    lowerCenter.x = slider.lowerCenter.x + slider.frame.origin.x;
+    lowerCenter.x = slider.lowerCenter.x;
     lowerCenter.y = slider.center.y - 30.0f;
     CGPoint upperCenter;
-    upperCenter.x = slider.upperCenter.x + slider.frame.origin.x;
+    upperCenter.x = slider.upperCenter.x;
     upperCenter.y = slider.center.y - 30.0f;
     CGPoint middleCenter;
     middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5;
     middleCenter.y = lowerCenter.y;
+    
     self.popoverView.center = middleCenter;
     self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
 }

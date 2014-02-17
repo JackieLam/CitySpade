@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "CitySpade.png"
+      "filename" : "leftside_CitySpade.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "CitySpade@2x.png"
+      "filename" : "leftside_CitySpade@2x.png"
     }
   ],
   "info" : {

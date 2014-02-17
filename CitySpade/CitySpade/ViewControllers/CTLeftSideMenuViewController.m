@@ -52,7 +52,7 @@
 #pragma mark - TableView DataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -65,10 +65,7 @@
         return 2;
     }
     else if (section == 2) {
-        return 4;
-    }
-    else if (section == 3) {
-        return 1;
+        return 5;
     }
     return defaultCount;
 }
@@ -84,9 +81,6 @@
     }
     else if (section == 2) {
         return @"Company";
-    }
-    else if (section == 3) {
-        return @"Our Blog";
     }
         
     return defaultHeader;
@@ -106,19 +100,75 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (indexPath.section == 0) {
-        cell.imageView.image = [UIImage imageNamed:@"leftside_login"];
-        cell.textLabel.text = @"Login";
+        switch (indexPath.row) {
+            case 0:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_login"];
+                cell.textLabel.text = @"Login";
+            }
+                break;
+            case 1:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_mysaves"];
+                cell.textLabel.text = @"My Saves";
+            }
+            default:
+                break;
+        }
     }
     else if (indexPath.section == 1) {
-        if (indexPath.row == 0) cell.textLabel.text = @"For Sale";
-        else if (indexPath.row == 1) cell.textLabel.text = @"For Rent";
-        else if (indexPath.row == 2) cell.textLabel.text = @"My Saves";
+        switch (indexPath.row) {
+            case 0:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_forsale"];
+                cell.textLabel.text = @"For Sale";
+            }
+                break;
+            case 1:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_forrent"];
+                cell.textLabel.text = @"For Rent";
+            }
+            default:
+                break;
+        }
     }
     else if (indexPath.section == 2) {
-        if (indexPath.row == 0) cell.textLabel.text = @"Leave Feedback";
-        else if (indexPath.row == 1) cell.textLabel.text = @"Rate this App";
-        else if (indexPath.row == 2) cell.textLabel.text = @"Share this App";
-        else if (indexPath.row == 3) cell.textLabel.text = @"Settings";
+        switch (indexPath.row) {
+            case 0:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_blog"];
+                cell.textLabel.text = @"Our Blogs";
+            }
+                break;
+            case 1:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_about"];
+                cell.textLabel.text = @"About";
+            }
+                break;
+            case 2:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_support"];
+                cell.textLabel.text = @"Support";
+            }
+                break;
+            case 3:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_privacy"];
+                cell.textLabel.text = @"Privacy";
+            }
+                break;
+            case 4:
+            {
+                cell.imageView.image = [UIImage imageNamed:@"leftside_termofuse"];
+                cell.textLabel.text = @"Term of use";
+            }
+                break;
+                
+            default:
+                break;
+        }
     }
     return cell;
 }

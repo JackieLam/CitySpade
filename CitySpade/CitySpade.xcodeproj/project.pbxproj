@@ -51,11 +51,11 @@
 		188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F6CFC188E85D900EAEEFD /* CTMapViewController.m */; };
 		1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061518A4BE7F00EA285E /* CTCollectionCell.m */; };
 		1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061C18A77E3900EA285E /* AppearanceSetter.m */; };
-		1893061F18A7800F00EA285E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893061E18A7800F00EA285E /* Images.xcassets */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
+		18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD0C0318B1FD70000DBE87 /* Images.xcassets */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -137,7 +137,6 @@
 		1893061518A4BE7F00EA285E /* CTCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTCollectionCell.m; path = Cells/CTCollectionCell.m; sourceTree = "<group>"; };
 		1893061B18A77E3900EA285E /* AppearanceSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppearanceSetter.h; sourceTree = "<group>"; };
 		1893061C18A77E3900EA285E /* AppearanceSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppearanceSetter.m; sourceTree = "<group>"; };
-		1893061E18A7800F00EA285E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		189763C51890FD9C006374E0 /* CTDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailViewController.h; path = ViewControllers/CTDetailViewController.h; sourceTree = "<group>"; };
 		189763C61890FD9C006374E0 /* CTDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailViewController.m; path = ViewControllers/CTDetailViewController.m; sourceTree = "<group>"; };
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
@@ -147,6 +146,7 @@
 		18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+ProjectButton.m"; sourceTree = "<group>"; };
 		18FD0C0018B1C842000DBE87 /* BedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BedSegment.h; path = UI/BedSegment.h; sourceTree = "<group>"; };
 		18FD0C0118B1C842000DBE87 /* BedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BedSegment.m; path = UI/BedSegment.m; sourceTree = "<group>"; };
+		18FD0C0318B1FD70000DBE87 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -238,7 +238,7 @@
 		1817C741188CBD68003AC430 /* CitySpade */ = {
 			isa = PBXGroup;
 			children = (
-				1893061E18A7800F00EA285E /* Images.xcassets */,
+				18FD0C0318B1FD70000DBE87 /* Images.xcassets */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
 				1893061B18A77E3900EA285E /* AppearanceSetter.h */,
@@ -478,7 +478,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1893061F18A7800F00EA285E /* Images.xcassets in Resources */,
+				18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */,
 				1817C79F188D546B003AC430 /* GoogleMaps.bundle in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 			);
