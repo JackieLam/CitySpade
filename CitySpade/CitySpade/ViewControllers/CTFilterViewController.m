@@ -9,6 +9,7 @@
 #import "CTFilterViewController.h"
 #import "NMRangeSlider.h"
 #import "ANPopoverView.h"
+#import "BedSegment.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define thisBackgroundColor [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0f]
@@ -34,19 +35,23 @@
     [self setApplyButton];
     [self setSections];
     [self setSlider];
+    [self setSegments];
 }
 
 - (void)setTitleAttribute
 {
+    UIView *white = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-50.0f, 66)];
+    white.backgroundColor = [UIColor whiteColor];
     
-//    UIColor *color = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
-//    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:15.0f];
-//    NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
-//    [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
-//    [navBarTextAttributes setObject:color forKey:NSForegroundColorAttributeName];
-//    
-//    self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
-//    self.title = @"Search Refine";
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:white.bounds];
+    titleLabel.frame = CGRectOffset(titleLabel.frame, 0, 10);
+    titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:15.0f];
+    titleLabel.textColor = [UIColor colorWithRed:91.0/255.0 green:91.0/255.0 blue:91.0/255.0 alpha:1.0f];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = @"Search Refine";
+    
+    [white addSubview:titleLabel];
+    [self.view addSubview:white];
 }
 
 - (void)setSearchBar
@@ -54,10 +59,6 @@
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 66.0f, 195.0f, 43.0f)];
     searchBar.backgroundColor = [UIColor clearColor];
     searchBar.placeholder = @" New York NY             ";
-    
-//    searchBar.searchFieldBackgroundPositionAdjustment = UIOffsetMake(-10.0f, 10.0f);
-//    searchBar.searchTextPositionAdjustment = UIOffsetMake(-40.0f, 0.0f);
-//    [searchBar setPositionAdjustment:UIOffsetMake(-40.0f, 0.0f) forSearchBarIcon:UISearchBarIconSearch];
     
     [self.view addSubview:searchBar];
 }
@@ -102,13 +103,14 @@
     imageView1.backgroundColor = [UIColor clearColor];
     imageView1.image = [UIImage imageNamed:@"1white_bg"];
     imageView1.userInteractionEnabled = NO;
-    
     [self.view addSubview:imageView1];
+    
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(10, 172+66, 254, 54)];
     imageView2.backgroundColor = [UIColor clearColor];
     imageView2.image = [UIImage imageNamed:@"2white_bg"];
     imageView2.userInteractionEnabled = NO;
     [self.view addSubview:imageView2];
+    
     UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(10, 256+66, 254, 54)];
     imageView3.backgroundColor = [UIColor clearColor];
     imageView3.image = [UIImage imageNamed:@"2white_bg"];
@@ -165,6 +167,23 @@
     middleCenter.y = lowerCenter.y;
     self.popoverView.center = middleCenter;
     self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
+}
+
+- (void)setSegments
+{
+    self.bedSegmentControl = [[BedSegment alloc] initWithItems:@[@"Any", @"1", @"2", @"3", @"4+"]];
+    self.bedSegmentControl.frame = CGRectMake(18, 246, 240, 36);
+    NSDictionary *attributes1 = @{NSFontAttributeName: [UIFont fontWithName:@"Avenir-Roman" size:12.0f], NSForegroundColorAttributeName: greenColor};
+    NSDictionary *attributes2 = @{NSFontAttributeName: [UIFont fontWithName:@"Avenir-Roman" size:12.0f], NSForegroundColorAttributeName: [UIColor whiteColor]};
+    [self.bedSegmentControl setTitleTextAttributes:attributes1 forState:UIControlStateNormal];
+    [self.bedSegmentControl setTitleTextAttributes:attributes2 forState:UIControlStateSelected];
+    [self.view addSubview:self.bedSegmentControl];
+    
+    self.bathSegmentControl = [[BedSegment alloc] initWithItems:@[@"Any", @"1", @"2", @"3", @"4+"]];
+    self.bathSegmentControl.frame = CGRectMake(18, 330, 240, 36);
+    [self.bathSegmentControl setTitleTextAttributes:attributes1 forState:UIControlStateNormal];
+    [self.bathSegmentControl setTitleTextAttributes:attributes2 forState:UIControlStateSelected];
+    [self.view addSubview:self.bathSegmentControl];
 }
 
 @end

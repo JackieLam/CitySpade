@@ -10,11 +10,14 @@
 
 @class ANPopoverView;
 @class NMRangeSlider;
+@class BedSegment;
 
 @interface CTFilterViewController : UIViewController
 
 @property (nonatomic, strong) NMRangeSlider *rangeSlider;
 @property (nonatomic, strong) ANPopoverView *popoverView; 
 @property (nonatomic, strong) UIButton *applyButton;
+@property (nonatomic, strong) BedSegment *bedSegmentControl;
+@property (nonatomic, strong) BedSegment *bathSegmentControl; 
 
 @end

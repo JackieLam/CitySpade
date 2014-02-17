@@ -27,7 +27,6 @@
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.frame = CGRectMake(0, -2.0f, popoverView.frame.size.width, popoverView.frame.size.height);
         [self addSubview:self.textLabel];
-        
     }
     return self;
 }
