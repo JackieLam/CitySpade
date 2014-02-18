@@ -24,12 +24,17 @@
 #define cellGap 20.0f
 #define cellOriginFromBottomLine 150.0f
 #define botttomHeight 44.0f
+#define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 
 @interface CTMapViewController()
 
 @property (nonatomic, strong) NSArray *places;
 @property (nonatomic, strong) NSArray *placesClicked;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeCollectionView;
+@property (nonatomic, strong) UIView *pathOverlay;
+@property (nonatomic, strong) UIPanGestureRecognizer *panDrawGesture;
+@property (nonatomic, strong) CAShapeLayer *shapeLayer;
+@property (nonatomic, strong) UIBezierPath *path;
 
 @end
 
@@ -76,7 +81,6 @@
     int count = 0;
     for (NSDictionary *place in self.places) {
         count += 1;
-        NSLog(@"count : %d", count);
         CGFloat lat = [place[@"lat"] floatValue];
         CGFloat lng = [place[@"lng"] floatValue];
         
@@ -159,7 +163,6 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     if([annotation class] == MKUserLocation.class) {
-		//userLocation = annotation;
 		return nil;
 	}
     REVClusterPin *pin = (REVClusterPin *)annotation;
@@ -205,6 +208,26 @@ didSelectAnnotationView:(MKAnnotationView *)view
         }
         else {
             [self.collectionView reloadData];
+        }
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    if (views.count > 0) {
+        UIView *firstAnnotation = [views objectAtIndex:0];
+        UIView *parentView = [firstAnnotation superview];
+        if (self.pathOverlay == nil) {
+            self.pathOverlay = [[UIView alloc] initWithFrame:parentView.frame];
+            self.pathOverlay.opaque = NO;
+            self.pathOverlay.backgroundColor = [UIColor clearColor];
+            self.panDrawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+            [self.pathOverlay addGestureRecognizer:self.panDrawGesture];
+            [parentView addSubview:self.pathOverlay];
+        }
+        
+        for (UIView *view in views) {
+            [parentView bringSubviewToFront:view];
         }
     }
 }
@@ -352,6 +375,37 @@ didSelectAnnotationView:(MKAnnotationView *)view
 - (void)currentLocationButtonClicked:(id)sender
 {
     NSLog(@"currentLocationButtonClicked");
+}
+
+- (void)handleGesture:(UIPanGestureRecognizer*)gesture
+{
+    CGPoint location = [gesture locationInView: self.pathOverlay];
+    
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        if (!self.shapeLayer)
+        {
+            self.shapeLayer = [[CAShapeLayer alloc] init];
+            self.shapeLayer.fillColor = [[UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:0.2f] CGColor];
+            self.shapeLayer.strokeColor = [greenColor CGColor];
+            self.shapeLayer.lineWidth = 5.0;
+            [self.pathOverlay.layer addSublayer:self.shapeLayer];
+        }
+        self.path = [[UIBezierPath alloc] init];
+        [self.path moveToPoint:location];
+    }
+    else if (gesture.state == UIGestureRecognizerStateChanged)
+    {
+        [self.path addLineToPoint:location];
+        self.shapeLayer.path = [self.path CGPath];
+    }
+    else if (gesture.state == UIGestureRecognizerStateEnded)
+    {
+        [self.path addLineToPoint:location];
+        [self.path closePath];
+//        [self.path fill];
+        self.shapeLayer.path = [self.path CGPath];
+    }
 }
 
 @end

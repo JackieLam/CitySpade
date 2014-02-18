@@ -14,7 +14,6 @@
 
 @interface REVClusterBlock : NSObject {
     REVAnnotationsCollection *annotationsCollection;
-    
     MKMapRect blockRect;
 }
 

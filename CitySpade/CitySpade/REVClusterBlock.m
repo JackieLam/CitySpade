@@ -33,14 +33,14 @@
     if( [self count] == 1 )
     {
         return [self getAnnotationForIndex:0];
-    } else if ( [self count] > 1 )
+    }
+    else if ( [self count] > 1 )
     {
-        
         double x = [annotationsCollection xSum] / [annotationsCollection count];
         double y = [annotationsCollection ySum] / [annotationsCollection count];
         
         CLLocationCoordinate2D location = MKCoordinateForMapPoint(MKMapPointMake(x, y));
-        #if !__has_feature(objc_arc)
+#if !__has_feature(objc_arc)
         REVClusterPin *pin = [[[REVClusterPin alloc] init] autorelease];
 #else
         REVClusterPin *pin = [[REVClusterPin alloc] init];
@@ -48,7 +48,6 @@
         pin.coordinate = location;
         pin.nodes = [annotationsCollection collection];
         return pin;
-
     }
     return nil;
 }

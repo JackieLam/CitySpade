@@ -17,8 +17,8 @@
     NSString *title;
     NSString *subtitle;
     NSArray *nodes;
-    
 }
+
 @property(nonatomic, retain) NSArray *nodes;
 @property(nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property(nonatomic, copy) NSString *thumbImageLink;

@@ -14,6 +14,7 @@
 @implementation REVClusterAnnotationView
 
 @synthesize coordinate;
+@synthesize annotations;
 
 - (id) initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -30,14 +31,22 @@
     return self;
 }
 
-- (void) setClusterText:(NSString *)text
+- (void)setClusterText:(NSString *)text
 {
     label.text = text;
+}
+
+- (void)setAnnotations:(NSArray *)annotationlist
+{
+    if (!self.annotations)
+        self.annotations = [NSArray array];
+    self.annotations = annotationlist;
 }
 
 - (void) dealloc
 {
     [label release], label = nil;
+    [annotations release], annotations = nil;
     [super dealloc];
 }
 

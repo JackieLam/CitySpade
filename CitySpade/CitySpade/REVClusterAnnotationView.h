@@ -13,9 +13,11 @@
 
 @interface REVClusterAnnotationView : MKAnnotationView <MKAnnotation> {
     UILabel *label;
+    NSArray *annotations;
 }
 - (void) setClusterText:(NSString *)text;
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, retain) NSArray *annotations;
 
 @end
