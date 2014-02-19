@@ -23,8 +23,8 @@ typedef enum {
 @property (nonatomic, assign) CGPoint panGestureOrigin;
 @property (nonatomic, assign) CGFloat panGestureVelocity;
 @property (nonatomic, assign) MFSideMenuPanDirection panDirection;
-
 @property (nonatomic, assign) BOOL viewHasAppeared;
+
 @end
 
 @implementation MFSideMenuContainerViewController
@@ -76,6 +76,11 @@ typedef enum {
 
 - (void)setDefaultSettings {
     if(self.menuContainerView) return;
+    
+    CGRect viewFrame = [UIScreen mainScreen].bounds;
+    self.blackTransparentView = [[UIView alloc] initWithFrame:viewFrame];
+    self.blackTransparentView.backgroundColor = [UIColor blackColor];
+    self.blackTransparentView.alpha = 0.3;
     
     self.menuContainerView = [[UIView alloc] init];
     self.menuState = MFSideMenuStateClosed;
@@ -284,6 +289,8 @@ typedef enum {
     if(self.menuState == MFSideMenuStateLeftMenuOpen) {
         [self setMenuState:MFSideMenuStateClosed completion:completion];
     } else {
+        UIViewController *center = self.centerViewController;
+        [center.view addSubview:self.blackTransparentView];
         [self setMenuState:MFSideMenuStateLeftMenuOpen completion:completion];
     }
 }
@@ -292,6 +299,8 @@ typedef enum {
     if(self.menuState == MFSideMenuStateRightMenuOpen) {
         [self setMenuState:MFSideMenuStateClosed completion:completion];
     } else {
+        UIViewController *center = self.centerViewController;
+        [center.view addSubview:self.blackTransparentView];
         [self setMenuState:MFSideMenuStateRightMenuOpen completion:completion];
     }
 }
@@ -309,6 +318,7 @@ typedef enum {
 }
 
 - (void)closeSideMenuCompletion:(void (^)(void))completion {
+    [self.blackTransparentView removeFromSuperview];
     [self setCenterViewControllerOffset:0 animated:YES completion:completion];
 }
 

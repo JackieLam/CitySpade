@@ -28,6 +28,7 @@
 
 @interface CTMapViewController()
 
+@property (nonatomic, strong) NSMutableArray *pins;
 @property (nonatomic, strong) NSArray *places;
 @property (nonatomic, strong) NSArray *placesClicked;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeCollectionView;
@@ -45,7 +46,7 @@
 - (void)loadView
 {
     [super loadView];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.places = [NSArray array];
 // Setup the navigation bar
     [self setupMenuBarButtonItems];
@@ -77,7 +78,7 @@
     NSArray *json = [NSJSONSerialization JSONObjectWithData:fakeData.points options:kNilOptions error:nil];
     self.places = [NSArray arrayWithArray:json];
     
-    NSMutableArray *pins = [NSMutableArray array];
+    self.pins = [NSMutableArray array];
     int count = 0;
     for (NSDictionary *place in self.places) {
         count += 1;
@@ -89,9 +90,9 @@
         pin.title = place[@"title"];
         pin.subtitle = place[@"contact_tel"];
         pin.coordinate = newCoord;
-        [pins addObject:pin];
+        [self.pins addObject:pin];
     }
-    [self.ctmapView addAnnotations:pins];
+    [self.ctmapView addAnnotations:self.pins];
 }
 
 - (void)viewDidLoad
@@ -121,25 +122,6 @@
     [self.view addSubview:self.mapBottomBar];
 }
 
--(void)segmentAction:(UISegmentedControl*)sender
-{
-    if (sender.selectedSegmentIndex == 0) {
-        [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-            [self.ctlistView removeFromSuperview];
-            [self.view addSubview:self.ctmapView];
-            [self.view addSubview:self.mapBottomBar];
-        }];
-    }
-    else {
-        [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-            [self.ctmapView removeFromSuperview];
-            [self.view addSubview:self.ctlistView];
-            [self.view addSubview:self.mapBottomBar];
-            [self.ctlistView loadPlacesToList:self.places];
-        }];
-    }
-}
-
 - (void)setupCollectionView
 {
     CGRect collectionViewFrame = CGRectMake(0, self.view.frame.size.height - cellOriginFromBottomLine, self.view.frame.size.width, cellHeight);
@@ -166,6 +148,7 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
+    NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     if([annotation class] == MKUserLocation.class) {
 		return nil;
 	}
@@ -194,6 +177,7 @@
 - (void)mapView:(MKMapView *)mapView
 didSelectAnnotationView:(MKAnnotationView *)view
 {
+    NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     REVClusterPin *annotation = (REVClusterPin *)view.annotation;
     if (annotation.nodes == nil) self.placesClicked = [NSArray arrayWithObject:annotation];
     else
@@ -218,6 +202,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
+    NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     if (views.count > 0) {
         UIView *firstAnnotation = [views objectAtIndex:0];
         UIView *parentView = [firstAnnotation superview];
@@ -373,6 +358,26 @@ didSelectAnnotationView:(MKAnnotationView *)view
 }
 
 #pragma mark - MapBottomBar Button
+
+-(void)segmentAction:(UISegmentedControl*)sender
+{
+    if (sender.selectedSegmentIndex == 0) {
+        [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+            [self.ctlistView removeFromSuperview];
+            [self.view addSubview:self.ctmapView];
+            [self.view bringSubviewToFront:self.mapBottomBar];
+        }];
+    }
+    else {
+        [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+            [self.ctmapView removeFromSuperview];
+            [self.view insertSubview:self.ctlistView belowSubview:self.mapBottomBar];
+            [self.view bringSubviewToFront:self.mapBottomBar];
+            [self.ctlistView loadPlacesToList:self.places];
+        }];
+    }
+}
+
 - (void)saveButtonClicked:(id)sender
 {
     NSLog(@"saveButtonClicked");
@@ -386,6 +391,12 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (void)cancelButtonClicked:(id)sender
 {
+    if (self.path) {
+        [self.path removeAllPoints];
+        self.shapeLayer.path = [self.path CGPath];
+    }
+    [self.ctmapView recoverFromSearch];
+    self.pathOverlay.userInteractionEnabled = NO;
     [self.mapBottomBar resetBarState:BarStateMapDefault];
 }
 
@@ -422,6 +433,19 @@ didSelectAnnotationView:(MKAnnotationView *)view
         [self.path addLineToPoint:location];
         [self.path closePath];
         self.shapeLayer.path = [self.path CGPath];
+        
+        [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+        NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
+        NSMutableArray *newAnnotations = [NSMutableArray array];
+        for (REVClusterPin *pin in self.pins) {
+            CLLocationCoordinate2D coords = pin.coordinate;
+            CGPoint loc = [self.ctmapView convertCoordinate:coords toPointToView: self.pathOverlay];
+            if ([self.path containsPoint:loc]) {
+                [newAnnotations addObject:pin];
+            }
+        }
+        [self.ctmapView addAnnotations:newAnnotations];
+        NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     }
 }
 

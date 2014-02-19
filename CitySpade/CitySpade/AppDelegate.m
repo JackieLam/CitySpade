@@ -34,15 +34,6 @@
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [navController.navigationBar setShadowImage:[UIImage new]];
     
-//    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:rightSideMenu];
-//    nav3.navigationBar.opaque = YES;
-//    nav3.navigationBar.translucent = NO;
-//    [nav3.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"]
-//                       forBarPosition:UIBarPositionAny
-//                           barMetrics:UIBarMetricsDefault];
-//    
-//    [nav3.navigationBar setShadowImage:[UIImage new]];
-    
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController
                                                     containerWithCenterViewController:navController
                                                     leftMenuViewController:leftSideMenu

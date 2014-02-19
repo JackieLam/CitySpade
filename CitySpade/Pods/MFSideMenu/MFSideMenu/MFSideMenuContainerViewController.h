@@ -38,6 +38,8 @@ typedef enum {
                                                   leftMenuViewController:(id)leftMenuViewController
                                                  rightMenuViewController:(id)rightMenuViewController;
 
+@property (nonatomic, strong) UIView *blackTransparentView;
+
 @property (nonatomic, strong) id centerViewController;
 @property (nonatomic, strong) UIViewController *leftMenuViewController;
 @property (nonatomic, strong) UIViewController *rightMenuViewController;

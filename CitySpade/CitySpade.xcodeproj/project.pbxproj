@@ -322,13 +322,13 @@
 		186012CE189F2E23002500E6 /* REVMapCluster */ = {
 			isa = PBXGroup;
 			children = (
+				186012C1189F2E00002500E6 /* REVClusterMap.h */,
 				186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */,
 				186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */,
 				186012BD189F2E00002500E6 /* REVClusterBlock.h */,
 				186012BE189F2E00002500E6 /* REVClusterBlock.m */,
 				186012BF189F2E00002500E6 /* REVClusterManager.h */,
 				186012C0189F2E00002500E6 /* REVClusterManager.m */,
-				186012C1189F2E00002500E6 /* REVClusterMap.h */,
 				186012C2189F2E00002500E6 /* REVClusterMapView.h */,
 				186012C3189F2E00002500E6 /* REVClusterMapView.m */,
 				186012CF189F2E50002500E6 /* Annotation */,

@@ -19,7 +19,7 @@
 
 @implementation REVClusterManager
 
-
+//cluster the annos according to the viewBounds of the map
 + (NSArray *) clusterAnnotationsForMapView:(MKMapView *)mapView forAnnotations:(NSArray *)pins blocks:(NSUInteger)blocks minClusterLevel:(NSUInteger)minClusterLevel
 {
     NSMutableArray *visibleAnnotations = [NSMutableArray array];

@@ -23,7 +23,6 @@
 @synthesize blocks;
 @synthesize delegate;
 
-
 - (id) initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -47,6 +46,7 @@
 - (void) setup
 {
     annotationsCopy = nil;
+    annotationsBackup = nil;
     
     self.minimumClusterLevel = 100000;
     self.blocks = 4;
@@ -60,6 +60,7 @@
 - (void)dealloc
 {
     [annotationsCopy release];
+    [annotationsBackup release];
     [super dealloc];
 }
 #endif
@@ -200,7 +201,6 @@
     }
     
     NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-    //NSLog(@"count:: %i",[add count]);
     [super addAnnotations:add];
     
     if( [delegate respondsToSelector:@selector(mapView:regionDidChangeAnimated:)] )
@@ -221,19 +221,6 @@
     return YES;
 }
 
-- (void) addAnnotations:(NSArray *)annotations
-{
-    #if !__has_feature(objc_arc)
-    [annotationsCopy release];
-#endif
-    annotationsCopy = [annotations copy];
-    
-    NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-    
-    [super addAnnotations:add];
-}
-
-
 - (void) setMaximumClusterLevel:(NSUInteger)value
 {
     if ( value > 419430 )
@@ -251,6 +238,40 @@
     else 
         blocks = round(value);
     
+}
+
+#pragma mark -
+#pragma mark - Function Modified
+//reset the annotationsCopy
+- (void)addAnnotations:(NSArray *)annotations
+{
+    if (annotationsCopy != nil) {
+#if !__has_feature(objc_arc)
+        [annotationsBackup release];
+#endif
+        annotationsBackup = [annotationsCopy copy];
+    }
+#if !__has_feature(objc_arc)
+    [annotationsCopy release];
+#endif
+    annotationsCopy = [annotations copy];
+    
+    //*add reflect number of clusters added to the view
+    //but annotationsCopy represent the total number
+    
+    NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
+    
+    [super addAnnotations:add];
+}
+
+- (void)recoverFromSearch
+{
+#if !__has_feature(objc_arc)
+    [annotationsCopy release];
+#endif
+    annotationsCopy = [annotationsBackup copy];
+    NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
+    [super addAnnotations:add];
 }
 
 @end
