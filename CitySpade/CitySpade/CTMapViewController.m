@@ -112,8 +112,12 @@
     CGFloat bottomHeight = 52;
     CGRect bottomFrame = CGRectMake(0, self.ctmapView.frame.size.height - bottomHeight, screenFrame.size.width, bottomHeight);
     self.mapBottomBar = [[MapBottomBar alloc] initWithFrame:bottomFrame];
+    self.mapBottomBar.barState = BarStateMapDefault;
     [self.mapBottomBar.segmentControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [self.mapBottomBar.saveButton addTarget:self action:@selector(saveButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapBottomBar.drawButton addTarget:self action:@selector(drawButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapBottomBar.cancelButton addTarget:self action:@selector(cancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapBottomBar.clearButton addTarget:self action:@selector(clearButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.mapBottomBar];
 }
 
@@ -221,6 +225,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
             self.pathOverlay = [[UIView alloc] initWithFrame:parentView.frame];
             self.pathOverlay.opaque = NO;
             self.pathOverlay.backgroundColor = [UIColor clearColor];
+            self.pathOverlay.userInteractionEnabled = NO;
             self.panDrawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
             [self.pathOverlay addGestureRecognizer:self.panDrawGesture];
             [parentView addSubview:self.pathOverlay];
@@ -367,14 +372,27 @@ didSelectAnnotationView:(MKAnnotationView *)view
                                            action:@selector(backButtonPressed:)];
 }
 
-#pragma mark - Handle the button click
+#pragma mark - MapBottomBar Button
 - (void)saveButtonClicked:(id)sender
 {
     NSLog(@"saveButtonClicked");
 }
-- (void)currentLocationButtonClicked:(id)sender
+
+- (void)drawButtonClicked:(id)sender
 {
-    NSLog(@"currentLocationButtonClicked");
+    [self.mapBottomBar resetBarState:BarStateMapDraw];
+    self.pathOverlay.userInteractionEnabled = YES;
+}
+
+- (void)cancelButtonClicked:(id)sender
+{
+    [self.mapBottomBar resetBarState:BarStateMapDefault];
+}
+
+- (void)clearButtonClicked:(id)sender
+{
+    [self.path removeAllPoints];
+    self.shapeLayer.path = [self.path CGPath];
 }
 
 - (void)handleGesture:(UIPanGestureRecognizer*)gesture
@@ -403,7 +421,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
     {
         [self.path addLineToPoint:location];
         [self.path closePath];
-//        [self.path fill];
         self.shapeLayer.path = [self.path CGPath];
     }
 }
