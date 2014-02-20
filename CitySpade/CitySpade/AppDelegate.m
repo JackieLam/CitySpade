@@ -23,6 +23,7 @@
 {
 //    [GMSServices provideAPIKey:kAPIKey];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
 
     CTLeftSideMenuViewController *leftSideMenu = [[CTLeftSideMenuViewController alloc] init];
     CTFilterViewController *rightSideMenu = [[CTFilterViewController alloc] init];

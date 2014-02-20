@@ -193,7 +193,6 @@
 
 - (void) mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    
     if( [self mapViewDidZoom] )
     {
         [super removeAnnotations:self.annotations];

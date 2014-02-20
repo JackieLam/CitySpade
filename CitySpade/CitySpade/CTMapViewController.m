@@ -18,6 +18,8 @@
 #import "REVClusterPin.h"
 #import "REVClusterAnnotationView.h"
 #import "MapBottomBar.h"
+#import "RESTfulEngine.h"
+#import "Listing.h"
 
 #define cellHeight 130.0f
 #define cellWidth 290.0f
@@ -27,11 +29,15 @@
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 
 @interface CTMapViewController()
+{
+    double previousZoomLevel;
+}
 
 @property (nonatomic, strong) NSMutableArray *pins;
 @property (nonatomic, strong) NSArray *places;
 @property (nonatomic, strong) NSArray *placesClicked;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeCollectionView;
+//Drawing related property
 @property (nonatomic, strong) UIView *pathOverlay;
 @property (nonatomic, strong) UIPanGestureRecognizer *panDrawGesture;
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
@@ -62,6 +68,7 @@
     coordinate.latitude = 40.747;
     coordinate.longitude = -74;
     self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
+    previousZoomLevel = self.ctmapView.region.span.longitudeDelta;
     
 // Setup BottomBar
     [self setupBottomBar];
@@ -73,26 +80,26 @@
 // Setup collectionView
     [self setupCollectionView];
     
-//Load the pins onto the map
-    FakeData *fakeData = [[FakeData alloc] init];
-    NSArray *json = [NSJSONSerialization JSONObjectWithData:fakeData.points options:kNilOptions error:nil];
-    self.places = [NSArray arrayWithArray:json];
-    
-    self.pins = [NSMutableArray array];
-    int count = 0;
-    for (NSDictionary *place in self.places) {
-        count += 1;
-        CGFloat lat = [place[@"lat"] floatValue];
-        CGFloat lng = [place[@"lng"] floatValue];
+// RESTfulEngine
+    NSDictionary *dict = @{@"limit": @"10"};
+    [RESTfulEngine loadListingsWithQuery:dict onSucceeded:^(NSMutableArray *resultArray) {
         
-        CLLocationCoordinate2D newCoord = {lat, lng};
-        REVClusterPin *pin = [[REVClusterPin alloc] init];
-        pin.title = place[@"title"];
-        pin.subtitle = place[@"contact_tel"];
-        pin.coordinate = newCoord;
-        [self.pins addObject:pin];
-    }
-    [self.ctmapView addAnnotations:self.pins];
+        self.pins = [NSMutableArray array];
+        for (Listing *listing in resultArray) {
+            
+            REVClusterPin *pin = [[REVClusterPin alloc] init];
+            pin.title = listing.title;
+            pin.subtitle = [[NSNumber numberWithDouble:listing.price] stringValue];
+            pin.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
+            [self.pins addObject:pin];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.ctmapView addAnnotations:self.pins];
+        });
+        
+    } onError:^(NSError *engineError) {
+        //
+    }];
 }
 
 - (void)viewDidLoad
@@ -148,7 +155,6 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     if([annotation class] == MKUserLocation.class) {
 		return nil;
 	}
@@ -177,7 +183,6 @@
 - (void)mapView:(MKMapView *)mapView
 didSelectAnnotationView:(MKAnnotationView *)view
 {
-    NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     REVClusterPin *annotation = (REVClusterPin *)view.annotation;
     if (annotation.nodes == nil) self.placesClicked = [NSArray arrayWithObject:annotation];
     else
@@ -202,7 +207,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
-    NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     if (views.count > 0) {
         UIView *firstAnnotation = [views objectAtIndex:0];
         UIView *parentView = [firstAnnotation superview];
@@ -386,6 +390,9 @@ didSelectAnnotationView:(MKAnnotationView *)view
 - (void)drawButtonClicked:(id)sender
 {
     [self.mapBottomBar resetBarState:BarStateMapDraw];
+    self.ctmapView.zoomEnabled = NO;
+    self.ctmapView.scrollEnabled = NO;
+    self.ctmapView.rotateEnabled = NO;
     self.pathOverlay.userInteractionEnabled = YES;
 }
 
@@ -396,6 +403,9 @@ didSelectAnnotationView:(MKAnnotationView *)view
         self.shapeLayer.path = [self.path CGPath];
     }
     [self.ctmapView recoverFromSearch];
+    self.ctmapView.zoomEnabled = YES;
+    self.ctmapView.scrollEnabled = YES;
+    self.ctmapView.rotateEnabled = YES;
     self.pathOverlay.userInteractionEnabled = NO;
     [self.mapBottomBar resetBarState:BarStateMapDefault];
 }
@@ -406,6 +416,8 @@ didSelectAnnotationView:(MKAnnotationView *)view
     self.shapeLayer.path = [self.path CGPath];
 }
 
+#pragma mark -
+#pragma mark - Handle the drawing
 - (void)handleGesture:(UIPanGestureRecognizer*)gesture
 {
     CGPoint location = [gesture locationInView: self.pathOverlay];
@@ -435,7 +447,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
         self.shapeLayer.path = [self.path CGPath];
         
         [self.ctmapView removeAnnotations:self.ctmapView.annotations];
-        NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
         NSMutableArray *newAnnotations = [NSMutableArray array];
         for (REVClusterPin *pin in self.pins) {
             CLLocationCoordinate2D coords = pin.coordinate;
@@ -445,8 +456,8 @@ didSelectAnnotationView:(MKAnnotationView *)view
             }
         }
         [self.ctmapView addAnnotations:newAnnotations];
-        NSLog(@"ANNOTATIONS COUNT : %d", [self.ctmapView.annotations count]);
     }
 }
+
 
 @end
