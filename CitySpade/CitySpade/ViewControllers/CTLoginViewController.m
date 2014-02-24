@@ -7,6 +7,7 @@
 //
 
 #import "CTLoginViewController.h"
+#import "CTRegisterViewController.h"
 #import "UIBarButtonItem+ProjectButton.h"
 
 #define titleTextColor [UIColor colorWithRed:91.0f/255.0f green:91.0f/255.0f blue:91.0f/255.0f alpha:1.0]
@@ -39,7 +40,6 @@
     // Do any additional setup after loading the view from its nib.
     [self customizeAppearance];
     self.title = @"Sign up";
-//    self.navigationItem.leftBarButtonItem = [UIBarButtonItem createButtonWithText:@"Cancel" WithTarget:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.leftBarButtonItems = [UIBarButtonItem createEdgeButtonWithText:@"Cancel" WithTarget:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.rightBarButtonItems = [UIBarButtonItem createEdgeButtonWithText:@"Submit" WithTarget:self action:@selector(submitButtonClicked:)];
 }
@@ -56,13 +56,34 @@
 
 - (void)cancelButtonClicked:(id)sender
 {
-
+    
 }
 
 - (void)submitButtonClicked:(id)sender
 {
     
 }
+
+- (IBAction)facebookButtonClicked:(id)sender
+{
+    
+}
+
+- (IBAction)registerButtonClicked:(id)sender
+{
+    CTRegisterViewController *registerVC = [[CTRegisterViewController alloc] initWithNibName:@"CTRegisterViewController" bundle:nil];
+    [self.navigationController pushViewController:registerVC animated:YES];
+}
+
+- (IBAction)forgetPasswordButtonClicked:(id)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Forgot your password?" message:@"Please enter the email address for your account. A verification code will be sent to you. Once you have received the verification code, you will be able to choose a new password for your account." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView show];
+}
+
+#pragma mark -
+#pragma mark - Customize Appearance
 
 - (void)customizeAppearance
 {
