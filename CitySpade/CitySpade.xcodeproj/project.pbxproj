@@ -56,6 +56,8 @@
 		1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061C18A77E3900EA285E /* AppearanceSetter.m */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
+		18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D052AE18B8F9A000D548FD /* CTLoginViewController.m */; };
+		18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */; };
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
 		18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD0C0318B1FD70000DBE87 /* Images.xcassets */; };
@@ -153,6 +155,9 @@
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
 		189763C91890FE6E006374E0 /* CTDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailView.m; path = Views/CTDetailView.m; sourceTree = "<group>"; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		18D052AD18B8F9A000D548FD /* CTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLoginViewController.h; path = ViewControllers/CTLoginViewController.h; sourceTree = "<group>"; };
+		18D052AE18B8F9A000D548FD /* CTLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLoginViewController.m; path = ViewControllers/CTLoginViewController.m; sourceTree = "<group>"; };
+		18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTLoginViewController.xib; path = ViewControllers/CTLoginViewController.xib; sourceTree = "<group>"; };
 		18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+ProjectButton.h"; sourceTree = "<group>"; };
 		18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+ProjectButton.m"; sourceTree = "<group>"; };
 		18FD0C0018B1C842000DBE87 /* BedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BedSegment.h; path = UI/BedSegment.h; sourceTree = "<group>"; };
@@ -412,6 +417,9 @@
 				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
 				182413B2188FC7560064B28F /* CTFilterViewController.h */,
 				182413B3188FC7560064B28F /* CTFilterViewController.m */,
+				18D052AD18B8F9A000D548FD /* CTLoginViewController.h */,
+				18D052AE18B8F9A000D548FD /* CTLoginViewController.m */,
+				18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -513,6 +521,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
 				18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 			);
@@ -578,6 +587,7 @@
 				186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */,
 				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
 				188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */,
+				18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,

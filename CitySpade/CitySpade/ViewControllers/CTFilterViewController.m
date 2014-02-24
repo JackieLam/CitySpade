@@ -80,8 +80,8 @@
     self.applyButton.titleLabel.textColor = [UIColor whiteColor];
     self.applyButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:12.5];
     [self.applyButton setTitle:@"Apply" forState:UIControlStateNormal];
-    [self.applyButton setTitle:@"Apply1" forState:UIControlStateHighlighted];
-    [self.applyButton setTitle:@"Apply2" forState:UIControlStateSelected];
+    [self.applyButton setTitle:@"Apply" forState:UIControlStateHighlighted];
+    [self.applyButton setTitle:@"Apply" forState:UIControlStateSelected];
 //    self.applyButton
     [whiteBg addSubview:self.applyButton];
     [self.view addSubview:whiteBg];

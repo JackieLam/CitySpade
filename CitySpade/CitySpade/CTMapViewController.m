@@ -81,7 +81,7 @@
     [self setupCollectionView];
     
 // RESTfulEngine
-    NSDictionary *dict = @{@"limit": @"10"};
+    NSDictionary *dict = @{@"rent": @"1"};
     [RESTfulEngine loadListingsWithQuery:dict onSucceeded:^(NSMutableArray *resultArray) {
         
         self.pins = [NSMutableArray array];

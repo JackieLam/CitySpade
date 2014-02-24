@@ -10,7 +10,8 @@
 
 @interface UIBarButtonItem (ProjectButton)
 
-+(UIBarButtonItem *)createButtonWithImage:(UIImage *)anImage WithTarget:(id)target action:(SEL)action;
 + (NSArray *)createEdgeButtonWithImage:(UIImage *)anImage WithTarget:(id)target action:(SEL)action;
++ (NSArray *)createEdgeButtonWithText:(NSString *)aString WithTarget:(id)target action:(SEL)action;
++(UIBarButtonItem *)createButtonWithText:(NSString *)aString WithTarget:(id)target action:(SEL)action;
 
 @end

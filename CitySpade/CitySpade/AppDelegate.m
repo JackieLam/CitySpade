@@ -14,6 +14,7 @@
 #import <MFSideMenu.h>
 #import "REVClusterMapView.h"
 #import "AppearanceSetter.h"
+#import "CTLoginViewController.h"
 
 //static NSString *const kAPIKey = @"AIzaSyBscWl3wXUk_Lyfqo1kz8Nljjf2K0-7eCY";
 
@@ -46,11 +47,18 @@
 //    UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:tempVC];
 //    tempNav.navigationBar.opaque = YES;
 //    tempNav.navigationBar.translucent = NO;
+    CTLoginViewController *loginVC = [[CTLoginViewController alloc] initWithNibName:@"CTLoginViewController" bundle:nil];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    navi.navigationBar.opaque = YES;
+    navi.navigationBar.translucent = NO;
+    [navi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [navi.navigationBar setShadowImage:[UIImage new]];
     
 // Set appearance
     [AppearanceSetter setBarButtonAppearance];
     [AppearanceSetter setSearchBarAppearance];
-    self.window.rootViewController = container;
+    self.window.rootViewController = navi;
+//    self.window.rootViewController = container;
     [self.window makeKeyAndVisible];
 
     return YES;
