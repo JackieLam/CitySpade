@@ -23,4 +23,7 @@
 #   define ELog(err)
 #endif
 
+#define kNotificationLoginSuccess @"didLoginSuccess"
+#define kNotificationRegisterSuccess @"didRegisterSuccess"
+
 #endif

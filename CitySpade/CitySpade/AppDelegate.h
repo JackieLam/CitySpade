@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 @class CTMapViewController;
 
@@ -15,9 +14,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) CTMapViewController *mapView;
-
-- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
-- (void)userLoggedIn;
-- (void)userLoggedOut;
 
 @end

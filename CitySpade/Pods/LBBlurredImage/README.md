@@ -19,7 +19,7 @@ If your code doesn't use ARC you can [mark this source with the compiler flag](h
 ## CocoaPods
 
 You can use [CocoaPods](http://cocoapods.org) to manage your dependencies and install *LBBlurredImage*.
-Follow the instructions on the CocoaPods site to [install the gem](https://github.com/CocoaPods/CocoaPods#installation) and add `pod 'LBBlurredImage', :git => 'git://github.com/lukabernardi/LBBlurredImage.git'` to your *Podfile*.
+Follow the instructions on the CocoaPods site to [install the gem](https://github.com/CocoaPods/CocoaPods#installation) and add `pod 'LBBlurredImage'` to your *Podfile*.
 
 
 Use

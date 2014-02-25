@@ -1,0 +1,52 @@
+//
+//  RESTfulEngine.h
+//  CitySpade
+//
+//  Created by Cho-Yeung Lam on 19/2/14.
+//  Copyright (c) 2014 Cho-Yeung Lam. All rights reserved.
+//
+//  About posting a url
+//  http://stackoverflow.com/questions/19099448/send-post-request-using-nsurlsession
+
+#import <Foundation/Foundation.h>
+
+typedef void (^VoidBlock)(void);
+typedef void (^ArrayBlock)(NSMutableArray* resultArray);
+typedef void (^ErrorBlock)(NSError* engineError);
+
+@interface RESTfulEngine : NSObject {
+    NSString *_accessToken;
+}
+
+@property (nonatomic) NSString *accessToken;
+
+////Shared Instance
+//+(RESTfulEngine *)sharedInstance;
+
+//Part One: Load the content of the list
++ (void)loadListingsWithQuery:(NSDictionary *)queryParam onSucceeded:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock;
+
++ (void)loadListingDetailWithID:(int)idNumber;
+
+//Part Two: Authentication
++ (void)loginWithName:(NSString*) loginName
+          password:(NSString*) password
+       onSucceeded:(VoidBlock) succeededBlock
+           onError:(ErrorBlock) errorBlock;
+
++ (void)logoutOnSucceeded:(VoidBlock)succeededBlock
+               onError:(ErrorBlock)errorBlock;
+
++ (void)registerWithUsername:(NSString *)userName
+                    password:(NSString *)password
+                   firstName:(NSString *)firstName
+                    lastName:(NSString *)lastName
+                 onSucceeded:(VoidBlock)succeedBlock
+                     onError:(ErrorBlock)errorBlock;
+
+//Part Three: Save Listings
++ (void)loadUserSaveList;
++ (void)addAListingToSaveListWithId:(int)idNumber;
++ (void)deleteAListingFromSaveListWithId:(int)idNumber;
+
+@end

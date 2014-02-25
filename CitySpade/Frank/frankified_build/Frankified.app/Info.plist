@@ -24,12 +24,25 @@
 	<array>
 		<string>iPhoneSimulator</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb676386132404466</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>DTPlatformName</key>
 	<string>iphonesimulator</string>
 	<key>DTSDKName</key>
 	<string>iphonesimulator7.0</string>
+	<key>FacebookAppID</key>
+	<string>676386132404466</string>
+	<key>FacebookDisplayName</key>
+	<string>CitySpade</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIDeviceFamily</key>

@@ -46,7 +46,6 @@
 		18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18645EF818A88C5E009CF97F /* SwitchButton.m */; };
 		187204A718AE65D600C90B31 /* ANPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187204A618AE65D600C90B31 /* ANPopoverView.m */; };
 		188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 188054DF18B4786F00DE5A9C /* KeyValueObserver.m */; };
-		188054E518B47DA300DE5A9C /* RESTfulEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 188054E418B47DA300DE5A9C /* RESTfulEngine.m */; };
 		188054ED18B48CB800DE5A9C /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 188054EA18B48CB800DE5A9C /* Images.m */; };
 		188054EE18B48CB800DE5A9C /* Listing.m in Sources */ = {isa = PBXBuildFile; fileRef = 188054EC18B48CB800DE5A9C /* Listing.m */; };
 		18858C0018AE162400F49974 /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 18858BFF18AE162400F49974 /* NMRangeSlider.m */; };
@@ -62,6 +61,11 @@
 		18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */; };
 		18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */; };
 		18F3477618BC3ED8006EF9A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */; };
+		18F3477A18BC4A71006EF9A7 /* FacebookDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */; };
+		18F3478018BC6DF3006EF9A7 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477E18BC6DF3006EF9A7 /* TestViewController.m */; };
+		18F3478118BC6DF3006EF9A7 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F3477F18BC6DF3006EF9A7 /* TestViewController.xib */; };
+		18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478518BC7263006EF9A7 /* RESTfulEngine.m */; };
+		18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478818BC7280006EF9A7 /* NSString+Encryption.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
 		18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD0C0318B1FD70000DBE87 /* Images.xcassets */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
@@ -136,8 +140,6 @@
 		187204A618AE65D600C90B31 /* ANPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPopoverView.m; sourceTree = "<group>"; };
 		188054DE18B4786F00DE5A9C /* KeyValueObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyValueObserver.h; sourceTree = "<group>"; };
 		188054DF18B4786F00DE5A9C /* KeyValueObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyValueObserver.m; sourceTree = "<group>"; };
-		188054E318B47DA300DE5A9C /* RESTfulEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RESTfulEngine.h; path = RESTfulEngine/RESTfulEngine.h; sourceTree = "<group>"; };
-		188054E418B47DA300DE5A9C /* RESTfulEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RESTfulEngine.m; path = RESTfulEngine/RESTfulEngine.m; sourceTree = "<group>"; };
 		188054E818B48CB800DE5A9C /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
 		188054E918B48CB800DE5A9C /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
 		188054EA18B48CB800DE5A9C /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
@@ -168,6 +170,15 @@
 		18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTRegisterViewController.xib; path = ViewControllers/CTRegisterViewController.xib; sourceTree = "<group>"; };
 		18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		18F3477718BC3FC6006EF9A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		18F3477818BC4A71006EF9A7 /* FacebookDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookDelegate.h; path = Delegate/FacebookDelegate.h; sourceTree = "<group>"; };
+		18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookDelegate.m; path = Delegate/FacebookDelegate.m; sourceTree = "<group>"; };
+		18F3477D18BC6DF3006EF9A7 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		18F3477E18BC6DF3006EF9A7 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		18F3477F18BC6DF3006EF9A7 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
+		18F3478418BC7263006EF9A7 /* RESTfulEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTfulEngine.h; sourceTree = "<group>"; };
+		18F3478518BC7263006EF9A7 /* RESTfulEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTfulEngine.m; sourceTree = "<group>"; };
+		18F3478718BC7280006EF9A7 /* NSString+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encryption.h"; sourceTree = "<group>"; };
+		18F3478818BC7280006EF9A7 /* NSString+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encryption.m"; sourceTree = "<group>"; };
 		18FD0C0018B1C842000DBE87 /* BedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BedSegment.h; path = UI/BedSegment.h; sourceTree = "<group>"; };
 		18FD0C0118B1C842000DBE87 /* BedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BedSegment.m; path = UI/BedSegment.m; sourceTree = "<group>"; };
 		18FD0C0318B1FD70000DBE87 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -268,6 +279,8 @@
 				18F3477718BC3FC6006EF9A7 /* Constants.h */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
+				18F3477818BC4A71006EF9A7 /* FacebookDelegate.h */,
+				18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */,
 				1893061B18A77E3900EA285E /* AppearanceSetter.h */,
 				1893061C18A77E3900EA285E /* AppearanceSetter.m */,
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
@@ -400,9 +413,9 @@
 		188054E618B47DB700DE5A9C /* RESTfulEngine */ = {
 			isa = PBXGroup;
 			children = (
+				18F3478418BC7263006EF9A7 /* RESTfulEngine.h */,
+				18F3478518BC7263006EF9A7 /* RESTfulEngine.m */,
 				188054E718B48CB800DE5A9C /* JSON-Models */,
-				188054E318B47DA300DE5A9C /* RESTfulEngine.h */,
-				188054E418B47DA300DE5A9C /* RESTfulEngine.m */,
 			);
 			name = RESTfulEngine;
 			sourceTree = "<group>";
@@ -434,6 +447,9 @@
 				18F3477018BB43A0006EF9A7 /* CTRegisterViewController.h */,
 				18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */,
 				18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */,
+				18F3477D18BC6DF3006EF9A7 /* TestViewController.h */,
+				18F3477E18BC6DF3006EF9A7 /* TestViewController.m */,
+				18F3477F18BC6DF3006EF9A7 /* TestViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -452,6 +468,8 @@
 		18E58B4218ACE0C200E38583 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				18F3478718BC7280006EF9A7 /* NSString+Encryption.h */,
+				18F3478818BC7280006EF9A7 /* NSString+Encryption.m */,
 				18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */,
 				18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */,
 			);
@@ -536,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */,
+				18F3478118BC6DF3006EF9A7 /* TestViewController.xib in Resources */,
 				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
 				18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
@@ -595,6 +614,7 @@
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
 				182D50B41890D77C0079A6DF /* CTListCell.m in Sources */,
 				186012CD189F2E1C002500E6 /* REVClusterAnnotationView.m in Sources */,
+				18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */,
 				18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */,
 				188054ED18B48CB800DE5A9C /* Images.m in Sources */,
 				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
@@ -604,13 +624,15 @@
 				188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */,
 				18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
+				18F3478018BC6DF3006EF9A7 /* TestViewController.m in Sources */,
+				18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
 				182413BD18901F520064B28F /* FakeData.m in Sources */,
+				18F3477A18BC4A71006EF9A7 /* FacebookDelegate.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
 				1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */,
-				188054E518B47DA300DE5A9C /* RESTfulEngine.m in Sources */,
 				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
 				18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */,
 				186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */,

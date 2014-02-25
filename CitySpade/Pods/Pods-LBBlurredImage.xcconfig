@@ -1,1 +1,1 @@
-PODS_LBBLURREDIMAGE_OTHER_LDFLAGS = -framework CoreGraphics -framework CoreImage -framework UIKit
+PODS_LBBLURREDIMAGE_OTHER_LDFLAGS = -framework Accelerate -framework CoreGraphics -framework UIKit
