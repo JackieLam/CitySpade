@@ -61,6 +61,7 @@
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
 		18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */; };
 		18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */; };
+		18F3477618BC3ED8006EF9A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
 		18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD0C0318B1FD70000DBE87 /* Images.xcassets */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
@@ -165,6 +166,8 @@
 		18F3477018BB43A0006EF9A7 /* CTRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTRegisterViewController.h; path = ViewControllers/CTRegisterViewController.h; sourceTree = "<group>"; };
 		18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTRegisterViewController.m; path = ViewControllers/CTRegisterViewController.m; sourceTree = "<group>"; };
 		18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTRegisterViewController.xib; path = ViewControllers/CTRegisterViewController.xib; sourceTree = "<group>"; };
+		18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		18F3477718BC3FC6006EF9A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		18FD0C0018B1C842000DBE87 /* BedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BedSegment.h; path = UI/BedSegment.h; sourceTree = "<group>"; };
 		18FD0C0118B1C842000DBE87 /* BedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BedSegment.m; path = UI/BedSegment.m; sourceTree = "<group>"; };
 		18FD0C0318B1FD70000DBE87 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1817C7A4188D54D1003AC430 /* CoreLocation.framework in Frameworks */,
+				18F3477618BC3ED8006EF9A7 /* FacebookSDK.framework in Frameworks */,
 				186012D2189F2F93002500E6 /* MapKit.framework in Frameworks */,
 				1817C7B8188D558C003AC430 /* CoreData.framework in Frameworks */,
 				1817C7B6188D5522003AC430 /* SystemConfiguration.framework in Frameworks */,
@@ -233,6 +237,7 @@
 		1817C73A188CBD68003AC430 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */,
 				186012D1189F2F93002500E6 /* MapKit.framework */,
 				1849AFC218950A8A00D22363 /* GoogleMaps.framework */,
 				1817C7B7188D558C003AC430 /* CoreData.framework */,
@@ -260,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				18FD0C0318B1FD70000DBE87 /* Images.xcassets */,
+				18F3477718BC3FC6006EF9A7 /* Constants.h */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
 				1893061B18A77E3900EA285E /* AppearanceSetter.h */,
@@ -672,6 +678,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: CHONGYANG CHEN (6CKWKTMF5V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -711,6 +718,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: CHONGYANG CHEN (6CKWKTMF5V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
