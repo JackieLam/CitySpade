@@ -61,8 +61,8 @@
 // Set appearance
     [AppearanceSetter setBarButtonAppearance];
     [AppearanceSetter setSearchBarAppearance];
-    self.window.rootViewController = testVC;
-//    self.window.rootViewController = container;
+//    self.window.rootViewController = testVC;
+    self.window.rootViewController = container;
     [self.window makeKeyAndVisible];
 
     return YES;

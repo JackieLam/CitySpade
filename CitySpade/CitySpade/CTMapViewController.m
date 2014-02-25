@@ -167,13 +167,17 @@
         annView = (REVClusterAnnotationView*)
         [[REVClusterAnnotationView alloc] initWithAnnotation:annotation
                                              reuseIdentifier:@"cluster"];
-    annView.image = [UIImage imageNamed:@"cluster.png"];
+    
+    NSString *numberOnCluster = [NSString stringWithFormat:@"%lu",[pin nodeCount]];
+    NSString *clusterPNGName = [NSString stringWithFormat:@"cluster%lu",(unsigned long)numberOnCluster.length];
+    annView.image = [UIImage imageNamed:clusterPNGName];
+    [(REVClusterAnnotationView*)annView setLabelFrame:CGRectMake(0, 0, annView.image.size.width, annView.image.size.height)];
     annView.canShowCallout = NO;
     
     if( [pin nodeCount] > 0 ){
         pin.title = @"___";
         [(REVClusterAnnotationView*)annView setClusterText:
-         [NSString stringWithFormat:@"%i",[pin nodeCount]]];
+         numberOnCluster];
     } else {
         [(REVClusterAnnotationView*)annView setClusterText:@"1"];
     }

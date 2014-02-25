@@ -15,8 +15,8 @@
     UILabel *label;
     NSArray *annotations;
 }
-- (void) setClusterText:(NSString *)text;
-
+- (void)setClusterText:(NSString *)text;
+- (void)setLabelFrame:(CGRect)aFrame;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) NSArray *annotations;
 

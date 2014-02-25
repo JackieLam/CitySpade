@@ -21,7 +21,8 @@
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if ( self )
     {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 26, 26)];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        //(0, 0, 26, 26)刚好覆盖整个圆圈
         [self addSubview:label];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
@@ -34,6 +35,11 @@
 - (void)setClusterText:(NSString *)text
 {
     label.text = text;
+}
+
+- (void)setLabelFrame:(CGRect)aFrame
+{
+    label.frame = aFrame;
 }
 
 - (void)setAnnotations:(NSArray *)annotationlist
