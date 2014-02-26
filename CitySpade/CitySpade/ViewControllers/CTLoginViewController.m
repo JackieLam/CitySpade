@@ -158,7 +158,13 @@
             
             [self dismissViewControllerAnimated:YES completion:^{
                 [SVProgressHUD dismiss];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoginSuccess object:self.emailTextField.text userInfo:nil];
+                
+                NSString *username = [NSString usernameWithEmail:self.emailTextField.text];
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setObject:username forKey:kUserName];
+                [defaults synchronize];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoginSuccess object:username userInfo:nil];
             }];
             
         } onError:^(NSError *engineError) {
@@ -170,7 +176,7 @@
 - (void)didRegisterSuccess:(NSNotification *)aNotification
 {
     [self dismissViewControllerAnimated:NO completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoginSuccess object:[aNotification object] userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoginSuccess object:[NSString usernameWithEmail:[aNotification object]] userInfo:nil];
     }];
 }
 

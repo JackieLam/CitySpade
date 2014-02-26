@@ -12,6 +12,7 @@
 #pragma mark - NSUserDefaults
 
 #define kAccessToken @"ACCESS_TOKEN"
+#define kUserName @"USER_NAME"
 
 #pragma mark - Debug Log
 
@@ -25,5 +26,8 @@
 
 #define kNotificationLoginSuccess @"didLoginSuccess"
 #define kNotificationRegisterSuccess @"didRegisterSuccess"
+#define kNotificationToLoadForRentListing @"toLoadForRentListing"
+#define kNotificationToLoadForSaleListing @"toLoadForSaleListing"
+#define kNotificationToLoadFilteredListing @"toLoadFilteredListing"
 
 #endif

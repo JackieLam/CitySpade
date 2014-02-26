@@ -61,24 +61,28 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
                 
-                NSError *jsonError;
-                
-                // 2 Serialize json
-                NSMutableArray *listingsJSON =
-                [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-                NSMutableArray *models = [NSMutableArray array];
-                for (id obj in listingsJSON) {
-                    Listing *newlisting = [Listing modelObjectWithDictionary:obj];
-                    [models addObject:newlisting];
-                }
-                if (!jsonError) {
-                    // 3 Call back
-                    succededBlock(models);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *jsonError;
+                    
+                    // 2 Serialize json
+                    NSMutableArray *listingsJSON =
+                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    NSMutableArray *models = [NSMutableArray array];
+                    for (id obj in listingsJSON) {
+                        Listing *newlisting = [Listing modelObjectWithDictionary:obj];
+                        [models addObject:newlisting];
+                    }
+                    if (!jsonError) {
+                        // 3 Call back
+                        succededBlock(models);
+                    }
+                });
             }
         }
         else {
-            DLog(@"Error : %@", error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+            });
         }
     }];
     [dataTask resume];
@@ -158,6 +162,7 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
                     NSString *token = loginFeedbackDict[@"token"];
                     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                     [defaults setObject:token forKey:kAccessToken];
+                    [defaults synchronize];
                     [SVProgressHUD showSuccessWithStatus:@"Login Success!"];
                     
                     // 4 Callback
@@ -167,7 +172,7 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
             else{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    DLog(@"Could not login - Status Code %d", httpResponse.statusCode);
+                    DLog(@"Could not login - Status Code %ld", (long)httpResponse.statusCode);
                     NSString *errorInfo = loginFeedbackDict[@"error"];
                     [SVProgressHUD showErrorWithStatus:errorInfo];
                     errorBlock(nil);
@@ -212,10 +217,20 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
             // 1 HTTP Response
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
-                succeededBlock();
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    // 3 Successfully logout
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults removeObjectForKey:kAccessToken];
+                    [defaults synchronize];
+                    [SVProgressHUD showSuccessWithStatus:@"Logout Success!"];
+                    
+                    // 4 Callback
+                    succeededBlock();
+                });
             }
             else {
-                DLog(@"Could not logout - Error Status Code: %d", httpResp.statusCode);
+                
             }
         }
         else {
@@ -264,6 +279,7 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
                     NSString *token = registerFeedbackDict[@"token"];
                     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                     [defaults setObject:token forKey:kAccessToken];
+                    [defaults synchronize];
                     [SVProgressHUD showSuccessWithStatus:@"Register Success"];
                     // 4 Callback
                     succeedBlock();
@@ -271,7 +287,7 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
             }
             else{
                 dispatch_async(dispatch_get_main_queue(), ^{
-//                    NSString *errorInfo = registerFeedbackDict[@"error"];
+                    
                     [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%ld", statusCode]];
                     errorBlock(nil);
                 });

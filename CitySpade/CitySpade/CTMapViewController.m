@@ -20,6 +20,7 @@
 #import "MapBottomBar.h"
 #import "RESTfulEngine.h"
 #import "Listing.h"
+#import "Constants.h"
 
 #define cellHeight 130.0f
 #define cellWidth 290.0f
@@ -81,25 +82,7 @@
     [self setupCollectionView];
     
 // RESTfulEngine
-    NSDictionary *dict = @{@"rent": @"1"};
-    [RESTfulEngine loadListingsWithQuery:dict onSucceeded:^(NSMutableArray *resultArray) {
-        
-        self.pins = [NSMutableArray array];
-        for (Listing *listing in resultArray) {
-            
-            REVClusterPin *pin = [[REVClusterPin alloc] init];
-            pin.title = listing.title;
-            pin.subtitle = [[NSNumber numberWithDouble:listing.price] stringValue];
-            pin.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
-            [self.pins addObject:pin];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.ctmapView addAnnotations:self.pins];
-        });
-        
-    } onError:^(NSError *engineError) {
-        //
-    }];
+    [self loadForRentListings];
 }
 
 - (void)viewDidLoad
@@ -111,7 +94,11 @@
     [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
     
     self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
-    self.title = @"Fake Data Here";
+    self.title = @"For Rent";
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForRentListings) name:kNotificationToLoadForRentListing object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForSaleListings) name:kNotificationToLoadForSaleListing object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFilteredListings) name:kNotificationToLoadFilteredListing object:nil];
 }
 
 - (void)setupBottomBar
@@ -149,6 +136,65 @@
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
     [self.collectionView registerClass:[CTCollectionCell class] forCellWithReuseIdentifier:@"CTCollectionCell"];
     [self.view addSubview:self.collectionView];
+}
+
+#pragma mark - 
+#pragma mark - Reload Listing
+- (void)loadForRentListings
+{
+    //Remove all annotaions first
+    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = activityIndicator;
+    [activityIndicator startAnimating];
+    
+    [RESTfulEngine loadListingsWithQuery:@{@"rent": @"1"} onSucceeded:^(NSMutableArray *resultArray) {
+        [activityIndicator stopAnimating];
+        self.navigationItem.titleView = nil;
+        self.navigationItem.title = @"For Rent";
+        [self resetAnnotationsWithResultArray:resultArray];
+    } onError:^(NSError *engineError) {
+        
+        [SVProgressHUD showErrorWithStatus:engineError.description];
+    }];
+}
+
+- (void)loadForSaleListings
+{
+    //Remove all annotations first
+    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = activityIndicator;
+    [activityIndicator startAnimating];
+    
+    [RESTfulEngine loadListingsWithQuery:@{@"rent": @"0"} onSucceeded:^(NSMutableArray *resultArray) {
+        [activityIndicator stopAnimating];
+        self.navigationItem.titleView = nil;
+        self.navigationItem.title = @"For Sale";
+        [self resetAnnotationsWithResultArray:resultArray];
+    } onError:^(NSError *engineError) {
+        
+        [SVProgressHUD showErrorWithStatus:engineError.description];
+    }];
+}
+
+- (void)loadFilteredListings
+{
+    
+}
+
+- (void)resetAnnotationsWithResultArray:(NSMutableArray *)resultArray
+{
+    self.pins = [NSMutableArray array];
+    for (Listing *listing in resultArray) {
+        
+        REVClusterPin *pin = [[REVClusterPin alloc] init];
+        pin.title = listing.title;
+        pin.subtitle = [[NSNumber numberWithDouble:listing.price] stringValue];
+        pin.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
+        [self.pins addObject:pin];
+    }
+    [self.ctmapView addAnnotations:self.pins];
 }
 
 #pragma mark - MapView delegate

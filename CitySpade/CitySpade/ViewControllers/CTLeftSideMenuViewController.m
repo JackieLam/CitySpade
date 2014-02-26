@@ -20,7 +20,7 @@
 #define textNotSelectedColor [UIColor colorWithRed:177.0/255.0 green:177.0/255.0  blue:177.0/255.0  alpha:1]
 #define textSelectedColor [UIColor whiteColor]
 
-@interface CTLeftSideMenuViewController()<UITableViewDataSource, UITableViewDelegate>
+@interface CTLeftSideMenuViewController()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIImageView *citySpadeLogo;
 @property (nonatomic, strong) UITableView *tableView;
@@ -110,8 +110,15 @@
         switch (indexPath.row) {
             case 0:
             {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_login"];
-                cell.textLabel.text = @"Login";
+                if (![[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken]) {
+                    cell.imageView.image = [UIImage imageNamed:@"leftside_login"];
+                    cell.textLabel.text = @"Login";
+                }
+                else {
+                    cell.imageView.image = [UIImage imageNamed:@"leftside_login"];
+                    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
+                    cell.textLabel.textColor = CellSelectedColor;
+                }
             }
                 break;
             case 1:
@@ -209,40 +216,47 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //Login
-            
-            CTLoginViewController *loginVC = [[CTLoginViewController alloc] initWithNibName:@"CTLoginViewController" bundle:nil];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-            nav.navigationBar.opaque = YES;
-            nav.navigationBar.translucent = NO;
-            [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-            [nav.navigationBar setShadowImage:[UIImage new]];
-            [self presentViewController:nav animated:YES completion:nil];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            if (![defaults objectForKey:kAccessToken]) { // Not logged in
+                CTLoginViewController *loginVC = [[CTLoginViewController alloc] initWithNibName:@"CTLoginViewController" bundle:nil];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                nav.navigationBar.opaque = YES;
+                nav.navigationBar.translucent = NO;
+                [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+                [nav.navigationBar setShadowImage:[UIImage new]];
+                [self presentViewController:nav animated:YES completion:nil];
+                [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            }
+            else {  // Logged in
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Log out" message:@"Are you sure to log out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Confirm", nil];
+                alertView.alertViewStyle = UIAlertViewStyleDefault;
+                alertView.delegate = self;
+                [alertView show];
+            }
         }
         else if (indexPath.row == 1) {
             //My Saves
+            [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellSelectedColor];
         }
     }
     else if (indexPath.section == 1) {
+        UINavigationController *nav = self.menuContainerViewController.centerViewController;
+        NSString *centerViewTitle = nav.navigationItem.title;
         if (indexPath.row == 0) {
             //For Sale
-            [RESTfulEngine loadListingsWithQuery:@{@"rent": @"0"} onSucceeded:^(NSMutableArray *resultArray) {
-                //
-            } onError:^(NSError *engineError) {
-                //
-            }];
+            if ([centerViewTitle  isEqual:@"For Rent"])
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadForSaleListing object:nil userInfo:nil];
         }
         else if (indexPath.row == 1) {
             //For Rent
-            [RESTfulEngine loadListingsWithQuery:@{@"rent": @"1"} onSucceeded:^(NSMutableArray *resultArray) {
-                //
-            } onError:^(NSError *engineError) {
-                //
-            }];
+            if ([centerViewTitle  isEqual:@"For Sale"])
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadForRentListing object:nil userInfo:nil];
         }
+        
+        [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+        [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellSelectedColor];
     }
-    
-    [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
-    [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellSelectedColor];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -252,12 +266,43 @@
 
 #pragma mark - 
 #pragma mark - Handle Login Success
+
 - (void)didGetUserName:(NSNotification *)aNotification
 {
     UITableViewCell *nameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    nameCell.textLabel.text = [NSString usernameWithEmail:[aNotification object]];
+    nameCell.textLabel.text = [aNotification object];
     nameCell.textLabel.frame = CGRectMake(nameCell.textLabel.frame.origin.x, nameCell.textLabel.frame.origin.y, 200, nameCell.textLabel.frame.size.height);
     nameCell.textLabel.textColor = CellSelectedColor;
+    nameCell.backgroundColor = CellNotSelectedColor;
+}
+
+#pragma mark - 
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            // Do nothing
+        }
+            break;
+        
+        case 1:
+        {
+            [RESTfulEngine logoutOnSucceeded:^{
+                UITableViewCell *nameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+                nameCell.textLabel.text = @"Login";
+                nameCell.textLabel.textColor = textNotSelectedColor;
+            } onError:^(NSError *engineError) {
+                
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
