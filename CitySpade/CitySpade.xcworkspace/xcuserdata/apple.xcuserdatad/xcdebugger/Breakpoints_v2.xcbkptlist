@@ -95,7 +95,7 @@
                   symbolName = "-[FacebookDelegate makeRequestForUserData]"
                   moduleName = "CitySpade"
                   urlString = "file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/Delegate/FacebookDelegate.m"
-                  timestampString = "415013846.009426"
+                  timestampString = "415074469.82044"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "159"
@@ -109,7 +109,7 @@
                   symbolName = "__42-[FacebookDelegate makeRequestForUserData]_block_invoke"
                   moduleName = "CitySpade"
                   urlString = "file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/Delegate/FacebookDelegate.m"
-                  timestampString = "415013846.009572"
+                  timestampString = "415074469.820595"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "159"
@@ -164,6 +164,22 @@
             startingLineNumber = "109"
             endingLineNumber = "109"
             landmarkName = "-requestUserInfo"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CitySpade/ViewControllers/CTLeftSideMenuViewController.m"
+            timestampString = "415074455.040486"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "-didGetUserName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

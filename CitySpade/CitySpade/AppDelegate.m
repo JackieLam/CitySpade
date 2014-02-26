@@ -44,19 +44,6 @@
                                                     rightMenuViewController:rightSideMenu];
     container.panMode = MFSideMenuPanModeNone;
     container.shadow.enabled = NO;
-
-//    CTDetailViewController *tempVC = [[CTDetailViewController alloc] init];
-//    UINavigationController *tempNav = [[UINavigationController alloc] initWithRootViewController:tempVC];
-//    tempNav.navigationBar.opaque = YES;
-//    tempNav.navigationBar.translucent = NO;
-    CTLoginViewController *loginVC = [[CTLoginViewController alloc] initWithNibName:@"CTLoginViewController" bundle:nil];
-    TestViewController *testVC = [[TestViewController alloc] initWithNibName:@"TestViewController" bundle:nil];
-    
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:testVC];
-    navi.navigationBar.opaque = YES;
-    navi.navigationBar.translucent = NO;
-    [navi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [navi.navigationBar setShadowImage:[UIImage new]];
     
 // Set appearance
     [AppearanceSetter setBarButtonAppearance];

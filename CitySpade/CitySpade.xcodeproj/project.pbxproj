@@ -35,6 +35,7 @@
 		182D50B11890C05C0079A6DF /* CTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B01890C05C0079A6DF /* CTListView.m */; };
 		182D50B41890D77C0079A6DF /* CTListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B31890D77C0079A6DF /* CTListCell.m */; };
 		1849AFC318950A8A00D22363 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1849AFC218950A8A00D22363 /* GoogleMaps.framework */; };
+		1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850870E18BD87AF000A5BA4 /* RegExCategories.m */; };
 		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BE189F2E00002500E6 /* REVClusterBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012C0189F2E00002500E6 /* REVClusterManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -118,6 +119,8 @@
 		182D50B21890D77C0079A6DF /* CTListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListCell.h; path = Cells/CTListCell.h; sourceTree = "<group>"; };
 		182D50B31890D77C0079A6DF /* CTListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListCell.m; path = Cells/CTListCell.m; sourceTree = "<group>"; };
 		1849AFC218950A8A00D22363 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		1850870D18BD87AF000A5BA4 /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegExCategories.h; sourceTree = "<group>"; };
+		1850870E18BD87AF000A5BA4 /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
 		186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVAnnotationsCollection.h; sourceTree = "<group>"; };
 		186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVAnnotationsCollection.m; sourceTree = "<group>"; };
 		186012BD189F2E00002500E6 /* REVClusterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterBlock.h; sourceTree = "<group>"; };
@@ -468,6 +471,8 @@
 		18E58B4218ACE0C200E38583 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				1850870D18BD87AF000A5BA4 /* RegExCategories.h */,
+				1850870E18BD87AF000A5BA4 /* RegExCategories.m */,
 				18F3478718BC7280006EF9A7 /* NSString+Encryption.h */,
 				18F3478818BC7280006EF9A7 /* NSString+Encryption.m */,
 				18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */,
@@ -626,6 +631,7 @@
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
 				18F3478018BC6DF3006EF9A7 /* TestViewController.m in Sources */,
 				18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */,
+				1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,

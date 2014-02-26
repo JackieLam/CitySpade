@@ -7,6 +7,7 @@
 //
 
 #import "NSString+Encryption.h"
+#import "RegExCategories.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Encryption)
@@ -69,7 +70,12 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     
     return [emailTest evaluateWithObject:email];
-    
+}
+
++ (NSString *)usernameWithEmail:(NSString *)email
+{
+    NSArray *pieces = [email split:RX(@"[@]")];
+    return pieces[0];
 }
 
 @end

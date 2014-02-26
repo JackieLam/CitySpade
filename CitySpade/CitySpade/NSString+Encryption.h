@@ -14,5 +14,6 @@
 + (NSString *)sha1EncryptWithUnsortedStrings:(NSDictionary *)paramDict;
 + (NSString *)getCFUUID;
 + (BOOL)isEmailAddress:(NSString*)email;
++ (NSString *)usernameWithEmail:(NSString *)email;
 
 @end

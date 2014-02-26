@@ -7,6 +7,11 @@
 //
 
 #import "CTLeftSideMenuViewController.h"
+#import "MFSideMenu.h"
+#import "CTLoginViewController.h"
+#import "RESTfulEngine.h"
+#import "Constants.h"
+#import "NSString+Encryption.h"
 
 #define headerColor [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
 #define colorOfSeparator [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
@@ -43,6 +48,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserName:) name:kNotificationLoginSuccess object:nil];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -199,12 +206,58 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            //Login
+            
+            CTLoginViewController *loginVC = [[CTLoginViewController alloc] initWithNibName:@"CTLoginViewController" bundle:nil];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            nav.navigationBar.opaque = YES;
+            nav.navigationBar.translucent = NO;
+            [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+            [nav.navigationBar setShadowImage:[UIImage new]];
+            [self presentViewController:nav animated:YES completion:nil];
+        }
+        else if (indexPath.row == 1) {
+            //My Saves
+        }
+    }
+    else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            //For Sale
+            [RESTfulEngine loadListingsWithQuery:@{@"rent": @"0"} onSucceeded:^(NSMutableArray *resultArray) {
+                //
+            } onError:^(NSError *engineError) {
+                //
+            }];
+        }
+        else if (indexPath.row == 1) {
+            //For Rent
+            [RESTfulEngine loadListingsWithQuery:@{@"rent": @"1"} onSucceeded:^(NSMutableArray *resultArray) {
+                //
+            } onError:^(NSError *engineError) {
+                //
+            }];
+        }
+    }
+    
+    [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellSelectedColor];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellNotSelectedColor];
+}
+
+#pragma mark - 
+#pragma mark - Handle Login Success
+- (void)didGetUserName:(NSNotification *)aNotification
+{
+    UITableViewCell *nameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    nameCell.textLabel.text = [NSString usernameWithEmail:[aNotification object]];
+    nameCell.textLabel.frame = CGRectMake(nameCell.textLabel.frame.origin.x, nameCell.textLabel.frame.origin.y, 200, nameCell.textLabel.frame.size.height);
+    nameCell.textLabel.textColor = CellSelectedColor;
 }
 
 @end
