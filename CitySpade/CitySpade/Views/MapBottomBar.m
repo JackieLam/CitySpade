@@ -102,6 +102,7 @@
             self.cancelButton.hidden = YES;
             self.clearButton.hidden = YES;
             self.sortButton.hidden = YES;
+            self.segmentControl.hidden = NO;
         }
             break;
         case BarStateMapDraw:
@@ -111,6 +112,7 @@
             self.cancelButton.hidden = NO;
             self.clearButton.hidden = NO;
             self.sortButton.hidden = YES;
+            self.segmentControl.hidden = YES;
         }
             break;
         case BarStateList:
@@ -120,6 +122,7 @@
             self.cancelButton.hidden = YES;
             self.clearButton.hidden = YES;
             self.sortButton.hidden = NO;
+            self.segmentControl.hidden = NO;
         }
             break;
         

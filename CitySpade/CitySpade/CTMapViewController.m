@@ -21,6 +21,7 @@
 #import "RESTfulEngine.h"
 #import "Listing.h"
 #import "Constants.h"
+#import "RegExCategories.h"
 
 #define cellHeight 130.0f
 #define cellWidth 290.0f
@@ -32,9 +33,13 @@
 @interface CTMapViewController()
 {
     double previousZoomLevel;
+    BOOL forRent;
 }
 
-@property (nonatomic, strong) NSMutableArray *pins;
+@property (nonatomic, strong) NSMutableArray *pinsAll;
+@property (nonatomic, strong) NSMutableArray *pinsFilterRight;
+@property (nonatomic, strong) NSMutableArray *pinsFilterDrawAndRight;
+
 @property (nonatomic, strong) NSArray *places;
 @property (nonatomic, strong) NSArray *placesClicked;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeCollectionView;
@@ -82,6 +87,7 @@
     [self setupCollectionView];
     
 // RESTfulEngine
+    forRent = YES;
     [self loadForRentListings];
 }
 
@@ -99,6 +105,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForRentListings) name:kNotificationToLoadForRentListing object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForSaleListings) name:kNotificationToLoadForSaleListing object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFilteredListings) name:kNotificationToLoadFilteredListing object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePinsFilterRight:) name:kNotificationDidRightFilter object:nil];
 }
 
 - (void)setupBottomBar
@@ -131,7 +138,7 @@
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeCollectionView)];
+    self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(collectionViewDisappear)];
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
     [self.collectionView registerClass:[CTCollectionCell class] forCellWithReuseIdentifier:@"CTCollectionCell"];
@@ -142,6 +149,7 @@
 #pragma mark - Reload Listing
 - (void)loadForRentListings
 {
+    forRent = YES;
     //Remove all annotaions first
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -161,6 +169,7 @@
 
 - (void)loadForSaleListings
 {
+    forRent = NO;
     //Remove all annotations first
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -185,16 +194,22 @@
 
 - (void)resetAnnotationsWithResultArray:(NSMutableArray *)resultArray
 {
-    self.pins = [NSMutableArray array];
+    self.pinsAll = [NSMutableArray array];
+    self.pinsFilterRight = [NSMutableArray array];
     for (Listing *listing in resultArray) {
         
         REVClusterPin *pin = [[REVClusterPin alloc] init];
         pin.title = listing.title;
-        pin.subtitle = [[NSNumber numberWithDouble:listing.price] stringValue];
+        pin.subtitle = [NSString stringWithFormat:@"$%d", (int)listing.price];
+        pin.beds = [NSString stringWithFormat:@"%d", (int)listing.beds];
+        pin.baths = [NSString stringWithFormat:@"%d", (int)listing.baths];
+        pin.bargain = listing.bargain;
+        pin.transportation = listing.transportation;
         pin.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
-        [self.pins addObject:pin];
+        [self.pinsAll addObject:pin];
     }
-    [self.ctmapView addAnnotations:self.pins];
+    self.pinsFilterRight = self.pinsAll;
+    [self.ctmapView addAnnotations:self.pinsAll];
 }
 
 #pragma mark - MapView delegate
@@ -317,12 +332,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
     return CGSizeMake(cellWidth+cellGap, cellHeight);
 }
 
-#pragma mark - Swipe UICollectionView
-- (void)didSwipeCollectionView
-{
-    [self collectionViewDisappear];
-}
-
 #pragma mark - Animation: UICollectionView
 - (void)collectionViewAppear
 {
@@ -426,6 +435,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (void)drawButtonClicked:(id)sender
 {
+    self.navigationItem.title = @"Draw";
     [self.mapBottomBar resetBarState:BarStateMapDraw];
     self.ctmapView.zoomEnabled = NO;
     self.ctmapView.scrollEnabled = NO;
@@ -435,6 +445,9 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (void)cancelButtonClicked:(id)sender
 {
+    if (forRent) self.navigationItem.title = @"For Rent";
+    else self.navigationItem.title = @"For Sale";
+    
     if (self.path) {
         [self.path removeAllPoints];
         self.shapeLayer.path = [self.path CGPath];
@@ -484,16 +497,63 @@ didSelectAnnotationView:(MKAnnotationView *)view
         self.shapeLayer.path = [self.path CGPath];
         
         [self.ctmapView removeAnnotations:self.ctmapView.annotations];
-        NSMutableArray *newAnnotations = [NSMutableArray array];
-        for (REVClusterPin *pin in self.pins) {
-            CLLocationCoordinate2D coords = pin.coordinate;
-            CGPoint loc = [self.ctmapView convertCoordinate:coords toPointToView: self.pathOverlay];
-            if ([self.path containsPoint:loc]) {
-                [newAnnotations addObject:pin];
-            }
-        }
-        [self.ctmapView addAnnotations:newAnnotations];
+        NSMutableArray *filterDrawAnnotations = [self pinsFilterDrawAndRightFromPinsFilterRight:self.pinsFilterRight];
+        // TODO: 应该是pinsFilterRight
+        [self.ctmapView addAnnotations:filterDrawAnnotations];
     }
+}
+
+#pragma mark - 
+#pragma mark - Filter Helper Method
+
+- (void)updatePinsFilterRight:(NSNotification *)aNotification
+{
+    self.pinsFilterRight = [NSMutableArray array];
+    NSDictionary *filterData = [aNotification object];
+    int lowerbound = [filterData[@"lowerBound"] intValue];
+    int higherbound = [filterData[@"higherBound"] intValue];
+    
+    for (REVClusterPin *pin in self.pinsAll) {
+        NSArray *pieces = [pin.subtitle split:RX(@"[$]")];
+        NSString *price = pieces[1];
+
+        //price range
+        if (!(lowerbound <= [price intValue]) || !([price intValue] <= higherbound))
+            continue;
+        
+        //baths
+        if ([filterData[@"baths"] isEqualToString:@"Any"]) { /*Skip continue;*/ }
+        else if ([filterData[@"baths"] isEqualToString:@"4+"] && [pin.baths intValue] >= 4) { /*Skip continue;*/}
+        else if (![pin.baths isEqualToString:filterData[@"baths"]]) continue;
+        
+        //beds
+        if ([filterData[@"beds"] isEqualToString:@"Any"]) { /*Skip continue;*/ }
+        else if ([filterData[@"beds"] isEqualToString:@"4+"] && [pin.beds intValue] >= 4) { /*Skip continue;*/}
+        else if (![pin.beds isEqualToString:filterData[@"beds"]]) continue;
+        
+        [self.pinsFilterRight addObject:pin];
+    }
+    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+    [self.ctmapView addAnnotations:self.pinsFilterRight];
+}
+
+- (NSMutableArray *)pinsFilterRightFromPinsAll:(NSMutableArray *)pinsAll
+{
+    NSMutableArray *pinsFilterRight = [NSMutableArray array];
+    return pinsFilterRight;
+}
+
+- (NSMutableArray *)pinsFilterDrawAndRightFromPinsFilterRight:(NSMutableArray *)pinsFilterRight
+{
+    NSMutableArray *newAnnotations = [NSMutableArray array];
+    for (REVClusterPin *pin in pinsFilterRight) {
+        CLLocationCoordinate2D coords = pin.coordinate;
+        CGPoint loc = [self.ctmapView convertCoordinate:coords toPointToView: self.pathOverlay];
+        if ([self.path containsPoint:loc]) {
+            [newAnnotations addObject:pin];
+        }
+    }
+    return newAnnotations;
 }
 
 @end

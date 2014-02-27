@@ -16,6 +16,7 @@
 @synthesize thumbImageLink;
 @synthesize title,coordinate,subtitle;
 @synthesize nodes;
+@synthesize beds, baths, bargain, transportation;
 
 - (NSUInteger) nodeCount
 {
@@ -30,6 +31,10 @@
     [thumbImageLink release];
     [title release];
     [subtitle release];
+    [beds release];
+    [baths release];
+    [bargain release];
+    [transportation release];
     [nodes release];
     [super dealloc];
 }

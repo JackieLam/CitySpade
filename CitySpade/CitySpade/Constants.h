@@ -29,5 +29,6 @@
 #define kNotificationToLoadForRentListing @"toLoadForRentListing"
 #define kNotificationToLoadForSaleListing @"toLoadForSaleListing"
 #define kNotificationToLoadFilteredListing @"toLoadFilteredListing"
+#define kNotificationDidRightFilter @"didRightFilter"
 
 #endif

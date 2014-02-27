@@ -17,6 +17,10 @@
     NSString *title;
     NSString *subtitle;
     NSArray *nodes;
+    NSString *beds;
+    NSString *baths;
+    NSString *bargain;
+    NSString *transportation;
 }
 
 @property(nonatomic, retain) NSArray *nodes;
@@ -24,6 +28,10 @@
 @property(nonatomic, copy) NSString *thumbImageLink;
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) NSString *subtitle;
+@property (nonatomic, copy) NSString *beds;
+@property (nonatomic, copy) NSString *baths;
+@property (nonatomic, copy) NSString *bargain;
+@property (nonatomic, copy) NSString *transportation; 
 
 - (NSUInteger) nodeCount;
 

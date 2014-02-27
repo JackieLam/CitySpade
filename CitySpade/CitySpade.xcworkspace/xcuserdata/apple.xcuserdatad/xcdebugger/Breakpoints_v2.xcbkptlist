@@ -79,7 +79,7 @@
                   symbolName = "-[FacebookDelegate makeRequestForUserData]"
                   moduleName = "CitySpade"
                   urlString = "file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/Delegate/FacebookDelegate.m"
-                  timestampString = "415085184.190786"
+                  timestampString = "415161005.220274"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "159"
@@ -93,7 +93,7 @@
                   symbolName = "__42-[FacebookDelegate makeRequestForUserData]_block_invoke"
                   moduleName = "CitySpade"
                   urlString = "file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/Delegate/FacebookDelegate.m"
-                  timestampString = "415085184.190914"
+                  timestampString = "415161005.220444"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "159"
@@ -228,70 +228,6 @@
             startingLineNumber = "272"
             endingLineNumber = "272"
             landmarkName = "-didGetUserName:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CitySpade/CTMapViewController.m"
-            timestampString = "415084413.482698"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "-loadForSaleListings"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CitySpade/CTMapViewController.m"
-            timestampString = "415084413.482698"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-loadForRentListings"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CitySpade/ViewControllers/CTLeftSideMenuViewController.m"
-            timestampString = "415085184.141872"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CitySpade/ViewControllers/CTLeftSideMenuViewController.m"
-            timestampString = "415085191.977503"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

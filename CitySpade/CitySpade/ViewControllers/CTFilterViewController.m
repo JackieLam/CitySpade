@@ -10,6 +10,8 @@
 #import "NMRangeSlider.h"
 #import "ANPopoverView.h"
 #import "BedSegment.h"
+#import "Constants.h"
+#import <MFSideMenu.h>
 #import <QuartzCore/QuartzCore.h>
 
 #define thisBackgroundColor [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0f]
@@ -82,7 +84,7 @@
     [self.applyButton setTitle:@"Apply" forState:UIControlStateNormal];
     [self.applyButton setTitle:@"Apply" forState:UIControlStateHighlighted];
     [self.applyButton setTitle:@"Apply" forState:UIControlStateSelected];
-//    self.applyButton
+    [self.applyButton addTarget:self action:@selector(didApplyFiltering) forControlEvents:UIControlEventTouchUpInside];
     [whiteBg addSubview:self.applyButton];
     [self.view addSubview:whiteBg];
 }
@@ -187,13 +189,30 @@
     NSDictionary *attributes2 = @{NSFontAttributeName: [UIFont fontWithName:@"Avenir-Roman" size:12.0f], NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.bedSegmentControl setTitleTextAttributes:attributes1 forState:UIControlStateNormal];
     [self.bedSegmentControl setTitleTextAttributes:attributes2 forState:UIControlStateSelected];
+    [self.bedSegmentControl setSelectedSegmentIndex:0];
     [self.view addSubview:self.bedSegmentControl];
     
     self.bathSegmentControl = [[BedSegment alloc] initWithItems:@[@"Any", @"1", @"2", @"3", @"4+"]];
     self.bathSegmentControl.frame = CGRectMake(18, 330, 240, 36);
     [self.bathSegmentControl setTitleTextAttributes:attributes1 forState:UIControlStateNormal];
     [self.bathSegmentControl setTitleTextAttributes:attributes2 forState:UIControlStateSelected];
+    [self.bathSegmentControl setSelectedSegmentIndex:0];
     [self.view addSubview:self.bathSegmentControl];
+}
+
+#pragma mark - 
+#pragma mark - Handle Events
+
+- (void)didApplyFiltering
+{
+    NSMutableDictionary *filterData = [NSMutableDictionary dictionary];
+    filterData[@"lowerBound"] = [NSString stringWithFormat:@"%d", (int)self.rangeSlider.lowerValue];
+    filterData[@"higherBound"] = [NSString stringWithFormat:@"%d", (int)self.rangeSlider.upperValue];
+    filterData[@"beds"] = [self.bedSegmentControl titleForSegmentAtIndex:[self.bedSegmentControl selectedSegmentIndex]];
+    filterData[@"baths"] = [self.bathSegmentControl titleForSegmentAtIndex:[self.bathSegmentControl selectedSegmentIndex]];
+    
+    [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
 }
 
 @end
