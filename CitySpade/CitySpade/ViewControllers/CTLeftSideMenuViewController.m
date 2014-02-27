@@ -25,6 +25,12 @@
 @property (nonatomic, strong) UIImageView *citySpadeLogo;
 @property (nonatomic, strong) UITableView *tableView;
 
+
+@property (nonatomic, strong) NSArray *sectionTitle;
+@property (nonatomic, strong) NSDictionary *rowTitles;
+@property (nonatomic, strong) NSArray *numberOfRows;
+@property (nonatomic, strong) NSDictionary *thumbImageBaseName;
+
 @end
 
 @implementation CTLeftSideMenuViewController
@@ -33,6 +39,15 @@
 {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    self.sectionTitle = @[@"Personal", @"Search", @"Company"];
+    self.numberOfRows = @[@2, @2, @5];
+    self.rowTitles = @{@0:@[@"Login", @"My Saves"],
+                       @1:@[@"For Sale", @"For Rent"],
+                       @2:@[@"Our Blogs", @"About", @"Support", @"Privacy", @"Term of use"]};
+    self.thumbImageBaseName = @{@0:@[@"leftside_login", @"leftside_mysaves"],
+                                @1:@[@"leftside_forsale", @"leftside_forrent"],
+                                @2:@[@"leftside_blog", @"leftside_about", @"leftside_support", @"leftside_privacy", @"leftside_termofuse"]};
     
     self.view.backgroundColor = CellNotSelectedColor;
     self.citySpadeLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22.0f, self.view.frame.size.width-50.0f, 44.0f)];
@@ -64,33 +79,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger defaultCount = 0;
-    if (section == 0) {
-        return 2;
-    }
-    else if (section == 1) {
-        return 2;
-    }
-    else if (section == 2) {
-        return 5;
-    }
-    return defaultCount;
+    return [self.numberOfRows[section] intValue];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *defaultHeader = nil;
-    if (section == 0) {
-        return @"Personal";
-    }
-    else if (section == 1) {
-        return @"Search";
-    }
-    else if (section == 2) {
-        return @"Company";
-    }
-        
-    return defaultHeader;
+    return self.sectionTitle[section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,84 +100,21 @@
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                if (![[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken]) {
-                    cell.imageView.image = [UIImage imageNamed:@"leftside_login"];
-                    cell.textLabel.text = @"Login";
-                }
-                else {
-                    cell.imageView.image = [UIImage imageNamed:@"leftside_login"];
-                    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
-                    cell.textLabel.textColor = CellSelectedColor;
-                }
-            }
-                break;
-            case 1:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_mysaves"];
-                cell.textLabel.text = @"My Saves";
-            }
-            default:
-                break;
+    NSString *theImageName = [self.thumbImageBaseName[[NSNumber numberWithInt:indexPath.section]] objectAtIndex:indexPath.row];
+    NSString *grayImageName = [theImageName stringByAppendingString:@"_0"];
+    cell.imageView.image = [UIImage imageNamed:grayImageName];
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        // The Login Text
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken]) {
+            cell.imageView.image = [UIImage imageNamed:@"leftside_login_2"];
+            cell.textLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
+            cell.textLabel.textColor = CellSelectedColor;
         }
+        else cell.textLabel.text = @"Login";
     }
-    else if (indexPath.section == 1) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_forsale"];
-                cell.textLabel.text = @"For Sale";
-            }
-                break;
-            case 1:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_forrent"];
-                cell.textLabel.text = @"For Rent";
-            }
-            default:
-                break;
-        }
-    }
-    else if (indexPath.section == 2) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_blog"];
-                cell.textLabel.text = @"Our Blogs";
-            }
-                break;
-            case 1:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_about"];
-                cell.textLabel.text = @"About";
-            }
-                break;
-            case 2:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_support"];
-                cell.textLabel.text = @"Support";
-            }
-                break;
-            case 3:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_privacy"];
-                cell.textLabel.text = @"Privacy";
-            }
-                break;
-            case 4:
-            {
-                cell.imageView.image = [UIImage imageNamed:@"leftside_termofuse"];
-                cell.textLabel.text = @"Term of use";
-            }
-                break;
-                
-            default:
-                break;
-        }
-    }
+    else
+        cell.textLabel.text = [self.rowTitles[[NSNumber numberWithInt:indexPath.section]] objectAtIndex:indexPath.row];
+    
     return cell;
 }
 
@@ -213,6 +144,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *theImageName = [self.thumbImageBaseName[[NSNumber numberWithInt:indexPath.section]] objectAtIndex:indexPath.row];
+    NSString *whiteImageName = [theImageName stringByAppendingString:@"_1"];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.imageView.image = [UIImage imageNamed:whiteImageName];
+    cell.textLabel.textColor = textSelectedColor;
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //Login
@@ -228,6 +165,9 @@
                 [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
             }
             else {  // Logged in
+                NSString *greenLogin = [theImageName stringByAppendingString:@"_2"];
+                cell.imageView.image = [UIImage imageNamed:greenLogin];
+                cell.textLabel.textColor = CellSelectedColor;
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Log out" message:@"Are you sure to log out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Confirm", nil];
                 alertView.alertViewStyle = UIAlertViewStyleDefault;
                 alertView.delegate = self;
@@ -237,7 +177,7 @@
         else if (indexPath.row == 1) {
             //My Saves
             [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
-            [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellSelectedColor];
+            [cell setBackgroundColor:CellSelectedColor];
         }
     }
     else if (indexPath.section == 1) {
@@ -255,23 +195,37 @@
         }
         
         [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
-        [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellSelectedColor];
+        [cell setBackgroundColor:CellSelectedColor];
+    }
+    else if (indexPath.section == 2) {
+        [cell setBackgroundColor:CellSelectedColor];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[tableView cellForRowAtIndexPath:indexPath] setBackgroundColor:CellNotSelectedColor];
+    NSString *theImageName = [self.thumbImageBaseName[[NSNumber numberWithInt:indexPath.section]] objectAtIndex:indexPath.row];
+    NSString *grayImageName = [theImageName stringByAppendingString:@"_0"];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (indexPath.section == 0 && indexPath.row == 0 && [[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken]) {
+        // Skip the changing
+    }
+    else {
+        cell.imageView.image = [UIImage imageNamed:grayImageName];
+        cell.textLabel.textColor = textNotSelectedColor;
+        [cell setBackgroundColor:CellNotSelectedColor];
+    }
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Handle Login Success
 
 - (void)didGetUserName:(NSNotification *)aNotification
 {
     UITableViewCell *nameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    nameCell.textLabel.text = [aNotification object];
+    nameCell.textLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
     nameCell.textLabel.frame = CGRectMake(nameCell.textLabel.frame.origin.x, nameCell.textLabel.frame.origin.y, 200, nameCell.textLabel.frame.size.height);
+    nameCell.imageView.image = [UIImage imageNamed:@"leftside_login_2"];
     nameCell.textLabel.textColor = CellSelectedColor;
     nameCell.backgroundColor = CellNotSelectedColor;
 }
@@ -282,20 +236,20 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {
-        case 0:
-        {
-            // Do nothing
-        }
+        case 0: { /* Do nothing */ }
             break;
         
-        case 1:
-        {
+        case 1: {
             [RESTfulEngine logoutOnSucceeded:^{
                 UITableViewCell *nameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                 nameCell.textLabel.text = @"Login";
                 nameCell.textLabel.textColor = textNotSelectedColor;
+                nameCell.imageView.image = [UIImage imageNamed:@"leftside_login_0"];
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults removeObjectForKey:kUserName];
+                [defaults synchronize];
             } onError:^(NSError *engineError) {
-                
+                // TODO: Log out fail
             }];
         }
             break;

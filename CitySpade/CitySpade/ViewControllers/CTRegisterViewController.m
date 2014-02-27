@@ -152,6 +152,9 @@
         [RESTfulEngine registerWithUsername:self.emailTextField.text password:self.passwordTextField.text firstName:nil lastName:nil onSucceeded:^{
             
             [SVProgressHUD showSuccessWithStatus:@"Register Success!"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString usernameWithEmail:self.emailTextField.text] forKey:kUserName];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             [self.navigationController popToRootViewControllerAnimated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRegisterSuccess object:self.emailTextField.text userInfo:nil];
             

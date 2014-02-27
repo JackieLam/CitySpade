@@ -452,7 +452,10 @@ didSelectAnnotationView:(MKAnnotationView *)view
         [self.path removeAllPoints];
         self.shapeLayer.path = [self.path CGPath];
     }
-    [self.ctmapView recoverFromSearch];
+    
+    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+    [self.ctmapView addAnnotations:self.pinsFilterRight];
+    
     self.ctmapView.zoomEnabled = YES;
     self.ctmapView.scrollEnabled = YES;
     self.ctmapView.rotateEnabled = YES;
@@ -503,8 +506,8 @@ didSelectAnnotationView:(MKAnnotationView *)view
     }
 }
 
-#pragma mark - 
 #pragma mark - Filter Helper Method
+#pragma mark - Notification
 
 - (void)updatePinsFilterRight:(NSNotification *)aNotification
 {
@@ -521,7 +524,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
         if (!(lowerbound <= [price intValue]) || !([price intValue] <= higherbound))
             continue;
         
-        //baths
+        //baths1
         if ([filterData[@"baths"] isEqualToString:@"Any"]) { /*Skip continue;*/ }
         else if ([filterData[@"baths"] isEqualToString:@"4+"] && [pin.baths intValue] >= 4) { /*Skip continue;*/}
         else if (![pin.baths isEqualToString:filterData[@"baths"]]) continue;
@@ -531,8 +534,15 @@ didSelectAnnotationView:(MKAnnotationView *)view
         else if ([filterData[@"beds"] isEqualToString:@"4+"] && [pin.beds intValue] >= 4) { /*Skip continue;*/}
         else if (![pin.beds isEqualToString:filterData[@"beds"]]) continue;
         
+        
         [self.pinsFilterRight addObject:pin];
     }
+    
+    //whether it is in drawing mode
+    if (self.path) {
+        self.pinsFilterRight = [self pinsFilterDrawAndRightFromPinsFilterRight:self.pinsFilterRight];
+    }
+    
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
     [self.ctmapView addAnnotations:self.pinsFilterRight];
 }

@@ -59,6 +59,7 @@
 		18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D052AE18B8F9A000D548FD /* CTLoginViewController.m */; };
 		18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */; };
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
+		18E9A16318BEEED400A01ADB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E9A16218BEEED400A01ADB /* Images.xcassets */; };
 		18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */; };
 		18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */; };
 		18F3477618BC3ED8006EF9A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */; };
@@ -68,7 +69,6 @@
 		18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478518BC7263006EF9A7 /* RESTfulEngine.m */; };
 		18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478818BC7280006EF9A7 /* NSString+Encryption.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
-		18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD0C0318B1FD70000DBE87 /* Images.xcassets */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +168,7 @@
 		18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTLoginViewController.xib; path = ViewControllers/CTLoginViewController.xib; sourceTree = "<group>"; };
 		18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+ProjectButton.h"; sourceTree = "<group>"; };
 		18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+ProjectButton.m"; sourceTree = "<group>"; };
+		18E9A16218BEEED400A01ADB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CitySpade/Images.xcassets; sourceTree = "<group>"; };
 		18F3477018BB43A0006EF9A7 /* CTRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTRegisterViewController.h; path = ViewControllers/CTRegisterViewController.h; sourceTree = "<group>"; };
 		18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTRegisterViewController.m; path = ViewControllers/CTRegisterViewController.m; sourceTree = "<group>"; };
 		18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTRegisterViewController.xib; path = ViewControllers/CTRegisterViewController.xib; sourceTree = "<group>"; };
@@ -184,7 +185,6 @@
 		18F3478818BC7280006EF9A7 /* NSString+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encryption.m"; sourceTree = "<group>"; };
 		18FD0C0018B1C842000DBE87 /* BedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BedSegment.h; path = UI/BedSegment.h; sourceTree = "<group>"; };
 		18FD0C0118B1C842000DBE87 /* BedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BedSegment.m; path = UI/BedSegment.m; sourceTree = "<group>"; };
-		18FD0C0318B1FD70000DBE87 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -231,6 +231,7 @@
 		1817C72F188CBD68003AC430 = {
 			isa = PBXGroup;
 			children = (
+				18E9A16218BEEED400A01ADB /* Images.xcassets */,
 				1817C741188CBD68003AC430 /* CitySpade */,
 				1817C75A188CBD68003AC430 /* CitySpadeTests */,
 				1817C73A188CBD68003AC430 /* Frameworks */,
@@ -278,7 +279,6 @@
 		1817C741188CBD68003AC430 /* CitySpade */ = {
 			isa = PBXGroup;
 			children = (
-				18FD0C0318B1FD70000DBE87 /* Images.xcassets */,
 				18F3477718BC3FC6006EF9A7 /* Constants.h */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
@@ -559,9 +559,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */,
+				18E9A16318BEEED400A01ADB /* Images.xcassets in Resources */,
 				18F3478118BC6DF3006EF9A7 /* TestViewController.xib in Resources */,
 				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
-				18FD0C0418B1FD70000DBE87 /* Images.xcassets in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
