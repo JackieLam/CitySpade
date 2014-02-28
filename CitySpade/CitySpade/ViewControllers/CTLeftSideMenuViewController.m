@@ -12,6 +12,7 @@
 #import "RESTfulEngine.h"
 #import "Constants.h"
 #import "NSString+Encryption.h"
+#import "FacebookDelegate.h"
 
 #define headerColor [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
 #define colorOfSeparator [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
@@ -241,6 +242,10 @@
         
         case 1: {
             [RESTfulEngine logoutOnSucceeded:^{
+                if (FBSession.activeSession.state == FBSessionStateOpen
+                    || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+                    [FBSession.activeSession closeAndClearTokenInformation];
+                }
                 UITableViewCell *nameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                 nameCell.textLabel.text = @"Login";
                 nameCell.textLabel.textColor = textNotSelectedColor;

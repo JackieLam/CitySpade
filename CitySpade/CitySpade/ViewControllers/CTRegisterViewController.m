@@ -81,7 +81,6 @@
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
-             
              FacebookDelegate *delegate = [FacebookDelegate sharedInstance];
              // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
              [delegate sessionStateChanged:session state:state error:error];

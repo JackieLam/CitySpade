@@ -12,6 +12,7 @@
 
 typedef void (^VoidBlock)(void);
 typedef void (^ArrayBlock)(NSMutableArray* resultArray);
+typedef void (^DictionaryBlock)(NSDictionary *resultDictionary);
 typedef void (^ErrorBlock)(NSError* engineError);
 
 @interface RESTfulEngine : NSObject {
@@ -48,5 +49,9 @@ typedef void (^ErrorBlock)(NSError* engineError);
 + (void)loadUserSaveList;
 + (void)addAListingToSaveListWithId:(int)idNumber;
 + (void)deleteAListingFromSaveListWithId:(int)idNumber;
+
+//Part Four: Facebook Authentication
++ (void)getFacebookInfoWithAccessToken:(NSString *)accessToken onSucceeded:(DictionaryBlock)succeedBlock onError:(ErrorBlock)errorBlock;
++ (void)facebookCallbackWithEmail:(NSString *)email uid:(NSString *)uid onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock;
 
 @end

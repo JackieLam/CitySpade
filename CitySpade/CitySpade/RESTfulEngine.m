@@ -10,6 +10,7 @@
 #import "Listing.h"
 #import "NSString+Encryption.h"
 #import "Constants.h"
+#import "FacebookDelegate.h"
 
 //Part One
 NSString * const HOST_URL = @"http://cityspade.com/api/v1";
@@ -19,6 +20,7 @@ NSString * const LISTINGS_PATH = @"/listings.json?";
 NSString * const LOGIN_PATH = @"/auth/login.json";
 NSString * const LOGOUT_PATH = @"/auth/logout.json";
 NSString * const REGISTER_PATH = @"/auth/register.json";
+NSString * const CALLBACK_PATH = @"/auth/callback.json";
 
 //Part Three
 NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
@@ -316,5 +318,103 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
 
 }
 
+#pragma mark - 
+#pragma mark - Part Four: Facebook Authentication
+
++ (void)getFacebookInfoWithAccessToken:(NSString *)accessToken onSucceeded:(DictionaryBlock)succededBlock onError:(ErrorBlock)errorBlock
+{
+    NSMutableString *urlString = [NSMutableString stringWithString:@"https://graph.facebook.com/me?access_token="];
+    [urlString appendString:accessToken];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession * session = [NSURLSession sessionWithConfiguration:config delegate:[FacebookDelegate sharedInstance] delegateQueue:nil];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            
+            // 1 HTTP Response
+            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *jsonError;
+                    
+                    // 2 Serialize json
+                    NSDictionary *userJSON =
+                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    if (!jsonError) {
+                        // 3 Call back
+                        succededBlock(userJSON);
+                    }
+                });
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+            });
+        }
+    }];
+    
+    [dataTask resume];
+}
+
++ (void)facebookCallbackWithEmail:(NSString *)email uid:(NSString *)uid onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
+{
+    // 1 Setup post body
+    NSString *postHTTPBody = [NSString stringWithFormat:@"email=%@&uid=%@", email, uid];
+    // 2 Networking setup
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSMutableString *urlString = [NSMutableString stringWithString:HOST_URL];
+    [urlString appendString:CALLBACK_PATH];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[postHTTPBody dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    // 3 Networking operate
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (!error) {
+            // 1 Serialize JSON
+            NSError *jsonError;
+            NSDictionary *loginFeedbackDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+            long statusCode = [loginFeedbackDict[@"status"] intValue];
+            
+            // 2 Get the status code
+            if (statusCode == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    // 3 Successfully login
+                    NSString *token = loginFeedbackDict[@"token"];
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults setObject:token forKey:kAccessToken];
+                    [defaults synchronize];
+                    [SVProgressHUD showSuccessWithStatus:@"Login success!"];
+                    
+                    // 4 Callback
+                    succeededBlock();
+                });
+            }
+            else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    DLog(@"Could not login - Status Code %ld", (long)httpResponse.statusCode);
+                    NSString *errorInfo = loginFeedbackDict[@"error"];
+                    [SVProgressHUD showErrorWithStatus:errorInfo];
+                    errorBlock(nil);
+                });
+                
+                
+            }
+        }
+    }];
+    
+    [postDataTask resume];
+}
 
 @end

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface FacebookDelegate : NSObject
+@interface FacebookDelegate : NSObject<NSURLSessionDelegate>
 
 + (FacebookDelegate *)sharedInstance;
 

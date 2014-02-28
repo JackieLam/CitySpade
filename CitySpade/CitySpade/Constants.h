@@ -30,5 +30,6 @@
 #define kNotificationToLoadForSaleListing @"toLoadForSaleListing"
 #define kNotificationToLoadFilteredListing @"toLoadFilteredListing"
 #define kNotificationDidRightFilter @"didRightFilter"
+#define kNotificationDidGetFacebookUserInfo @"didGetFacebookUserInfo"
 
 #endif

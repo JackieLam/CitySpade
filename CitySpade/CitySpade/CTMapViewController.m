@@ -146,7 +146,7 @@
 }
 
 #pragma mark - 
-#pragma mark - Reload Listing
+#pragma mark - Reload Listing(For Rent / For Sale)
 - (void)loadForRentListings
 {
     forRent = YES;
@@ -185,11 +185,6 @@
         
         [SVProgressHUD showErrorWithStatus:engineError.description];
     }];
-}
-
-- (void)loadFilteredListings
-{
-    
 }
 
 - (void)resetAnnotationsWithResultArray:(NSMutableArray *)resultArray
@@ -248,7 +243,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     }
     else {
         if (self.collectionView.alpha == 0.0f) {
-            [self.collectionView reloadData];
+//            [self.collectionView reloadData];
             [self collectionViewAppear];
         }
         else {
@@ -344,6 +339,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.alpha = 1.0f;
     self.collectionView.frame = viewFrame;
+    [self.collectionView reloadData];
     [UIView commitAnimations];
 }
 
@@ -377,34 +373,22 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 #pragma mark - NavigationBar Button
 - (void)setupMenuBarButtonItems {
-    self.navigationItem.rightBarButtonItem = [self rightMenuBarButtonItem];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithImage:[UIImage imageNamed:@"Search"] style:UIBarButtonItemStyleBordered
+                                              target:self
+                                              action:@selector(rightSideMenuButtonPressed:)];
     if(self.menuContainerViewController.menuState == MFSideMenuStateClosed &&
        ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self]) {
-        self.navigationItem.leftBarButtonItem = [self backBarButtonItem];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-arrow"]
+                                                                                 style:UIBarButtonItemStyleBordered
+                                                                                target:self
+                                                                                action:@selector(backButtonPressed:)];
     } else {
-        self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+                                                 initWithImage:[UIImage imageNamed:@"User-Profile"] style:UIBarButtonItemStyleBordered
+                                                 target:self
+                                                 action:@selector(leftSideMenuButtonPressed:)];
     }
-}
-
-- (UIBarButtonItem *)leftMenuBarButtonItem {
-    return [[UIBarButtonItem alloc]
-            initWithImage:[UIImage imageNamed:@"User-Profile"] style:UIBarButtonItemStyleBordered
-            target:self
-            action:@selector(leftSideMenuButtonPressed:)];
-}
-
-- (UIBarButtonItem *)rightMenuBarButtonItem {
-    return [[UIBarButtonItem alloc]
-            initWithImage:[UIImage imageNamed:@"Search"] style:UIBarButtonItemStyleBordered
-            target:self
-            action:@selector(rightSideMenuButtonPressed:)];
-}
-
-- (UIBarButtonItem *)backBarButtonItem {
-    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-arrow"]
-                                            style:UIBarButtonItemStyleBordered
-                                           target:self
-                                           action:@selector(backButtonPressed:)];
 }
 
 #pragma mark - MapBottomBar Button

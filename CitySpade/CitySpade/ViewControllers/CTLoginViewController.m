@@ -46,7 +46,9 @@
     self.title = @"Sign up";
     self.navigationItem.leftBarButtonItems = [UIBarButtonItem createEdgeButtonWithText:@"Cancel" WithTarget:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.rightBarButtonItems = [UIBarButtonItem createEdgeButtonWithText:@"Submit" WithTarget:self action:@selector(submitButtonClicked:)];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRegisterSuccess:) name:kNotificationRegisterSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(facebookLogin:) name:kNotificationDidGetFacebookUserInfo object:nil];
 }
 
 
@@ -79,7 +81,6 @@
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
-             
              FacebookDelegate *delegate = [FacebookDelegate sharedInstance];
              // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
              [delegate sessionStateChanged:session state:state error:error];
@@ -171,6 +172,25 @@
             // Already log out the error information in the RESTfulEngine
         }];
     }
+}
+
+- (void)facebookLogin:(NSNotification *)aNotification
+{
+    NSDictionary *userInfo = [aNotification object];
+    [RESTfulEngine facebookCallbackWithEmail:userInfo[@"email"] uid:userInfo[@"id"] onSucceeded:^{
+        [self dismissViewControllerAnimated:YES completion:^{
+            [SVProgressHUD dismiss];
+            
+            NSString *username = userInfo[@"name"];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:username forKey:kUserName];
+            [defaults synchronize];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoginSuccess object:username userInfo:nil];
+        }];
+    } onError:^(NSError *engineError) {
+        // Already log out the error information in the RESTfulEngine
+    }];
 }
 
 - (void)didRegisterSuccess:(NSNotification *)aNotification

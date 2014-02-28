@@ -8,6 +8,7 @@
 
 #import "FacebookDelegate.h"
 #import "Constants.h"
+#import "RESTfulEngine.h"
 
 @implementation FacebookDelegate
 
@@ -79,94 +80,49 @@
 - (void)userLoggedOut
 {
     DLog(@"- (void)userLoggedOut");
-    [self showMessage:@"You're now logged out" withTitle:@""];
 }
 
 - (void)userLoggedIn
 {
-    DLog(@"- (void)userLoggedIn");
     [self requestUserInfo];
-    [self showMessage:@"You're now logged in" withTitle:@"Welcome!"];
-}
-
-- (void)showMessage:(NSString *)text withTitle:(NSString *)title
-{
-    [[[UIAlertView alloc] initWithTitle:title
-                                message:text
-                               delegate:self
-                      cancelButtonTitle:@"OK!"
-                      otherButtonTitles:nil] show];
 }
 
 - (void)requestUserInfo
 {
-    // We will request the user's public picture and the user's birthday
-    // These are the permissions we need:
-    NSArray *permissionsNeeded = @[@"basic_info", @"user_birthday"];
-    
-    // Request the permissions the user currently has
-    [FBRequestConnection startWithGraphPath:@"/me/permissions"
-                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                              if (!error){
-                                  // These are the current permissions the user has
-                                  NSDictionary *currentPermissions= [(NSArray *)[result data] objectAtIndex:0];
-                                  
-                                  // We will store here the missing permissions that we will have to request
-                                  NSMutableArray *requestPermissions = [[NSMutableArray alloc] initWithArray:@[]];
-                                  
-                                  // Check if all the permissions we need are present in the user's current permissions
-                                  // If they are not present add them to the permissions to be requested
-                                  for (NSString *permission in permissionsNeeded){
-                                      if (![currentPermissions objectForKey:permission]){
-                                          [requestPermissions addObject:permission];
-                                      }
-                                  }
-                                  
-                                  // If we have permissions to request
-                                  if ([requestPermissions count] > 0){
-                                      // Ask for the missing permissions
-                                      [FBSession.activeSession
-                                       requestNewReadPermissions:requestPermissions
-                                       completionHandler:^(FBSession *session, NSError *error) {
-                                           if (!error) {
-                                               // Permission granted, we can request the user information
-                                               [self makeRequestForUserData];
-                                           } else {
-                                               // An error occurred, we need to handle the error
-                                               // Check out our error handling guide: https://developers.facebook.com/docs/ios/errors/
-                                               NSLog(@"error %@", error.description);
-                                           }
-                                       }];
-                                  } else {
-                                      // Permissions are present
-                                      // We can request the user information
-                                      [self makeRequestForUserData];
-                                  }
-                                  
-                              } else {
-                                  // An error occurred, we need to handle the error
-                                  // Check out our error handling guide: https://developers.facebook.com/docs/ios/errors/
-                                  NSLog(@"error %@", error.description);
-                              }
-                          }];
-    
-    
-    
+    if (FBSession.activeSession.isOpen) {
+        NSString *token = [FBSession activeSession].accessTokenData.accessToken;
+        [RESTfulEngine getFacebookInfoWithAccessToken:token onSucceeded:^(NSDictionary *resultDictionary) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidGetFacebookUserInfo object:resultDictionary userInfo:nil];
+        } onError:^(NSError *engineError) {
+            
+            DLog(@"Engine Error : %@", engineError);
+        }];
+    }
 }
 
-- (void) makeRequestForUserData
-{
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            // Success! Include your code to handle the results here
-            NSLog(@"user info: %@", result);
-        } else {
-            // An error occurred, we need to handle the error
-            // Check out our error handling guide: https://developers.facebook.com/docs/ios/errors/
-            NSLog(@"error %@", error.description);
+#pragma mark - 
+#pragma mark - Setup trust for the Facebook Graph API
+
+- (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler{
+    if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]){
+        if([challenge.protectionSpace.host isEqualToString:@"graph.facebook.com"]){
+            NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
         }
-    }];
+    }
 }
 
+#pragma mark - 
+#pragma mark - UIAlertView Helper Method
+
+- (void)showMessage:(NSString *)text withTitle:(NSString *)title
+{
+    [[[UIAlertView alloc] initWithTitle:@""
+                                message:@"You're now logged out"
+                               delegate:self
+                      cancelButtonTitle:@"OK!"
+                      otherButtonTitles:nil] show];
+}
 
 @end
