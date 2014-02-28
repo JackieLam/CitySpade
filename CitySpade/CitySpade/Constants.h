@@ -24,6 +24,8 @@
 #   define ELog(err)
 #endif
 
+#pragma mark - Notification
+
 #define kNotificationLoginSuccess @"didLoginSuccess"
 #define kNotificationRegisterSuccess @"didRegisterSuccess"
 #define kNotificationToLoadForRentListing @"toLoadForRentListing"
@@ -31,5 +33,10 @@
 #define kNotificationToLoadFilteredListing @"toLoadFilteredListing"
 #define kNotificationDidRightFilter @"didRightFilter"
 #define kNotificationDidGetFacebookUserInfo @"didGetFacebookUserInfo"
+
+#pragma mark - Other Constants
+
+#define statusBarHeight 22.0f
+#define navigationBarHeight 44.0f
 
 #endif

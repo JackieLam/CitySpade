@@ -16,7 +16,6 @@
 #import "AppearanceSetter.h"
 #import "CTLoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "TestViewController.h"
 
 //static NSString *const kAPIKey = @"AIzaSyBscWl3wXUk_Lyfqo1kz8Nljjf2K0-7eCY";
 

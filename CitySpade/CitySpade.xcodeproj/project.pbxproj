@@ -60,12 +60,12 @@
 		18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */; };
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
 		18E9A16318BEEED400A01ADB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E9A16218BEEED400A01ADB /* Images.xcassets */; };
+		18F1EA6618C070F500182A87 /* MapCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1EA6518C070F500182A87 /* MapCollectionCell.m */; };
+		18F1EA6818C0710D00182A87 /* MapCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F1EA6718C0710D00182A87 /* MapCollectionCell.xib */; };
 		18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */; };
 		18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */; };
 		18F3477618BC3ED8006EF9A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */; };
 		18F3477A18BC4A71006EF9A7 /* FacebookDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */; };
-		18F3478018BC6DF3006EF9A7 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477E18BC6DF3006EF9A7 /* TestViewController.m */; };
-		18F3478118BC6DF3006EF9A7 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F3477F18BC6DF3006EF9A7 /* TestViewController.xib */; };
 		18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478518BC7263006EF9A7 /* RESTfulEngine.m */; };
 		18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478818BC7280006EF9A7 /* NSString+Encryption.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
@@ -169,6 +169,9 @@
 		18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+ProjectButton.h"; sourceTree = "<group>"; };
 		18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+ProjectButton.m"; sourceTree = "<group>"; };
 		18E9A16218BEEED400A01ADB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CitySpade/Images.xcassets; sourceTree = "<group>"; };
+		18F1EA6418C070F500182A87 /* MapCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCollectionCell.h; path = Cells/MapCollectionCell.h; sourceTree = "<group>"; };
+		18F1EA6518C070F500182A87 /* MapCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapCollectionCell.m; path = Cells/MapCollectionCell.m; sourceTree = "<group>"; };
+		18F1EA6718C0710D00182A87 /* MapCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapCollectionCell.xib; sourceTree = "<group>"; };
 		18F3477018BB43A0006EF9A7 /* CTRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTRegisterViewController.h; path = ViewControllers/CTRegisterViewController.h; sourceTree = "<group>"; };
 		18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTRegisterViewController.m; path = ViewControllers/CTRegisterViewController.m; sourceTree = "<group>"; };
 		18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTRegisterViewController.xib; path = ViewControllers/CTRegisterViewController.xib; sourceTree = "<group>"; };
@@ -176,9 +179,6 @@
 		18F3477718BC3FC6006EF9A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		18F3477818BC4A71006EF9A7 /* FacebookDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookDelegate.h; path = Delegate/FacebookDelegate.h; sourceTree = "<group>"; };
 		18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookDelegate.m; path = Delegate/FacebookDelegate.m; sourceTree = "<group>"; };
-		18F3477D18BC6DF3006EF9A7 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		18F3477E18BC6DF3006EF9A7 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		18F3477F18BC6DF3006EF9A7 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
 		18F3478418BC7263006EF9A7 /* RESTfulEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTfulEngine.h; sourceTree = "<group>"; };
 		18F3478518BC7263006EF9A7 /* RESTfulEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTfulEngine.m; sourceTree = "<group>"; };
 		18F3478718BC7280006EF9A7 /* NSString+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encryption.h"; sourceTree = "<group>"; };
@@ -347,6 +347,9 @@
 				182D50B31890D77C0079A6DF /* CTListCell.m */,
 				1893061418A4BE7F00EA285E /* CTCollectionCell.h */,
 				1893061518A4BE7F00EA285E /* CTCollectionCell.m */,
+				18F1EA6418C070F500182A87 /* MapCollectionCell.h */,
+				18F1EA6518C070F500182A87 /* MapCollectionCell.m */,
+				18F1EA6718C0710D00182A87 /* MapCollectionCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -450,9 +453,6 @@
 				18F3477018BB43A0006EF9A7 /* CTRegisterViewController.h */,
 				18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */,
 				18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */,
-				18F3477D18BC6DF3006EF9A7 /* TestViewController.h */,
-				18F3477E18BC6DF3006EF9A7 /* TestViewController.m */,
-				18F3477F18BC6DF3006EF9A7 /* TestViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -560,8 +560,8 @@
 			files = (
 				18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */,
 				18E9A16318BEEED400A01ADB /* Images.xcassets in Resources */,
-				18F3478118BC6DF3006EF9A7 /* TestViewController.xib in Resources */,
 				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
+				18F1EA6818C0710D00182A87 /* MapCollectionCell.xib in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,13 +623,13 @@
 				18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */,
 				188054ED18B48CB800DE5A9C /* Images.m in Sources */,
 				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
+				18F1EA6618C070F500182A87 /* MapCollectionCell.m in Sources */,
 				186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */,
 				186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */,
 				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
 				188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */,
 				18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
-				18F3478018BC6DF3006EF9A7 /* TestViewController.m in Sources */,
 				18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */,
 				1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,

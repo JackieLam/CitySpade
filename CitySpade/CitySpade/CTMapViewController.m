@@ -22,11 +22,12 @@
 #import "Listing.h"
 #import "Constants.h"
 #import "RegExCategories.h"
+#import "MapCollectionCell.h"
 
-#define cellHeight 130.0f
-#define cellWidth 290.0f
-#define cellGap 20.0f
-#define cellOriginFromBottomLine 150.0f
+#define cellHeight 231.0f //130.0f
+#define cellWidth 320.0f //290.0f
+#define cellGap 0.0f //20.0f
+#define cellOriginFromBottomLine cellHeight //150.0f
 #define botttomHeight 44.0f
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 
@@ -104,7 +105,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForRentListings) name:kNotificationToLoadForRentListing object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForSaleListings) name:kNotificationToLoadForSaleListing object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFilteredListings) name:kNotificationToLoadFilteredListing object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePinsFilterRight:) name:kNotificationDidRightFilter object:nil];
 }
 
@@ -125,13 +125,14 @@
 
 - (void)setupCollectionView
 {
-    CGRect collectionViewFrame = CGRectMake(0, self.view.frame.size.height - cellOriginFromBottomLine, self.view.frame.size.width, cellHeight);
+    CGRect collectionViewFrame = CGRectMake(0, self.view.frame.size.height - cellOriginFromBottomLine-statusBarHeight, self.view.frame.size.width, cellHeight);
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [flowLayout setMinimumInteritemSpacing:0.0f];
     [flowLayout setMinimumLineSpacing:0.0f];
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayout];
-    [self.collectionView setPagingEnabled:NO];
+    [self.collectionView registerClass:[MapCollectionCell class] forCellWithReuseIdentifier:@"mapCollectionCell"];
+    [self.collectionView setPagingEnabled:YES];
     self.collectionView.alpha = 0.0f;
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
@@ -141,7 +142,7 @@
     self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(collectionViewDisappear)];
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
-    [self.collectionView registerClass:[CTCollectionCell class] forCellWithReuseIdentifier:@"CTCollectionCell"];
+//    [self.collectionView registerClass:[CTCollectionCell class] forCellWithReuseIdentifier:@"CTCollectionCell"];
     [self.view addSubview:self.collectionView];
 }
 
@@ -308,16 +309,20 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CTCollectionCell";
-    CTCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"mapCollectionCell";
+    MapCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[CTCollectionCell alloc] init];
+        cell = [[MapCollectionCell alloc] initWithFrame:CGRectMake(0, 0, cellWidth+cellGap, cellHeight)];
     }
     int count = (int)[indexPath row];
     REVClusterPin *pin = self.placesClicked[count];
-    cell.thumbImageView.image = [UIImage imageNamed:@"imagePlaceholder"];
+    cell.imageView.image = [UIImage imageNamed:@"imagePlaceholder"];
     cell.titleLabel.text = pin.title;
+    cell.bargainLabel.text = pin.bargain;
+    cell.transportationLabel.text = pin.transportation;
     cell.priceLabel.text = pin.subtitle;
+    cell.bedLabel.text = pin.beds;
+    cell.bathLabel.text = pin.baths;
     return cell;
 }
 
@@ -330,6 +335,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
 #pragma mark - Animation: UICollectionView
 - (void)collectionViewAppear
 {
+    [self.collectionView reloadData];
     CGRect viewFrame = self.collectionView.frame;
     viewFrame.origin.y = viewFrame.origin.y - 40;
     [UIView beginAnimations:nil context:nil];
@@ -339,7 +345,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.alpha = 1.0f;
     self.collectionView.frame = viewFrame;
-    [self.collectionView reloadData];
     [UIView commitAnimations];
 }
 
