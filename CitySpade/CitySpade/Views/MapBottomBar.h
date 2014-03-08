@@ -17,7 +17,6 @@ typedef enum {
 @interface MapBottomBar : UIView
 
 @property (nonatomic) BarState barState;
-@property (nonatomic, strong) id barStyleObserveToken;
 
 //BarStateMapDefault & BarStateList
 @property (strong, nonatomic) UISegmentedControl *segmentControl;

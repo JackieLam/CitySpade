@@ -55,6 +55,7 @@
     UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
     verticalLine.backgroundColor = lineColor;
     [rightView addSubview:verticalLine];
+    
 
 //Labels
 //titleLabel

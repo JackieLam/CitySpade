@@ -11,7 +11,6 @@
 #import "CTListView.h"
 #import "CTDetailView.h"
 #import "MFSideMenu.h"
-#import "FakeData.h"
 #import "CTListCell.h"
 #import "CTCollectionCell.h"
 #import "REVClusterMapView.h"
@@ -19,7 +18,7 @@
 #import "REVClusterAnnotationView.h"
 #import "MapBottomBar.h"
 #import "RESTfulEngine.h"
-#import "Listing.h"
+#import "DataModels.h"
 #import "Constants.h"
 #import "RegExCategories.h"
 #import "MapCollectionCell.h"
@@ -125,7 +124,7 @@
 
 - (void)setupCollectionView
 {
-    CGRect collectionViewFrame = CGRectMake(0, self.view.frame.size.height - cellOriginFromBottomLine-statusBarHeight, self.view.frame.size.width, cellHeight);
+    CGRect collectionViewFrame = CGRectMake(0, self.view.frame.size.height-statusBarHeight-navigationBarHeight+2, self.view.frame.size.width, cellHeight);
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [flowLayout setMinimumInteritemSpacing:0.0f];
@@ -133,7 +132,7 @@
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayout];
     [self.collectionView registerClass:[MapCollectionCell class] forCellWithReuseIdentifier:@"mapCollectionCell"];
     [self.collectionView setPagingEnabled:YES];
-    self.collectionView.alpha = 0.0f;
+    self.collectionView.alpha = 1.0f;
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
@@ -142,7 +141,6 @@
     self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(collectionViewDisappear)];
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
-//    [self.collectionView registerClass:[CTCollectionCell class] forCellWithReuseIdentifier:@"CTCollectionCell"];
     [self.view addSubview:self.collectionView];
 }
 
@@ -202,6 +200,9 @@
         pin.bargain = listing.bargain;
         pin.transportation = listing.transportation;
         pin.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
+        
+        Images *image = (Images *)[listing.images firstObject];
+        pin.thumbImageLink = [NSString stringWithFormat:@"%@%@", image.url, image.sizes[0]];
         [self.pinsAll addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
@@ -234,7 +235,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     REVClusterPin *annotation = (REVClusterPin *)view.annotation;
     if (annotation.nodes == nil) self.placesClicked = [NSArray arrayWithObject:annotation];
     else
-        self.placesClicked = annotation.nodes;
+        self.placesClicked = [NSArray arrayWithArray:annotation.nodes];
     //zoom in if click on a cluster less than 20 
     if ([annotation.nodes count] > 20) {
         CLLocationCoordinate2D centerCoordinate = [annotation coordinate];
@@ -243,14 +244,21 @@ didSelectAnnotationView:(MKAnnotationView *)view
                   animated:YES];
     }
     else {
-        if (self.collectionView.alpha == 0.0f) {
-//            [self.collectionView reloadData];
+        if (self.collectionView.frame.origin.y == 504) {
+            [self.collectionView reloadData];
             [self collectionViewAppear];
         }
         else {
             [self.collectionView reloadData];
         }
     }
+    [mapView deselectAnnotation:view.annotation animated:YES];
+//    [mapView deselectAnnotation:annotation animated:YES];
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
+
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
@@ -315,14 +323,8 @@ didSelectAnnotationView:(MKAnnotationView *)view
         cell = [[MapCollectionCell alloc] initWithFrame:CGRectMake(0, 0, cellWidth+cellGap, cellHeight)];
     }
     int count = (int)[indexPath row];
-    REVClusterPin *pin = self.placesClicked[count];
-    cell.imageView.image = [UIImage imageNamed:@"imagePlaceholder"];
-    cell.titleLabel.text = pin.title;
-    cell.bargainLabel.text = pin.bargain;
-    cell.transportationLabel.text = pin.transportation;
-    cell.priceLabel.text = pin.subtitle;
-    cell.bedLabel.text = pin.beds;
-    cell.bathLabel.text = pin.baths;
+    [cell configureCellWithClusterPin:self.placesClicked[count]];
+    
     return cell;
 }
 
@@ -335,15 +337,12 @@ didSelectAnnotationView:(MKAnnotationView *)view
 #pragma mark - Animation: UICollectionView
 - (void)collectionViewAppear
 {
-    [self.collectionView reloadData];
     CGRect viewFrame = self.collectionView.frame;
-    viewFrame.origin.y = viewFrame.origin.y - 40;
+    viewFrame.origin.y = viewFrame.origin.y - cellHeight;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.4];
     [UIView setAnimationDelay:0.0];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    self.collectionView.alpha = 1.0f;
     self.collectionView.frame = viewFrame;
     [UIView commitAnimations];
 }
@@ -351,12 +350,11 @@ didSelectAnnotationView:(MKAnnotationView *)view
 - (void)collectionViewDisappear
 {
     CGRect viewFrame = self.collectionView.frame;
-    viewFrame.origin.y = viewFrame.origin.y + 40;
+    viewFrame.origin.y = viewFrame.origin.y + cellHeight;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.4];
     [UIView setAnimationDelay:0.0];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    self.collectionView.alpha = 0.0f;
     self.collectionView.frame = viewFrame;
     [UIView commitAnimations];
 }
@@ -403,16 +401,19 @@ didSelectAnnotationView:(MKAnnotationView *)view
     if (sender.selectedSegmentIndex == 0) {
         [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
             [self.ctlistView removeFromSuperview];
-            [self.view addSubview:self.ctmapView];
+            [self.mapBottomBar resetBarState:BarStateMapDefault];
+            [self.view insertSubview:self.ctmapView aboveSubview:self.view];
             [self.view bringSubviewToFront:self.mapBottomBar];
+            [self.view bringSubviewToFront:self.collectionView];
         }];
     }
     else {
         [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
             [self.ctmapView removeFromSuperview];
             [self.view insertSubview:self.ctlistView belowSubview:self.mapBottomBar];
+            [self.mapBottomBar resetBarState:BarStateList];
             [self.view bringSubviewToFront:self.mapBottomBar];
-            [self.ctlistView loadPlacesToList:self.places];
+            [self.ctlistView loadPlacesToList:self.pinsAll];
         }];
     }
 }
@@ -440,6 +441,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     if (self.path) {
         [self.path removeAllPoints];
         self.shapeLayer.path = [self.path CGPath];
+        self.path = nil;
     }
     
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
@@ -471,7 +473,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
             self.shapeLayer = [[CAShapeLayer alloc] init];
             self.shapeLayer.fillColor = [[UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:0.2f] CGColor];
             self.shapeLayer.strokeColor = [greenColor CGColor];
-            self.shapeLayer.lineWidth = 5.0;
+            self.shapeLayer.lineWidth = 3.0;
             [self.pathOverlay.layer addSublayer:self.shapeLayer];
         }
         self.path = [[UIBezierPath alloc] init];

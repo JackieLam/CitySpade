@@ -34,18 +34,19 @@
 
 - (void)configureAnnotationView:(NSUInteger)clusterNum
 {
-    NSString *numberOnCluster = [NSString stringWithFormat:@"%lu",clusterNum];
-    NSString *clusterPNGName = [NSString stringWithFormat:@"cluster%lu",(unsigned long)numberOnCluster.length];
-    self.image = [UIImage imageNamed:clusterPNGName];
-    [self setLabelFrame:CGRectMake(0, 0, self.image.size.width, self.image.size.height)];
     self.canShowCallout = NO;
     
-    if( clusterNum > 0 ){
-//        pin.title = @"___";
-        [self setClusterText:
-         numberOnCluster];
-    } else {
-        [self setClusterText:@"1"];
+    NSString *numberOnCluster = [NSString stringWithFormat:@"%lu",(unsigned long)clusterNum];
+    NSString *clusterPNGName = [NSString stringWithFormat:@"cluster%lu",(unsigned long)numberOnCluster.length];
+    
+    if ([numberOnCluster isEqualToString:@"0"]) {
+        self.image = [UIImage imageNamed:@"pin"];
+        [self setLabelFrame:CGRectZero];
+    }
+    else {
+        self.image = [UIImage imageNamed:clusterPNGName];
+        [self setLabelFrame:CGRectMake(0, 0, self.image.size.width, self.image.size.height)];
+        [self setClusterText:numberOnCluster];
     }
 }
 

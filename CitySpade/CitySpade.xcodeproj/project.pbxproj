@@ -18,10 +18,8 @@
 		1817C757188CBD68003AC430 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73F188CBD68003AC430 /* UIKit.framework */; };
 		1817C75F188CBD68003AC430 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1817C75D188CBD68003AC430 /* InfoPlist.strings */; };
 		1817C761188CBD68003AC430 /* CitySpadeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817C760188CBD68003AC430 /* CitySpadeTests.m */; };
-		1817C7A2188D54C0003AC430 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A1188D54C0003AC430 /* AVFoundation.framework */; };
 		1817C7A4188D54D1003AC430 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A3188D54D1003AC430 /* CoreLocation.framework */; };
 		1817C7A6188D54DC003AC430 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A5188D54DC003AC430 /* CoreText.framework */; };
-		1817C7A8188D54E4003AC430 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A7188D54E4003AC430 /* GLKit.framework */; };
 		1817C7AA188D54EC003AC430 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A9188D54EC003AC430 /* ImageIO.framework */; };
 		1817C7AC188D54F5003AC430 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7AB188D54F5003AC430 /* libc++.dylib */; };
 		1817C7AE188D54FF003AC430 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7AD188D54FF003AC430 /* libicucore.dylib */; };
@@ -31,10 +29,8 @@
 		1817C7B6188D5522003AC430 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B5188D5522003AC430 /* SystemConfiguration.framework */; };
 		1817C7B8188D558C003AC430 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7B7188D558C003AC430 /* CoreData.framework */; };
 		182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B3188FC7560064B28F /* CTFilterViewController.m */; };
-		182413BD18901F520064B28F /* FakeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413BC18901F520064B28F /* FakeData.m */; };
 		182D50B11890C05C0079A6DF /* CTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B01890C05C0079A6DF /* CTListView.m */; };
 		182D50B41890D77C0079A6DF /* CTListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B31890D77C0079A6DF /* CTListCell.m */; };
-		1849AFC318950A8A00D22363 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1849AFC218950A8A00D22363 /* GoogleMaps.framework */; };
 		1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850870E18BD87AF000A5BA4 /* RegExCategories.m */; };
 		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BE189F2E00002500E6 /* REVClusterBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -56,6 +52,8 @@
 		1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061C18A77E3900EA285E /* AppearanceSetter.m */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
+		18A4F0FA18CADF7A00CFB2BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */; };
+		18A4F0FC18CAFB8900CFB2BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A1188D54C0003AC430 /* AVFoundation.framework */; };
 		18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D052AE18B8F9A000D548FD /* CTLoginViewController.m */; };
 		18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */; };
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
@@ -112,8 +110,6 @@
 		1817C7B7188D558C003AC430 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		182413B2188FC7560064B28F /* CTFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFilterViewController.h; path = ViewControllers/CTFilterViewController.h; sourceTree = "<group>"; };
 		182413B3188FC7560064B28F /* CTFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFilterViewController.m; path = ViewControllers/CTFilterViewController.m; sourceTree = "<group>"; };
-		182413BB18901F520064B28F /* FakeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeData.h; path = FakeData/FakeData.h; sourceTree = "<group>"; };
-		182413BC18901F520064B28F /* FakeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeData.m; path = FakeData/FakeData.m; sourceTree = "<group>"; };
 		182D50AF1890C05C0079A6DF /* CTListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListView.h; path = Views/CTListView.h; sourceTree = "<group>"; };
 		182D50B01890C05C0079A6DF /* CTListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListView.m; path = Views/CTListView.m; sourceTree = "<group>"; };
 		182D50B21890D77C0079A6DF /* CTListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListCell.h; path = Cells/CTListCell.h; sourceTree = "<group>"; };
@@ -162,6 +158,7 @@
 		189763C61890FD9C006374E0 /* CTDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailViewController.m; path = ViewControllers/CTDetailViewController.m; sourceTree = "<group>"; };
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
 		189763C91890FE6E006374E0 /* CTDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailView.m; path = Views/CTDetailView.m; sourceTree = "<group>"; };
+		18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		18D052AD18B8F9A000D548FD /* CTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLoginViewController.h; path = ViewControllers/CTLoginViewController.h; sourceTree = "<group>"; };
 		18D052AE18B8F9A000D548FD /* CTLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLoginViewController.m; path = ViewControllers/CTLoginViewController.m; sourceTree = "<group>"; };
@@ -194,6 +191,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1817C7A4188D54D1003AC430 /* CoreLocation.framework in Frameworks */,
+				18A4F0FC18CAFB8900CFB2BC /* AVFoundation.framework in Frameworks */,
+				18A4F0FA18CADF7A00CFB2BC /* CFNetwork.framework in Frameworks */,
 				18F3477618BC3ED8006EF9A7 /* FacebookSDK.framework in Frameworks */,
 				186012D2189F2F93002500E6 /* MapKit.framework in Frameworks */,
 				1817C7B8188D558C003AC430 /* CoreData.framework in Frameworks */,
@@ -204,12 +203,9 @@
 				1817C7AE188D54FF003AC430 /* libicucore.dylib in Frameworks */,
 				1817C7AC188D54F5003AC430 /* libc++.dylib in Frameworks */,
 				1817C7AA188D54EC003AC430 /* ImageIO.framework in Frameworks */,
-				1817C7A8188D54E4003AC430 /* GLKit.framework in Frameworks */,
 				1817C7A6188D54DC003AC430 /* CoreText.framework in Frameworks */,
-				1817C7A2188D54C0003AC430 /* AVFoundation.framework in Frameworks */,
 				1817C73E188CBD68003AC430 /* CoreGraphics.framework in Frameworks */,
 				1817C740188CBD68003AC430 /* UIKit.framework in Frameworks */,
-				1849AFC318950A8A00D22363 /* GoogleMaps.framework in Frameworks */,
 				1817C73C188CBD68003AC430 /* Foundation.framework in Frameworks */,
 				AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */,
 			);
@@ -252,6 +248,7 @@
 		1817C73A188CBD68003AC430 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */,
 				18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */,
 				186012D1189F2F93002500E6 /* MapKit.framework */,
 				1849AFC218950A8A00D22363 /* GoogleMaps.framework */,
@@ -292,7 +289,6 @@
 				18E58B4218ACE0C200E38583 /* Categories */,
 				18645EFA18A88C62009CF97F /* Custom UIs */,
 				182D50B51890D7A60079A6DF /* Cells */,
-				182413BE18901F570064B28F /* FakeData */,
 				189EC112188FBBBA00DC485F /* Views */,
 				189EC108188F9EFD00DC485F /* ViewControllers */,
 				186012CE189F2E23002500E6 /* REVMapCluster */,
@@ -329,15 +325,6 @@
 				1817C75D188CBD68003AC430 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		182413BE18901F570064B28F /* FakeData */ = {
-			isa = PBXGroup;
-			children = (
-				182413BB18901F520064B28F /* FakeData.h */,
-				182413BC18901F520064B28F /* FakeData.m */,
-			);
-			name = FakeData;
 			sourceTree = "<group>";
 		};
 		182D50B51890D7A60079A6DF /* Cells */ = {
@@ -635,7 +622,6 @@
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
-				182413BD18901F520064B28F /* FakeData.m in Sources */,
 				18F3477A18BC4A71006EF9A7 /* FacebookDelegate.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
 				1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */,

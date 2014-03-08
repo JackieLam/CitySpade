@@ -13,7 +13,7 @@
 #import "FacebookDelegate.h"
 
 //Part One
-NSString * const HOST_URL = @"http://cityspade.com/api/v1";
+NSString * const HOST_URL = @"http://54.200.13.116/api/v1";
 NSString * const LISTINGS_PATH = @"/listings.json?";
 
 //Part Two
@@ -266,7 +266,7 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
     // 4 Networking operate
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+//        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (!error) {
             // 1 Serialize JSON
             NSError *jsonError;
@@ -308,15 +308,15 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
     
 }
 
-+ (void)addAListingToSaveListWithId:(double)idNumber
-{
-
-}
-
-+ (void)deleteAListingFromSaveListWithId:(double)idNumber
-{
-
-}
+//+ (void)addAListingToSaveListWithId:(double)idNumber
+//{
+//
+//}
+//
+//+ (void)deleteAListingFromSaveListWithId:(double)idNumber
+//{
+//
+//}
 
 #pragma mark - 
 #pragma mark - Part Four: Facebook Authentication

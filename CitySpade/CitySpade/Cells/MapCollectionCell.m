@@ -7,6 +7,7 @@
 //
 
 #import "MapCollectionCell.h"
+#import "REVClusterPin.h"
 
 @implementation MapCollectionCell
 
@@ -16,7 +17,6 @@
     if (self) {
         // Initialization code
         NSArray *arrayOfViews = [[NSBundle mainBundle] loadNibNamed:@"MapCollectionCell" owner:self options:nil];
-        
         if ([arrayOfViews count] < 1) {
             return nil;
         }
@@ -29,13 +29,30 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)configureCellWithClusterPin:(REVClusterPin *)pin
 {
-    // Drawing code
+    self.imageView.image = [UIImage imageNamed:@"imgplaceholder_long"];
+    self.titleLabel.text = pin.title;
+    self.bargainLabel.text = pin.bargain;
+    self.transportationLabel.text = pin.transportation;
+    self.priceLabel.text = pin.subtitle;
+    self.bedLabel.text = pin.beds;
+    self.bathLabel.text = pin.baths;
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = self.imageView.frame;
+    [self addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    NSString *urlString = pin.thumbImageLink;
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        [activityIndicator stopAnimating];
+        [activityIndicator removeFromSuperview];
+        UIImage *image = [UIImage imageWithData:data];
+        [self.imageView setImage:image];
+        
+    }] resume];
 }
-*/
 
 @end

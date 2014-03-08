@@ -35,10 +35,12 @@
     xSum += mapPoint.x;
     ySum += mapPoint.y;
 }
+
 - (id) objectAtIndex:(NSUInteger)index
 {
     return [collection objectAtIndex:index];
 }
+
 - (NSUInteger) count
 {
     return [collection count];
@@ -51,4 +53,5 @@
     [super dealloc];
 }
 #endif
+
 @end

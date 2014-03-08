@@ -17,11 +17,13 @@
     
 }
 
-+ (NSArray *) clusterForMapView:(MKMapView *)mapView forAnnotations:(NSArray *)pins ;
+//+ (NSArray *) clusterForMapView:(MKMapView *)mapView forAnnotations:(NSArray *)pins ;
 + (NSArray *) clusterAnnotationsForMapView:(MKMapView *)mapView forAnnotations:(NSArray *)pins blocks:(NSUInteger)blocks minClusterLevel:(NSUInteger)minClusterLevel;
 
-+ (BOOL) clusterAlreadyExistsForMapView:(MKMapView *)mapView andBlockCluster:(REVClusterBlock *)cluster;
-- (NSInteger)getGlobalTileNumberFromMapView:(MKMapView *)mapView forLocalTileNumber:(NSInteger)tileNumber;
-+ (MKPolygon *)polygonForMapRect:(MKMapRect)mapRect;
+//+ (BOOL) clusterAlreadyExistsForMapView:(MKMapView *)mapView andBlockCluster:(REVClusterBlock *)cluster;
+//- (NSInteger)getGlobalTileNumberFromMapView:(MKMapView *)mapView forLocalTileNumber:(NSInteger)tileNumber;
+//+ (MKPolygon *)polygonForMapRect:(MKMapRect)mapRect;
+
+// Polygon好像是我需要做的功能
 
 @end

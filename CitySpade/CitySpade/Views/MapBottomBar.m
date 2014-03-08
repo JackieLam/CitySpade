@@ -7,7 +7,6 @@
 //
 
 #import "MapBottomBar.h"
-//#import "KeyValueObserver.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MapBottomBar()
@@ -49,7 +48,7 @@
     [self addSubview:self.drawButton];
 //SegmentControl
     self.segmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:[UIImage imageNamed:@"map_selected"], [UIImage imageNamed:@"list_unselected"], nil]];
-    self.segmentControl.tintColor = [UIColor redColor];
+    self.segmentControl.tintColor = [UIColor whiteColor];
     self.segmentControl.frame = tempImageViewRect;
     self.segmentControl.selectedSegmentIndex = 0;
     self.segmentControl.layer.cornerRadius = 20.0f;
@@ -77,6 +76,15 @@
     [self.clearButton setTitleColor:[UIColor colorWithRed:172.0/255.0 green:255.0/255.0 blue:250.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     self.clearButton.hidden = YES;
     [self addSubview:self.clearButton];
+//SortButton
+    self.sortButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.sortButton.frame = drawButtonRect;
+    self.sortButton.backgroundColor = [UIColor clearColor];
+    self.sortButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:15.0f];
+    [self.sortButton setTitle:@"Sort" forState:UIControlStateNormal];
+    [self.sortButton setTitleColor:[UIColor colorWithRed:172.0/255.0 green:255.0/255.0 blue:250.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    self.sortButton.hidden = YES;
+    [self addSubview:self.sortButton];
 }
 
 -(void)segmentAction:(UISegmentedControl*)sender

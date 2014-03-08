@@ -43,6 +43,7 @@
 
 - (void)loadPlacesToList:(NSArray *)places
 {
+    self.totalCountLabel.text = [NSString stringWithFormat:@"%d results total", [places count]];
     self.places = places;
     [self reloadData];
 }
@@ -68,24 +69,9 @@
         cell.frame = CGRectMake(0, 0, self.frame.size.width, heightForRow);
     }
 
-    cell.house = self.places[indexPath.row];
-    cell.titleLabel.text = cell.house[@"title"];
-
-    NSMutableString *urlString = [NSMutableString stringWithString:cell.house[@"images"][0][@"s3_url"]];
-    [urlString appendString:cell.house[@"images"][0][@"sizes"][3]];
-    NSLog(@"PICTURE URL STRING : %@", urlString);
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        UIImage *image = [UIImage imageWithData:data];
-        [cell.thumbImageView setImage:image];
-
-    }] resume];
+    [cell configureCellWithClusterPin:self.places[indexPath.row]];
     
     return cell;
 }
-
-#pragma mark - UITableViewDelegate Method
-//- (void)ta
 
 @end

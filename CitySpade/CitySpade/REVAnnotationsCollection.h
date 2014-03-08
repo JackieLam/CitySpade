@@ -13,7 +13,6 @@
 
 @interface REVAnnotationsCollection : NSObject {
     NSMutableArray *collection;
-    
     double xSum;
     double ySum;
 }
@@ -26,4 +25,5 @@
 - (void) addObject:(id<MKAnnotation>)annotation;
 - (id) objectAtIndex:(NSUInteger)index;
 - (NSUInteger) count;
+
 @end

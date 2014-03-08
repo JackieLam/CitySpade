@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-
 @interface Listing : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSArray *images;

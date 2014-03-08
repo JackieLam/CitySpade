@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class REVClusterPin;
+
 @interface CTListCell : UITableViewCell
 
-@property (nonatomic) NSDictionary *house;
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *priceLabel;
@@ -19,5 +20,7 @@
 @property (nonatomic, strong) UILabel *bedLabel;
 @property (nonatomic, strong) UILabel *bathLabel;
 @property (nonatomic, strong) UIView *rightView;
+
+- (void)configureCellWithClusterPin:(REVClusterPin *)pin;
 
 @end

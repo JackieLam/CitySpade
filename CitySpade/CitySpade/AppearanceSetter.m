@@ -24,7 +24,7 @@
 {
     //UISearchBar -- Background
     [[UISearchBar appearance] setSearchFieldBackgroundImage:[UIImage imageNamed:@"searchBar_bg"] forState:UIControlStateNormal];
-    [[UISearchBar appearance] setSearchFieldBackgroundImage:[UIImage imageNamed:@"searchBar_bg"] forState:UIControlStateSelected];
+    [[UISearchBar appearance] setSearchFieldBackgroundImage:[UIImage imageNamed:@"searchBar_bg"] forState:UIControlStateDisabled];
     [[UISearchBar appearance] setBackgroundImage:[UIImage imageNamed:@"search_bg.png"]];
     
     //UISearchBar -- Mag Icon

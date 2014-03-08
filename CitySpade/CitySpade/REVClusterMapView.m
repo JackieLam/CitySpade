@@ -48,7 +48,7 @@
     annotationsCopy = nil;
     annotationsBackup = nil;
     
-    self.minimumClusterLevel = 100000;
+    self.minimumClusterLevel = 30000;
     self.blocks = 4;
     
     super.delegate = self;
@@ -198,7 +198,7 @@
         [super removeAnnotations:self.annotations];
         self.showsUserLocation = self.showsUserLocation;
     }
-    
+
     NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
     [super addAnnotations:add];
     
@@ -211,7 +211,7 @@
 - (BOOL) mapViewDidZoom
 {
     
-    if( zoomLevel == self.visibleMapRect.size.width * self.visibleMapRect.size.height )
+    if( zoomLevel - self.visibleMapRect.size.width * self.visibleMapRect.size.height < 1)
     {
         zoomLevel = self.visibleMapRect.size.width * self.visibleMapRect.size.height;
         return NO;
@@ -236,7 +236,6 @@
         blocks = 2;
     else 
         blocks = round(value);
-    
 }
 
 #pragma mark -

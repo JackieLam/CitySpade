@@ -7,6 +7,7 @@
 //
 
 #import "CTListCell.h"
+#import "REVClusterPin.h"
 
 #define cellHeight 120.0f
 #define cellWidth 320.0f
@@ -34,7 +35,8 @@
 
 - (void)initCell
 {
-    self.thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageSize, imageSize)];
+    self.thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgplaceholder_square"]];
+    self.thumbImageView.frame = CGRectMake(0, 0, imageSize, imageSize);
     self.thumbImageView.backgroundColor = [UIColor redColor];
     [self addSubview:self.thumbImageView];
     
@@ -81,13 +83,13 @@
     [self.rightView addSubview:self.transportLabel];
     //TODO: use coretext to underline the text
 //bedLabel
-    self.bedLabel = [[UILabel alloc] initWithFrame:CGRectMake(34, 101, 35, 16)];
+    self.bedLabel = [[UILabel alloc] initWithFrame:CGRectMake(32, 101, 40, 16)];
     self.bedLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:12.5f];
     self.bedLabel.textColor = labelGrayColor;
     self.bedLabel.text = @"1Bed";
     [self.self.rightView addSubview:self.bedLabel];
 //bathLabel
-    self.bathLabel = [[UILabel alloc] initWithFrame:CGRectMake(133, 101, 35, 16)];
+    self.bathLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 101, 40, 16)];
     self.bathLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:12.5f];
     self.bathLabel.textColor = labelGrayColor;
     self.bathLabel.text = @"1Bath";
@@ -105,5 +107,29 @@
     }
 }
 
+- (void)configureCellWithClusterPin:(REVClusterPin *)pin
+{
+    self.titleLabel.text = pin.title;
+    self.priceLabel.text = pin.subtitle;
+    self.bargainLabel.text = [NSString stringWithFormat:@"Bargain(price):%@", pin.bargain];
+    self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", pin.transportation];
+    self.bedLabel.text = [pin.beds stringByAppendingString:@" Beds"];
+    self.bathLabel.text = [pin.baths stringByAppendingString:@" Baths"];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = self.thumbImageView.frame;
+    [self addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    NSString *urlString = pin.thumbImageLink;
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        [activityIndicator removeFromSuperview];
+        [activityIndicator stopAnimating];
+        UIImage *image = [UIImage imageWithData:data];
+        [self.thumbImageView setImage:image];
+        
+    }] resume];
+}
 
 @end

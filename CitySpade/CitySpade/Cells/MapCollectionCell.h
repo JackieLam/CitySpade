@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class REVClusterPin;
+
 @interface MapCollectionCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
@@ -16,5 +18,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *bedLabel;
 @property (strong, nonatomic) IBOutlet UILabel *bathLabel;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
+
+- (void)configureCellWithClusterPin:(REVClusterPin *)pin;
 
 @end
