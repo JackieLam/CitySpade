@@ -67,6 +67,7 @@
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 66.0f, 195.0f, 43.0f)];
     searchBar.backgroundColor = [UIColor clearColor];
     searchBar.placeholder = @" New York NY             ";
+    searchBar.userInteractionEnabled = NO;
     
     [self.view addSubview:searchBar];
 }

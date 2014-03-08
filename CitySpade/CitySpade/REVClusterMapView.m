@@ -211,7 +211,7 @@
 - (BOOL) mapViewDidZoom
 {
     
-    if( zoomLevel - self.visibleMapRect.size.width * self.visibleMapRect.size.height < 1)
+    if( abs(zoomLevel - self.visibleMapRect.size.width * self.visibleMapRect.size.height) < 1)
     {
         zoomLevel = self.visibleMapRect.size.width * self.visibleMapRect.size.height;
         return NO;

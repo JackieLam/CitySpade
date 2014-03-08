@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "slider_highlight_bg.png"
+      "filename" : "slider_label.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "slider_label@2x.png"
     }
   ],
   "info" : {

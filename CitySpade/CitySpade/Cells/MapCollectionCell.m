@@ -47,10 +47,12 @@
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        [activityIndicator stopAnimating];
-        [activityIndicator removeFromSuperview];
-        UIImage *image = [UIImage imageWithData:data];
-        [self.imageView setImage:image];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator stopAnimating];
+            [activityIndicator removeFromSuperview];
+            UIImage *image = [UIImage imageWithData:data];
+            [self.imageView setImage:image];
+        });
         
     }] resume];
 }
