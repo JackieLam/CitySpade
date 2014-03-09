@@ -49,6 +49,8 @@
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
 @property (nonatomic, strong) UIBezierPath *path;
 
+@property (nonatomic) float collectionViewOriginY;
+
 @end
 
 @implementation CTMapViewController {
@@ -124,7 +126,8 @@
 
 - (void)setupCollectionView
 {
-    CGRect collectionViewFrame = CGRectMake(0, self.view.frame.size.height-statusBarHeight-navigationBarHeight+2, self.view.frame.size.width, cellHeight);
+    self.collectionViewOriginY = self.view.frame.size.height-statusBarHeight-navigationBarHeight+2;
+    CGRect collectionViewFrame = CGRectMake(0, self.collectionViewOriginY, self.view.frame.size.width, cellHeight);
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [flowLayout setMinimumInteritemSpacing:0.0f];
@@ -244,7 +247,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
                   animated:YES];
     }
     else {
-        if (self.collectionView.frame.origin.y == 504) {
+        if (self.collectionView.frame.origin.y == self.collectionViewOriginY) {
             [self.collectionView reloadData];
             [self collectionViewAppear];
         }
