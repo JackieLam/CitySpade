@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180A406A18D2091D004D33D5 /* AppCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A406918D2091D004D33D5 /* AppCache.m */; };
 		1817C73C188CBD68003AC430 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73B188CBD68003AC430 /* Foundation.framework */; };
 		1817C73E188CBD68003AC430 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73D188CBD68003AC430 /* CoreGraphics.framework */; };
 		1817C740188CBD68003AC430 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73F188CBD68003AC430 /* UIKit.framework */; };
@@ -52,6 +53,8 @@
 		1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893061C18A77E3900EA285E /* AppearanceSetter.m */; };
 		189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C61890FD9C006374E0 /* CTDetailViewController.m */; };
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
+		189D5FA018CFFF9F00EE8EC9 /* CTDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */; };
+		189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */; };
 		18A4F0FA18CADF7A00CFB2BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */; };
 		18A4F0FC18CAFB8900CFB2BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A1188D54C0003AC430 /* AVFoundation.framework */; };
 		18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D052AE18B8F9A000D548FD /* CTLoginViewController.m */; };
@@ -81,6 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180A406818D2091D004D33D5 /* AppCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCache.h; path = Cache/AppCache.h; sourceTree = "<group>"; };
+		180A406918D2091D004D33D5 /* AppCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppCache.m; path = Cache/AppCache.m; sourceTree = "<group>"; };
 		1817C738188CBD68003AC430 /* CitySpade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySpade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1817C73B188CBD68003AC430 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1817C73D188CBD68003AC430 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -114,7 +119,6 @@
 		182D50B01890C05C0079A6DF /* CTListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListView.m; path = Views/CTListView.m; sourceTree = "<group>"; };
 		182D50B21890D77C0079A6DF /* CTListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListCell.h; path = Cells/CTListCell.h; sourceTree = "<group>"; };
 		182D50B31890D77C0079A6DF /* CTListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListCell.m; path = Cells/CTListCell.m; sourceTree = "<group>"; };
-		1849AFC218950A8A00D22363 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		1850870D18BD87AF000A5BA4 /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegExCategories.h; sourceTree = "<group>"; };
 		1850870E18BD87AF000A5BA4 /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
 		186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVAnnotationsCollection.h; sourceTree = "<group>"; };
@@ -158,6 +162,9 @@
 		189763C61890FD9C006374E0 /* CTDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailViewController.m; path = ViewControllers/CTDetailViewController.m; sourceTree = "<group>"; };
 		189763C81890FE6E006374E0 /* CTDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailView.h; path = Views/CTDetailView.h; sourceTree = "<group>"; };
 		189763C91890FE6E006374E0 /* CTDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailView.m; path = Views/CTDetailView.m; sourceTree = "<group>"; };
+		189D5F9D18CFFF9F00EE8EC9 /* CTDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailsViewController.h; path = ViewControllers/CTDetailsViewController.h; sourceTree = "<group>"; };
+		189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailsViewController.m; path = ViewControllers/CTDetailsViewController.m; sourceTree = "<group>"; };
+		189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTDetailsViewController.xib; path = ViewControllers/CTDetailsViewController.xib; sourceTree = "<group>"; };
 		18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		18D052AD18B8F9A000D548FD /* CTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLoginViewController.h; path = ViewControllers/CTLoginViewController.h; sourceTree = "<group>"; };
@@ -251,7 +258,6 @@
 				18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */,
 				18F3477518BC3ED8006EF9A7 /* FacebookSDK.framework */,
 				186012D1189F2F93002500E6 /* MapKit.framework */,
-				1849AFC218950A8A00D22363 /* GoogleMaps.framework */,
 				1817C7B7188D558C003AC430 /* CoreData.framework */,
 				1817C7B5188D5522003AC430 /* SystemConfiguration.framework */,
 				1817C7B3188D5516003AC430 /* QuartzCore.framework */,
@@ -279,6 +285,7 @@
 				18F3477718BC3FC6006EF9A7 /* Constants.h */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
+				183991C918D2F1CE00D2B07F /* Cache */,
 				18F3477818BC4A71006EF9A7 /* FacebookDelegate.h */,
 				18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */,
 				1893061B18A77E3900EA285E /* AppearanceSetter.h */,
@@ -339,6 +346,15 @@
 				18F1EA6718C0710D00182A87 /* MapCollectionCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		183991C918D2F1CE00D2B07F /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				180A406818D2091D004D33D5 /* AppCache.h */,
+				180A406918D2091D004D33D5 /* AppCache.m */,
+			);
+			name = Cache;
 			sourceTree = "<group>";
 		};
 		186012CE189F2E23002500E6 /* REVMapCluster */ = {
@@ -430,6 +446,9 @@
 			children = (
 				189763C51890FD9C006374E0 /* CTDetailViewController.h */,
 				189763C61890FD9C006374E0 /* CTDetailViewController.m */,
+				189D5F9D18CFFF9F00EE8EC9 /* CTDetailsViewController.h */,
+				189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */,
+				189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */,
 				188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */,
 				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
 				182413B2188FC7560064B28F /* CTFilterViewController.h */,
@@ -549,6 +568,7 @@
 				18E9A16318BEEED400A01ADB /* Images.xcassets in Resources */,
 				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
 				18F1EA6818C0710D00182A87 /* MapCollectionCell.xib in Resources */,
+				189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,6 +638,7 @@
 				18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
 				18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */,
+				180A406A18D2091D004D33D5 /* AppCache.m in Sources */,
 				1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
@@ -629,6 +650,7 @@
 				18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */,
 				186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */,
 				188054EE18B48CB800DE5A9C /* Listing.m in Sources */,
+				189D5FA018CFFF9F00EE8EC9 /* CTDetailsViewController.m in Sources */,
 				186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */,
 				18858C0018AE162400F49974 /* NMRangeSlider.m in Sources */,
 				18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */,
@@ -806,6 +828,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/apple/Developer/CitySpade/CitySpade,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CitySpade/CitySpade-Prefix.pch";
@@ -829,6 +852,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/apple/Developer/CitySpade/CitySpade,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CitySpade/CitySpade-Prefix.pch";

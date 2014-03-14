@@ -29,8 +29,8 @@
     float tileWidth = mapView.visibleMapRect.size.width/BLOCKS;
     float tileHeight = mapView.visibleMapRect.size.height/BLOCKS;
     
-    MKMapRect mapRect = MKMapRectWorld;
-    NSUInteger maxWidthBlocks = round(mapRect.size.width / tileWidth); //整个世界的width block个数
+//    MKMapRect mapRect = MKMapRectWorld;
+//    NSUInteger maxWidthBlocks = round(mapRect.size.width / tileWidth); //计算整个世界的width block个数
 //    float zoomLevel = maxWidthBlocks / BLOCKS;  //zoomLevel代表这是世界横向能覆盖多少个visible mapRect
     
     float tileStartX = floorf(tileX/tileWidth)*tileWidth;
@@ -55,7 +55,7 @@
         }
     }
     
-    if( visibleAnnotationsShown.count < 30 )   //若已经zoom得太大，直接返回一个个大头针，不进行cluster
+    if( visibleAnnotationsShown.count < 30 )   //判断大头针数目若小于30不作cluster
     {
         return visibleAnnotations;
     }

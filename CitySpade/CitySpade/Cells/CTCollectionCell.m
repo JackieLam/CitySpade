@@ -43,7 +43,7 @@
 - (void)initCell
 {
     self.thumbImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageSize, imageSize)];
-    self.thumbImageView.backgroundColor = [UIColor redColor];
+    self.thumbImageView.image = [UIImage imageNamed:@"imgplaceholder_long"];
     [self addSubview:self.thumbImageView];
     
 //Info view and the lines

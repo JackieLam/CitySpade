@@ -37,7 +37,6 @@
 {
     self.thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgplaceholder_square"]];
     self.thumbImageView.frame = CGRectMake(0, 0, imageSize, imageSize);
-    self.thumbImageView.backgroundColor = [UIColor redColor];
     [self addSubview:self.thumbImageView];
     
     //Info view and the lines
@@ -113,8 +112,8 @@
     self.priceLabel.text = pin.subtitle;
     self.bargainLabel.text = [NSString stringWithFormat:@"Bargain(price):%@", pin.bargain];
     self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", pin.transportation];
-    self.bedLabel.text = [pin.beds stringByAppendingString:@" Beds"];
-    self.bathLabel.text = [pin.baths stringByAppendingString:@" Baths"];
+    self.bedLabel.text = [pin.beds stringByAppendingString:@"Beds"];
+    self.bathLabel.text = [pin.baths stringByAppendingString:@"Baths"];
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.frame = self.thumbImageView.frame;

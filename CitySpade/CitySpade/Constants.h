@@ -28,8 +28,7 @@
 
 #define kNotificationLoginSuccess @"didLoginSuccess"
 #define kNotificationRegisterSuccess @"didRegisterSuccess"
-#define kNotificationToLoadForRentListing @"toLoadForRentListing"
-#define kNotificationToLoadForSaleListing @"toLoadForSaleListing"
+#define kNotificationToLoadAllListings @"toLoadForRentListing"
 #define kNotificationToLoadFilteredListing @"toLoadFilteredListing"
 #define kNotificationDidRightFilter @"didRightFilter"
 #define kNotificationDidGetFacebookUserInfo @"didGetFacebookUserInfo"
@@ -38,5 +37,10 @@
 
 #define statusBarHeight 22.0f
 #define navigationBarHeight 44.0f
+
+#pragma mark - AppCache
+
+#define kAppVersion @"APP_VERSION"
+#define kListingsArchive @"LISTINGS_ARCHIVE.archives"
 
 #endif

@@ -22,6 +22,7 @@
 #import "Constants.h"
 #import "RegExCategories.h"
 #import "MapCollectionCell.h"
+#import "AppCache.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -36,11 +37,10 @@
     BOOL forRent;
 }
 
+@property (nonatomic, strong) NSArray *listings;
 @property (nonatomic, strong) NSMutableArray *pinsAll;
 @property (nonatomic, strong) NSMutableArray *pinsFilterRight;
-@property (nonatomic, strong) NSMutableArray *pinsFilterDrawAndRight;
 
-@property (nonatomic, strong) NSArray *places;
 @property (nonatomic, strong) NSArray *placesClicked;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeCollectionView;
 //Drawing related property
@@ -60,8 +60,11 @@
 - (void)loadView
 {
     [super loadView];
+// Setup the dataArray
+    self.listings = [NSArray array];
+    self.pinsAll = [NSMutableArray array];
+    self.pinsFilterRight = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.places = [NSArray array];
 // Setup the navigation bar
     [self setupMenuBarButtonItems];
     
@@ -89,8 +92,13 @@
     [self setupCollectionView];
     
 // RESTfulEngine
-    forRent = YES;
-    [self loadForRentListings];
+    self.listings = [AppCache getCachedListingItems];
+    if (!self.listings || [AppCache isListingItemsStale]) {
+        [self loadForAllListings:[NSNotification notificationWithName:kNotificationToLoadAllListings object:@{@"rent": @1} userInfo:nil]];
+    }
+    else {
+        [self resetAnnotationsWithResultArray:self.listings];
+    }
 }
 
 - (void)viewDidLoad
@@ -104,9 +112,12 @@
     self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
     self.title = @"For Rent";
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForRentListings) name:kNotificationToLoadForRentListing object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForSaleListings) name:kNotificationToLoadForSaleListing object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForAllListings:) name:kNotificationToLoadAllListings object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePinsFilterRight:) name:kNotificationDidRightFilter object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
 }
 
 - (void)setupBottomBar
@@ -149,50 +160,31 @@
 
 #pragma mark - 
 #pragma mark - Reload Listing(For Rent / For Sale)
-- (void)loadForRentListings
+- (void)loadForAllListings:(NSNotification *)aNotification
 {
-    forRent = YES;
+    NSDictionary *param = [aNotification object];
+    forRent = [param[@"rent"] boolValue];
     //Remove all annotaions first
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = activityIndicator;
     [activityIndicator startAnimating];
     
-    [RESTfulEngine loadListingsWithQuery:@{@"rent": @"1"} onSucceeded:^(NSMutableArray *resultArray) {
+    [RESTfulEngine loadListingsWithQuery:param onSucceeded:^(NSMutableArray *resultArray) {
         [activityIndicator stopAnimating];
+        self.listings = resultArray;
+        [AppCache cacheListingItems:self.listings];
         self.navigationItem.titleView = nil;
-        self.navigationItem.title = @"For Rent";
-        [self resetAnnotationsWithResultArray:resultArray];
+        self.navigationItem.title = forRent ? @"For Rent": @"For Sale";
+        [self resetAnnotationsWithResultArray:self.listings];
     } onError:^(NSError *engineError) {
         
         [SVProgressHUD showErrorWithStatus:engineError.description];
     }];
 }
 
-- (void)loadForSaleListings
+- (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
-    forRent = NO;
-    //Remove all annotations first
-    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = activityIndicator;
-    [activityIndicator startAnimating];
-    
-    [RESTfulEngine loadListingsWithQuery:@{@"rent": @"0"} onSucceeded:^(NSMutableArray *resultArray) {
-        [activityIndicator stopAnimating];
-        self.navigationItem.titleView = nil;
-        self.navigationItem.title = @"For Sale";
-        [self resetAnnotationsWithResultArray:resultArray];
-    } onError:^(NSError *engineError) {
-        
-        [SVProgressHUD showErrorWithStatus:engineError.description];
-    }];
-}
-
-- (void)resetAnnotationsWithResultArray:(NSMutableArray *)resultArray
-{
-    self.pinsAll = [NSMutableArray array];
-    self.pinsFilterRight = [NSMutableArray array];
     for (Listing *listing in resultArray) {
         
         REVClusterPin *pin = [[REVClusterPin alloc] init];
@@ -205,7 +197,7 @@
         pin.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
         
         Images *image = (Images *)[listing.images firstObject];
-        pin.thumbImageLink = [NSString stringWithFormat:@"%@%@", image.url, image.sizes[0]];
+        pin.thumbImageLink = [NSString stringWithFormat:@"%@%@", image.url, [image.sizes firstObject]];
         [self.pinsAll addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
@@ -256,7 +248,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
         }
     }
     [mapView deselectAnnotation:view.annotation animated:YES];
-//    [mapView deselectAnnotation:annotation animated:YES];
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
@@ -343,7 +334,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     CGRect viewFrame = self.collectionView.frame;
     viewFrame.origin.y = viewFrame.origin.y - cellHeight;
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDuration:0.1];
     [UIView setAnimationDelay:0.0];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     self.collectionView.frame = viewFrame;
@@ -355,7 +346,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     CGRect viewFrame = self.collectionView.frame;
     viewFrame.origin.y = viewFrame.origin.y + cellHeight;
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDuration:0.2];
     [UIView setAnimationDelay:0.0];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     self.collectionView.frame = viewFrame;
@@ -434,6 +425,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     self.ctmapView.scrollEnabled = NO;
     self.ctmapView.rotateEnabled = NO;
     self.pathOverlay.userInteractionEnabled = YES;
+    self.pathOverlay.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2];
 }
 
 - (void)cancelButtonClicked:(id)sender
@@ -454,6 +446,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     self.ctmapView.scrollEnabled = YES;
     self.ctmapView.rotateEnabled = YES;
     self.pathOverlay.userInteractionEnabled = NO;
+    self.pathOverlay.backgroundColor = [UIColor clearColor];
     [self.mapBottomBar resetBarState:BarStateMapDefault];
 }
 

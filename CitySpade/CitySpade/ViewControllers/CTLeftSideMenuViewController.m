@@ -182,17 +182,12 @@
         }
     }
     else if (indexPath.section == 1) {
-        UINavigationController *nav = self.menuContainerViewController.centerViewController;
-        NSString *centerViewTitle = nav.navigationItem.title;
         if (indexPath.row == 0) {
             //For Sale
-            if ([centerViewTitle  isEqual:@"For Rent"])
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadForSaleListing object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadAllListings object:@{@"rent": @0} userInfo:nil];
         }
         else if (indexPath.row == 1) {
-            //For Rent
-            if ([centerViewTitle  isEqual:@"For Sale"])
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadForRentListing object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadAllListings object:@{@"rent": @1} userInfo:nil];
         }
         
         [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];

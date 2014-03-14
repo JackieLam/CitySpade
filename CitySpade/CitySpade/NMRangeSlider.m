@@ -21,8 +21,6 @@ NSUInteger DeviceSystemMajorVersion() {
     return _deviceSystemMajorVersion;
 }
 
-
-
 @interface NMRangeSlider ()
 {
     float _lowerTouchOffset;

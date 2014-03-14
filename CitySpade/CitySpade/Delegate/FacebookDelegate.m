@@ -106,7 +106,7 @@
 
 - (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler{
     if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]){
-        if([challenge.protectionSpace.host isEqualToString:@"graph.facebook.com"]){
+        if([challenge.protectionSpace.host isEqualToString:@"graph.facebook.com"]) {
             NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
             completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
         }
