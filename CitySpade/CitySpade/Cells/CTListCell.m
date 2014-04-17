@@ -114,12 +114,14 @@
     self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", pin.transportation];
     self.bedLabel.text = [pin.beds stringByAppendingString:@"Beds"];
     self.bathLabel.text = [pin.baths stringByAppendingString:@"Baths"];
+    self.identiferNumber = pin.identiferNumber;
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.frame = self.thumbImageView.frame;
     [self addSubview:activityIndicator];
     [activityIndicator startAnimating];
     NSString *urlString = pin.thumbImageLink;
+    NSLog(@"URLSTRINGSTRING: %@", urlString);
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         

@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+@class Listing;
+
 @interface REVClusterPin : NSObject  <MKAnnotation> {
     CLLocationCoordinate2D coordinate;
     NSString *thumbImageLink;
@@ -21,6 +23,7 @@
     NSString *baths;
     NSString *bargain;
     NSString *transportation;
+    double identifierNumber;
 }
 
 @property(nonatomic, retain) NSArray *nodes;
@@ -32,7 +35,9 @@
 @property (nonatomic, copy) NSString *baths;
 @property (nonatomic, copy) NSString *bargain;
 @property (nonatomic, copy) NSString *transportation; 
+@property (nonatomic) double identiferNumber;
 
 - (NSUInteger) nodeCount;
+- (void)configureWithListing:(Listing *)listing;
 
 @end

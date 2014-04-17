@@ -43,7 +43,7 @@
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
     NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
     [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
-    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
+    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName];
     
     self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
     self.title = self.basicInfo[@"title"];

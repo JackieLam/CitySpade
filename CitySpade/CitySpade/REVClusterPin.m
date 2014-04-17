@@ -9,7 +9,8 @@
 //
 
 #import "REVClusterPin.h"
-
+#import "Listing.h"
+#import "DataModels.h"
 
 @implementation REVClusterPin
 
@@ -39,5 +40,20 @@
     [super dealloc];
 }
 #endif
+
+- (void)configureWithListing:(Listing *)listing
+{
+    self.title = listing.title;
+    self.subtitle = [NSString stringWithFormat:@"$%d", (int)listing.price];
+    self.beds = [NSString stringWithFormat:@"%d", (int)listing.beds];
+    self.baths = [NSString stringWithFormat:@"%d", (int)listing.baths];
+    self.bargain = listing.bargain;
+    self.transportation = listing.transportation;
+    self.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
+    self.identiferNumber = listing.internalBaseClassIdentifier;
+    
+    Images *image = (Images *)[listing.images firstObject];
+    self.thumbImageLink = [NSString stringWithFormat:@"%@%@", image.url, [image.sizes firstObject]];
+}
 
 @end

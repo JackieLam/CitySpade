@@ -16,6 +16,7 @@
 #import "AppearanceSetter.h"
 #import "CTLoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "CTSavingsViewController.h"
 
 @implementation AppDelegate
 
@@ -29,12 +30,14 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-
+    
+    CTSavingsViewController *savingVC = [[CTSavingsViewController alloc] init];
     CTLeftSideMenuViewController *leftSideMenu = [[CTLeftSideMenuViewController alloc] init];
     CTFilterViewController *rightSideMenu = [[CTFilterViewController alloc] init];
     CTMapViewController *mapViewController = [[CTMapViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:savingVC];
     navController.navigationBar.opaque = YES;
     navController.navigationBar.translucent = NO;
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
@@ -50,7 +53,9 @@
 // Set appearance
     [AppearanceSetter setBarButtonAppearance];
     [AppearanceSetter setSearchBarAppearance];
-//    self.window.rootViewController = testVC;
+    
+// test
+//    self.window.rootViewController = navController;
     self.window.rootViewController = container;
     [self.window makeKeyAndVisible];
 

@@ -23,6 +23,8 @@
 #import "RegExCategories.h"
 #import "MapCollectionCell.h"
 #import "AppCache.h"
+#import "CTMapViewDelegate.h"
+#import "MainTableViewDelegate.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -72,7 +74,7 @@
     CGRect viewBounds = [UIScreen mainScreen].bounds;
     viewBounds.size.height = viewBounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
     self.ctmapView = [[REVClusterMapView alloc] initWithFrame:viewBounds];
-    self.ctmapView.delegate = self;
+//    self.ctmapView.delegate = self;
     [self.view addSubview:self.ctmapView];
     
     CLLocationCoordinate2D coordinate;
@@ -86,7 +88,7 @@
 
 // Setup the list view
     self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
-    self.ctlistView.delegate = self;
+    self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
 
 // Setup collectionView
     [self setupCollectionView];
@@ -111,13 +113,17 @@
     
     self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
     self.title = @"For Rent";
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForAllListings:) name:kNotificationToLoadAllListings object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePinsFilterRight:) name:kNotificationDidRightFilter object:nil];
+    [self registerNotification];
+    self.ctmapView.delegate = [CTMapViewDelegate sharedInstance];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)registerNotification
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForAllListings:) name:kNotificationToLoadAllListings object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePinsFilterRight:) name:kNotificationDidRightFilter object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCollectionViewData) name:kCollectionViewShouldShowUp object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPathOverlayOnAnnotationViews:) name:kPathOverLayShouldBeAdded object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushDetailViewController:) name:kShouldPushDetailViewController object:nil];
 }
 
 - (void)setupBottomBar
@@ -132,6 +138,7 @@
     [self.mapBottomBar.drawButton addTarget:self action:@selector(drawButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.mapBottomBar.cancelButton addTarget:self action:@selector(cancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.mapBottomBar.clearButton addTarget:self action:@selector(clearButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapBottomBar.sortButton addTarget:self action:@selector(sortButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.mapBottomBar];
 }
 
@@ -150,8 +157,8 @@
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
+    self.collectionView.delegate = [CTMapViewDelegate sharedInstance];
+    self.collectionView.dataSource = [CTMapViewDelegate sharedInstance];
     self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(collectionViewDisappear)];
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
@@ -186,77 +193,18 @@
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
     for (Listing *listing in resultArray) {
-        
         REVClusterPin *pin = [[REVClusterPin alloc] init];
-        pin.title = listing.title;
-        pin.subtitle = [NSString stringWithFormat:@"$%d", (int)listing.price];
-        pin.beds = [NSString stringWithFormat:@"%d", (int)listing.beds];
-        pin.baths = [NSString stringWithFormat:@"%d", (int)listing.baths];
-        pin.bargain = listing.bargain;
-        pin.transportation = listing.transportation;
-        pin.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
-        
-        Images *image = (Images *)[listing.images firstObject];
-        pin.thumbImageLink = [NSString stringWithFormat:@"%@%@", image.url, [image.sizes firstObject]];
+        [pin configureWithListing:listing];
         [self.pinsAll addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
     [self.ctmapView addAnnotations:self.pinsAll];
 }
 
-#pragma mark - MapView delegate
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+#pragma mark - Adding PathOverlay
+- (void)addPathOverlayOnAnnotationViews:(NSNotification *)aNotification
 {
-    if([annotation class] == MKUserLocation.class) {
-		return nil;
-	}
-    REVClusterPin *pin = (REVClusterPin *)annotation;
-    
-    MKAnnotationView *annView;
-    annView = (REVClusterAnnotationView*)
-    [mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
-    if( !annView )
-        annView = (REVClusterAnnotationView*)
-        [[REVClusterAnnotationView alloc] initWithAnnotation:annotation
-                                             reuseIdentifier:@"cluster"];
-    [(REVClusterAnnotationView *)annView configureAnnotationView:[pin nodeCount]];
-    return annView;
-}
-
-- (void)mapView:(MKMapView *)mapView
-didSelectAnnotationView:(MKAnnotationView *)view
-{
-    REVClusterPin *annotation = (REVClusterPin *)view.annotation;
-    if (annotation.nodes == nil) self.placesClicked = [NSArray arrayWithObject:annotation];
-    else
-        self.placesClicked = [NSArray arrayWithArray:annotation.nodes];
-    //zoom in if click on a cluster less than 20 
-    if ([annotation.nodes count] > 20) {
-        CLLocationCoordinate2D centerCoordinate = [annotation coordinate];
-        MKCoordinateSpan newSpan = MKCoordinateSpanMake(mapView.region.span.latitudeDelta/2.0, mapView.region.span.longitudeDelta/2.0);
-        [mapView setRegion:MKCoordinateRegionMake(centerCoordinate, newSpan)
-                  animated:YES];
-    }
-    else {
-        if (self.collectionView.frame.origin.y == self.collectionViewOriginY) {
-            [self.collectionView reloadData];
-            [self collectionViewAppear];
-        }
-        else {
-            [self.collectionView reloadData];
-        }
-    }
-    [mapView deselectAnnotation:view.annotation animated:YES];
-}
-
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
-{
-
-}
-
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
+    NSArray *views = [aNotification object];
     if (views.count > 0) {
         UIView *firstAnnotation = [views objectAtIndex:0];
         UIView *parentView = [firstAnnotation superview];
@@ -276,61 +224,21 @@ didSelectAnnotationView:(MKAnnotationView *)view
     }
 }
 
-#pragma mark - UITableViewDelegate Methods
-
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - UICollectionView
+- (void)reloadCollectionViewData
 {
-    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
-    CTDetailViewController *detailViewController = [[CTDetailViewController alloc] init];
-    
-    NSDictionary *basicInfo = @{@"title": cell.titleLabel.text, @"price": cell.priceLabel.text, @"bargain": cell.bargainLabel.text, @"transport": cell.transportLabel.text, @"bed": cell.bedLabel.text, @"bath": cell.bathLabel.text};
-    detailViewController.basicInfo = basicInfo;
-    
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
-#pragma mark - UICollectionView DataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [self.placesClicked count];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"mapCollectionCell";
-    MapCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    if (cell == nil) {
-        cell = [[MapCollectionCell alloc] initWithFrame:CGRectMake(0, 0, cellWidth+cellGap, cellHeight)];
+    if (self.collectionView.frame.origin.y == self.collectionViewOriginY) {
+        [self.collectionView reloadData];
+        [self collectionViewAppear];
     }
-    int count = (int)[indexPath row];
-    [cell configureCellWithClusterPin:self.placesClicked[count]];
-    
-    return cell;
+    else {
+        [self.collectionView reloadData];
+    }
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(cellWidth+cellGap, cellHeight);
-}
-
-#pragma mark - Animation: UICollectionView
 - (void)collectionViewAppear
 {
+    //YES for appearing, NO for disappearing
     CGRect viewFrame = self.collectionView.frame;
     viewFrame.origin.y = viewFrame.origin.y - cellHeight;
     [UIView beginAnimations:nil context:nil];
@@ -346,7 +254,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
     CGRect viewFrame = self.collectionView.frame;
     viewFrame.origin.y = viewFrame.origin.y + cellHeight;
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDuration:0.1];
     [UIView setAnimationDelay:0.0];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     self.collectionView.frame = viewFrame;
@@ -354,21 +262,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
 }
 
 #pragma mark - UIBarButtonItem Callbacks
-- (void)backButtonPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-- (void)leftSideMenuButtonPressed:(id)sender {
-    [self.menuContainerViewController toggleLeftSideMenuCompletion:^{
-        [self setupMenuBarButtonItems];
-    }];
-}
-- (void)rightSideMenuButtonPressed:(id)sender {
-    [self.menuContainerViewController toggleRightSideMenuCompletion:^{
-        [self setupMenuBarButtonItems];
-    }];
-}
-
-#pragma mark - NavigationBar Button
 - (void)setupMenuBarButtonItems {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithImage:[UIImage imageNamed:@"Search"] style:UIBarButtonItemStyleBordered
@@ -386,6 +279,26 @@ didSelectAnnotationView:(MKAnnotationView *)view
                                                  target:self
                                                  action:@selector(leftSideMenuButtonPressed:)];
     }
+}
+- (void)backButtonPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)leftSideMenuButtonPressed:(id)sender {
+    [self.menuContainerViewController toggleLeftSideMenuCompletion:^{
+        [self setupMenuBarButtonItems];
+    }];
+}
+- (void)rightSideMenuButtonPressed:(id)sender {
+    [self.menuContainerViewController toggleRightSideMenuCompletion:^{
+        [self setupMenuBarButtonItems];
+    }];
+}
+
+#pragma mark - Push DetailViewController
+- (void)pushDetailViewController:(NSNotification *)aNotification
+{
+    CTDetailViewController *detailViewController = [aNotification object];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 #pragma mark - MapBottomBar Button
@@ -414,7 +327,17 @@ didSelectAnnotationView:(MKAnnotationView *)view
 
 - (void)saveButtonClicked:(id)sender
 {
-    NSLog(@"saveButtonClicked");
+    //http example
+    //api.geonames.org/neighbourhood?lat=+40.73559374&lng=-73.98076775&username=jackielam1992
+    CLLocation *locationToSave = [[CLLocation alloc] initWithLatitude:self.ctmapView.centerCoordinate.latitude longitude:self.ctmapView.centerCoordinate.longitude];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:locationToSave completionHandler:^(NSArray *placemarks, NSError *error) {
+        //10
+        if(placemarks.count){
+            NSDictionary *dictionary = [[placemarks objectAtIndex:0] addressDictionary];
+            NSLog(@"CURRENT ADDRESS: %@", dictionary);
+        }
+    }];
 }
 
 - (void)drawButtonClicked:(id)sender
@@ -454,6 +377,11 @@ didSelectAnnotationView:(MKAnnotationView *)view
 {
     [self.path removeAllPoints];
     self.shapeLayer.path = [self.path CGPath];
+}
+
+- (void)sortButtonClicked:(id)sender
+{
+    NSLog(@"sort button clicked");
 }
 
 #pragma mark -

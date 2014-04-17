@@ -32,6 +32,11 @@
 		182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182413B3188FC7560064B28F /* CTFilterViewController.m */; };
 		182D50B11890C05C0079A6DF /* CTListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B01890C05C0079A6DF /* CTListView.m */; };
 		182D50B41890D77C0079A6DF /* CTListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D50B31890D77C0079A6DF /* CTListCell.m */; };
+		183991D118D307D600D2B07F /* AddressSavingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D018D307D600D2B07F /* AddressSavingCell.m */; };
+		183991D318D307EA00D2B07F /* AddressSavingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183991D218D307EA00D2B07F /* AddressSavingCell.xib */; };
+		183991D618D308B500D2B07F /* CTSavingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D518D308B500D2B07F /* CTSavingsViewController.m */; };
+		183991D918D333D900D2B07F /* UISegmentedControl+Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D818D333D900D2B07F /* UISegmentedControl+Project.m */; };
+		184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */; };
 		1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850870E18BD87AF000A5BA4 /* RegExCategories.m */; };
 		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BE189F2E00002500E6 /* REVClusterBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -41,6 +46,24 @@
 		186012CD189F2E1C002500E6 /* REVClusterAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012CB189F2E1C002500E6 /* REVClusterAnnotationView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012D2189F2F93002500E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186012D1189F2F93002500E6 /* MapKit.framework */; };
 		186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012D4189F3BEC002500E6 /* MapBottomBar.m */; };
+		1861FC6B18D6A32F0059FA4F /* MainTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861FC6A18D6A32F0059FA4F /* MainTableViewDelegate.m */; };
+		1863226918FCD7FD00A1851A /* CitySpadeListsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863226818FCD7FD00A1851A /* CitySpadeListsModel.m */; };
+		1863226C18FCD80700A1851A /* CitySpadeRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863226A18FCD80700A1851A /* CitySpadeRequestHandler.m */; };
+		1863227018FCD83400A1851A /* CitySpadeDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863226E18FCD83400A1851A /* CitySpadeDemoViewController.m */; };
+		1863227118FCD83400A1851A /* CitySpadeDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863226F18FCD83400A1851A /* CitySpadeDemoViewController.xib */; };
+		1863228518FCD86D00A1851A /* CitySpadeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227418FCD86D00A1851A /* CitySpadeCell.m */; };
+		1863228618FCD86D00A1851A /* CitySpadeNearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227618FCD86D00A1851A /* CitySpadeNearbyCell.m */; };
+		1863228718FCD86D00A1851A /* CitySpadeBasicFactsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227818FCD86D00A1851A /* CitySpadeBasicFactsCell.m */; };
+		1863228818FCD86D00A1851A /* CitySpadeBasicFactsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863227918FCD86D00A1851A /* CitySpadeBasicFactsCell.xib */; };
+		1863228918FCD86D00A1851A /* CitySpadeBrokerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227B18FCD86D00A1851A /* CitySpadeBrokerInfoCell.m */; };
+		1863228A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863227C18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib */; };
+		1863228B18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227E18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m */; };
+		1863228C18FCD86D00A1851A /* TransportationSubwayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863228018FCD86D00A1851A /* TransportationSubwayCell.m */; };
+		1863228D18FCD86D00A1851A /* TransportationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863228218FCD86D00A1851A /* TransportationListCell.m */; };
+		1863228E18FCD86D00A1851A /* TransportationBuslinesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863228418FCD86D00A1851A /* TransportationBuslinesCell.m */; };
+		1863229318FCD89400A1851A /* CitySpadeBrokerWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863229118FCD89400A1851A /* CitySpadeBrokerWebViewController.m */; };
+		1863229418FCD89400A1851A /* CitySpadeBrokerWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863229218FCD89400A1851A /* CitySpadeBrokerWebViewController.xib */; };
+		1863229618FCDFAD00A1851A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1863229518FCDFAD00A1851A /* Images.xcassets */; };
 		18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18645EF818A88C5E009CF97F /* SwitchButton.m */; };
 		187204A718AE65D600C90B31 /* ANPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187204A618AE65D600C90B31 /* ANPopoverView.m */; };
 		188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 188054DF18B4786F00DE5A9C /* KeyValueObserver.m */; };
@@ -60,7 +83,6 @@
 		18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D052AE18B8F9A000D548FD /* CTLoginViewController.m */; };
 		18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */; };
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
-		18E9A16318BEEED400A01ADB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E9A16218BEEED400A01ADB /* Images.xcassets */; };
 		18F1EA6618C070F500182A87 /* MapCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1EA6518C070F500182A87 /* MapCollectionCell.m */; };
 		18F1EA6818C0710D00182A87 /* MapCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F1EA6718C0710D00182A87 /* MapCollectionCell.xib */; };
 		18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */; };
@@ -119,6 +141,15 @@
 		182D50B01890C05C0079A6DF /* CTListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListView.m; path = Views/CTListView.m; sourceTree = "<group>"; };
 		182D50B21890D77C0079A6DF /* CTListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTListCell.h; path = Cells/CTListCell.h; sourceTree = "<group>"; };
 		182D50B31890D77C0079A6DF /* CTListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTListCell.m; path = Cells/CTListCell.m; sourceTree = "<group>"; };
+		183991CF18D307D600D2B07F /* AddressSavingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressSavingCell.h; path = Cells/AddressSavingCell.h; sourceTree = "<group>"; };
+		183991D018D307D600D2B07F /* AddressSavingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressSavingCell.m; path = Cells/AddressSavingCell.m; sourceTree = "<group>"; };
+		183991D218D307EA00D2B07F /* AddressSavingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressSavingCell.xib; sourceTree = "<group>"; };
+		183991D418D308B500D2B07F /* CTSavingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTSavingsViewController.h; path = ViewControllers/CTSavingsViewController.h; sourceTree = "<group>"; };
+		183991D518D308B500D2B07F /* CTSavingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTSavingsViewController.m; path = ViewControllers/CTSavingsViewController.m; sourceTree = "<group>"; };
+		183991D718D333D900D2B07F /* UISegmentedControl+Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+Project.h"; sourceTree = "<group>"; };
+		183991D818D333D900D2B07F /* UISegmentedControl+Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Project.m"; sourceTree = "<group>"; };
+		184B65C918D5FF07007358BE /* CTMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewDelegate.h; sourceTree = "<group>"; };
+		184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewDelegate.m; sourceTree = "<group>"; };
 		1850870D18BD87AF000A5BA4 /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegExCategories.h; sourceTree = "<group>"; };
 		1850870E18BD87AF000A5BA4 /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
 		186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVAnnotationsCollection.h; sourceTree = "<group>"; };
@@ -137,6 +168,37 @@
 		186012D1189F2F93002500E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		186012D3189F3BEC002500E6 /* MapBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapBottomBar.h; path = Views/MapBottomBar.h; sourceTree = "<group>"; };
 		186012D4189F3BEC002500E6 /* MapBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapBottomBar.m; path = Views/MapBottomBar.m; sourceTree = "<group>"; };
+		1861FC6918D6A32F0059FA4F /* MainTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTableViewDelegate.h; path = Delegate/MainTableViewDelegate.h; sourceTree = "<group>"; };
+		1861FC6A18D6A32F0059FA4F /* MainTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainTableViewDelegate.m; path = Delegate/MainTableViewDelegate.m; sourceTree = "<group>"; };
+		1863226718FCD7FD00A1851A /* CitySpadeListsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeListsModel.h; sourceTree = "<group>"; };
+		1863226818FCD7FD00A1851A /* CitySpadeListsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeListsModel.m; sourceTree = "<group>"; };
+		1863226A18FCD80700A1851A /* CitySpadeRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeRequestHandler.m; sourceTree = "<group>"; };
+		1863226B18FCD80700A1851A /* CitySpadeRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeRequestHandler.h; sourceTree = "<group>"; };
+		1863226D18FCD83400A1851A /* CitySpadeDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeDemoViewController.h; sourceTree = "<group>"; };
+		1863226E18FCD83400A1851A /* CitySpadeDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeDemoViewController.m; sourceTree = "<group>"; };
+		1863226F18FCD83400A1851A /* CitySpadeDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeDemoViewController.xib; sourceTree = "<group>"; };
+		1863227318FCD86D00A1851A /* CitySpadeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeCell.h; sourceTree = "<group>"; };
+		1863227418FCD86D00A1851A /* CitySpadeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeCell.m; sourceTree = "<group>"; };
+		1863227518FCD86D00A1851A /* CitySpadeNearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeNearbyCell.h; sourceTree = "<group>"; };
+		1863227618FCD86D00A1851A /* CitySpadeNearbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeNearbyCell.m; sourceTree = "<group>"; };
+		1863227718FCD86D00A1851A /* CitySpadeBasicFactsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBasicFactsCell.h; sourceTree = "<group>"; };
+		1863227818FCD86D00A1851A /* CitySpadeBasicFactsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBasicFactsCell.m; sourceTree = "<group>"; };
+		1863227918FCD86D00A1851A /* CitySpadeBasicFactsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBasicFactsCell.xib; sourceTree = "<group>"; };
+		1863227A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBrokerInfoCell.h; sourceTree = "<group>"; };
+		1863227B18FCD86D00A1851A /* CitySpadeBrokerInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBrokerInfoCell.m; sourceTree = "<group>"; };
+		1863227C18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerInfoCell.xib; sourceTree = "<group>"; };
+		1863227D18FCD86D00A1851A /* CitySpadeTransportationInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeTransportationInfoCell.h; sourceTree = "<group>"; };
+		1863227E18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeTransportationInfoCell.m; sourceTree = "<group>"; };
+		1863227F18FCD86D00A1851A /* TransportationSubwayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationSubwayCell.h; sourceTree = "<group>"; };
+		1863228018FCD86D00A1851A /* TransportationSubwayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationSubwayCell.m; sourceTree = "<group>"; };
+		1863228118FCD86D00A1851A /* TransportationListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationListCell.h; sourceTree = "<group>"; };
+		1863228218FCD86D00A1851A /* TransportationListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationListCell.m; sourceTree = "<group>"; };
+		1863228318FCD86D00A1851A /* TransportationBuslinesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationBuslinesCell.h; sourceTree = "<group>"; };
+		1863228418FCD86D00A1851A /* TransportationBuslinesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationBuslinesCell.m; sourceTree = "<group>"; };
+		1863229018FCD89400A1851A /* CitySpadeBrokerWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBrokerWebViewController.h; sourceTree = "<group>"; };
+		1863229118FCD89400A1851A /* CitySpadeBrokerWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBrokerWebViewController.m; sourceTree = "<group>"; };
+		1863229218FCD89400A1851A /* CitySpadeBrokerWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerWebViewController.xib; sourceTree = "<group>"; };
+		1863229518FCDFAD00A1851A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		18645EF718A88C5E009CF97F /* SwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwitchButton.h; path = UI/SwitchButton.h; sourceTree = "<group>"; };
 		18645EF818A88C5E009CF97F /* SwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchButton.m; path = UI/SwitchButton.m; sourceTree = "<group>"; };
 		187204A518AE65D600C90B31 /* ANPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPopoverView.h; sourceTree = "<group>"; };
@@ -172,7 +234,6 @@
 		18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTLoginViewController.xib; path = ViewControllers/CTLoginViewController.xib; sourceTree = "<group>"; };
 		18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+ProjectButton.h"; sourceTree = "<group>"; };
 		18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+ProjectButton.m"; sourceTree = "<group>"; };
-		18E9A16218BEEED400A01ADB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CitySpade/Images.xcassets; sourceTree = "<group>"; };
 		18F1EA6418C070F500182A87 /* MapCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCollectionCell.h; path = Cells/MapCollectionCell.h; sourceTree = "<group>"; };
 		18F1EA6518C070F500182A87 /* MapCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapCollectionCell.m; path = Cells/MapCollectionCell.m; sourceTree = "<group>"; };
 		18F1EA6718C0710D00182A87 /* MapCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapCollectionCell.xib; sourceTree = "<group>"; };
@@ -234,7 +295,6 @@
 		1817C72F188CBD68003AC430 = {
 			isa = PBXGroup;
 			children = (
-				18E9A16218BEEED400A01ADB /* Images.xcassets */,
 				1817C741188CBD68003AC430 /* CitySpade */,
 				1817C75A188CBD68003AC430 /* CitySpadeTests */,
 				1817C73A188CBD68003AC430 /* Frameworks */,
@@ -282,6 +342,7 @@
 		1817C741188CBD68003AC430 /* CitySpade */ = {
 			isa = PBXGroup;
 			children = (
+				1863229518FCDFAD00A1851A /* Images.xcassets */,
 				18F3477718BC3FC6006EF9A7 /* Constants.h */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
@@ -290,8 +351,8 @@
 				18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */,
 				1893061B18A77E3900EA285E /* AppearanceSetter.h */,
 				1893061C18A77E3900EA285E /* AppearanceSetter.m */,
-				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
-				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
+				1863227218FCD84800A1851A /* DetailPage */,
+				184B65C718D5FC9A007358BE /* MainViewController */,
 				188054E618B47DB700DE5A9C /* RESTfulEngine */,
 				18E58B4218ACE0C200E38583 /* Categories */,
 				18645EFA18A88C62009CF97F /* Custom UIs */,
@@ -344,6 +405,9 @@
 				18F1EA6418C070F500182A87 /* MapCollectionCell.h */,
 				18F1EA6518C070F500182A87 /* MapCollectionCell.m */,
 				18F1EA6718C0710D00182A87 /* MapCollectionCell.xib */,
+				183991CF18D307D600D2B07F /* AddressSavingCell.h */,
+				183991D018D307D600D2B07F /* AddressSavingCell.m */,
+				183991D218D307EA00D2B07F /* AddressSavingCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -355,6 +419,19 @@
 				180A406918D2091D004D33D5 /* AppCache.m */,
 			);
 			name = Cache;
+			sourceTree = "<group>";
+		};
+		184B65C718D5FC9A007358BE /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
+				188F6CFD188E85D900EAEEFD /* CTMapViewController.h */,
+				1861FC6918D6A32F0059FA4F /* MainTableViewDelegate.h */,
+				1861FC6A18D6A32F0059FA4F /* MainTableViewDelegate.m */,
+				184B65C918D5FF07007358BE /* CTMapViewDelegate.h */,
+				184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */,
+			);
+			name = MainViewController;
 			sourceTree = "<group>";
 		};
 		186012CE189F2E23002500E6 /* REVMapCluster */ = {
@@ -393,6 +470,45 @@
 			name = AnnotationView;
 			sourceTree = "<group>";
 		};
+		1863227218FCD84800A1851A /* DetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				1863226D18FCD83400A1851A /* CitySpadeDemoViewController.h */,
+				1863226E18FCD83400A1851A /* CitySpadeDemoViewController.m */,
+				1863226F18FCD83400A1851A /* CitySpadeDemoViewController.xib */,
+				1863229018FCD89400A1851A /* CitySpadeBrokerWebViewController.h */,
+				1863229118FCD89400A1851A /* CitySpadeBrokerWebViewController.m */,
+				1863229218FCD89400A1851A /* CitySpadeBrokerWebViewController.xib */,
+				1863228F18FCD87800A1851A /* Cells */,
+			);
+			name = DetailPage;
+			sourceTree = "<group>";
+		};
+		1863228F18FCD87800A1851A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1863227318FCD86D00A1851A /* CitySpadeCell.h */,
+				1863227418FCD86D00A1851A /* CitySpadeCell.m */,
+				1863227518FCD86D00A1851A /* CitySpadeNearbyCell.h */,
+				1863227618FCD86D00A1851A /* CitySpadeNearbyCell.m */,
+				1863227718FCD86D00A1851A /* CitySpadeBasicFactsCell.h */,
+				1863227818FCD86D00A1851A /* CitySpadeBasicFactsCell.m */,
+				1863227918FCD86D00A1851A /* CitySpadeBasicFactsCell.xib */,
+				1863227A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.h */,
+				1863227B18FCD86D00A1851A /* CitySpadeBrokerInfoCell.m */,
+				1863227C18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib */,
+				1863227D18FCD86D00A1851A /* CitySpadeTransportationInfoCell.h */,
+				1863227E18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m */,
+				1863227F18FCD86D00A1851A /* TransportationSubwayCell.h */,
+				1863228018FCD86D00A1851A /* TransportationSubwayCell.m */,
+				1863228118FCD86D00A1851A /* TransportationListCell.h */,
+				1863228218FCD86D00A1851A /* TransportationListCell.m */,
+				1863228318FCD86D00A1851A /* TransportationBuslinesCell.h */,
+				1863228418FCD86D00A1851A /* TransportationBuslinesCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		18645EFA18A88C62009CF97F /* Custom UIs */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +540,8 @@
 			children = (
 				18F3478418BC7263006EF9A7 /* RESTfulEngine.h */,
 				18F3478518BC7263006EF9A7 /* RESTfulEngine.m */,
+				1863226A18FCD80700A1851A /* CitySpadeRequestHandler.m */,
+				1863226B18FCD80700A1851A /* CitySpadeRequestHandler.h */,
 				188054E718B48CB800DE5A9C /* JSON-Models */,
 			);
 			name = RESTfulEngine;
@@ -432,6 +550,8 @@
 		188054E718B48CB800DE5A9C /* JSON-Models */ = {
 			isa = PBXGroup;
 			children = (
+				1863226718FCD7FD00A1851A /* CitySpadeListsModel.h */,
+				1863226818FCD7FD00A1851A /* CitySpadeListsModel.m */,
 				188054E818B48CB800DE5A9C /* DataModels.h */,
 				188054E918B48CB800DE5A9C /* Images.h */,
 				188054EA18B48CB800DE5A9C /* Images.m */,
@@ -459,6 +579,8 @@
 				18F3477018BB43A0006EF9A7 /* CTRegisterViewController.h */,
 				18F3477118BB43A0006EF9A7 /* CTRegisterViewController.m */,
 				18F3477218BB43A0006EF9A7 /* CTRegisterViewController.xib */,
+				183991D418D308B500D2B07F /* CTSavingsViewController.h */,
+				183991D518D308B500D2B07F /* CTSavingsViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -483,6 +605,8 @@
 				18F3478818BC7280006EF9A7 /* NSString+Encryption.m */,
 				18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */,
 				18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */,
+				183991D718D333D900D2B07F /* UISegmentedControl+Project.h */,
+				183991D818D333D900D2B07F /* UISegmentedControl+Project.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -536,6 +660,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Cho-Yeung Lam";
 				TargetAttributes = {
+					1817C737188CBD68003AC430 = {
+						DevelopmentTeam = YPP93L48Z5;
+					};
 					1817C752188CBD68003AC430 = {
 						TestTargetID = 1817C737188CBD68003AC430;
 					};
@@ -565,9 +692,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */,
-				18E9A16318BEEED400A01ADB /* Images.xcassets in Resources */,
+				1863228818FCD86D00A1851A /* CitySpadeBasicFactsCell.xib in Resources */,
+				1863227118FCD83400A1851A /* CitySpadeDemoViewController.xib in Resources */,
 				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
+				1863229618FCDFAD00A1851A /* Images.xcassets in Resources */,
+				1863228A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib in Resources */,
+				183991D318D307EA00D2B07F /* AddressSavingCell.xib in Resources */,
 				18F1EA6818C0710D00182A87 /* MapCollectionCell.xib in Resources */,
+				1863229418FCD89400A1851A /* CitySpadeBrokerWebViewController.xib in Resources */,
 				189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 			);
@@ -622,27 +754,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */,
+				1863229318FCD89400A1851A /* CitySpadeBrokerWebViewController.m in Sources */,
+				1863228718FCD86D00A1851A /* CitySpadeBasicFactsCell.m in Sources */,
+				1863226C18FCD80700A1851A /* CitySpadeRequestHandler.m in Sources */,
 				182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */,
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
 				182D50B41890D77C0079A6DF /* CTListCell.m in Sources */,
 				186012CD189F2E1C002500E6 /* REVClusterAnnotationView.m in Sources */,
+				1863228918FCD86D00A1851A /* CitySpadeBrokerInfoCell.m in Sources */,
 				18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */,
+				183991D918D333D900D2B07F /* UISegmentedControl+Project.m in Sources */,
+				1863228518FCD86D00A1851A /* CitySpadeCell.m in Sources */,
 				18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */,
 				188054ED18B48CB800DE5A9C /* Images.m in Sources */,
 				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
+				183991D118D307D600D2B07F /* AddressSavingCell.m in Sources */,
+				1863227018FCD83400A1851A /* CitySpadeDemoViewController.m in Sources */,
 				18F1EA6618C070F500182A87 /* MapCollectionCell.m in Sources */,
+				1863228E18FCD86D00A1851A /* TransportationBuslinesCell.m in Sources */,
 				186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */,
+				1863228B18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m in Sources */,
 				186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */,
+				184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */,
 				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
 				188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */,
 				18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
+				183991D618D308B500D2B07F /* CTSavingsViewController.m in Sources */,
+				1863228C18FCD86D00A1851A /* TransportationSubwayCell.m in Sources */,
 				18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */,
+				1861FC6B18D6A32F0059FA4F /* MainTableViewDelegate.m in Sources */,
 				180A406A18D2091D004D33D5 /* AppCache.m in Sources */,
 				1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
+				1863228D18FCD86D00A1851A /* TransportationListCell.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
+				1863226918FCD7FD00A1851A /* CitySpadeListsModel.m in Sources */,
 				18F3477A18BC4A71006EF9A7 /* FacebookDelegate.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
 				1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */,
@@ -652,6 +800,7 @@
 				188054EE18B48CB800DE5A9C /* Listing.m in Sources */,
 				189D5FA018CFFF9F00EE8EC9 /* CTDetailsViewController.m in Sources */,
 				186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */,
+				1863228618FCD86D00A1851A /* CitySpadeNearbyCell.m in Sources */,
 				18858C0018AE162400F49974 /* NMRangeSlider.m in Sources */,
 				18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,
@@ -777,6 +926,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
@@ -795,6 +946,7 @@
 					"$(FRANK_LDFLAGS)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -805,6 +957,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
@@ -815,6 +969,7 @@
 				INFOPLIST_FILE = "CitySpade/CitySpade-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

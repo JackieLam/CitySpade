@@ -15,3 +15,4 @@
 #import "REVClusterManager.h"
 #import "REVClusterBlock.h"
 #import "REVClusterPin.h"
+#import "REVClusterAnnotationView.h"
