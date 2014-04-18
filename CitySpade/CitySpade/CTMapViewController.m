@@ -25,6 +25,8 @@
 #import "AppCache.h"
 #import "CTMapViewDelegate.h"
 #import "MainTableViewDelegate.h"
+#import "RegExCategories.h"
+#import "SortTableView.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -32,8 +34,9 @@
 #define cellOriginFromBottomLine cellHeight //150.0f
 #define botttomHeight 44.0f
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
+#define sortTableViewOriginY self.ctmapView.frame.size.height - 52
 
-@interface CTMapViewController()
+@interface CTMapViewController()<SortTableViewDelegate>
 {
     double previousZoomLevel;
     BOOL forRent;
@@ -159,7 +162,7 @@
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.delegate = [CTMapViewDelegate sharedInstance];
     self.collectionView.dataSource = [CTMapViewDelegate sharedInstance];
-    self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(collectionViewDisappear)];
+    self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(viewDisappearAnimation:)];
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
     [self.view addSubview:self.collectionView];
@@ -198,7 +201,7 @@
         [self.pinsAll addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
-    [self.ctmapView addAnnotations:self.pinsAll];
+    [self.ctmapView addAnnotations:self.pinsFilterRight];
 }
 
 #pragma mark - Adding PathOverlay
@@ -229,35 +232,54 @@
 {
     if (self.collectionView.frame.origin.y == self.collectionViewOriginY) {
         [self.collectionView reloadData];
-        [self collectionViewAppear];
+        [self viewAppearAnimation:self.collectionView];
     }
     else {
         [self.collectionView reloadData];
     }
 }
 
-- (void)collectionViewAppear
+- (void)viewAppearAnimation:(id)sender
 {
-    //YES for appearing, NO for disappearing
-    CGRect viewFrame = self.collectionView.frame;
-    viewFrame.origin.y = viewFrame.origin.y - cellHeight;
+    UIView *view = (UIView *)sender;
+    CGRect viewFrame = view.frame;
+    if ([sender isKindOfClass:[UICollectionView class]]) {
+        viewFrame.origin.y = viewFrame.origin.y - cellHeight;
+    }
+    else if ([sender isKindOfClass:[SortTableView class]]) {
+        viewFrame.origin.y = viewFrame.origin.y - 100.0f;
+        viewFrame.size.height = 100.0f;
+    }
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.1];
     [UIView setAnimationDelay:0.0];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    self.collectionView.frame = viewFrame;
+    view.frame = viewFrame;
     [UIView commitAnimations];
 }
 
-- (void)collectionViewDisappear
+- (void)viewDisappearAnimation:(id)sender
 {
-    CGRect viewFrame = self.collectionView.frame;
-    viewFrame.origin.y = viewFrame.origin.y + cellHeight;
+    UIView *view;
+    CGRect viewFrame;
+    if ([sender isKindOfClass:[UISwipeGestureRecognizer class]]) {  // UIViewCollectionView
+        view = self.collectionView;
+        viewFrame = view.frame;
+        viewFrame.origin.y = viewFrame.origin.y + cellHeight;
+    }
+    else if ([sender isKindOfClass:[UITableView class]]) {
+        view = (UIView *)sender;
+        viewFrame = view.frame;
+        viewFrame.origin.y = viewFrame.origin.y + 100.0f;
+        viewFrame.size.height = 0.0f;
+    }
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.1];
     [UIView setAnimationDelay:0.0];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    self.collectionView.frame = viewFrame;
+    view.frame = viewFrame;
     [UIView commitAnimations];
 }
 
@@ -312,6 +334,7 @@
             [self.view insertSubview:self.ctmapView aboveSubview:self.view];
             [self.view bringSubviewToFront:self.mapBottomBar];
             [self.view bringSubviewToFront:self.collectionView];
+            self.sortTableView = nil;
         }];
     }
     else {
@@ -321,6 +344,10 @@
             [self.mapBottomBar resetBarState:BarStateList];
             [self.view bringSubviewToFront:self.mapBottomBar];
             [self.ctlistView loadPlacesToList:self.pinsAll];
+            CGRect bottomBarFrame = self.mapBottomBar.frame;
+            self.sortTableView = [[SortTableView alloc] initWithFrame:CGRectMake(bottomBarFrame.origin.x, bottomBarFrame.origin.y, bottomBarFrame.size.width, 0) delegate:self];
+//            self.sortTableView.backgroundColor = [UIColor redColor];
+            [self.view addSubview:self.sortTableView];
         }];
     }
 }
@@ -381,7 +408,12 @@
 
 - (void)sortButtonClicked:(id)sender
 {
-    NSLog(@"sort button clicked");
+    if (self.sortTableView.frame.size.height == 0.0f) {
+        [self viewAppearAnimation:self.sortTableView];
+    }
+    else {
+        [self viewDisappearAnimation:self.sortTableView];
+    }
 }
 
 #pragma mark -
@@ -479,6 +511,50 @@
         }
     }
     return newAnnotations;
+}
+
+#pragma mark - SortTableViewDelegate
+- (void)sortTableViewDidSelectOption:(SortOption)option
+{
+    NSSortDescriptor *sortDescriptor;
+    switch (option) {
+        case PRICE_HIGH_LOW:
+        {
+            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"priceInt" ascending:NO];
+        }
+            break;
+        case PRICE_LOW_HIGH:
+        {
+            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"priceInt" ascending:YES];
+        }
+            break;
+        case BARGAIN_HIGH_LOW:
+        {
+            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"bargainDouble" ascending:NO];
+        }
+            break;
+        case BARGAIN_LOW_HIGH:
+        {
+            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"bargainDouble" ascending:YES];
+        }
+            break;
+        case TRANSPORT_HIGH_LOW:
+        {
+            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"transportationDouble" ascending:NO];
+        }
+            break;
+        case TRANSPORT_LOW_HIGH:
+        {
+            sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"transportationDouble" ascending:YES];
+        }
+            break;
+            
+            
+        default:
+            break;
+    }
+    self.ctlistView.places = [self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor]];
+    [self.ctlistView reloadData];
 }
 
 @end

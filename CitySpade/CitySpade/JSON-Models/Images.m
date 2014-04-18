@@ -91,7 +91,6 @@ NSMutableArray *tempArrayForSizes = [NSMutableArray array];
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-
     [aCoder encodeObject:_sizes forKey:kImagesSizes];
     [aCoder encodeObject:_url forKey:kImagesUrl];
 }

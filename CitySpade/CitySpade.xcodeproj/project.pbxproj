@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		180A406A18D2091D004D33D5 /* AppCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A406918D2091D004D33D5 /* AppCache.m */; };
+		1812D9D419014F900040950F /* SortTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812D9D319014F900040950F /* SortTableView.m */; };
 		1817C73C188CBD68003AC430 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73B188CBD68003AC430 /* Foundation.framework */; };
 		1817C73E188CBD68003AC430 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73D188CBD68003AC430 /* CoreGraphics.framework */; };
 		1817C740188CBD68003AC430 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C73F188CBD68003AC430 /* UIKit.framework */; };
@@ -108,6 +109,8 @@
 /* Begin PBXFileReference section */
 		180A406818D2091D004D33D5 /* AppCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCache.h; path = Cache/AppCache.h; sourceTree = "<group>"; };
 		180A406918D2091D004D33D5 /* AppCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppCache.m; path = Cache/AppCache.m; sourceTree = "<group>"; };
+		1812D9D219014F900040950F /* SortTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortTableView.h; sourceTree = "<group>"; };
+		1812D9D319014F900040950F /* SortTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortTableView.m; sourceTree = "<group>"; };
 		1817C738188CBD68003AC430 /* CitySpade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySpade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1817C73B188CBD68003AC430 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1817C73D188CBD68003AC430 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -292,6 +295,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1812D9D519014F940040950F /* Sort */ = {
+			isa = PBXGroup;
+			children = (
+				1812D9D219014F900040950F /* SortTableView.h */,
+				1812D9D319014F900040950F /* SortTableView.m */,
+			);
+			name = Sort;
+			sourceTree = "<group>";
+		};
 		1817C72F188CBD68003AC430 = {
 			isa = PBXGroup;
 			children = (
@@ -430,6 +442,7 @@
 				1861FC6A18D6A32F0059FA4F /* MainTableViewDelegate.m */,
 				184B65C918D5FF07007358BE /* CTMapViewDelegate.h */,
 				184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */,
+				1812D9D519014F940040950F /* Sort */,
 			);
 			name = MainViewController;
 			sourceTree = "<group>";
@@ -770,6 +783,7 @@
 				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
 				183991D118D307D600D2B07F /* AddressSavingCell.m in Sources */,
 				1863227018FCD83400A1851A /* CitySpadeDemoViewController.m in Sources */,
+				1812D9D419014F900040950F /* SortTableView.m in Sources */,
 				18F1EA6618C070F500182A87 /* MapCollectionCell.m in Sources */,
 				1863228E18FCD86D00A1851A /* TransportationBuslinesCell.m in Sources */,
 				186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */,

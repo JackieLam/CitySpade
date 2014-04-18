@@ -12,6 +12,7 @@
 @class REVClusterMapView;
 @class CTListView;
 @class MapBottomBar;
+@class SortTableView;
 
 @interface CTMapViewController : UIViewController
 
@@ -19,5 +20,6 @@
 @property (nonatomic, strong) MapBottomBar *mapBottomBar;
 @property (nonatomic, strong) CTListView *ctlistView;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) SortTableView *sortTableView;
 
 @end

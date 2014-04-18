@@ -15,9 +15,6 @@
 
 @interface CTListView()<UITableViewDataSource, UISearchBarDelegate>
 
-@property (nonatomic, strong) NSArray *places;
-@property (nonatomic, strong) UILabel *totalCountLabel;
-
 @end
 
 @implementation CTListView

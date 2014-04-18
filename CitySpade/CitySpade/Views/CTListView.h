@@ -11,5 +11,8 @@
 //FIXME: change it to inherit from UIView
 @interface CTListView : UITableView
 
+@property (nonatomic, strong) NSArray *places;
+@property (nonatomic, strong) UILabel *totalCountLabel;
+
 - (void)loadPlacesToList:(NSArray *)places;
 @end

@@ -24,6 +24,12 @@
     NSString *bargain;
     NSString *transportation;
     double identifierNumber;
+// Integer and double value for sorting
+    int priceInt;
+    double bargainDouble;
+    double transportationDouble;
+    int bedInt;
+    int bathInt;
 }
 
 @property(nonatomic, retain) NSArray *nodes;
@@ -36,6 +42,12 @@
 @property (nonatomic, copy) NSString *bargain;
 @property (nonatomic, copy) NSString *transportation; 
 @property (nonatomic) double identiferNumber;
+// Integer and double value for sorting
+@property (nonatomic) int priceInt;
+@property (nonatomic) double bargainDouble;
+@property (nonatomic) double transportationDouble;
+@property (nonatomic) int bedInt;
+@property (nonatomic) int bathInt;
 
 - (NSUInteger) nodeCount;
 - (void)configureWithListing:(Listing *)listing;

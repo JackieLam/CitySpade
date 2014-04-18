@@ -11,6 +11,7 @@
 #import "REVClusterPin.h"
 #import "Listing.h"
 #import "DataModels.h"
+#import "RegExCategories.h"
 
 @implementation REVClusterPin
 
@@ -54,6 +55,12 @@
     
     Images *image = (Images *)[listing.images firstObject];
     self.thumbImageLink = [NSString stringWithFormat:@"%@%@", image.url, [image.sizes firstObject]];
+    
+    self.priceInt = (int)listing.price;
+    self.bargainDouble = [[listing.bargain firstMatch:RX(@"\\d+([.]\\d+)")] doubleValue];
+    self.transportationDouble = [[listing.transportation firstMatch:RX(@"\\d+([.]\\d+)")] doubleValue];
+    self.bedInt = (int)listing.beds;
+    self.bathInt = (int)listing.baths;
 }
 
 @end
