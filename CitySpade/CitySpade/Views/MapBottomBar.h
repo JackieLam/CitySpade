@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SwitchSegment;
 
 typedef enum {
     BarStateMapDefault = 0,
@@ -19,7 +20,7 @@ typedef enum {
 @property (nonatomic) BarState barState;
 
 //BarStateMapDefault & BarStateList
-@property (strong, nonatomic) UISegmentedControl *segmentControl;
+@property (strong, nonatomic) SwitchSegment *segmentControl;
 
 //BarStateMapDefault
 @property (strong, nonatomic) UIButton *saveButton;
