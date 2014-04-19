@@ -165,8 +165,10 @@
     self.rangeSlider.lowerValue = self.rangeSlider.minimumValue;
     self.rangeSlider.upperValue = self.rangeSlider.maximumValue;
     
+    
 //    self.rangeSlider.minimumRange = 1000;
     [self.rangeSlider addTarget:self action:@selector(updateRangeLabel:) forControlEvents:UIControlEventValueChanged];
+    [self updateRangeLabel:self.rangeSlider];
     
     if (![self.view.subviews containsObject:self.popoverView])
         [self.view addSubview:self.popoverView];
@@ -178,6 +180,7 @@
 {
     CGPoint lowerCenter;
     lowerCenter.x = slider.lowerCenter.x;
+    NSLog(@"slider.lowerCenter -- %f upperCenter -- %f", slider.lowerCenter.x, slider.upperCenter.x);
     lowerCenter.y = slider.center.y - 30.0f;
     CGPoint upperCenter;
     upperCenter.x = slider.upperCenter.x;

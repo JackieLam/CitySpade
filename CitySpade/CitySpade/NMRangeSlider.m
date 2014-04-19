@@ -656,8 +656,6 @@ NSUInteger DeviceSystemMajorVersion() {
     return YES;
 }
 
-
-
 -(void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     _lowerHandle.highlighted = NO;

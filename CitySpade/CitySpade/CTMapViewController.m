@@ -97,12 +97,10 @@
     [self setupCollectionView];
     
 // RESTfulEngine
-    forRent = YES;
     self.listings = [AppCache getCachedListingItems];
     if (!self.listings || [AppCache isListingItemsStale]) {
         [self loadForAllListings:[NSNotification notificationWithName:kNotificationToLoadAllListings object:@{@"rent": @1} userInfo:nil]];
     }
-
     else {
         [self resetAnnotationsWithResultArray:self.listings];
     }
