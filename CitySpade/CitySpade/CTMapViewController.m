@@ -101,6 +101,7 @@
     if (!self.listings || [AppCache isListingItemsStale]) {
         [self loadForAllListings:[NSNotification notificationWithName:kNotificationToLoadAllListings object:@{@"rent": @1} userInfo:nil]];
     }
+
     else {
         [self resetAnnotationsWithResultArray:self.listings];
     }
@@ -195,12 +196,16 @@
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
+    // Have to clear all the pins first
+    [self.pinsAll removeAllObjects];
+    
     for (Listing *listing in resultArray) {
         REVClusterPin *pin = [[REVClusterPin alloc] init];
         [pin configureWithListing:listing];
         [self.pinsAll addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
+
     [self.ctmapView addAnnotations:self.pinsFilterRight];
 }
 
@@ -247,8 +252,8 @@
         viewFrame.origin.y = viewFrame.origin.y - cellHeight;
     }
     else if ([sender isKindOfClass:[SortTableView class]]) {
-        viewFrame.origin.y = viewFrame.origin.y - 100.0f;
-        viewFrame.size.height = 100.0f;
+        viewFrame.origin.y = viewFrame.origin.y - 90.0f;
+        viewFrame.size.height = 90.0f;
     }
     
     [UIView beginAnimations:nil context:nil];
@@ -271,7 +276,7 @@
     else if ([sender isKindOfClass:[UITableView class]]) {
         view = (UIView *)sender;
         viewFrame = view.frame;
-        viewFrame.origin.y = viewFrame.origin.y + 100.0f;
+        viewFrame.origin.y = viewFrame.origin.y + 90.0f;
         viewFrame.size.height = 0.0f;
     }
     
@@ -455,7 +460,7 @@
 
 #pragma mark - Filter Helper Method
 #pragma mark - Notification
-
+// 由Notification调用
 - (void)updatePinsFilterRight:(NSNotification *)aNotification
 {
     self.pinsFilterRight = [NSMutableArray array];

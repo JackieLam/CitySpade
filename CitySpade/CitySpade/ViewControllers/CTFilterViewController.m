@@ -19,6 +19,9 @@
 #define titleTextColor [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0f]
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 
+#define saleMaxValue 120000000
+#define rentMaxValue 120000
+
 @interface CTFilterViewController()
 
 @end
@@ -32,11 +35,12 @@
     self.navigationController.navigationBar.translucent = NO;
     self.view.userInteractionEnabled = YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToLoadAllListings object:nil];
     [self setTitleAttribute];
     [self setSearchBar];
     [self setApplyButton];
     [self setSections];
-    [self setSlider];
+    [self setSliderWithMaxValue:120000 minValue:0];
     [self setSegments];
 }
 
@@ -128,9 +132,15 @@
     
 }
 
-- (void)setSlider
+- (void)setSliderWithMaxValue:(float)maxValue minValue:(float)minValue
 {
-    self.rangeSlider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(32, 175, 200, 20)];
+    if (!self.popoverView) {
+        self.popoverView = [[ANPopoverView alloc] initWithFrame:CGRectZero];
+        self.popoverView.backgroundColor = [UIColor clearColor];
+    }
+    
+    if (!self.rangeSlider)
+        self.rangeSlider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(32, 175, 200, 20)];
     UIImage* image = nil;
     
     image = [UIImage imageNamed:@"slider_bg"];
@@ -149,21 +159,19 @@
     self.rangeSlider.lowerHandleImageHighlighted = image;
     self.rangeSlider.upperHandleImageHighlighted = image;
     
-    self.rangeSlider.minimumValue = 0;
-    self.rangeSlider.maximumValue = 9000;
+    self.rangeSlider.minimumValue = minValue;
+    self.rangeSlider.maximumValue = maxValue;
     
-    self.rangeSlider.upperValue = 9000;
-    self.rangeSlider.lowerValue = 0;
+    self.rangeSlider.lowerValue = self.rangeSlider.minimumValue;
+    self.rangeSlider.upperValue = self.rangeSlider.maximumValue;
     
-    self.rangeSlider.minimumRange = 1000;
+//    self.rangeSlider.minimumRange = 1000;
     [self.rangeSlider addTarget:self action:@selector(updateRangeLabel:) forControlEvents:UIControlEventValueChanged];
     
-    self.popoverView = [[ANPopoverView alloc] initWithFrame:CGRectZero];
-    self.popoverView.backgroundColor = [UIColor clearColor];
-    
-    [self.view addSubview:self.popoverView];
-    
-    [self.view addSubview:self.rangeSlider];
+    if (![self.view.subviews containsObject:self.popoverView])
+        [self.view addSubview:self.popoverView];
+    if (![self.view.subviews containsObject:self.rangeSlider])
+        [self.view addSubview:self.rangeSlider];
 }
 
 - (void)updateRangeLabel:(NMRangeSlider *)slider
@@ -177,9 +185,16 @@
     CGPoint middleCenter;
     middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5;
     middleCenter.y = lowerCenter.y;
-    
     self.popoverView.center = middleCenter;
-    self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
+    
+    if (slider.upperValue > rentMaxValue) {
+        // It is in the for sale status
+        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%dM - %dM", (int)slider.lowerValue/1000000, (int)slider.upperValue/1000000];
+    }
+    else {
+        // It is in the for rent status
+        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
+    }
 }
 
 - (void)setSegments
@@ -214,6 +229,19 @@
     
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
+}
+
+
+#pragma mark - 
+#pragma mark - Reset the slider's value range
+- (void)resetSliderValueRange:(NSNotification *)aNotification
+{
+    NSDictionary *param = [aNotification object];
+    BOOL forRent = [param[@"rent"] boolValue];
+    if (forRent)
+        [self setSliderWithMaxValue:rentMaxValue minValue:0];
+    else
+        [self setSliderWithMaxValue:saleMaxValue minValue:0];
 }
 
 @end
