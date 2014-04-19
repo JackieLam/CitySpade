@@ -55,7 +55,8 @@
     [button setTitle:aString forState:UIControlStateSelected];
     
     button.titleLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:15.0f];
-    button.titleLabel.textColor = [UIColor colorWithRed:151.0/255.0 green:149.0/255.0 blue:150.0/255.0 alpha:1.0f];
+    UIColor *buttonTextColor = [UIColor colorWithRed:151.0/255.0 green:149.0/255.0 blue:150.0/255.0 alpha:1.0f];
+    [button setTitleColor:buttonTextColor forState:UIControlStateNormal];
     
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];

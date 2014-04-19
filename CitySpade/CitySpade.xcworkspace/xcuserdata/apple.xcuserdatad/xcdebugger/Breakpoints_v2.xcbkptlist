@@ -53,36 +53,6 @@
             endingLineNumber = "366"
             landmarkName = "-saveButtonClicked:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[CTMapViewController saveButtonClicked:]"
-                  moduleName = "CitySpade"
-                  urlString = "file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m"
-                  timestampString = "419570438.724112"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "366"
-                  endingLineNumber = "366"
-                  offsetFromSymbolStart = "529">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__41-[CTMapViewController saveButtonClicked:]_block_invoke"
-                  moduleName = "CitySpade"
-                  urlString = "file:///Users/apple/Developer/CitySpade/CitySpade/CitySpade/CTMapViewController.m"
-                  timestampString = "419570438.72427"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "366"
-                  endingLineNumber = "366"
-                  offsetFromSymbolStart = "82">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -91,14 +61,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CitySpade/CTMapViewController.m"
-            timestampString = "419570267.407998"
+            filePath = "CitySpade/JSON-Models/Images.h"
+            timestampString = "419581004.424041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
-            landmarkName = "-resetAnnotationsWithResultArray:"
-            landmarkType = "5">
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "@interface Images"
+            landmarkType = "2">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

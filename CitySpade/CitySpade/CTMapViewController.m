@@ -121,6 +121,7 @@
     self.ctmapView.delegate = [CTMapViewDelegate sharedInstance];
 }
 
+#pragma mark - NSNotification
 - (void)registerNotification
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForAllListings:) name:kNotificationToLoadAllListings object:nil];

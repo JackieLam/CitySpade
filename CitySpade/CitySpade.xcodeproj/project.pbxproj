@@ -49,21 +49,6 @@
 		186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012D4189F3BEC002500E6 /* MapBottomBar.m */; };
 		1861FC6B18D6A32F0059FA4F /* MainTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1861FC6A18D6A32F0059FA4F /* MainTableViewDelegate.m */; };
 		1863226918FCD7FD00A1851A /* CitySpadeListsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863226818FCD7FD00A1851A /* CitySpadeListsModel.m */; };
-		1863226C18FCD80700A1851A /* CitySpadeRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863226A18FCD80700A1851A /* CitySpadeRequestHandler.m */; };
-		1863227018FCD83400A1851A /* CitySpadeDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863226E18FCD83400A1851A /* CitySpadeDemoViewController.m */; };
-		1863227118FCD83400A1851A /* CitySpadeDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863226F18FCD83400A1851A /* CitySpadeDemoViewController.xib */; };
-		1863228518FCD86D00A1851A /* CitySpadeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227418FCD86D00A1851A /* CitySpadeCell.m */; };
-		1863228618FCD86D00A1851A /* CitySpadeNearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227618FCD86D00A1851A /* CitySpadeNearbyCell.m */; };
-		1863228718FCD86D00A1851A /* CitySpadeBasicFactsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227818FCD86D00A1851A /* CitySpadeBasicFactsCell.m */; };
-		1863228818FCD86D00A1851A /* CitySpadeBasicFactsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863227918FCD86D00A1851A /* CitySpadeBasicFactsCell.xib */; };
-		1863228918FCD86D00A1851A /* CitySpadeBrokerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227B18FCD86D00A1851A /* CitySpadeBrokerInfoCell.m */; };
-		1863228A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863227C18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib */; };
-		1863228B18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863227E18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m */; };
-		1863228C18FCD86D00A1851A /* TransportationSubwayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863228018FCD86D00A1851A /* TransportationSubwayCell.m */; };
-		1863228D18FCD86D00A1851A /* TransportationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863228218FCD86D00A1851A /* TransportationListCell.m */; };
-		1863228E18FCD86D00A1851A /* TransportationBuslinesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863228418FCD86D00A1851A /* TransportationBuslinesCell.m */; };
-		1863229318FCD89400A1851A /* CitySpadeBrokerWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863229118FCD89400A1851A /* CitySpadeBrokerWebViewController.m */; };
-		1863229418FCD89400A1851A /* CitySpadeBrokerWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1863229218FCD89400A1851A /* CitySpadeBrokerWebViewController.xib */; };
 		1863229618FCDFAD00A1851A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1863229518FCDFAD00A1851A /* Images.xcassets */; };
 		18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18645EF818A88C5E009CF97F /* SwitchButton.m */; };
 		187204A718AE65D600C90B31 /* ANPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187204A618AE65D600C90B31 /* ANPopoverView.m */; };
@@ -79,6 +64,31 @@
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
 		189D5FA018CFFF9F00EE8EC9 /* CTDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */; };
 		189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */; };
+		18A0FA3319024BD70067A438 /* CitySpadeBasicFactsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA0619024BD70067A438 /* CitySpadeBasicFactsCell.m */; };
+		18A0FA3419024BD70067A438 /* CitySpadeBasicFactsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA0719024BD70067A438 /* CitySpadeBasicFactsCell.xib */; };
+		18A0FA3519024BD70067A438 /* CitySpadeBrokerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA0919024BD70067A438 /* CitySpadeBrokerInfoCell.m */; };
+		18A0FA3619024BD70067A438 /* CitySpadeBrokerInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA0A19024BD70067A438 /* CitySpadeBrokerInfoCell.xib */; };
+		18A0FA3719024BD70067A438 /* CitySpadeBrokerWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA0C19024BD70067A438 /* CitySpadeBrokerWebViewController.m */; };
+		18A0FA3819024BD70067A438 /* CitySpadeBrokerWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA0D19024BD70067A438 /* CitySpadeBrokerWebViewController.xib */; };
+		18A0FA3919024BD70067A438 /* CitySpadeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA0F19024BD70067A438 /* CitySpadeCell.m */; };
+		18A0FA3A19024BD70067A438 /* CitySpadeNearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA1119024BD70067A438 /* CitySpadeNearbyCell.m */; };
+		18A0FA3B19024BD70067A438 /* CitySpadeTransportationInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA1319024BD70067A438 /* CitySpadeTransportationInfoCell.m */; };
+		18A0FA3C19024BD70067A438 /* CitySpadeTransportationInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA1419024BD70067A438 /* CitySpadeTransportationInfoCell.xib */; };
+		18A0FA3D19024BD70067A438 /* TransportationBuslinesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA1619024BD70067A438 /* TransportationBuslinesCell.m */; };
+		18A0FA3E19024BD70067A438 /* TransportationHottestSpotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA1719024BD70067A438 /* TransportationHottestSpotsCell.xib */; };
+		18A0FA3F19024BD70067A438 /* TransportationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA1919024BD70067A438 /* TransportationListCell.m */; };
+		18A0FA4019024BD70067A438 /* TransportationSubwayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA1B19024BD70067A438 /* TransportationSubwayCell.m */; };
+		18A0FA4119024BD70067A438 /* TransportationSubwayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA1C19024BD70067A438 /* TransportationSubwayCell.xib */; };
+		18A0FA4219024BD70067A438 /* CitySpadeDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA1E19024BD70067A438 /* CitySpadeDemoViewController.m */; };
+		18A0FA4319024BD70067A438 /* CitySpadeDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA1F19024BD70067A438 /* CitySpadeDemoViewController.xib */; };
+		18A0FA4419024BD70067A438 /* BaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA2219024BD70067A438 /* BaseClass.m */; };
+		18A0FA4519024BD70067A438 /* BusLines.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA2419024BD70067A438 /* BusLines.m */; };
+		18A0FA4619024BD70067A438 /* CitySpadeModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA2619024BD70067A438 /* CitySpadeModelManager.m */; };
+		18A0FA4719024BD70067A438 /* CitySpadeTransportationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA2819024BD70067A438 /* CitySpadeTransportationItem.m */; };
+		18A0FA4819024BD70067A438 /* Colleges.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA2A19024BD70067A438 /* Colleges.m */; };
+		18A0FA4919024BD70067A438 /* HottestSpots.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA2D19024BD70067A438 /* HottestSpots.m */; };
+		18A0FA4A19024BD70067A438 /* SubwayLines.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA2F19024BD70067A438 /* SubwayLines.m */; };
+		18A0FA4B19024BD70067A438 /* CitySpadeRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA3219024BD70067A438 /* CitySpadeRequestHandler.m */; };
 		18A4F0FA18CADF7A00CFB2BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */; };
 		18A4F0FC18CAFB8900CFB2BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A1188D54C0003AC430 /* AVFoundation.framework */; };
 		18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D052AE18B8F9A000D548FD /* CTLoginViewController.m */; };
@@ -175,32 +185,6 @@
 		1861FC6A18D6A32F0059FA4F /* MainTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainTableViewDelegate.m; path = Delegate/MainTableViewDelegate.m; sourceTree = "<group>"; };
 		1863226718FCD7FD00A1851A /* CitySpadeListsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeListsModel.h; sourceTree = "<group>"; };
 		1863226818FCD7FD00A1851A /* CitySpadeListsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeListsModel.m; sourceTree = "<group>"; };
-		1863226A18FCD80700A1851A /* CitySpadeRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeRequestHandler.m; sourceTree = "<group>"; };
-		1863226B18FCD80700A1851A /* CitySpadeRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeRequestHandler.h; sourceTree = "<group>"; };
-		1863226D18FCD83400A1851A /* CitySpadeDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeDemoViewController.h; sourceTree = "<group>"; };
-		1863226E18FCD83400A1851A /* CitySpadeDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeDemoViewController.m; sourceTree = "<group>"; };
-		1863226F18FCD83400A1851A /* CitySpadeDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeDemoViewController.xib; sourceTree = "<group>"; };
-		1863227318FCD86D00A1851A /* CitySpadeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeCell.h; sourceTree = "<group>"; };
-		1863227418FCD86D00A1851A /* CitySpadeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeCell.m; sourceTree = "<group>"; };
-		1863227518FCD86D00A1851A /* CitySpadeNearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeNearbyCell.h; sourceTree = "<group>"; };
-		1863227618FCD86D00A1851A /* CitySpadeNearbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeNearbyCell.m; sourceTree = "<group>"; };
-		1863227718FCD86D00A1851A /* CitySpadeBasicFactsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBasicFactsCell.h; sourceTree = "<group>"; };
-		1863227818FCD86D00A1851A /* CitySpadeBasicFactsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBasicFactsCell.m; sourceTree = "<group>"; };
-		1863227918FCD86D00A1851A /* CitySpadeBasicFactsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBasicFactsCell.xib; sourceTree = "<group>"; };
-		1863227A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBrokerInfoCell.h; sourceTree = "<group>"; };
-		1863227B18FCD86D00A1851A /* CitySpadeBrokerInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBrokerInfoCell.m; sourceTree = "<group>"; };
-		1863227C18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerInfoCell.xib; sourceTree = "<group>"; };
-		1863227D18FCD86D00A1851A /* CitySpadeTransportationInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeTransportationInfoCell.h; sourceTree = "<group>"; };
-		1863227E18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeTransportationInfoCell.m; sourceTree = "<group>"; };
-		1863227F18FCD86D00A1851A /* TransportationSubwayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationSubwayCell.h; sourceTree = "<group>"; };
-		1863228018FCD86D00A1851A /* TransportationSubwayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationSubwayCell.m; sourceTree = "<group>"; };
-		1863228118FCD86D00A1851A /* TransportationListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationListCell.h; sourceTree = "<group>"; };
-		1863228218FCD86D00A1851A /* TransportationListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationListCell.m; sourceTree = "<group>"; };
-		1863228318FCD86D00A1851A /* TransportationBuslinesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationBuslinesCell.h; sourceTree = "<group>"; };
-		1863228418FCD86D00A1851A /* TransportationBuslinesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationBuslinesCell.m; sourceTree = "<group>"; };
-		1863229018FCD89400A1851A /* CitySpadeBrokerWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBrokerWebViewController.h; sourceTree = "<group>"; };
-		1863229118FCD89400A1851A /* CitySpadeBrokerWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBrokerWebViewController.m; sourceTree = "<group>"; };
-		1863229218FCD89400A1851A /* CitySpadeBrokerWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerWebViewController.xib; sourceTree = "<group>"; };
 		1863229518FCDFAD00A1851A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		18645EF718A88C5E009CF97F /* SwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwitchButton.h; path = UI/SwitchButton.h; sourceTree = "<group>"; };
 		18645EF818A88C5E009CF97F /* SwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchButton.m; path = UI/SwitchButton.m; sourceTree = "<group>"; };
@@ -208,7 +192,7 @@
 		187204A618AE65D600C90B31 /* ANPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPopoverView.m; sourceTree = "<group>"; };
 		188054DE18B4786F00DE5A9C /* KeyValueObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyValueObserver.h; sourceTree = "<group>"; };
 		188054DF18B4786F00DE5A9C /* KeyValueObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyValueObserver.m; sourceTree = "<group>"; };
-		188054E818B48CB800DE5A9C /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModels.h; sourceTree = "<group>"; };
+		188054E818B48CB800DE5A9C /* DataModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataModels.h; path = "JSON-Models/DataModels.h"; sourceTree = "<group>"; };
 		188054E918B48CB800DE5A9C /* Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
 		188054EA18B48CB800DE5A9C /* Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Images.m; sourceTree = "<group>"; };
 		188054EB18B48CB800DE5A9C /* Listing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Listing.h; sourceTree = "<group>"; };
@@ -230,6 +214,50 @@
 		189D5F9D18CFFF9F00EE8EC9 /* CTDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailsViewController.h; path = ViewControllers/CTDetailsViewController.h; sourceTree = "<group>"; };
 		189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailsViewController.m; path = ViewControllers/CTDetailsViewController.m; sourceTree = "<group>"; };
 		189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTDetailsViewController.xib; path = ViewControllers/CTDetailsViewController.xib; sourceTree = "<group>"; };
+		18A0FA0519024BD70067A438 /* CitySpadeBasicFactsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBasicFactsCell.h; sourceTree = "<group>"; };
+		18A0FA0619024BD70067A438 /* CitySpadeBasicFactsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBasicFactsCell.m; sourceTree = "<group>"; };
+		18A0FA0719024BD70067A438 /* CitySpadeBasicFactsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBasicFactsCell.xib; sourceTree = "<group>"; };
+		18A0FA0819024BD70067A438 /* CitySpadeBrokerInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBrokerInfoCell.h; sourceTree = "<group>"; };
+		18A0FA0919024BD70067A438 /* CitySpadeBrokerInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBrokerInfoCell.m; sourceTree = "<group>"; };
+		18A0FA0A19024BD70067A438 /* CitySpadeBrokerInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerInfoCell.xib; sourceTree = "<group>"; };
+		18A0FA0B19024BD70067A438 /* CitySpadeBrokerWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBrokerWebViewController.h; sourceTree = "<group>"; };
+		18A0FA0C19024BD70067A438 /* CitySpadeBrokerWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBrokerWebViewController.m; sourceTree = "<group>"; };
+		18A0FA0D19024BD70067A438 /* CitySpadeBrokerWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerWebViewController.xib; sourceTree = "<group>"; };
+		18A0FA0E19024BD70067A438 /* CitySpadeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeCell.h; sourceTree = "<group>"; };
+		18A0FA0F19024BD70067A438 /* CitySpadeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeCell.m; sourceTree = "<group>"; };
+		18A0FA1019024BD70067A438 /* CitySpadeNearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeNearbyCell.h; sourceTree = "<group>"; };
+		18A0FA1119024BD70067A438 /* CitySpadeNearbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeNearbyCell.m; sourceTree = "<group>"; };
+		18A0FA1219024BD70067A438 /* CitySpadeTransportationInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeTransportationInfoCell.h; sourceTree = "<group>"; };
+		18A0FA1319024BD70067A438 /* CitySpadeTransportationInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeTransportationInfoCell.m; sourceTree = "<group>"; };
+		18A0FA1419024BD70067A438 /* CitySpadeTransportationInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeTransportationInfoCell.xib; sourceTree = "<group>"; };
+		18A0FA1519024BD70067A438 /* TransportationBuslinesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationBuslinesCell.h; sourceTree = "<group>"; };
+		18A0FA1619024BD70067A438 /* TransportationBuslinesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationBuslinesCell.m; sourceTree = "<group>"; };
+		18A0FA1719024BD70067A438 /* TransportationHottestSpotsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationHottestSpotsCell.xib; sourceTree = "<group>"; };
+		18A0FA1819024BD70067A438 /* TransportationListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationListCell.h; sourceTree = "<group>"; };
+		18A0FA1919024BD70067A438 /* TransportationListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationListCell.m; sourceTree = "<group>"; };
+		18A0FA1A19024BD70067A438 /* TransportationSubwayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationSubwayCell.h; sourceTree = "<group>"; };
+		18A0FA1B19024BD70067A438 /* TransportationSubwayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationSubwayCell.m; sourceTree = "<group>"; };
+		18A0FA1C19024BD70067A438 /* TransportationSubwayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationSubwayCell.xib; sourceTree = "<group>"; };
+		18A0FA1D19024BD70067A438 /* CitySpadeDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeDemoViewController.h; sourceTree = "<group>"; };
+		18A0FA1E19024BD70067A438 /* CitySpadeDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeDemoViewController.m; sourceTree = "<group>"; };
+		18A0FA1F19024BD70067A438 /* CitySpadeDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeDemoViewController.xib; sourceTree = "<group>"; };
+		18A0FA2119024BD70067A438 /* BaseClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClass.h; sourceTree = "<group>"; };
+		18A0FA2219024BD70067A438 /* BaseClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseClass.m; sourceTree = "<group>"; };
+		18A0FA2319024BD70067A438 /* BusLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusLines.h; sourceTree = "<group>"; };
+		18A0FA2419024BD70067A438 /* BusLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusLines.m; sourceTree = "<group>"; };
+		18A0FA2519024BD70067A438 /* CitySpadeModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeModelManager.h; sourceTree = "<group>"; };
+		18A0FA2619024BD70067A438 /* CitySpadeModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeModelManager.m; sourceTree = "<group>"; };
+		18A0FA2719024BD70067A438 /* CitySpadeTransportationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeTransportationItem.h; sourceTree = "<group>"; };
+		18A0FA2819024BD70067A438 /* CitySpadeTransportationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeTransportationItem.m; sourceTree = "<group>"; };
+		18A0FA2919024BD70067A438 /* Colleges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colleges.h; sourceTree = "<group>"; };
+		18A0FA2A19024BD70067A438 /* Colleges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colleges.m; sourceTree = "<group>"; };
+		18A0FA2C19024BD70067A438 /* HottestSpots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HottestSpots.h; sourceTree = "<group>"; };
+		18A0FA2D19024BD70067A438 /* HottestSpots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HottestSpots.m; sourceTree = "<group>"; };
+		18A0FA2E19024BD70067A438 /* SubwayLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubwayLines.h; sourceTree = "<group>"; };
+		18A0FA2F19024BD70067A438 /* SubwayLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubwayLines.m; sourceTree = "<group>"; };
+		18A0FA3119024BD70067A438 /* CitySpadeRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeRequestHandler.h; sourceTree = "<group>"; };
+		18A0FA3219024BD70067A438 /* CitySpadeRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeRequestHandler.m; sourceTree = "<group>"; };
+		18A0FA4C19024C290067A438 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
 		18A4F0F918CADF7A00CFB2BC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		18A58E259B5D4675AA37CCCC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		18D052AD18B8F9A000D548FD /* CTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLoginViewController.h; path = ViewControllers/CTLoginViewController.h; sourceTree = "<group>"; };
@@ -356,15 +384,16 @@
 			children = (
 				1863229518FCDFAD00A1851A /* Images.xcassets */,
 				18F3477718BC3FC6006EF9A7 /* Constants.h */,
+				188054E818B48CB800DE5A9C /* DataModels.h */,
 				1817C74A188CBD68003AC430 /* AppDelegate.h */,
 				1817C74B188CBD68003AC430 /* AppDelegate.m */,
-				183991C918D2F1CE00D2B07F /* Cache */,
 				18F3477818BC4A71006EF9A7 /* FacebookDelegate.h */,
 				18F3477918BC4A71006EF9A7 /* FacebookDelegate.m */,
 				1893061B18A77E3900EA285E /* AppearanceSetter.h */,
 				1893061C18A77E3900EA285E /* AppearanceSetter.m */,
-				1863227218FCD84800A1851A /* DetailPage */,
-				184B65C718D5FC9A007358BE /* MainViewController */,
+				183991C918D2F1CE00D2B07F /* Cache */,
+				18A0FA0319024BD70067A438 /* DetailPage */,
+				184B65C718D5FC9A007358BE /* MainView(Map) */,
 				188054E618B47DB700DE5A9C /* RESTfulEngine */,
 				18E58B4218ACE0C200E38583 /* Categories */,
 				18645EFA18A88C62009CF97F /* Custom UIs */,
@@ -433,7 +462,7 @@
 			name = Cache;
 			sourceTree = "<group>";
 		};
-		184B65C718D5FC9A007358BE /* MainViewController */ = {
+		184B65C718D5FC9A007358BE /* MainView(Map) */ = {
 			isa = PBXGroup;
 			children = (
 				188F6CFC188E85D900EAEEFD /* CTMapViewController.m */,
@@ -444,7 +473,7 @@
 				184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */,
 				1812D9D519014F940040950F /* Sort */,
 			);
-			name = MainViewController;
+			name = "MainView(Map)";
 			sourceTree = "<group>";
 		};
 		186012CE189F2E23002500E6 /* REVMapCluster */ = {
@@ -483,45 +512,6 @@
 			name = AnnotationView;
 			sourceTree = "<group>";
 		};
-		1863227218FCD84800A1851A /* DetailPage */ = {
-			isa = PBXGroup;
-			children = (
-				1863226D18FCD83400A1851A /* CitySpadeDemoViewController.h */,
-				1863226E18FCD83400A1851A /* CitySpadeDemoViewController.m */,
-				1863226F18FCD83400A1851A /* CitySpadeDemoViewController.xib */,
-				1863229018FCD89400A1851A /* CitySpadeBrokerWebViewController.h */,
-				1863229118FCD89400A1851A /* CitySpadeBrokerWebViewController.m */,
-				1863229218FCD89400A1851A /* CitySpadeBrokerWebViewController.xib */,
-				1863228F18FCD87800A1851A /* Cells */,
-			);
-			name = DetailPage;
-			sourceTree = "<group>";
-		};
-		1863228F18FCD87800A1851A /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				1863227318FCD86D00A1851A /* CitySpadeCell.h */,
-				1863227418FCD86D00A1851A /* CitySpadeCell.m */,
-				1863227518FCD86D00A1851A /* CitySpadeNearbyCell.h */,
-				1863227618FCD86D00A1851A /* CitySpadeNearbyCell.m */,
-				1863227718FCD86D00A1851A /* CitySpadeBasicFactsCell.h */,
-				1863227818FCD86D00A1851A /* CitySpadeBasicFactsCell.m */,
-				1863227918FCD86D00A1851A /* CitySpadeBasicFactsCell.xib */,
-				1863227A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.h */,
-				1863227B18FCD86D00A1851A /* CitySpadeBrokerInfoCell.m */,
-				1863227C18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib */,
-				1863227D18FCD86D00A1851A /* CitySpadeTransportationInfoCell.h */,
-				1863227E18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m */,
-				1863227F18FCD86D00A1851A /* TransportationSubwayCell.h */,
-				1863228018FCD86D00A1851A /* TransportationSubwayCell.m */,
-				1863228118FCD86D00A1851A /* TransportationListCell.h */,
-				1863228218FCD86D00A1851A /* TransportationListCell.m */,
-				1863228318FCD86D00A1851A /* TransportationBuslinesCell.h */,
-				1863228418FCD86D00A1851A /* TransportationBuslinesCell.m */,
-			);
-			name = Cells;
-			sourceTree = "<group>";
-		};
 		18645EFA18A88C62009CF97F /* Custom UIs */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,24 +543,22 @@
 			children = (
 				18F3478418BC7263006EF9A7 /* RESTfulEngine.h */,
 				18F3478518BC7263006EF9A7 /* RESTfulEngine.m */,
-				1863226A18FCD80700A1851A /* CitySpadeRequestHandler.m */,
-				1863226B18FCD80700A1851A /* CitySpadeRequestHandler.h */,
-				188054E718B48CB800DE5A9C /* JSON-Models */,
+				188054E718B48CB800DE5A9C /* Models */,
 			);
 			name = RESTfulEngine;
 			sourceTree = "<group>";
 		};
-		188054E718B48CB800DE5A9C /* JSON-Models */ = {
+		188054E718B48CB800DE5A9C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				1863226718FCD7FD00A1851A /* CitySpadeListsModel.h */,
 				1863226818FCD7FD00A1851A /* CitySpadeListsModel.m */,
-				188054E818B48CB800DE5A9C /* DataModels.h */,
 				188054E918B48CB800DE5A9C /* Images.h */,
 				188054EA18B48CB800DE5A9C /* Images.m */,
 				188054EB18B48CB800DE5A9C /* Listing.h */,
 				188054EC18B48CB800DE5A9C /* Listing.m */,
 			);
+			name = Models;
 			path = "JSON-Models";
 			sourceTree = "<group>";
 		};
@@ -607,6 +595,81 @@
 				189763C91890FE6E006374E0 /* CTDetailView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		18A0FA0319024BD70067A438 /* DetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				18A0FA1D19024BD70067A438 /* CitySpadeDemoViewController.h */,
+				18A0FA1E19024BD70067A438 /* CitySpadeDemoViewController.m */,
+				18A0FA1F19024BD70067A438 /* CitySpadeDemoViewController.xib */,
+				18A0FA4C19024C290067A438 /* constant.h */,
+				18A0FA0419024BD70067A438 /* Cells */,
+				18A0FA2019024BD70067A438 /* Models */,
+				18A0FA3019024BD70067A438 /* RequestHandler */,
+			);
+			path = DetailPage;
+			sourceTree = "<group>";
+		};
+		18A0FA0419024BD70067A438 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				18A0FA0519024BD70067A438 /* CitySpadeBasicFactsCell.h */,
+				18A0FA0619024BD70067A438 /* CitySpadeBasicFactsCell.m */,
+				18A0FA0719024BD70067A438 /* CitySpadeBasicFactsCell.xib */,
+				18A0FA0819024BD70067A438 /* CitySpadeBrokerInfoCell.h */,
+				18A0FA0919024BD70067A438 /* CitySpadeBrokerInfoCell.m */,
+				18A0FA0A19024BD70067A438 /* CitySpadeBrokerInfoCell.xib */,
+				18A0FA0B19024BD70067A438 /* CitySpadeBrokerWebViewController.h */,
+				18A0FA0C19024BD70067A438 /* CitySpadeBrokerWebViewController.m */,
+				18A0FA0D19024BD70067A438 /* CitySpadeBrokerWebViewController.xib */,
+				18A0FA0E19024BD70067A438 /* CitySpadeCell.h */,
+				18A0FA0F19024BD70067A438 /* CitySpadeCell.m */,
+				18A0FA1019024BD70067A438 /* CitySpadeNearbyCell.h */,
+				18A0FA1119024BD70067A438 /* CitySpadeNearbyCell.m */,
+				18A0FA1219024BD70067A438 /* CitySpadeTransportationInfoCell.h */,
+				18A0FA1319024BD70067A438 /* CitySpadeTransportationInfoCell.m */,
+				18A0FA1419024BD70067A438 /* CitySpadeTransportationInfoCell.xib */,
+				18A0FA1519024BD70067A438 /* TransportationBuslinesCell.h */,
+				18A0FA1619024BD70067A438 /* TransportationBuslinesCell.m */,
+				18A0FA1719024BD70067A438 /* TransportationHottestSpotsCell.xib */,
+				18A0FA1819024BD70067A438 /* TransportationListCell.h */,
+				18A0FA1919024BD70067A438 /* TransportationListCell.m */,
+				18A0FA1A19024BD70067A438 /* TransportationSubwayCell.h */,
+				18A0FA1B19024BD70067A438 /* TransportationSubwayCell.m */,
+				18A0FA1C19024BD70067A438 /* TransportationSubwayCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		18A0FA2019024BD70067A438 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				18A0FA2119024BD70067A438 /* BaseClass.h */,
+				18A0FA2219024BD70067A438 /* BaseClass.m */,
+				18A0FA2319024BD70067A438 /* BusLines.h */,
+				18A0FA2419024BD70067A438 /* BusLines.m */,
+				18A0FA2519024BD70067A438 /* CitySpadeModelManager.h */,
+				18A0FA2619024BD70067A438 /* CitySpadeModelManager.m */,
+				18A0FA2719024BD70067A438 /* CitySpadeTransportationItem.h */,
+				18A0FA2819024BD70067A438 /* CitySpadeTransportationItem.m */,
+				18A0FA2919024BD70067A438 /* Colleges.h */,
+				18A0FA2A19024BD70067A438 /* Colleges.m */,
+				18A0FA2C19024BD70067A438 /* HottestSpots.h */,
+				18A0FA2D19024BD70067A438 /* HottestSpots.m */,
+				18A0FA2E19024BD70067A438 /* SubwayLines.h */,
+				18A0FA2F19024BD70067A438 /* SubwayLines.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		18A0FA3019024BD70067A438 /* RequestHandler */ = {
+			isa = PBXGroup;
+			children = (
+				18A0FA3119024BD70067A438 /* CitySpadeRequestHandler.h */,
+				18A0FA3219024BD70067A438 /* CitySpadeRequestHandler.m */,
+			);
+			path = RequestHandler;
 			sourceTree = "<group>";
 		};
 		18E58B4218ACE0C200E38583 /* Categories */ = {
@@ -705,16 +768,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */,
-				1863228818FCD86D00A1851A /* CitySpadeBasicFactsCell.xib in Resources */,
-				1863227118FCD83400A1851A /* CitySpadeDemoViewController.xib in Resources */,
+				18A0FA3819024BD70067A438 /* CitySpadeBrokerWebViewController.xib in Resources */,
 				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
+				18A0FA3E19024BD70067A438 /* TransportationHottestSpotsCell.xib in Resources */,
+				18A0FA4319024BD70067A438 /* CitySpadeDemoViewController.xib in Resources */,
 				1863229618FCDFAD00A1851A /* Images.xcassets in Resources */,
-				1863228A18FCD86D00A1851A /* CitySpadeBrokerInfoCell.xib in Resources */,
 				183991D318D307EA00D2B07F /* AddressSavingCell.xib in Resources */,
 				18F1EA6818C0710D00182A87 /* MapCollectionCell.xib in Resources */,
-				1863229418FCD89400A1851A /* CitySpadeBrokerWebViewController.xib in Resources */,
+				18A0FA3619024BD70067A438 /* CitySpadeBrokerInfoCell.xib in Resources */,
+				18A0FA3419024BD70067A438 /* CitySpadeBasicFactsCell.xib in Resources */,
+				18A0FA4119024BD70067A438 /* TransportationSubwayCell.xib in Resources */,
 				189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
+				18A0FA3C19024BD70067A438 /* CitySpadeTransportationInfoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,54 +833,61 @@
 			buildActionMask = 2147483647;
 			files = (
 				188F6CFE188E85D900EAEEFD /* CTMapViewController.m in Sources */,
-				1863229318FCD89400A1851A /* CitySpadeBrokerWebViewController.m in Sources */,
-				1863228718FCD86D00A1851A /* CitySpadeBasicFactsCell.m in Sources */,
-				1863226C18FCD80700A1851A /* CitySpadeRequestHandler.m in Sources */,
+				18A0FA4619024BD70067A438 /* CitySpadeModelManager.m in Sources */,
 				182413B4188FC7560064B28F /* CTFilterViewController.m in Sources */,
 				188F6CFB188E5E8600EAEEFD /* CTLeftSideMenuViewController.m in Sources */,
 				182D50B41890D77C0079A6DF /* CTListCell.m in Sources */,
+				18A0FA3919024BD70067A438 /* CitySpadeCell.m in Sources */,
 				186012CD189F2E1C002500E6 /* REVClusterAnnotationView.m in Sources */,
-				1863228918FCD86D00A1851A /* CitySpadeBrokerInfoCell.m in Sources */,
+				18A0FA4219024BD70067A438 /* CitySpadeDemoViewController.m in Sources */,
 				18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */,
 				183991D918D333D900D2B07F /* UISegmentedControl+Project.m in Sources */,
-				1863228518FCD86D00A1851A /* CitySpadeCell.m in Sources */,
+				18A0FA3719024BD70067A438 /* CitySpadeBrokerWebViewController.m in Sources */,
 				18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */,
 				188054ED18B48CB800DE5A9C /* Images.m in Sources */,
 				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
 				183991D118D307D600D2B07F /* AddressSavingCell.m in Sources */,
-				1863227018FCD83400A1851A /* CitySpadeDemoViewController.m in Sources */,
 				1812D9D419014F900040950F /* SortTableView.m in Sources */,
 				18F1EA6618C070F500182A87 /* MapCollectionCell.m in Sources */,
-				1863228E18FCD86D00A1851A /* TransportationBuslinesCell.m in Sources */,
+				18A0FA4819024BD70067A438 /* Colleges.m in Sources */,
 				186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */,
-				1863228B18FCD86D00A1851A /* CitySpadeTransportationInfoCell.m in Sources */,
 				186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */,
 				184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */,
+				18A0FA3B19024BD70067A438 /* CitySpadeTransportationInfoCell.m in Sources */,
 				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
+				18A0FA3319024BD70067A438 /* CitySpadeBasicFactsCell.m in Sources */,
 				188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */,
+				18A0FA4B19024BD70067A438 /* CitySpadeRequestHandler.m in Sources */,
+				18A0FA3A19024BD70067A438 /* CitySpadeNearbyCell.m in Sources */,
 				18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */,
 				189763C71890FD9C006374E0 /* CTDetailViewController.m in Sources */,
 				183991D618D308B500D2B07F /* CTSavingsViewController.m in Sources */,
-				1863228C18FCD86D00A1851A /* TransportationSubwayCell.m in Sources */,
 				18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */,
+				18A0FA4719024BD70067A438 /* CitySpadeTransportationItem.m in Sources */,
 				1861FC6B18D6A32F0059FA4F /* MainTableViewDelegate.m in Sources */,
 				180A406A18D2091D004D33D5 /* AppCache.m in Sources */,
+				18A0FA4A19024BD70067A438 /* SubwayLines.m in Sources */,
 				1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
+				18A0FA4519024BD70067A438 /* BusLines.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
-				1863228D18FCD86D00A1851A /* TransportationListCell.m in Sources */,
+				18A0FA4919024BD70067A438 /* HottestSpots.m in Sources */,
 				182D50B11890C05C0079A6DF /* CTListView.m in Sources */,
+				18A0FA3F19024BD70067A438 /* TransportationListCell.m in Sources */,
 				1863226918FCD7FD00A1851A /* CitySpadeListsModel.m in Sources */,
+				18A0FA4419024BD70067A438 /* BaseClass.m in Sources */,
 				18F3477A18BC4A71006EF9A7 /* FacebookDelegate.m in Sources */,
+				18A0FA3519024BD70067A438 /* CitySpadeBrokerInfoCell.m in Sources */,
 				1817C74C188CBD68003AC430 /* AppDelegate.m in Sources */,
+				18A0FA4019024BD70067A438 /* TransportationSubwayCell.m in Sources */,
 				1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */,
 				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
+				18A0FA3D19024BD70067A438 /* TransportationBuslinesCell.m in Sources */,
 				18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */,
 				186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */,
 				188054EE18B48CB800DE5A9C /* Listing.m in Sources */,
 				189D5FA018CFFF9F00EE8EC9 /* CTDetailsViewController.m in Sources */,
 				186012CC189F2E1C002500E6 /* REVClusterPin.m in Sources */,
-				1863228618FCD86D00A1851A /* CitySpadeNearbyCell.m in Sources */,
 				18858C0018AE162400F49974 /* NMRangeSlider.m in Sources */,
 				18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */,
 				1817C748188CBD68003AC430 /* main.m in Sources */,

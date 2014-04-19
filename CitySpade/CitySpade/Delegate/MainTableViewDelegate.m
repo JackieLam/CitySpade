@@ -11,6 +11,7 @@
 #import "CTDetailViewController.h"
 #import "Constants.h"
 #import "CitySpadeDemoViewController.h"
+#import "RegExCategories.h"
 
 @implementation MainTableViewDelegate
 
@@ -37,19 +38,20 @@
 {
     CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
-//    CTDetailViewController *detailViewController = [[CTDetailViewController alloc] init];
-//    NSDictionary *basicInfo = @{@"title": cell.titleLabel.text, @"price": cell.priceLabel.text, @"bargain": cell.bargainLabel.text, @"transport": cell.transportLabel.text, @"bed": cell.bedLabel.text, @"bath": cell.bathLabel.text};
-//    detailViewController.basicInfo = basicInfo;
     CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] initWithNibName:@"CitySpadeDemoViewController" bundle:nil];
-    NSLog(@"id -- %d", (int)cell.identiferNumber);
     detailViewController.VCtitle = cell.titleLabel.text;
-    detailViewController.listAPI = [NSString stringWithFormat:@"http://cityspade.com/api/v1/listings/%d.json", (int)cell.identiferNumber];
+    detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
     detailViewController.featureImage = cell.thumbImageView.image;
-    NSDictionary *basicFactDict = @{@"bargain" : @(8.5),
-                                    @"transportation" : @(7.5),
-                                    @"totalPrice" : @(375000),
-                                    @"numberOfBed" : @(1),
-                                    @"numberOfBath" : @(1)};
+    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstMatch:RX(@"\\d+([.]\\d+)")] doubleValue]];
+    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstMatch:RX(@"\\d+([.]\\d+)")] doubleValue]];
+    NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstMatch:RX(@"\\d+")] intValue]];
+    NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstMatch:RX(@"\\d+")] intValue]];
+    NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstMatch:RX(@"\\d+")] intValue]];
+    NSDictionary *basicFactDict = @{@"bargain" : bargain,
+                                    @"transportation" : transportation,
+                                    @"totalPrice" : price,
+                                    @"numberOfBed" : bed,
+                                    @"numberOfBath" : bath};
     detailViewController.basicFactsDictionary = basicFactDict;
     [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPushDetailViewController object:detailViewController userInfo:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
