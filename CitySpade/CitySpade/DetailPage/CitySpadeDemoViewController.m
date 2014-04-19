@@ -232,7 +232,19 @@
 }
 
 - (IBAction)pressForwardBtn:(id)sender {
-
+    NSString *str = @"Test";
+    NSArray *objectsToShare = @[str];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludedActivities = @[UIActivityTypePostToTwitter,
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
+                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
+    activityViewController.excludedActivityTypes = excludedActivities;
+    
+    [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 - (IBAction)back:(id)sender {

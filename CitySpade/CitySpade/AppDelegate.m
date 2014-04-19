@@ -22,7 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [NSThread sleepForTimeInterval:1.0f];
+//    [NSThread sleepForTimeInterval:1.0f];
     return YES;
 }
 

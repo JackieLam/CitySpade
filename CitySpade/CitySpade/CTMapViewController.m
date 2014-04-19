@@ -98,6 +98,7 @@
     [self setupCollectionView];
     
 // RESTfulEngine
+    forRent = YES;
     self.listings = [AppCache getCachedListingItems];
     if (!self.listings || [AppCache isListingItemsStale]) {
         [self loadForAllListings:[NSNotification notificationWithName:kNotificationToLoadAllListings object:@{@"rent": @1} userInfo:nil]];
@@ -175,32 +176,39 @@
 #pragma mark - Reload Listing(For Rent / For Sale)
 - (void)loadForAllListings:(NSNotification *)aNotification
 {
-    NSDictionary *param = [aNotification object];
-    forRent = [param[@"rent"] boolValue];
-    //Remove all annotaions first
-    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = activityIndicator;
-    [activityIndicator startAnimating];
+    // Have to clear all the pins first
+    [self.pinsAll removeAllObjects];
+    [self.pinsFilterRight removeAllObjects];
     
-    [RESTfulEngine loadListingsWithQuery:param onSucceeded:^(NSMutableArray *resultArray) {
-        [activityIndicator stopAnimating];
-        self.listings = resultArray;
-        [AppCache cacheListingItems:self.listings];
-        self.navigationItem.titleView = nil;
-        self.navigationItem.title = forRent ? @"For Rent": @"For Sale";
-        [self resetAnnotationsWithResultArray:self.listings];
-    } onError:^(NSError *engineError) {
+    NSDictionary *param = [aNotification object];
+    
+    // 如果拉取的For Rent和For Sale不一样，需要重新拉取
+    // 如果拉取的数据是一样的，不需要重新拉取
+    if ([param[@"rent"] boolValue] != forRent) {
         
-        [SVProgressHUD showErrorWithStatus:engineError.description];
-    }];
+        forRent = [param[@"rent"] boolValue];
+        //Remove all annotaions first
+        [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.navigationItem.titleView = activityIndicator;
+        [activityIndicator startAnimating];
+        
+        [RESTfulEngine loadListingsWithQuery:param onSucceeded:^(NSMutableArray *resultArray) {
+            [activityIndicator stopAnimating];
+            self.listings = resultArray;
+            [AppCache cacheListingItems:self.listings];
+            self.navigationItem.titleView = nil;
+            self.navigationItem.title = forRent ? @"For Rent": @"For Sale";
+            [self resetAnnotationsWithResultArray:self.listings];
+        } onError:^(NSError *engineError) {
+            
+            [SVProgressHUD showErrorWithStatus:engineError.description];
+        }];
+    }
 }
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
-    // Have to clear all the pins first
-    [self.pinsAll removeAllObjects];
-    
     for (Listing *listing in resultArray) {
         REVClusterPin *pin = [[REVClusterPin alloc] init];
         [pin configureWithListing:listing];
@@ -350,7 +358,8 @@
             [self.view insertSubview:self.ctlistView belowSubview:self.mapBottomBar];
             [self.mapBottomBar resetBarState:BarStateList];
             [self.view bringSubviewToFront:self.mapBottomBar];
-            [self.ctlistView loadPlacesToList:self.pinsAll];
+            
+            [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
             CGRect bottomBarFrame = self.mapBottomBar.frame;
             self.sortTableView = [[SortTableView alloc] initWithFrame:CGRectMake(bottomBarFrame.origin.x, bottomBarFrame.origin.y, bottomBarFrame.size.width, 0) delegate:self];
 //            self.sortTableView.backgroundColor = [UIColor redColor];
@@ -497,8 +506,10 @@
         self.pinsFilterRight = [self pinsFilterDrawAndRightFromPinsFilterRight:self.pinsFilterRight];
     }
     
+    
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
     [self.ctmapView addAnnotations:self.pinsFilterRight];
+    [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
 }
 
 - (NSMutableArray *)pinsFilterRightFromPinsAll:(NSMutableArray *)pinsAll
