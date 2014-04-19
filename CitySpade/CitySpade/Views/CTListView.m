@@ -28,7 +28,7 @@
         self.totalCountLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f];
         self.totalCountLabel.textColor = [UIColor colorWithRed:40.0/255.0 green:176.0/255.0 blue:170.0/255.0 alpha:1.0f];
         self.totalCountLabel.textAlignment = NSTextAlignmentCenter;
-        self.totalCountLabel.text = @"158 results total";
+        self.totalCountLabel.text = [NSString stringWithFormat:@"0 results total"];
         self.tableHeaderView = self.totalCountLabel;
         
         self.backgroundColor = tableViewBackgroundColor;
@@ -38,7 +38,7 @@
     return self;
 }
 
-- (void)loadPlacesToList:(NSArray *)places
+- (void)loadPlacesToListAndReloadData:(NSArray *)places
 {
     self.totalCountLabel.text = [NSString stringWithFormat:@"%d results total", [places count]];
     self.places = places;

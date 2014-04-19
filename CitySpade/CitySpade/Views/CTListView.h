@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSArray *places;
 @property (nonatomic, strong) UILabel *totalCountLabel;
 
-- (void)loadPlacesToList:(NSArray *)places;
+- (void)loadPlacesToListAndReloadData:(NSArray *)places;
+
 @end
