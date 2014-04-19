@@ -27,6 +27,7 @@
 #import "MainTableViewDelegate.h"
 #import "RegExCategories.h"
 #import "SortTableView.h"
+#import "SwitchSegment.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f

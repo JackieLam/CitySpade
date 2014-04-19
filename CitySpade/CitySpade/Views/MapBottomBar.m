@@ -7,6 +7,7 @@
 //
 
 #import "MapBottomBar.h"
+#import "SwitchSegment.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MapBottomBar()
@@ -47,16 +48,11 @@
     [self.drawButton setTitleColor:[UIColor colorWithRed:172.0/255.0 green:255.0/255.0 blue:250.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self addSubview:self.drawButton];
 //SegmentControl
-    self.segmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:[UIImage imageNamed:@"map_selected"], [UIImage imageNamed:@"list_unselected"], nil]];
-    self.segmentControl.tintColor = [UIColor whiteColor];
-    self.segmentControl.frame = tempImageViewRect;
-    self.segmentControl.selectedSegmentIndex = 0;
-    self.segmentControl.layer.cornerRadius = 20.0f;
-    self.segmentControl.contentMode = UIViewContentModeScaleAspectFit;
-    [self.segmentControl setBackgroundImage:[UIImage imageNamed:@"segment_unselected_bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.segmentControl setBackgroundImage:[UIImage imageNamed:@"segment_selected_bg"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [self.segmentControl setBackgroundImage:[UIImage imageNamed:@"segment_selected_bg"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [self.segmentControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+    NSArray *items = @[@" ",@" "];
+    self.segmentControl = [[SwitchSegment alloc] initWithItems:items];
+    [self.segmentControl setFrame:tempImageViewRect];
+    [self.segmentControl setImage:[UIImage imageNamed:@"map_selected"] forSegmentAtIndex:0];
+    [self.segmentControl setImage:[UIImage imageNamed:@"list_unselected"] forSegmentAtIndex:1];
     [self addSubview:self.segmentControl];
 //CancelButton
     self.cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -87,17 +83,17 @@
     [self addSubview:self.sortButton];
 }
 
--(void)segmentAction:(UISegmentedControl*)sender
-{
-    if (sender.selectedSegmentIndex == 0) {
-        [sender setImage:[UIImage imageNamed:@"map_selected"] forSegmentAtIndex:0];
-        [sender setImage:[UIImage imageNamed:@"list_unselected"] forSegmentAtIndex:1];
-    }
-    else {
-        [sender setImage:[UIImage imageNamed:@"map_unselected"] forSegmentAtIndex:0];
-        [sender setImage:[UIImage imageNamed:@"list_selected"] forSegmentAtIndex:1];
-    }
-}
+//-(void)segmentAction:(UISegmentedControl*)sender
+//{
+//    if (sender.selectedSegmentIndex == 0) {
+//        [sender setImage:[UIImage imageNamed:@"map_selected"] forSegmentAtIndex:0];
+//        [sender setImage:[UIImage imageNamed:@"list_unselected"] forSegmentAtIndex:1];
+//    }
+//    else {
+//        [sender setImage:[UIImage imageNamed:@"map_unselected"] forSegmentAtIndex:0];
+//        [sender setImage:[UIImage imageNamed:@"list_selected"] forSegmentAtIndex:1];
+//    }
+//}
 
 - (void)resetBarState:(BarState)newState
 {

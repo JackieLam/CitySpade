@@ -103,6 +103,7 @@
 		18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478518BC7263006EF9A7 /* RESTfulEngine.m */; };
 		18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478818BC7280006EF9A7 /* NSString+Encryption.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
+		42052F121902741D00BBFE8E /* SwitchSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 42052F111902741D00BBFE8E /* SwitchSegment.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -281,6 +282,8 @@
 		18F3478818BC7280006EF9A7 /* NSString+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encryption.m"; sourceTree = "<group>"; };
 		18FD0C0018B1C842000DBE87 /* BedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BedSegment.h; path = UI/BedSegment.h; sourceTree = "<group>"; };
 		18FD0C0118B1C842000DBE87 /* BedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BedSegment.m; path = UI/BedSegment.m; sourceTree = "<group>"; };
+		42052F101902741D00BBFE8E /* SwitchSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwitchSegment.h; path = UI/SwitchSegment.h; sourceTree = "<group>"; };
+		42052F111902741D00BBFE8E /* SwitchSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchSegment.m; path = UI/SwitchSegment.m; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -525,6 +528,8 @@
 				18645EF818A88C5E009CF97F /* SwitchButton.m */,
 				186012D3189F3BEC002500E6 /* MapBottomBar.h */,
 				186012D4189F3BEC002500E6 /* MapBottomBar.m */,
+				42052F101902741D00BBFE8E /* SwitchSegment.h */,
+				42052F111902741D00BBFE8E /* SwitchSegment.m */,
 			);
 			name = "Custom UIs";
 			sourceTree = "<group>";
@@ -852,6 +857,7 @@
 				18A0FA4819024BD70067A438 /* Colleges.m in Sources */,
 				186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */,
 				186012C7189F2E00002500E6 /* REVClusterMapView.m in Sources */,
+				42052F121902741D00BBFE8E /* SwitchSegment.m in Sources */,
 				184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */,
 				18A0FA3B19024BD70067A438 /* CitySpadeTransportationInfoCell.m in Sources */,
 				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
@@ -1031,7 +1037,7 @@
 					"$(FRANK_LDFLAGS)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "213D5139-BCA2-4C32-AAFA-7BC1C9BD4EF6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1054,7 +1060,7 @@
 				INFOPLIST_FILE = "CitySpade/CitySpade-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "213D5139-BCA2-4C32-AAFA-7BC1C9BD4EF6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
