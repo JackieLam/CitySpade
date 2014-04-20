@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "CitySpadeDemoViewController.h"
 #import "NSString+RegEx.h"
+#import "AsynImageView.h"
 
 @implementation MainTableViewDelegate
 

@@ -119,4 +119,10 @@
     self.thumbImageView.imageURL = pin.thumbImageLink;
 }
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    [self.thumbImageView cancelConnection];
+}
+
 @end

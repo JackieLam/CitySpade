@@ -64,6 +64,7 @@
 		189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189763C91890FE6E006374E0 /* CTDetailView.m */; };
 		189D5FA018CFFF9F00EE8EC9 /* CTDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */; };
 		189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */; };
+		18A086F319042344007CDC1B /* AsynImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A086F219042344007CDC1B /* AsynImageView.m */; };
 		18A0FA3319024BD70067A438 /* CitySpadeBasicFactsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA0619024BD70067A438 /* CitySpadeBasicFactsCell.m */; };
 		18A0FA3419024BD70067A438 /* CitySpadeBasicFactsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0FA0719024BD70067A438 /* CitySpadeBasicFactsCell.xib */; };
 		18A0FA3519024BD70067A438 /* CitySpadeBrokerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0FA0919024BD70067A438 /* CitySpadeBrokerInfoCell.m */; };
@@ -215,6 +216,8 @@
 		189D5F9D18CFFF9F00EE8EC9 /* CTDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTDetailsViewController.h; path = ViewControllers/CTDetailsViewController.h; sourceTree = "<group>"; };
 		189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTDetailsViewController.m; path = ViewControllers/CTDetailsViewController.m; sourceTree = "<group>"; };
 		189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTDetailsViewController.xib; path = ViewControllers/CTDetailsViewController.xib; sourceTree = "<group>"; };
+		18A086F119042344007CDC1B /* AsynImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsynImageView.h; path = UI/AsynImageView.h; sourceTree = "<group>"; };
+		18A086F219042344007CDC1B /* AsynImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsynImageView.m; path = UI/AsynImageView.m; sourceTree = "<group>"; };
 		18A0FA0519024BD70067A438 /* CitySpadeBasicFactsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySpadeBasicFactsCell.h; sourceTree = "<group>"; };
 		18A0FA0619024BD70067A438 /* CitySpadeBasicFactsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySpadeBasicFactsCell.m; sourceTree = "<group>"; };
 		18A0FA0719024BD70067A438 /* CitySpadeBasicFactsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBasicFactsCell.xib; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 		18645EFA18A88C62009CF97F /* Custom UIs */ = {
 			isa = PBXGroup;
 			children = (
+				18A086F119042344007CDC1B /* AsynImageView.h */,
+				18A086F219042344007CDC1B /* AsynImageView.m */,
 				18858BFE18AE162400F49974 /* NMRangeSlider.h */,
 				18858BFF18AE162400F49974 /* NMRangeSlider.m */,
 				187204A518AE65D600C90B31 /* ANPopoverView.h */,
@@ -872,6 +877,7 @@
 				18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */,
 				18A0FA4719024BD70067A438 /* CitySpadeTransportationItem.m in Sources */,
 				1861FC6B18D6A32F0059FA4F /* MainTableViewDelegate.m in Sources */,
+				18A086F319042344007CDC1B /* AsynImageView.m in Sources */,
 				180A406A18D2091D004D33D5 /* AppCache.m in Sources */,
 				18A0FA4A19024BD70067A438 /* SubwayLines.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
