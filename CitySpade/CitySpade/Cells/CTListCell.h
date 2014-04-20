@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class REVClusterPin;
+@class AsynImageView;
 
 @interface CTListCell : UITableViewCell
 
-@property (nonatomic, strong) UIImageView *thumbImageView;
+@property (nonatomic, strong) AsynImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UILabel *bargainLabel;
