@@ -7,7 +7,7 @@
 //
 
 #import "NSString+Encryption.h"
-#import "RegExCategories.h"
+#import "NSString+RegEx.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Encryption)
@@ -74,8 +74,7 @@
 
 + (NSString *)usernameWithEmail:(NSString *)email
 {
-    NSArray *pieces = [email split:RX(@"[@]")];
-    return pieces[0];
+    return [email emailUserNameInString];
 }
 
 @end

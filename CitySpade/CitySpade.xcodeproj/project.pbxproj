@@ -37,8 +37,8 @@
 		183991D318D307EA00D2B07F /* AddressSavingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183991D218D307EA00D2B07F /* AddressSavingCell.xib */; };
 		183991D618D308B500D2B07F /* CTSavingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D518D308B500D2B07F /* CTSavingsViewController.m */; };
 		183991D918D333D900D2B07F /* UISegmentedControl+Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D818D333D900D2B07F /* UISegmentedControl+Project.m */; };
+		1845A2E919039D04003B764C /* NSString+RegEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 1845A2E819039D04003B764C /* NSString+RegEx.m */; };
 		184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */; };
-		1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850870E18BD87AF000A5BA4 /* RegExCategories.m */; };
 		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BE189F2E00002500E6 /* REVClusterBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012C0189F2E00002500E6 /* REVClusterManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -162,10 +162,10 @@
 		183991D518D308B500D2B07F /* CTSavingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTSavingsViewController.m; path = ViewControllers/CTSavingsViewController.m; sourceTree = "<group>"; };
 		183991D718D333D900D2B07F /* UISegmentedControl+Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+Project.h"; sourceTree = "<group>"; };
 		183991D818D333D900D2B07F /* UISegmentedControl+Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Project.m"; sourceTree = "<group>"; };
+		1845A2E719039D04003B764C /* NSString+RegEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegEx.h"; sourceTree = "<group>"; };
+		1845A2E819039D04003B764C /* NSString+RegEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegEx.m"; sourceTree = "<group>"; };
 		184B65C918D5FF07007358BE /* CTMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewDelegate.h; sourceTree = "<group>"; };
 		184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewDelegate.m; sourceTree = "<group>"; };
-		1850870D18BD87AF000A5BA4 /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegExCategories.h; sourceTree = "<group>"; };
-		1850870E18BD87AF000A5BA4 /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
 		186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVAnnotationsCollection.h; sourceTree = "<group>"; };
 		186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVAnnotationsCollection.m; sourceTree = "<group>"; };
 		186012BD189F2E00002500E6 /* REVClusterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterBlock.h; sourceTree = "<group>"; };
@@ -680,8 +680,8 @@
 		18E58B4218ACE0C200E38583 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				1850870D18BD87AF000A5BA4 /* RegExCategories.h */,
-				1850870E18BD87AF000A5BA4 /* RegExCategories.m */,
+				1845A2E719039D04003B764C /* NSString+RegEx.h */,
+				1845A2E819039D04003B764C /* NSString+RegEx.m */,
 				18F3478718BC7280006EF9A7 /* NSString+Encryption.h */,
 				18F3478818BC7280006EF9A7 /* NSString+Encryption.m */,
 				18E58B3F18ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.h */,
@@ -849,6 +849,7 @@
 				183991D918D333D900D2B07F /* UISegmentedControl+Project.m in Sources */,
 				18A0FA3719024BD70067A438 /* CitySpadeBrokerWebViewController.m in Sources */,
 				18645EF918A88C5E009CF97F /* SwitchButton.m in Sources */,
+				1845A2E919039D04003B764C /* NSString+RegEx.m in Sources */,
 				188054ED18B48CB800DE5A9C /* Images.m in Sources */,
 				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
 				183991D118D307D600D2B07F /* AddressSavingCell.m in Sources */,
@@ -873,7 +874,6 @@
 				1861FC6B18D6A32F0059FA4F /* MainTableViewDelegate.m in Sources */,
 				180A406A18D2091D004D33D5 /* AppCache.m in Sources */,
 				18A0FA4A19024BD70067A438 /* SubwayLines.m in Sources */,
-				1850870F18BD87AF000A5BA4 /* RegExCategories.m in Sources */,
 				18F3477318BB43A0006EF9A7 /* CTRegisterViewController.m in Sources */,
 				18A0FA4519024BD70067A438 /* BusLines.m in Sources */,
 				1893061618A4BE7F00EA285E /* CTCollectionCell.m in Sources */,
@@ -1037,7 +1037,7 @@
 					"$(FRANK_LDFLAGS)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "213D5139-BCA2-4C32-AAFA-7BC1C9BD4EF6";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1060,7 +1060,7 @@
 				INFOPLIST_FILE = "CitySpade/CitySpade-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "213D5139-BCA2-4C32-AAFA-7BC1C9BD4EF6";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

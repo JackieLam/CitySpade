@@ -163,5 +163,4 @@ NSMutableArray *tempArrayForImages = [NSMutableArray array];
     [aCoder encodeObject:_transportation forKey:kListingTransportation];
 }
 
-
 @end

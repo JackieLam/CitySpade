@@ -11,7 +11,7 @@
 #import "CTDetailViewController.h"
 #import "Constants.h"
 #import "CitySpadeDemoViewController.h"
-#import "RegExCategories.h"
+#import "NSString+RegEx.h"
 
 @implementation MainTableViewDelegate
 
@@ -42,11 +42,11 @@
     detailViewController.VCtitle = cell.titleLabel.text;
     detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
     detailViewController.featureImage = cell.thumbImageView.image;
-    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstMatch:RX(@"\\d+([.]\\d+)")] doubleValue]];
-    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstMatch:RX(@"\\d+([.]\\d+)")] doubleValue]];
-    NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstMatch:RX(@"\\d+")] intValue]];
-    NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstMatch:RX(@"\\d+")] intValue]];
-    NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstMatch:RX(@"\\d+")] intValue]];
+    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
+    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstNumberInString] doubleValue]];
+    NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
+    NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
+    NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];
     NSDictionary *basicFactDict = @{@"bargain" : bargain,
                                     @"transportation" : transportation,
                                     @"totalPrice" : price,

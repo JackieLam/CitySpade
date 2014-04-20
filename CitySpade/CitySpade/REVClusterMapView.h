@@ -18,8 +18,6 @@
     
     //map上 -- 需要呈现的annotations的总个数（非cluster）
     NSArray *annotationsCopy;
-    //用于从本地搜索中恢复
-    NSArray *annotationsBackup;
     
     double zoomLevel;
     
@@ -33,6 +31,5 @@
 @property(nonatomic,assign) id<MKMapViewDelegate> delegate;
 
 - (void)addAnnotations:(NSArray *)annotations;
-- (void)recoverFromSearch;
 
 @end

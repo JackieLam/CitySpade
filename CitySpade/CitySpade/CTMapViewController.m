@@ -20,12 +20,11 @@
 #import "RESTfulEngine.h"
 #import "DataModels.h"
 #import "Constants.h"
-#import "RegExCategories.h"
 #import "MapCollectionCell.h"
 #import "AppCache.h"
 #import "CTMapViewDelegate.h"
 #import "MainTableViewDelegate.h"
-#import "RegExCategories.h"
+#import "NSString+RegEx.h"
 #import "SortTableView.h"
 #import "SwitchSegment.h"
 
@@ -85,11 +84,14 @@
     coordinate.latitude = 40.747;
     coordinate.longitude = -74;
     self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
+    NSLog(@"visible map rect : (%f, %f, %f, %f)", self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height);
+    NSLog(@"center coordinate : (%f, %f)", self.ctmapView.centerCoordinate.latitude, self.ctmapView.centerCoordinate.longitude);
+    NSLog(@"region span : (%f, %f)", self.ctmapView.region.span.latitudeDelta, self.ctmapView.region.span.longitudeDelta);
+    NSLog(@"another point: (%f, %f)", self.ctmapView.centerCoordinate.latitude+self.ctmapView.region.span.latitudeDelta, self.ctmapView.centerCoordinate.longitude+self.ctmapView.region.span.longitudeDelta);
     previousZoomLevel = self.ctmapView.region.span.longitudeDelta;
     
 // Setup BottomBar
     [self setupBottomBar];
-
 // Setup the list view
     self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
     self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
@@ -207,9 +209,10 @@
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
-    for (Listing *listing in resultArray) {
+    for (Listing __strong *listing in resultArray) {
         REVClusterPin *pin = [[REVClusterPin alloc] init];
         [pin configureWithListing:listing];
+        listing = nil;
         [self.pinsAll addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
@@ -478,8 +481,7 @@
     int higherbound = [filterData[@"higherBound"] intValue];
     
     for (REVClusterPin *pin in self.pinsAll) {
-        NSArray *pieces = [pin.subtitle split:RX(@"[$]")];
-        NSString *price = pieces[1];
+        NSString *price = [pin.subtitle firstNumberInString];
 
         //price range
         if (!(lowerbound <= [price intValue]) || !([price intValue] <= higherbound))
