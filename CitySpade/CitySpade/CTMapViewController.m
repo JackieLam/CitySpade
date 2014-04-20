@@ -62,7 +62,7 @@
     BOOL firstLocationUpdate_;
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
     [super loadView];
 // Setup the dataArray
@@ -107,9 +107,11 @@
     else {
         [self resetAnnotationsWithResultArray:self.listings];
     }
+    
+    [self addition];
 }
 
-- (void)viewDidLoad
+- (void)addition
 {
     UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
