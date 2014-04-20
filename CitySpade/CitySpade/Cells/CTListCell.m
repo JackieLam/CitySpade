@@ -8,6 +8,7 @@
 
 #import "CTListCell.h"
 #import "REVClusterPin.h"
+#import "AsynImageView.h"
 
 #define cellHeight 120.0f
 #define cellWidth 320.0f
@@ -35,8 +36,8 @@
 
 - (void)initCell
 {
-    self.thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgplaceholder_square"]];
-    self.thumbImageView.frame = CGRectMake(0, 0, imageSize, imageSize);
+    self.thumbImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, imageSize, imageSize)];
+    self.thumbImageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
     [self addSubview:self.thumbImageView];
     
     //Info view and the lines
@@ -115,24 +116,7 @@
     self.bedLabel.text = [pin.beds stringByAppendingString:@"Beds"];
     self.bathLabel.text = [pin.baths stringByAppendingString:@"Baths"];
     self.identiferNumber = pin.identiferNumber;
-    
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.frame = self.thumbImageView.frame;
-    [self addSubview:activityIndicator];
-    [activityIndicator startAnimating];
-    NSString *urlString = pin.thumbImageLink;
-    NSLog(@"URLSTRINGSTRING: %@", urlString);
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [activityIndicator removeFromSuperview];
-            [activityIndicator stopAnimating];
-            UIImage *image = [UIImage imageWithData:data];
-            [self.thumbImageView setImage:image];
-        });
-        
-    }] resume];
+    self.thumbImageView.imageURL = pin.thumbImageLink;
 }
 
 @end
