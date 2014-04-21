@@ -22,22 +22,21 @@
 + (NSArray *) clusterAnnotationsForMapView:(MKMapView *)mapView forAnnotations:(NSArray *)pins blocks:(NSUInteger)blocks minClusterLevel:(NSUInteger)minClusterLevel
 {
     NSMutableArray *visibleAnnotations = [NSMutableArray array];
-    NSMutableArray *visibleAnnotationsShown = [NSMutableArray array];
     
-    double tileX = mapView.visibleMapRect.origin.x;     //第一个tile就是visible map左上角
+    double tileX = mapView.visibleMapRect.origin.x;
     double tileY = mapView.visibleMapRect.origin.y;
     float tileWidth = mapView.visibleMapRect.size.width/BLOCKS;
     float tileHeight = mapView.visibleMapRect.size.height/BLOCKS;
     
-//    MKMapRect mapRect = MKMapRectWorld;
-//    NSUInteger maxWidthBlocks = round(mapRect.size.width / tileWidth); //计算整个世界的width block个数
-//    float zoomLevel = maxWidthBlocks / BLOCKS;  //zoomLevel代表这是世界横向能覆盖多少个visible mapRect
+    MKMapRect mapRect = MKMapRectWorld;
+    NSUInteger maxWidthBlocks = round(mapRect.size.width / tileWidth);
+    
+    float zoomLevel = maxWidthBlocks / BLOCKS;
     
     float tileStartX = floorf(tileX/tileWidth)*tileWidth;
     float tileStartY = floorf(tileY/tileHeight)*tileHeight;
-
+    
     MKMapRect visibleMapRect = MKMapRectMake(tileStartX, tileStartY, tileWidth*(BLOCKS+1), tileHeight*(BLOCKS+1));
-    MKMapRect visibleMapRectShown = mapView.visibleMapRect;
     
     for (id<MKAnnotation> point in pins)
     {
@@ -47,15 +46,11 @@
             if( ![mapView.annotations containsObject:point] )
             {
                 [visibleAnnotations addObject:point];
-            }   
-        }
-        if (MKMapRectContainsPoint(visibleMapRectShown, mapPoint))
-        {
-            [visibleAnnotationsShown addObject:point];
+            }
         }
     }
     
-    if( visibleAnnotationsShown.count < 30 )   //判断大头针数目若小于30不作cluster
+    if( zoomLevel > minClusterLevel )
     {
         return visibleAnnotations;
     }
@@ -63,15 +58,14 @@
     NSMutableArray *clusteredBlocks = [NSMutableArray array];
     int i = 0;
     int length = (BLOCKS+1)*(BLOCKS+1);
-//    int length = BLOCKS * BLOCKS;
     for ( ; i < length ; i ++ )
     {
         REVClusterBlock *block = [[REVClusterBlock alloc] init];
         [clusteredBlocks addObject:block];
-        #if !__has_feature(objc_arc)
-        [block release];  
+#if !__has_feature(objc_arc)
+        [block release];
 #endif
-    }   // 25个 REVClusterBlock
+    }
     
     for (REVClusterPin *pin in visibleAnnotations)
     {
@@ -79,12 +73,10 @@
         
         double localPointX = mapPoint.x - tileStartX;
         double localPointY = mapPoint.y - tileStartY;
-//        double localPointX = mapPoint.x - tileX;
-//        double localPointY = mapPoint.y - tileY;
-        int localTileNumberX = floor( localPointX / tileWidth );
-        int localTileNumberY = floor( localPointY / tileHeight );
+        
+        int localTileNumberX = abs(floor( localPointX / tileWidth ));
+        int localTileNumberY = abs(floor( localPointY / tileHeight ));
         int localTileNumber = localTileNumberX + (localTileNumberY * (BLOCKS+1));
-//        int localTileNumber = localTileNumberX + (localTileNumberY * (BLOCKS));
         
         [(REVClusterBlock *)[clusteredBlocks objectAtIndex:localTileNumber] addAnnotation:pin];
     }
@@ -97,7 +89,7 @@
         {
             if( ![REVClusterManager clusterAlreadyExistsForMapView:mapView andBlockCluster:block] )
             {
-              [newPins addObject:[block getClusteredAnnotation]];
+                [newPins addObject:[block getClusteredAnnotation]];
             }
         }
     }

@@ -184,6 +184,24 @@
     
     NSDictionary *param = [aNotification object];
     
+    NSString *swLatKey = @"southwestlat";
+    NSString *swLngKey = @"southwestlng";
+    NSString *neLatKey = @"northeastlat";
+    NSString *neLngKey = @"northeastlng";
+    
+    int blockCnt = 5;
+    double latGap = self.ctmapView.region.span.latitudeDelta / (float)blockCnt;
+    double lngGap = self.ctmapView.region.span.longitudeDelta / (float)blockCnt;
+    CLLocationDegrees swlat = self.ctmapView.region.center.latitude - self.ctmapView.region.span.latitudeDelta * 0.5;
+    CLLocationDegrees swlng = self.ctmapView.region.center.longitude - self.ctmapView.region.span.longitudeDelta * 0.5;
+    CLLocationDegrees nelat = swlat + latGap;
+    CLLocationDegrees nelng = swlng + lngGap;
+    NSString *swlatString = [NSString stringWithFormat:@"%f", swlat];
+    NSString *swlngString = [NSString stringWithFormat:@"%f", swlng];
+    NSString *nelatString = [NSString stringWithFormat:@"%f", nelat];
+    NSString *nelngString = [NSString stringWithFormat:@"%f", nelng];
+    NSDictionary *dict = @{swLatKey: swlatString, swLngKey: swlngString, neLatKey: nelatString, neLngKey: nelngString, @"rent": @1};
+    
     // 如果拉取的For Rent和For Sale不一样，需要重新拉取
     // 如果拉取的数据是一样的，不需要重新拉取
     if ([param[@"rent"] boolValue] != forRent) {

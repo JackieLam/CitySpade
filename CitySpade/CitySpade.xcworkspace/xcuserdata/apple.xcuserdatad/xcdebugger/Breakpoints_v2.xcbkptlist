@@ -46,11 +46,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CitySpade/CTMapViewController.m"
-            timestampString = "419678095.821236"
+            timestampString = "419730669.98121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "-saveButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
