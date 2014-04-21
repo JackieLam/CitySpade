@@ -78,7 +78,13 @@
     viewBounds.size.height = viewBounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
     self.ctmapView = [[REVClusterMapView alloc] initWithFrame:viewBounds];
 //    self.ctmapView.delegate = self;
-    [self.view addSubview:self.ctmapView];
+    // Setup the list view
+    self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
+    self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
+    UIView *containView = [[UIView alloc] initWithFrame:viewBounds];
+    [containView addSubview:self.ctlistView];
+    [containView addSubview:self.ctmapView];
+    [self.view addSubview:containView];
     
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = 40.747;
@@ -92,9 +98,6 @@
     
 // Setup BottomBar
     [self setupBottomBar];
-// Setup the list view
-    self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
-    self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
 
 // Setup collectionView
     [self setupCollectionView];
@@ -365,25 +368,17 @@
 {
     if (sender.selectedSegmentIndex == 0) {
         [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-            [self.ctlistView removeFromSuperview];
             [self.mapBottomBar resetBarState:BarStateMapDefault];
-            [self.view insertSubview:self.ctmapView aboveSubview:self.view];
-            [self.view bringSubviewToFront:self.mapBottomBar];
-            [self.view bringSubviewToFront:self.collectionView];
             self.sortTableView = nil;
         }];
     }
     else {
         [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-            [self.ctmapView removeFromSuperview];
-            [self.view insertSubview:self.ctlistView belowSubview:self.mapBottomBar];
             [self.mapBottomBar resetBarState:BarStateList];
-            [self.view bringSubviewToFront:self.mapBottomBar];
-            
             [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
             CGRect bottomBarFrame = self.mapBottomBar.frame;
             self.sortTableView = [[SortTableView alloc] initWithFrame:CGRectMake(bottomBarFrame.origin.x, bottomBarFrame.origin.y, bottomBarFrame.size.width, 0) delegate:self];
-//            self.sortTableView.backgroundColor = [UIColor redColor];
+            //            self.sortTableView.backgroundColor = [UIColor redColor];
             [self.view addSubview:self.sortTableView];
         }];
     }
