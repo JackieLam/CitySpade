@@ -38,6 +38,8 @@
 		183991D618D308B500D2B07F /* CTSavingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D518D308B500D2B07F /* CTSavingsViewController.m */; };
 		183991D918D333D900D2B07F /* UISegmentedControl+Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D818D333D900D2B07F /* UISegmentedControl+Project.m */; };
 		1845A2E919039D04003B764C /* NSString+RegEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 1845A2E819039D04003B764C /* NSString+RegEx.m */; };
+		184A2DD41904C18600A09EAB /* CitySpadeDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184A2DD31904C18600A09EAB /* CitySpadeDemoViewController.xib */; };
+		184A2DD61904C19400A09EAB /* CitySpadeBrokerWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184A2DD51904C19400A09EAB /* CitySpadeBrokerWebViewController.xib */; };
 		184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */; };
 		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BE189F2E00002500E6 /* REVClusterBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -102,8 +104,6 @@
 		18F3478618BC7263006EF9A7 /* RESTfulEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478518BC7263006EF9A7 /* RESTfulEngine.m */; };
 		18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478818BC7280006EF9A7 /* NSString+Encryption.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
-		1F4B18381904B311008B0863 /* CitySpadeBrokerWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4B18371904B311008B0863 /* CitySpadeBrokerWebViewController.xib */; };
-		1F4B183A1904B6F3008B0863 /* CitySpadeDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4B18391904B6F3008B0863 /* CitySpadeDemoViewController.xib */; };
 		42052F121902741D00BBFE8E /* SwitchSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 42052F111902741D00BBFE8E /* SwitchSegment.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -165,6 +165,8 @@
 		183991D818D333D900D2B07F /* UISegmentedControl+Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Project.m"; sourceTree = "<group>"; };
 		1845A2E719039D04003B764C /* NSString+RegEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegEx.h"; sourceTree = "<group>"; };
 		1845A2E819039D04003B764C /* NSString+RegEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegEx.m"; sourceTree = "<group>"; };
+		184A2DD31904C18600A09EAB /* CitySpadeDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeDemoViewController.xib; sourceTree = "<group>"; };
+		184A2DD51904C19400A09EAB /* CitySpadeBrokerWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerWebViewController.xib; sourceTree = "<group>"; };
 		184B65C918D5FF07007358BE /* CTMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewDelegate.h; sourceTree = "<group>"; };
 		184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewDelegate.m; sourceTree = "<group>"; };
 		186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVAnnotationsCollection.h; sourceTree = "<group>"; };
@@ -283,8 +285,6 @@
 		18F3478818BC7280006EF9A7 /* NSString+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encryption.m"; sourceTree = "<group>"; };
 		18FD0C0018B1C842000DBE87 /* BedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BedSegment.h; path = UI/BedSegment.h; sourceTree = "<group>"; };
 		18FD0C0118B1C842000DBE87 /* BedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BedSegment.m; path = UI/BedSegment.m; sourceTree = "<group>"; };
-		1F4B18371904B311008B0863 /* CitySpadeBrokerWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CitySpadeBrokerWebViewController.xib; path = "../../../../../Learning_Demo/CitySpadeDemo 2/CitySpadeDemo/CitySpadeBrokerWebViewController.xib"; sourceTree = "<group>"; };
-		1F4B18391904B6F3008B0863 /* CitySpadeDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CitySpadeDemoViewController.xib; path = "../../../../Learning_Demo/CitySpadeDemo 2/CitySpadeDemo/CitySpadeDemoViewController.xib"; sourceTree = "<group>"; };
 		42052F101902741D00BBFE8E /* SwitchSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwitchSegment.h; path = UI/SwitchSegment.h; sourceTree = "<group>"; };
 		42052F111902741D00BBFE8E /* SwitchSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchSegment.m; path = UI/SwitchSegment.m; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -612,7 +612,7 @@
 			children = (
 				18A0FA1D19024BD70067A438 /* CitySpadeDemoViewController.h */,
 				18A0FA1E19024BD70067A438 /* CitySpadeDemoViewController.m */,
-				1F4B18391904B6F3008B0863 /* CitySpadeDemoViewController.xib */,
+				184A2DD31904C18600A09EAB /* CitySpadeDemoViewController.xib */,
 				18A0FA4C19024C290067A438 /* constant.h */,
 				18A0FA0419024BD70067A438 /* Cells */,
 				18A0FA2019024BD70067A438 /* Models */,
@@ -632,7 +632,7 @@
 				18A0FA0A19024BD70067A438 /* CitySpadeBrokerInfoCell.xib */,
 				18A0FA0B19024BD70067A438 /* CitySpadeBrokerWebViewController.h */,
 				18A0FA0C19024BD70067A438 /* CitySpadeBrokerWebViewController.m */,
-				1F4B18371904B311008B0863 /* CitySpadeBrokerWebViewController.xib */,
+				184A2DD51904C19400A09EAB /* CitySpadeBrokerWebViewController.xib */,
 				18A0FA0E19024BD70067A438 /* CitySpadeCell.h */,
 				18A0FA0F19024BD70067A438 /* CitySpadeCell.m */,
 				18A0FA1019024BD70067A438 /* CitySpadeNearbyCell.h */,
@@ -778,10 +778,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F3477418BB43A0006EF9A7 /* CTRegisterViewController.xib in Resources */,
+				184A2DD61904C19400A09EAB /* CitySpadeBrokerWebViewController.xib in Resources */,
 				18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */,
 				18A0FA3E19024BD70067A438 /* TransportationHottestSpotsCell.xib in Resources */,
 				1863229618FCDFAD00A1851A /* Images.xcassets in Resources */,
-				1F4B183A1904B6F3008B0863 /* CitySpadeDemoViewController.xib in Resources */,
 				183991D318D307EA00D2B07F /* AddressSavingCell.xib in Resources */,
 				18F1EA6818C0710D00182A87 /* MapCollectionCell.xib in Resources */,
 				18A0FA3619024BD70067A438 /* CitySpadeBrokerInfoCell.xib in Resources */,
@@ -790,7 +790,7 @@
 				189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 				18A0FA3C19024BD70067A438 /* CitySpadeTransportationInfoCell.xib in Resources */,
-				1F4B18381904B311008B0863 /* CitySpadeBrokerWebViewController.xib in Resources */,
+				184A2DD41904C18600A09EAB /* CitySpadeDemoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

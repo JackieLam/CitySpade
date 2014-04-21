@@ -48,12 +48,13 @@
     NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
     NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
     NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];
-    NSDictionary *basicFactDict = @{@"bargain" : bargain,
-                                    @"transportation" : transportation,
-                                    @"totalPrice" : price,
-                                    @"numberOfBed" : bed,
-                                    @"numberOfBath" : bath};
-    detailViewController.basicFactsDictionary = basicFactDict;
+    NSArray *basicFactDict = @[@{@"bargain" : bargain,
+                                @"transportation" : transportation,
+                                @"totalPrice" : price,
+                                @"numberOfBed" : bed,
+                                @"numberOfBath" : bath},
+                               @{@"lng": @40, @"lat": @70}];
+    detailViewController.preViewInfo = basicFactDict;
     [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPushDetailViewController object:detailViewController userInfo:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
