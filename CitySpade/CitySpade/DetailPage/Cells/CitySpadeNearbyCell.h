@@ -10,8 +10,5 @@
 
 @interface CitySpadeNearbyCell : CitySpadeCell
 
-@property (nonatomic) CGFloat latitude;
-@property (nonatomic) CGFloat longtitude;
-@property (nonatomic) CGFloat zoom;
-
+@property (nonatomic, weak) NSDictionary *locationDictionary;
 @end
