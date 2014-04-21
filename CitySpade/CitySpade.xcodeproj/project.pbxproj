@@ -38,7 +38,6 @@
 		183991D618D308B500D2B07F /* CTSavingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D518D308B500D2B07F /* CTSavingsViewController.m */; };
 		183991D918D333D900D2B07F /* UISegmentedControl+Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 183991D818D333D900D2B07F /* UISegmentedControl+Project.m */; };
 		1845A2E919039D04003B764C /* NSString+RegEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 1845A2E819039D04003B764C /* NSString+RegEx.m */; };
-		184A2DD41904C18600A09EAB /* CitySpadeDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184A2DD31904C18600A09EAB /* CitySpadeDemoViewController.xib */; };
 		184A2DD61904C19400A09EAB /* CitySpadeBrokerWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184A2DD51904C19400A09EAB /* CitySpadeBrokerWebViewController.xib */; };
 		184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */; };
 		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -165,7 +164,6 @@
 		183991D818D333D900D2B07F /* UISegmentedControl+Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Project.m"; sourceTree = "<group>"; };
 		1845A2E719039D04003B764C /* NSString+RegEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegEx.h"; sourceTree = "<group>"; };
 		1845A2E819039D04003B764C /* NSString+RegEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegEx.m"; sourceTree = "<group>"; };
-		184A2DD31904C18600A09EAB /* CitySpadeDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeDemoViewController.xib; sourceTree = "<group>"; };
 		184A2DD51904C19400A09EAB /* CitySpadeBrokerWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerWebViewController.xib; sourceTree = "<group>"; };
 		184B65C918D5FF07007358BE /* CTMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewDelegate.h; sourceTree = "<group>"; };
 		184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewDelegate.m; sourceTree = "<group>"; };
@@ -612,7 +610,6 @@
 			children = (
 				18A0FA1D19024BD70067A438 /* CitySpadeDemoViewController.h */,
 				18A0FA1E19024BD70067A438 /* CitySpadeDemoViewController.m */,
-				184A2DD31904C18600A09EAB /* CitySpadeDemoViewController.xib */,
 				18A0FA4C19024C290067A438 /* constant.h */,
 				18A0FA0419024BD70067A438 /* Cells */,
 				18A0FA2019024BD70067A438 /* Models */,
@@ -790,7 +787,6 @@
 				189D5FA118CFFF9F00EE8EC9 /* CTDetailsViewController.xib in Resources */,
 				1817C746188CBD68003AC430 /* InfoPlist.strings in Resources */,
 				18A0FA3C19024BD70067A438 /* CitySpadeTransportationInfoCell.xib in Resources */,
-				184A2DD41904C18600A09EAB /* CitySpadeDemoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

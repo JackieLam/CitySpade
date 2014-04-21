@@ -14,12 +14,13 @@
 #import "constant.h"
 #import "BaseClass.h"
 
+static const int toolBarHeight = 50;
+static const int navigationBarHeight = 44;
 @interface CitySpadeDemoViewController ()<UITableViewDataSource, UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UIButton *favorBtn;
-
-@property (weak, nonatomic) IBOutlet UIView *backgroundView;
-@property (weak, nonatomic) IBOutlet UITableView *infotableView;
-@property (nonatomic, strong) NSString *brokerTitle;
+@property (strong, nonatomic) UIButton *favorBtn;
+@property (strong, nonatomic) UIView *backgroundView;
+@property (strong, nonatomic) UITableView *infotableView;
+@property (strong, nonatomic) NSString *brokerTitle;
 @property (strong, nonatomic) UIImageView *featureImageView;
 @property (atomic, strong) CitySpadeModelManager *manager;
 @property (nonatomic, strong) BaseClass *baseList;
@@ -43,15 +44,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    _infotableView.dataSource = self;
-    _infotableView.delegate = self;
-    [_infotableView setTableHeaderView:nil];
     
+    [self initNavigationBar];
+    [self initInfoTableView];
+    //network
+    //indicator
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = CGPointMake(self.view.frame.size.width / 2, 400);
     [indicator startAnimating];
     [self.view addSubview:indicator];
     
+    //network handler
     NSString *listAPI = [listAPIRootURL stringByAppendingString:
                          [NSString stringWithFormat:@"%@.json", _listID]];
     
@@ -61,61 +64,80 @@
         [_manager fetchImageForURL:baseList.originalIconUrl WithCompletionHandler:^{
             [_infotableView reloadData];
         }];
-
+        
         self.baseList = baseList;
         [_infotableView reloadData];
         [_infotableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
     }];
-    
-    
-    if([[UINavigationBar class] respondsToSelector:@selector(appearance)]){
-        [[UINavigationBar appearance] setTitleTextAttributes:
-         @{
-           NSForegroundColorAttributeName:[UIColor colorWithRed:122.0/255.0
+
+    [self initToolBar];
+}
+
+- (void)initNavigationBar {
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     @{
+        NSForegroundColorAttributeName:[UIColor colorWithRed:122.0/255.0
                                                           green:122.0/255.0
                                                            blue:122.0/255.0
                                                           alpha:1.0],
-           NSFontAttributeName: [UIFont fontWithName:@"Avenir-Black" size:15]
-           }
-         ];
-    }
-    self.title = self.VCtitle;
+        NSFontAttributeName: [UIFont fontWithName:@"Avenir-Black" size:15]
+        }
+    ];
     UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 36)];
     [backButton setImage:[UIImage imageNamed:@"navbar_backbtn"] forState:UIControlStateNormal];
     [backButton addTarget:self
                    action:@selector(back:)
          forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backNavigationItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    [self.favorBtn setImage:[UIImage imageNamed:@"LikePressed.png"] forState:UIControlStateSelected];
-    
-    NSLayoutConstraint *topConstraint;
     if ( DEVICEVERSION >= 7.0 ) {
-        //autolayout
-        topConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundView
-                                                      attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:self.view attribute:NSLayoutAttributeTop
-                                                     multiplier:1
-                                                       constant:0];
-        //navigation
         UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         negativeSpacer.width = -10;
         self.navigationItem.leftBarButtonItems = @[negativeSpacer, backNavigationItem];
     } else {
-        topConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundView
-                                                      attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:self.view attribute:NSLayoutAttributeTop
-                                                     multiplier:1
-                                                       constant:-20];
-        
         self.navigationItem.leftBarButtonItem = backNavigationItem;
     }
-    self.navigationController.navigationBar.translucent = NO;
-    //self.navigationItem.leftBarButtonItem = backNavigationItem;
+    self.title = self.VCtitle;
 
-    [self.view addConstraint:topConstraint];
+}
+
+- (void)initInfoTableView {
+    CGRect infoTableFrame = [[UIScreen mainScreen] bounds];
+    infoTableFrame.size.height -= navigationBarHeight;
+    infoTableFrame.origin.y -= headerHegiht;
+    self.infotableView = [[UITableView alloc] initWithFrame:infoTableFrame style:UITableViewStyleGrouped];
+    _infotableView.dataSource = self;
+    _infotableView.delegate = self;
+    _infotableView.tableHeaderView.hidden = YES;
+    [self.view addSubview:_infotableView];
+}
+
+- (void)initToolBar {
+    CGRect toolBarFrame = CGRectMake(0,
+                                     _infotableView.frame.size.height - headerHegiht*2,
+                                     self.view.frame.size.width,
+                                     toolBarHeight);
+    UIView *toolBarView = [[UIView alloc] initWithFrame:toolBarFrame];
+    toolBarView.backgroundColor = [UIColor colorWithRed:51/255.0f green:204/255.0f blue:204/255.0f alpha:0.9];
+    //procceed to broker
+    UIButton *proToBroBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 7, 145, 35)];
+    [proToBroBtn setImage:[UIImage imageNamed:@"pro-to-bo"] forState:UIControlStateNormal];
+    [proToBroBtn addTarget:self action:@selector(pressProcceedToBroker:) forControlEvents:UIControlEventTouchUpInside];
+    [toolBarView addSubview:proToBroBtn];
+    
+    //favor
+    UIButton *favorBtn = [[UIButton alloc] initWithFrame:CGRectMake(228, 16, 20, 22)];
+    [favorBtn setImage:[UIImage imageNamed:@"LikeBefore"] forState:UIControlStateNormal];
+    [favorBtn setImage:[UIImage imageNamed:@"LikePressed.png"] forState:UIControlStateSelected];
+    [favorBtn addTarget:self action:@selector(pressFavorBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [toolBarView addSubview:favorBtn];
+    
+    //share
+    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(282, 16, 20, 22)];
+    [shareBtn setImage:[UIImage imageNamed:@"Share-"] forState:UIControlStateNormal];
+    [shareBtn addTarget:self action:@selector(pressForwardBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [toolBarView addSubview:shareBtn];
+    
+    [self.view addSubview:toolBarView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -221,17 +243,20 @@
 }
 
 
-- (IBAction)pressProcceedToBroker:(id)sender {
+- (void)pressProcceedToBroker:(id)sender {
     CitySpadeBrokerWebViewController *webViewController = [[CitySpadeBrokerWebViewController alloc] init];
     webViewController.originalIconURLString = _baseList.originalUrl;
     [self.navigationController pushViewController:webViewController animated:YES];
 }
 
-- (IBAction)pressFavorBtn:(id)sender {
-    self.favorBtn.selected = !self.favorBtn.selected;
+- (void)pressFavorBtn:(id)sender {
+    if ( [sender isKindOfClass:[UIButton class]] ) {
+        UIButton *favorBtn = (UIButton *)sender;
+        favorBtn.selected = !favorBtn.selected;
+    }
 }
 
-- (IBAction)pressForwardBtn:(id)sender {
+- (void)pressForwardBtn:(id)sender {
     NSString *str = @"Test";
     NSArray *objectsToShare = @[str];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
