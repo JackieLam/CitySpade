@@ -13,7 +13,7 @@
 #import "FacebookDelegate.h"
 
 //Part One
-NSString * const HOST_URL = @"http://54.200.13.116/api/v1";
+NSString * const HOST_URL = @"http://www.cityspade.com/api/v1";
 NSString * const LISTINGS_PATH = @"/listings.json?";
 
 //Part Two
