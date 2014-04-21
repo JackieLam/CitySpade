@@ -24,7 +24,6 @@
 @property (atomic, strong) CitySpadeModelManager *manager;
 @property (nonatomic, strong) BaseClass *baseList;
 
-
 @end
 
 @implementation CitySpadeDemoViewController
@@ -146,7 +145,7 @@
         } else if ( indexPath.section == 1 ) {
             //Basic Facts
             cell = [CitySpadeCell TabelCellWithInfoTitle:Basic_Facts];
-            [cell setValue: _basicFactsDictionary forKey:@"basicFactsDictionary"];
+            [cell setValue: _preViewInfo[0] forKey:@"basicFactsDictionary"];
         } else if ( indexPath.section == 2 ) {
             //Transportation Info
             cell = [CitySpadeCell TabelCellWithInfoTitle:Transportation_Info];
@@ -158,6 +157,7 @@
         } else if ( indexPath.section == 4 ) {
             //Nearby
             cell = [CitySpadeCell TabelCellWithInfoTitle:Nearby];
+            [cell setValue:_preViewInfo[1] forKey:@"locationDictionary"];
         }
     }
     if ( indexPath.section != 0 ) {
@@ -247,7 +247,7 @@
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
-- (IBAction)back:(id)sender {
+- (void)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 

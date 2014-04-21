@@ -12,6 +12,8 @@
 	<dict>
 		<key>0F580A0D-014C-40B4-ACD2-0B3E68640A83</key>
 		<string>https://github.com/JackieLam/CitySpade.git</string>
+		<key>2D3994FB-2A5F-4CFE-943A-A5449E1589D0</key>
+		<string>https://github.com/izhuxin/IOS_Learning_Demo.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>CitySpade/CitySpade.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>0F580A0D-014C-40B4-ACD2-0B3E68640A83</key>
 		<string>../..</string>
+		<key>2D3994FB-2A5F-4CFE-943A-A5449E1589D0</key>
+		<string>../../../Learning_Demo</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/JackieLam/CitySpade.git</string>
@@ -35,6 +39,14 @@
 			<string>0F580A0D-014C-40B4-ACD2-0B3E68640A83</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CitySpade</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2D3994FB-2A5F-4CFE-943A-A5449E1589D0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Learning_Demo</string>
 		</dict>
 	</array>
 </dict>

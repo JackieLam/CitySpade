@@ -11,6 +11,10 @@
 
 @interface CitySpadeNearbyCell ()
 @property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic) CGFloat latitude;
+@property (nonatomic) CGFloat longtitude;
+@property (nonatomic) CGFloat zoom;
+
 @end
 
 @implementation CitySpadeNearbyCell
@@ -20,11 +24,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        if ( !_latitude ) {
+        if ( !self.locationDictionary ) {
             self.latitude = 23.063949;
             self.longtitude = 113.391223;
-            
         }
+        self.longtitude = [self.locationDictionary[@"lng"] floatValue];
+        self.latitude = [self.locationDictionary[@"lat"] floatValue];
         self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, 130)];
         
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(_latitude, _longtitude);

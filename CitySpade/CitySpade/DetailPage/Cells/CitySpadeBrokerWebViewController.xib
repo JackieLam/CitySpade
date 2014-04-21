@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -7,7 +7,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CitySpadeBrokerWebViewController">
             <connections>
                 <outlet property="backgroundView" destination="sKP-hf-xfq" id="Yz2-Uw-At4"/>
-                <outlet property="titleLabel" destination="x60-Yl-0u0" id="kOP-Ju-07i"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="Xsd-8H-0Gq" id="E1W-IF-PqZ"/>
             </connections>
@@ -17,42 +16,24 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleAspectFit" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKP-hf-xfq">
+                <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="sKP-hf-xfq">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nav_01.png" translatesAutoresizingMaskIntoConstraints="NO" id="1Nu-Ye-YZh">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wb2-mJ-2LY">
-                            <rect key="frame" x="8" y="19" width="32" height="34"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="nav_back.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="back:" destination="-1" eventType="touchUpInside" id="mav-kq-dqp"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x60-Yl-0u0">
-                            <rect key="frame" x="39" y="25" width="261" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="15"/>
-                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-8H-0Gq">
-                            <rect key="frame" x="0.0" y="54" width="320" height="426"/>
+                        <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-8H-0Gq">
+                            <rect key="frame" x="0.0" y="-6" width="320" height="486"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="486" id="Un2-l0-huE"/>
+                            </constraints>
                         </webView>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Xsd-8H-0Gq" secondAttribute="trailing" id="9V5-hW-az5"/>
                         <constraint firstItem="Xsd-8H-0Gq" firstAttribute="leading" secondItem="sKP-hf-xfq" secondAttribute="leading" id="FYG-dr-ujm"/>
                         <constraint firstAttribute="bottom" secondItem="Xsd-8H-0Gq" secondAttribute="bottom" id="QGk-3g-kOr"/>
-                        <constraint firstItem="Xsd-8H-0Gq" firstAttribute="top" secondItem="x60-Yl-0u0" secondAttribute="bottom" constant="8" id="Qqa-d2-9c3"/>
+                        <constraint firstItem="Xsd-8H-0Gq" firstAttribute="top" secondItem="sKP-hf-xfq" secondAttribute="top" constant="-6" id="iQd-OQ-fxu"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="480" id="lrH-9t-89H"/>
                     </constraints>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -68,8 +49,4 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
-    <resources>
-        <image name="nav_01.png" width="640" height="128"/>
-        <image name="nav_back.png" width="40" height="40"/>
-    </resources>
 </document>
