@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class REVClusterPin;
+@class AsynImageView;
 
 @interface MapCollectionCell : UICollectionViewCell
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) AsynImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *bargainLabel;
 @property (strong, nonatomic) IBOutlet UILabel *transportationLabel;

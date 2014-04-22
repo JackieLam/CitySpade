@@ -9,7 +9,7 @@
 #import "AsynImageView.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kActivityIndicatorTag 1
+#define kActivityIndicatorTag 6
 @implementation AsynImageView
 
 @synthesize imageURL = _imageURL;

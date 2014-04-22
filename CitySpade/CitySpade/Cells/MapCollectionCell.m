@@ -8,6 +8,7 @@
 
 #import "MapCollectionCell.h"
 #import "REVClusterPin.h"
+#import "AsynImageView.h"
 
 @implementation MapCollectionCell
 
@@ -25,36 +26,26 @@
             return nil;
         }
         self = [arrayOfViews objectAtIndex:0];
+        self.imageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 170)];
+        self.imageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
+        [self.contentView addSubview:self.imageView];
     }
     return self;
 }
 
 - (void)configureCellWithClusterPin:(REVClusterPin *)pin
 {
-    self.imageView.image = [UIImage imageNamed:@"imgplaceholder_long"];
     self.titleLabel.text = pin.title;
     self.bargainLabel.text = pin.bargain;
     self.transportationLabel.text = pin.transportation;
     self.priceLabel.text = pin.subtitle;
     self.bedLabel.text = pin.beds;
     self.bathLabel.text = pin.baths;
-    
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.frame = self.imageView.frame;
-    [self addSubview:activityIndicator];
-    [activityIndicator startAnimating];
-    NSString *urlString = pin.thumbImageLink;
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [activityIndicator removeFromSuperview];
-            [activityIndicator stopAnimating];
-            UIImage *image = [UIImage imageWithData:data];
-            [self.imageView setImage:image];
-        });
-        
-    }] resume];
+    self.imageView.imageURL = pin.thumbImageLink;
 }
 
+- (void)prepareForReuse
+{
+    [self.imageView cancelConnection];
+}
 @end
