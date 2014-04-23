@@ -16,6 +16,7 @@
 #import "AsynImageView.h"
 #import "CitySpadeDemoViewController.h"
 #import "Listing.h"
+#import "SVProgressHUD.h"
 
 #define TitleColor [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0]
 #define SegmentTintColor [UIColor colorWithRed:42/255.0 green:188/255.0 blue:184/255.0 alpha:1.0]
@@ -251,21 +252,34 @@
     if (deleteSpecificRows)
     {
         NSMutableIndexSet *indicesOfItemsToDelete = [NSMutableIndexSet new];
-        
+        if ([RESTfulEngine isConnectedToNetwork]) {
+            [SVProgressHUD showWithStatus:@"Deleting"];
+        }
+        dispatch_group_t group = dispatch_group_create();
         for (NSIndexPath *selectionIndex in selectedRows)
         {
-            [indicesOfItemsToDelete addIndex:selectionIndex.row];
+            dispatch_group_enter(group);
+            
             Listing *listing = [self.saveList objectAtIndex:selectionIndex.row];
             [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)listing.internalBaseClassIdentifier] onSucceeded:^{
-                
+                [indicesOfItemsToDelete addIndex:selectionIndex.row];
+                dispatch_group_leave(group);
             } onError:^(NSError *engineError) {
+                dispatch_group_leave(group);
                 
             }];
         }
-        [self.saveList removeObjectsAtIndexes:indicesOfItemsToDelete];
-        [AppCache cacheSaveList:self.saveList];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
-        [self.tableView deleteRowsAtIndexPaths:selectedRows withRowAnimation:UITableViewRowAnimationAutomatic];
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        if ([RESTfulEngine isConnectedToNetwork]) {
+            [SVProgressHUD dismiss];
+        }
+        
+        if(indicesOfItemsToDelete.count > 0){
+            [self.saveList removeObjectsAtIndexes:indicesOfItemsToDelete];
+            [AppCache cacheSaveList:self.saveList];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+            [self.tableView deleteRowsAtIndexPaths:selectedRows withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
