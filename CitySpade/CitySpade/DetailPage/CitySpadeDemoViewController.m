@@ -13,6 +13,7 @@
 #import "CitySpadeBrokerWebViewController.h"
 #import "constant.h"
 #import "BaseClass.h"
+#import "RESTfulEngine.h"
 
 static const int toolBarHeight = 50;
 static const int navigationBarHeight = 44;
@@ -129,6 +130,7 @@ static const int navigationBarHeight = 44;
     [favorBtn setImage:[UIImage imageNamed:@"LikeBefore"] forState:UIControlStateNormal];
     [favorBtn setImage:[UIImage imageNamed:@"LikePressed.png"] forState:UIControlStateSelected];
     [favorBtn addTarget:self action:@selector(pressFavorBtn:) forControlEvents:UIControlEventTouchUpInside];
+    favorBtn.selected = self.isSaved;
     [toolBarView addSubview:favorBtn];
     
     //share
@@ -253,6 +255,36 @@ static const int navigationBarHeight = 44;
     if ( [sender isKindOfClass:[UIButton class]] ) {
         UIButton *favorBtn = (UIButton *)sender;
         favorBtn.selected = !favorBtn.selected;
+        if (self.favorBtn.selected) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            NSDictionary *listDic1 = [self.preViewInfo objectAtIndex:0];
+            NSDictionary *listDic2 = [self.preViewInfo objectAtIndex:1];
+            NSArray *images = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:self.featureImageUrl forKey:@"url"]];
+            [dic setObject:images forKey:@"images"];
+            [dic setObject:self.listID forKey:@"id"];
+            [dic setObject:[listDic1 objectForKey:@"numberOfBed"] forKey:@"beds"];
+            [dic setObject:self.VCtitle forKey:@"title"];
+            [dic setObject:[listDic1 objectForKey:@"totalPrice"] forKey:@"price"];
+            [dic setObject:[listDic1 objectForKey:@"numberOfBath"] forKey:@"baths"];
+            [dic setObject:[listDic1 objectForKey:@"bargain"] forKey:@"bargain"];
+            [dic setObject:[listDic1 objectForKey:@"transportation"] forKey:@"transportation"];
+            [dic setObject:[listDic2 objectForKey:@"lng"] forKey:@"lng"];
+            [dic setObject:[listDic2 objectForKey:@"lat"] forKey:@"lat"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
+            [RESTfulEngine addAListingToSaveListWithId:_listID onSucceeded:^{
+                NSLog(@"AddToListing Success");
+            } onError:^(NSError *engineError) {
+                NSLog(@"AddToListing Error");
+            }];
+        }
+        else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:_listID userInfo:nil];
+            [RESTfulEngine deleteAListingFromSaveListWithId:_listID onSucceeded:^{
+                NSLog(@"Delete From Listing Success");
+            } onError:^(NSError *engineError) {
+                NSLog(@"Delete From Listing Error");
+            }];
+        }
     }
 }
 
