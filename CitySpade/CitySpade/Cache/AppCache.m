@@ -146,4 +146,34 @@ static int kCacheMemoryLimit;
     return stalenessLevel > kMenuStaleSeconds;
 }
 
++ (void)cacheSaveList:(NSArray *)saveListing
+{
+    [self cacheData:[NSKeyedArchiver archivedDataWithRootObject:saveListing] toFile:[self getSavingListPath]];
+}
+
++ (NSMutableArray *)getCachedSaveList
+{
+    NSLog(@"%@",[self getSavingListPath]);
+    return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForFile:[self getSavingListPath]]];
+}
+
++ (BOOL)isSaveListStale
+{
+    // if it is in memory cache, it is not stale
+    if([recentlyAccessedKeys containsObject:[self getSavingListPath]])
+        return NO;
+    
+	NSString *archivePath = [[AppCache cacheDirectory] stringByAppendingPathComponent:[self getSavingListPath]];
+    
+    NSTimeInterval stalenessLevel = [[[[NSFileManager defaultManager] attributesOfItemAtPath:archivePath error:nil] fileModificationDate] timeIntervalSinceNow];
+    
+    return stalenessLevel > kMenuStaleSeconds;
+}
+
++ (NSString *)getSavingListPath
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *saveListingPath = [NSString stringWithFormat:@"%@%@",[defaults objectForKey:@"USER_NAME"],kSaveListArchive];
+    return saveListingPath;
+}
 @end

@@ -9,6 +9,7 @@
 #import "CTLeftSideMenuViewController.h"
 #import "MFSideMenu.h"
 #import "CTLoginViewController.h"
+#import "CTSavingsViewController.h"
 #import "RESTfulEngine.h"
 #import "Constants.h"
 #import "NSString+Encryption.h"
@@ -31,7 +32,7 @@
 @property (nonatomic, strong) NSDictionary *rowTitles;
 @property (nonatomic, strong) NSArray *numberOfRows;
 @property (nonatomic, strong) NSDictionary *thumbImageBaseName;
-
+@property (nonatomic, strong) CTSavingsViewController *savingsVC;
 @end
 
 @implementation CTLeftSideMenuViewController
@@ -66,6 +67,7 @@
     [self.view addSubview:self.tableView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserName:) name:kNotificationLoginSuccess object:nil];
+    self.savingsVC = [[CTSavingsViewController alloc] init];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -177,7 +179,13 @@
         }
         else if (indexPath.row == 1) {
             //My Saves
-            [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.savingsVC];
+            nav.navigationBar.opaque = YES;
+            nav.navigationBar.translucent = NO;
+            [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+            [nav.navigationBar setShadowImage:[UIImage new]];
+            [self presentViewController:nav animated:YES completion:nil];
+            //[self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
             [cell setBackgroundColor:CellSelectedColor];
         }
     }

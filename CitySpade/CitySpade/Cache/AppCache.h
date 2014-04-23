@@ -14,5 +14,7 @@
 + (void)cacheListingItems:(NSArray *)listingItems;
 + (NSMutableArray *)getCachedListingItems;
 + (BOOL)isListingItemsStale;
-
++ (void)cacheSaveList:(NSArray *)saveListing;
++ (NSMutableArray *)getCachedSaveList;
++ (BOOL)isSaveListStale;
 @end

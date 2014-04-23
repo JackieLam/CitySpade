@@ -50,6 +50,7 @@
 
 #define kAppVersion @"APP_VERSION"
 #define kListingsArchive @"LISTINGS_ARCHIVE.archives"
+#define kSaveListArchive @"SAVELIST_ARCHIVE.archives"
 
 #pragma mark - DetailView
 

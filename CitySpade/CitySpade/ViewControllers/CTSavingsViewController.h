@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CTSavingsViewController : UIViewController
+@interface CTSavingsViewController : UITableViewController
 
 @end
