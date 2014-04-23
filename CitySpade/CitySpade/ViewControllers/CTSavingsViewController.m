@@ -66,6 +66,110 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:nil];
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+#pragma TableView Delegate and Datasource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.saveList count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"SaveListCell";
+    
+    CTListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    [cell configureCellWithListing:self.saveList[indexPath.row]];
+    return cell;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 255.0/2;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.rightView.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (!tableView.editing) {
+        CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
+        cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
+        CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] init];
+        
+        detailViewController.VCtitle = cell.titleLabel.text;
+        detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
+        detailViewController.featureImage = cell.thumbImageView.image;
+        detailViewController.featureImageUrl = cell.thumbImageView.imageURL;
+        NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
+        NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstNumberInString] doubleValue]];
+        NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
+        NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
+        NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];
+        NSArray *basicFactDict = @[@{@"bargain" : bargain,
+                                     @"transportation" : transportation,
+                                     @"totalPrice" : price,
+                                     @"numberOfBed" : bed,
+                                     @"numberOfBath" : bath},
+                                   @{@"lng": @40, @"lat": @70}];
+        detailViewController.preViewInfo = basicFactDict;
+        detailViewController.isSaved = 1;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
+    
+}
+
+#pragma private method
+
+- (void)setUpAppearance
+{
+    //设置NavigationItem Title
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 110, 100, 30)];
+    [titleLabel setTextColor:TitleColor];
+    [titleLabel setText:@"My Saves"];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16];
+    titleLabel.textColor = [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1.0];
+    self.navigationItem.titleView = titleLabel;
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = TableViewBackGroundColor;
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    //设置navigationItem's leftBarButtonItem,rightBarButtonItem
+    
+    UIBarButtonItem *leftButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userProfile"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPressed:)];
+    leftButtonItem.tintColor = BarButtonTintColor;
+    self.navigationItem.leftBarButtonItem = leftButtonItem;
+    self.myEditButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleDone target:self action:@selector(startRemoveItem)];
+    [self.myEditButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Avenir-Roman"size:15],NSFontAttributeName, BarButtonTintColor,NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    self.trashButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStyleDone target:self action:@selector(finishRempveItem)];
+    self.trashButtonItem.tintColor = BarButtonTintColor;
+    self.navigationItem.rightBarButtonItem = self.myEditButtonItem;
+    
+}
+
 - (void)reloadSaveListingFromCache
 {
     self.saveList = [AppCache getCachedSaveList];
@@ -117,67 +221,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-#pragma TableView Delegate and Datasource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.saveList count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"SaveListCell";
-    
-    CTListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    [cell configureCellWithListing:self.saveList[indexPath.row]];
-    return cell;
-    
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 255.0/2;
-}
-
-- (void)setUpAppearance
-{
-    //设置NavigationItem Title
-    
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 110, 100, 30)];
-    [titleLabel setTextColor:TitleColor];
-    [titleLabel setText:@"My Saves"];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16];
-    titleLabel.textColor = [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1.0];
-    self.navigationItem.titleView = titleLabel;
-    
-    //设置tableview
-//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-50)];
-//    [self.view addSubview:self.tableView];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = TableViewBackGroundColor;
-    self.tableView.allowsMultipleSelectionDuringEditing = YES;
-    //设置navigationItem's leftBarButtonItem,rightBarButtonItem
-    
-    UIBarButtonItem *leftButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userProfile"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPressed:)];
-    leftButtonItem.tintColor = BarButtonTintColor;
-    self.navigationItem.leftBarButtonItem = leftButtonItem;
-    self.myEditButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleDone target:self action:@selector(startRemoveItem)];
-    [self.myEditButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Avenir-Roman"size:15],NSFontAttributeName, BarButtonTintColor,NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
-    self.trashButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStyleDone target:self action:@selector(finishRempveItem)];
-    self.trashButtonItem.tintColor = BarButtonTintColor;
-    self.navigationItem.rightBarButtonItem = self.myEditButtonItem;
-    
-}
 
 - (void)startRemoveItem
 {
@@ -224,46 +267,5 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
-}
-
-- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.rightView.backgroundColor = [UIColor whiteColor];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (!tableView.editing) {
-        CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
-        cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
-        CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] init];
-        
-        detailViewController.VCtitle = cell.titleLabel.text;
-        detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
-        detailViewController.featureImage = cell.thumbImageView.image;
-        detailViewController.featureImageUrl = cell.thumbImageView.imageURL;
-        NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
-        NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstNumberInString] doubleValue]];
-        NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
-        NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
-        NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];
-        NSArray *basicFactDict = @[@{@"bargain" : bargain,
-                                     @"transportation" : transportation,
-                                     @"totalPrice" : price,
-                                     @"numberOfBed" : bed,
-                                     @"numberOfBath" : bath},
-                                   @{@"lng": @40, @"lat": @70}];
-        detailViewController.preViewInfo = basicFactDict;
-        detailViewController.isSaved = 1;
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self.navigationController pushViewController:detailViewController animated:YES];
-    }
-    
-}
 
 @end
