@@ -139,6 +139,28 @@
     self.bathLabel.text = [pin.baths stringByAppendingString:@"Baths"];
     self.identiferNumber = pin.identiferNumber;
     self.thumbImageView.imageURL = pin.thumbImageLink;
+    if (self.isSaved) {
+        [self.bedLabel setFrame:CGRectMake(22, 101, 40, 16)];
+        [self.bathLabel setFrame:CGRectMake(97, 101, 40, 16)];
+        UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
+        UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
+        [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 1.0f, bedViewHeight)];
+        [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 1.0f, bedViewHeight)];
+        if (![self.likeImageView superview]) {
+            [self.rightView addSubview:self.likeImageView];
+        }
+    }
+    else{
+        [self.bedLabel setFrame:CGRectMake(32, 101, 40, 16)];
+        [self.bathLabel setFrame:CGRectMake(130, 101, 40, 16)];
+        UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
+        UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
+        [verticalLine1 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+        [verticalLine2 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+        if ([self.likeImageView superview]) {
+            [self.likeImageView removeFromSuperview];
+        }
+    }
 }
 
 - (void)configureCellWithListing:(Listing *)listing

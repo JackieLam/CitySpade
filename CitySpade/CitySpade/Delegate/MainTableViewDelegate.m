@@ -55,6 +55,7 @@
                                 @"numberOfBath" : bath},
                                @{@"lng": @40, @"lat": @70}];
     detailViewController.preViewInfo = basicFactDict;
+    detailViewController.isSaved = cell.isSaved;
     [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPushDetailViewController object:detailViewController userInfo:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

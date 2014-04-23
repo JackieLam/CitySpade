@@ -8,13 +8,15 @@
 
 #import "CTListView.h"
 #import "CTListCell.h"
+#import "REVClusterPin.h"
+#import "Listing.h"
 
 #define heightForLabel 30.0f
 #define heightForRow 127.0f
 #define tableViewBackgroundColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0]
 
 @interface CTListView()<UITableViewDataSource, UISearchBarDelegate>
-
+@property (nonatomic, strong) NSMutableArray *saveList;
 @end
 
 @implementation CTListView
@@ -34,6 +36,9 @@
         self.backgroundColor = tableViewBackgroundColor;
         self.rowHeight = heightForRow;
         self.dataSource = self;
+        self.saveList = [NSMutableArray array];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSaveListing:) name:@"didModifySaveListing" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableView) name:@"refreshTableView" object:nil];
     }
     return self;
 }
@@ -65,10 +70,29 @@
         cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.frame = CGRectMake(0, 0, self.frame.size.width, heightForRow);
     }
-
+    REVClusterPin *pin = self.places[indexPath.row];
+    cell.isSaved = [self isContainInSaveListing:(int)pin.identiferNumber];
     [cell configureCellWithClusterPin:self.places[indexPath.row]];
     
     return cell;
 }
 
+- (BOOL)isContainInSaveListing:(int)identiferNumber
+{
+    for (Listing *listing in self.saveList) {
+        int identifier = listing.internalBaseClassIdentifier;
+        if (identiferNumber == identifier) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)refreshSaveListing:(NSNotification *)aNotification
+{
+    if (self.saveList) {
+        [self.saveList removeAllObjects];
+    }
+    [self.saveList addObjectsFromArray:[aNotification object]];
+}
 @end
