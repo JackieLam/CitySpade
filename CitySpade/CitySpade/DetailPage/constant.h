@@ -30,4 +30,8 @@ static const CGFloat heightForOneBusesLine = 36.0f;
 static const NSUInteger inset = 10;
 static const CGFloat transportIconSize = 18.0f;
 static NSString const *listAPIRootURL = @"http://cityspade.com/api/v1/listings/";
+#define kNotificationAddSaveListing  @"addSaveListing"
+#define kNotificationDeleteSaveListing  @"deleteSaveListing"
+#define kNotificationIsContainListing  @"isContainListing"
+
 #endif

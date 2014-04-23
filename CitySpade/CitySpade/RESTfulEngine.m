@@ -24,8 +24,8 @@ NSString * const CALLBACK_PATH = @"/auth/callback.json";
 
 //Part Three
 NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
-//POST a listing to saved list is not a const string
-//DELETE a listing from saved list is not a const string
+NSString * const POST_LISTING_PATH = @"/listings/:id/collect.json";
+NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 @interface RESTfulEngine()
 
@@ -303,20 +303,140 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
 #pragma mark -
 #pragma mark - Part Three: Saving Lists
 
-+ (void)loadUserSaveList
++ (void)loadUserSaveList:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock;
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults objectForKey:kAccessToken];
+    NSString *paramSubstring = [NSString stringWithFormat:@"?token=%@",token];
     
+    NSMutableString *urlString = [NSMutableString stringWithString:HOST_URL];
+    [urlString appendString:SAVED_LISTING_PATH];
+    if (paramSubstring) {
+        [urlString appendString:paramSubstring];
+    }
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            
+            // 1 HTTP Response
+            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *jsonError;
+                    
+                    // 2 Serialize json
+                    NSMutableArray *listingsJSON =
+                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    NSMutableArray *models = [NSMutableArray array];
+                    for (id obj in listingsJSON) {
+                        Listing *listing = [Listing modelObjectWithDictionary:obj];
+                        [models addObject:listing];
+                    }
+                    if (!jsonError) {
+                        // 3 Call back
+                        
+                        succededBlock(models);
+                    }
+                });
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+            });
+        }
+    }];
+    [dataTask resume];
 }
 
-//+ (void)addAListingToSaveListWithId:(double)idNumber
-//{
-//
-//}
-//
-//+ (void)deleteAListingFromSaveListWithId:(double)idNumber
-//{
-//
-//}
++ (void)addAListingToSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults objectForKey:kAccessToken];
+    NSString *paramSubstring = [NSString stringWithFormat:@"?token=%@",token];
+    
+    NSString *tmpString = [NSString stringWithFormat:@"%@%@",HOST_URL,POST_LISTING_PATH];
+    
+    NSMutableString *urlString = (NSMutableString *)[tmpString stringByReplacingOccurrencesOfString:@":id" withString:idNumber];
+    
+    if (paramSubstring) {
+        [urlString appendString:paramSubstring];
+    }
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            
+            // 1 HTTP Response
+            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+                succeedBlock();
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+            });
+        }
+    }];
+    [dataTask resume];
+}
+
++ (void)deleteAListingFromSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults objectForKey:kAccessToken];
+    
+    NSString *deleteBody = [NSString stringWithFormat:@"?token=%@", token];
+    DLog(@"DELETE - %@", deleteBody);
+    
+    // 3 Networking setup
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSMutableString *tmpString = [NSMutableString stringWithString:HOST_URL];
+    [tmpString appendString:DELETE_LISTING_PATH];
+    NSMutableString *urlString = (NSMutableString *)[tmpString stringByReplacingOccurrencesOfString:@":id" withString:idNumber];
+    
+    [urlString appendString:deleteBody];
+    DLog(@"URLString - %@", urlString);
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    [request setHTTPMethod:@"DELETE"];
+    
+    // 4 Networking Begin
+    NSURLSessionDataTask *deleteDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (!error) {
+            
+            // 1 HTTP Response
+            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    //  Callback
+                    succeedBlock();
+                });
+            }
+            else {
+                
+            }
+        }
+        else {
+            DLog(@"Error : %@", error);
+        }
+    }];
+    
+    [deleteDataTask resume];
+}
 
 #pragma mark - 
 #pragma mark - Part Four: Facebook Authentication

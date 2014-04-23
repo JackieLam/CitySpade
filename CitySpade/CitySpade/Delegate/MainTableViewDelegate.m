@@ -43,6 +43,7 @@
     detailViewController.VCtitle = cell.titleLabel.text;
     detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
     detailViewController.featureImage = cell.thumbImageView.image;
+    detailViewController.featureImageUrl = cell.thumbImageView.imageURL;
     NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
     NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstNumberInString] doubleValue]];
     NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
@@ -55,6 +56,8 @@
                                 @"numberOfBath" : bath},
                                @{@"lng": @40, @"lat": @70}];
     detailViewController.preViewInfo = basicFactDict;
+    detailViewController.isSaved = cell.isSaved;
+    detailViewController.indexPath = indexPath;
     [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPushDetailViewController object:detailViewController userInfo:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

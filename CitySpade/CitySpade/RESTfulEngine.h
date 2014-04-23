@@ -46,9 +46,9 @@ typedef void (^ErrorBlock)(NSError* engineError);
                      onError:(ErrorBlock)errorBlock;
 
 //Part Three: Save Listings
-+ (void)loadUserSaveList;
-+ (void)addAListingToSaveListWithId:(int)idNumber;
-+ (void)deleteAListingFromSaveListWithId:(int)idNumber;
++ (void)loadUserSaveList:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock;
++ (void)addAListingToSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock;
++ (void)deleteAListingFromSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock;
 
 //Part Four: Facebook Authentication
 + (void)getFacebookInfoWithAccessToken:(NSString *)accessToken onSucceeded:(DictionaryBlock)succeedBlock onError:(ErrorBlock)errorBlock;

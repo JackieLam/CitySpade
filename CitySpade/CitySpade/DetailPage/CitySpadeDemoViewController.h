@@ -30,8 +30,10 @@
 
 //Assigned by the pre-ViewController
 @property (nonatomic, copy) UIImage *featureImage;
+@property (nonatomic, copy) NSString *featureImageUrl;
 @property (nonatomic, copy) NSArray *preViewInfo;
 @property (nonatomic, copy) NSString *VCtitle;
 @property (nonatomic, copy) NSString *listID;
-
+@property (nonatomic, assign) BOOL isSaved;
+@property (nonatomic, copy) NSIndexPath *indexPath;
 @end

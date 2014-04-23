@@ -13,6 +13,7 @@
 #import "CitySpadeBrokerWebViewController.h"
 #import "constant.h"
 #import "BaseClass.h"
+#import "RESTfulEngine.h"
 
 static const int toolBarHeight = 50;
 static const int navigationBarHeight = 44;
@@ -129,6 +130,7 @@ static const int navigationBarHeight = 44;
     [favorBtn setImage:[UIImage imageNamed:@"LikeBefore"] forState:UIControlStateNormal];
     [favorBtn setImage:[UIImage imageNamed:@"LikePressed.png"] forState:UIControlStateSelected];
     [favorBtn addTarget:self action:@selector(pressFavorBtn:) forControlEvents:UIControlEventTouchUpInside];
+    favorBtn.selected = self.isSaved;
     [toolBarView addSubview:favorBtn];
     
     //share
@@ -253,6 +255,40 @@ static const int navigationBarHeight = 44;
     if ( [sender isKindOfClass:[UIButton class]] ) {
         UIButton *favorBtn = (UIButton *)sender;
         favorBtn.selected = !favorBtn.selected;
+        if (favorBtn.selected) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            NSDictionary *listDic1 = [self.preViewInfo objectAtIndex:0];
+            NSDictionary *listDic2 = [self.preViewInfo objectAtIndex:1];
+            CGFloat bargain = [[listDic1 objectForKey:@"bargain"] floatValue];
+            CGFloat transportation = [[listDic1 objectForKey:@"transportation"] floatValue];
+            NSArray *images = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:self.featureImageUrl forKey:@"url"]];
+            [dic setObject:images forKey:@"images"];
+            [dic setObject:self.listID forKey:@"id"];
+            [dic setObject:[listDic1 objectForKey:@"numberOfBed"] forKey:@"beds"];
+            [dic setObject:self.VCtitle forKey:@"title"];
+            [dic setObject:[listDic1 objectForKey:@"totalPrice"] forKey:@"price"];
+            [dic setObject:[listDic1 objectForKey:@"numberOfBath"] forKey:@"baths"];
+            [dic setObject:[NSString stringWithFormat:@"%.2f/10", bargain] forKey:@"bargain"];
+            [dic setObject:[NSString stringWithFormat:@"%.2f/10", transportation] forKey:@"transportation"];
+            [dic setObject:[listDic2 objectForKey:@"lng"] forKey:@"lng"];
+            [dic setObject:[listDic2 objectForKey:@"lat"] forKey:@"lat"];
+            
+            [RESTfulEngine addAListingToSaveListWithId:_listID onSucceeded:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
+                NSLog(@"AddToListing Success");
+            } onError:^(NSError *engineError) {
+                NSLog(@"AddToListing Error");
+            }];
+        }
+        else{
+            
+            [RESTfulEngine deleteAListingFromSaveListWithId:_listID onSucceeded:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:_listID userInfo:nil];
+                NSLog(@"Delete From Listing Success");
+            } onError:^(NSError *engineError) {
+                NSLog(@"Delete From Listing Error");
+            }];
+        }
     }
 }
 
@@ -273,6 +309,10 @@ static const int navigationBarHeight = 44;
 }
 
 - (void)back:(id)sender {
+    if (self.indexPath) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:self.indexPath];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

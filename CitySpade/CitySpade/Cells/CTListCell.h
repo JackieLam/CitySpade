@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class Listing;
 @class REVClusterPin;
 @class AsynImageView;
 
 @interface CTListCell : UITableViewCell
+{
+    BOOL isEditing;
+}
 
 @property (nonatomic, strong) AsynImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -22,7 +26,10 @@
 @property (nonatomic, strong) UILabel *bathLabel;
 @property (nonatomic, strong) UIView *rightView;
 @property (nonatomic) double identiferNumber;
+@property (nonatomic, strong) REVClusterPin *pin;
+@property (nonatomic, assign) BOOL isSaved;
+@property (nonatomic, strong) UIImageView *likeImageView;
 
 - (void)configureCellWithClusterPin:(REVClusterPin *)pin;
-
+- (void)configureCellWithListing:(Listing *)listing;
 @end

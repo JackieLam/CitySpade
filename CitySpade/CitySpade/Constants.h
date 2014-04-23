@@ -36,6 +36,10 @@
 #define kCollectionViewShouldShowUp @"CollectionViewShouldShowUp"
 #define kPathOverLayShouldBeAdded @"PathOverLayShouldBeAdded"
 #define kShouldPushDetailViewController @"ShouldPushDetailViewController"
+//In the mysave view
+#define kNotificationAddSaveListing  @"addSaveListing"
+#define kNotificationDeleteSaveListing  @"deleteSaveListing"
+#define kNotificationDidModifySaveListing  @"didModifySaveListing"
 
 #pragma mark - Other Constants
 
@@ -46,6 +50,7 @@
 
 #define kAppVersion @"APP_VERSION"
 #define kListingsArchive @"LISTINGS_ARCHIVE.archives"
+#define kSaveListArchive @"SAVELIST_ARCHIVE.archives"
 
 #pragma mark - DetailView
 
