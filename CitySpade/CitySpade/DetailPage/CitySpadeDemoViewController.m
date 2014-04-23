@@ -272,16 +272,18 @@ static const int navigationBarHeight = 44;
             [dic setObject:[NSString stringWithFormat:@"%.2f/10", transportation] forKey:@"transportation"];
             [dic setObject:[listDic2 objectForKey:@"lng"] forKey:@"lng"];
             [dic setObject:[listDic2 objectForKey:@"lat"] forKey:@"lat"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
+            
             [RESTfulEngine addAListingToSaveListWithId:_listID onSucceeded:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
                 NSLog(@"AddToListing Success");
             } onError:^(NSError *engineError) {
                 NSLog(@"AddToListing Error");
             }];
         }
         else{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:_listID userInfo:nil];
+            
             [RESTfulEngine deleteAListingFromSaveListWithId:_listID onSucceeded:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:_listID userInfo:nil];
                 NSLog(@"Delete From Listing Success");
             } onError:^(NSError *engineError) {
                 NSLog(@"Delete From Listing Error");
