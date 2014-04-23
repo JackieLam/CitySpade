@@ -120,15 +120,6 @@
     [self addSubview:self.rightView];
 }
 
-- (void)setSelected:(BOOL)selected
-{
-    if (selected) {
-        NSLog(@"selected the cell");
-    } else {
-        NSLog(@"not selecting the cell");
-    }
-}
-
 - (void)configureCellWithClusterPin:(REVClusterPin *)pin
 {
     self.titleLabel.text = pin.title;

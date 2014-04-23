@@ -38,7 +38,7 @@
         self.dataSource = self;
         self.saveList = [NSMutableArray array];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSaveListing:) name:@"didModifySaveListing" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableView) name:@"refreshTableView" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableView:) name:@"refreshTableView" object:nil];
     }
     return self;
 }
@@ -50,9 +50,16 @@
     [self reloadData];
 }
 
-- (void)refreshTableView
+- (void)refreshTableView:(NSNotification *)aNotification
 {
-    [self reloadData];
+    NSIndexPath *indexPath = [aNotification object];
+    if (indexPath) {
+        NSArray *indexPathArray = [NSArray arrayWithObject:indexPath];
+        [self reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    else{
+        [self reloadData];
+    }
 }
 
 #pragma mark - UITableView's DataSource Methods

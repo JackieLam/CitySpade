@@ -35,4 +35,5 @@
 @property (nonatomic, copy) NSString *VCtitle;
 @property (nonatomic, copy) NSString *listID;
 @property (nonatomic, assign) BOOL isSaved;
+@property (nonatomic, copy) NSIndexPath *indexPath;
 @end

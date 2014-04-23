@@ -259,6 +259,8 @@ static const int navigationBarHeight = 44;
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             NSDictionary *listDic1 = [self.preViewInfo objectAtIndex:0];
             NSDictionary *listDic2 = [self.preViewInfo objectAtIndex:1];
+            CGFloat bargain = [[listDic1 objectForKey:@"bargain"] floatValue];
+            CGFloat transportation = [[listDic1 objectForKey:@"transportation"] floatValue];
             NSArray *images = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:self.featureImageUrl forKey:@"url"]];
             [dic setObject:images forKey:@"images"];
             [dic setObject:self.listID forKey:@"id"];
@@ -266,11 +268,10 @@ static const int navigationBarHeight = 44;
             [dic setObject:self.VCtitle forKey:@"title"];
             [dic setObject:[listDic1 objectForKey:@"totalPrice"] forKey:@"price"];
             [dic setObject:[listDic1 objectForKey:@"numberOfBath"] forKey:@"baths"];
-            [dic setObject:[listDic1 objectForKey:@"bargain"] forKey:@"bargain"];
-            [dic setObject:[listDic1 objectForKey:@"transportation"] forKey:@"transportation"];
+            [dic setObject:[NSString stringWithFormat:@"%.2f/10", bargain] forKey:@"bargain"];
+            [dic setObject:[NSString stringWithFormat:@"%.2f/10", transportation] forKey:@"transportation"];
             [dic setObject:[listDic2 objectForKey:@"lng"] forKey:@"lng"];
             [dic setObject:[listDic2 objectForKey:@"lat"] forKey:@"lat"];
-            NSLog(@"dic:%@",dic);
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
             [RESTfulEngine addAListingToSaveListWithId:_listID onSucceeded:^{
                 NSLog(@"AddToListing Success");
@@ -306,8 +307,11 @@ static const int navigationBarHeight = 44;
 }
 
 - (void)back:(id)sender {
+    if (self.indexPath) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:self.indexPath];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:nil];
 }
 
 

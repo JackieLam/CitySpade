@@ -63,6 +63,9 @@
     [self.tableView reloadData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:nil];
+}
 - (void)reloadSaveListingFromCache
 {
     self.saveList = [AppCache getCachedSaveList];
@@ -203,7 +206,7 @@
         {
             [indicesOfItemsToDelete addIndex:selectionIndex.row];
             Listing *listing = [self.saveList objectAtIndex:selectionIndex.row];
-            [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%f",listing.internalBaseClassIdentifier] onSucceeded:^{
+            [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)listing.internalBaseClassIdentifier] onSucceeded:^{
                 
             } onError:^(NSError *engineError) {
                 
@@ -238,7 +241,7 @@
     if (!tableView.editing) {
         CTListCell *cell = (CTListCell *)[tableView cellForRowAtIndexPath:indexPath];
         cell.rightView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0f];
-        CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] initWithNibName:@"CitySpadeDemoViewController" bundle:nil];
+        CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] init];
         
         detailViewController.VCtitle = cell.titleLabel.text;
         detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
