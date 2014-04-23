@@ -50,6 +50,11 @@
     [self reloadData];
 }
 
+- (void)refreshTableView
+{
+    [self reloadData];
+}
+
 #pragma mark - UITableView's DataSource Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

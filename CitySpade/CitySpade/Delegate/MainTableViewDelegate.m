@@ -43,6 +43,7 @@
     detailViewController.VCtitle = cell.titleLabel.text;
     detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
     detailViewController.featureImage = cell.thumbImageView.image;
+    detailViewController.featureImageUrl = cell.thumbImageView.imageURL;
     NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
     NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstNumberInString] doubleValue]];
     NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];

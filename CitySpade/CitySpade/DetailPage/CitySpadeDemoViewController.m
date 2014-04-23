@@ -255,7 +255,7 @@ static const int navigationBarHeight = 44;
     if ( [sender isKindOfClass:[UIButton class]] ) {
         UIButton *favorBtn = (UIButton *)sender;
         favorBtn.selected = !favorBtn.selected;
-        if (self.favorBtn.selected) {
+        if (favorBtn.selected) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             NSDictionary *listDic1 = [self.preViewInfo objectAtIndex:0];
             NSDictionary *listDic2 = [self.preViewInfo objectAtIndex:1];
@@ -270,6 +270,7 @@ static const int navigationBarHeight = 44;
             [dic setObject:[listDic1 objectForKey:@"transportation"] forKey:@"transportation"];
             [dic setObject:[listDic2 objectForKey:@"lng"] forKey:@"lng"];
             [dic setObject:[listDic2 objectForKey:@"lat"] forKey:@"lat"];
+            NSLog(@"dic:%@",dic);
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
             [RESTfulEngine addAListingToSaveListWithId:_listID onSucceeded:^{
                 NSLog(@"AddToListing Success");
@@ -306,6 +307,7 @@ static const int navigationBarHeight = 44;
 
 - (void)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:nil];
 }
 
 
