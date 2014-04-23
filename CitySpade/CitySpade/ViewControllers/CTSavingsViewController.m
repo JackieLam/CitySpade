@@ -157,6 +157,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = TableViewBackGroundColor;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
+    [self.refreshControl addTarget:self action:@selector(reloadSaveListing:) forControlEvents:UIControlEventValueChanged];
     //设置navigationItem's leftBarButtonItem,rightBarButtonItem
     
     UIBarButtonItem *leftButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userProfile"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPressed:)];
@@ -183,6 +186,7 @@
 
 - (void)reloadSaveListing:(NSNotification *)aNotification
 {
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
     [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
         if (self.saveList) {
             [self.saveList removeAllObjects];
@@ -190,9 +194,12 @@
         self.saveList = resultArray;
         [AppCache cacheSaveList:self.saveList];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+        [self.refreshControl endRefreshing];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
         [self.tableView reloadData];
     } onError:^(NSError *engineError) {
-        
+        [self.refreshControl endRefreshing];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
     }];
 }
 
