@@ -133,7 +133,7 @@
     if (!cell) {
         cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-//    [cell configureCellWithListing:self.saveList[indexPath.row]];
+    [cell configureCellWithListing:self.saveList[indexPath.row]];
     return cell;
     
 }
@@ -243,7 +243,7 @@
         detailViewController.VCtitle = cell.titleLabel.text;
         detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
         detailViewController.featureImage = cell.thumbImageView.image;
-//        detailViewController.featureImageUrl = cell.thumbImageView.imageURL;
+        detailViewController.featureImageUrl = cell.thumbImageView.imageURL;
         NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
         NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstNumberInString] doubleValue]];
         NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
@@ -256,7 +256,7 @@
                                      @"numberOfBath" : bath},
                                    @{@"lng": @40, @"lat": @70}];
         detailViewController.preViewInfo = basicFactDict;
-//        detailViewController.isSaved = 1;
+        detailViewController.isSaved = 1;
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [self.navigationController pushViewController:detailViewController animated:YES];
     }

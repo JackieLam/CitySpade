@@ -9,6 +9,8 @@
 #import "CTListCell.h"
 #import "REVClusterPin.h"
 #import "AsynImageView.h"
+#import "Listing.h"
+#import "Images.h"
 
 #define cellHeight 120.0f
 #define cellWidth 320.0f
@@ -19,6 +21,16 @@
 #define bedViewHeight 25.0f
 #define bathViewWidth bedViewWidth
 #define bathViewHeight bedViewHeight
+#define moveoffset 30.0f
+#define dotX -20.0f
+#define dotY 53.5f
+#define dotWidth 12.5f
+#define dotHeight 12.5f
+#define kSelectedTag 1
+#define kEditingTag 2
+#define kVerticalLineTag1 3
+#define kVerticalLineTag2 4
+#define kLikeImageTag   5
 #define cellBackgroundColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0]
 #define lineColor [UIColor colorWithRed:207.0/255.0 green:207.0/255.0 blue:207.0/255.0 alpha:1.0f]
 
@@ -29,6 +41,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = cellBackgroundColor;
+        UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(-moveoffset, 0, moveoffset, cellHeight)];
+        backgroundView.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:backgroundView];
         [self initCell];
     }
     return self;
@@ -36,6 +51,8 @@
 
 - (void)initCell
 {
+    self.likeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(170, 101, 15, 15)];
+    self.likeImageView.image = [UIImage imageNamed:@"LikePressed.png"];
     self.thumbImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, imageSize, imageSize)];
     self.thumbImageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
     [self addSubview:self.thumbImageView];
@@ -46,9 +63,14 @@
     UIView *horizontalLine = [[UIView alloc] initWithFrame:CGRectMake(0, infoViewHeight, infoViewWidth, 1.0f)];
     horizontalLine.backgroundColor = lineColor;
     [self.rightView addSubview:horizontalLine];
-    UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
-    verticalLine.backgroundColor = lineColor;
-    [self.rightView addSubview:verticalLine];
+    UIView *verticalLine1 = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+    verticalLine1.backgroundColor = lineColor;
+    verticalLine1.tag = kVerticalLineTag1;
+    [self.rightView addSubview:verticalLine1];
+    UIView *verticalLine2 = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+    verticalLine2.backgroundColor = lineColor;
+    verticalLine2.tag = kVerticalLineTag2;
+    [self.rightView addSubview:verticalLine2];
     
     //Labels
     //titleLabel
@@ -117,6 +139,115 @@
     self.bathLabel.text = [pin.baths stringByAppendingString:@"Baths"];
     self.identiferNumber = pin.identiferNumber;
     self.thumbImageView.imageURL = pin.thumbImageLink;
+}
+
+- (void)configureCellWithListing:(Listing *)listing
+{
+    self.titleLabel.text = listing.title;
+    self.priceLabel.text = [NSString stringWithFormat:@"$%d", (int)listing.price];
+    self.bargainLabel.text = [NSString stringWithFormat:@"Bargain(price):%@", listing.bargain];
+    self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", listing.transportation];
+    self.bedLabel.text = [[NSString stringWithFormat:@"%d", (int)listing.beds] stringByAppendingString:@"Beds"];
+    self.bathLabel.text = [[NSString stringWithFormat:@"%d", (int)listing.baths] stringByAppendingString:@"Baths"];
+    self.identiferNumber = listing.internalBaseClassIdentifier;
+    Images *image = (Images *)[listing.images firstObject];
+    self.thumbImageView.imageURL = [NSString stringWithFormat:@"%@%@", image.url, [image.sizes firstObject]];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    int TagValue = 1;
+    if(isEditing)
+    {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (selected) {
+            UIImage *dotimage = [UIImage imageNamed:@"dot_selected.png"];
+            UIImageView *editDotView = [[UIImageView alloc] initWithImage:dotimage];
+            editDotView.tag = TagValue;
+            editDotView.frame = CGRectMake(dotX, dotY, dotWidth, dotHeight);
+            [self addSubview:editDotView];
+        }
+        else{
+            UIView *editDotView = [self viewWithTag:TagValue];
+            if(editDotView)
+            {
+                [editDotView removeFromSuperview];
+            }
+        }
+        
+    }
+    else{
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+        UIView *editDotView = [self viewWithTag:TagValue];
+        if(editDotView)
+        {
+            [editDotView removeFromSuperview];
+        }
+        
+    }
+    [super setSelected:selected animated:animated];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    int TagValue = 2;
+    if(editing)
+    {
+        isEditing = YES;
+        
+        if(![self viewWithTag:TagValue])
+        {
+            UIImage *dotimage = [UIImage imageNamed:@"dot_disselect.png"];
+            UIImageView *editDotView = [[UIImageView alloc] initWithImage:dotimage];
+            editDotView.tag = TagValue;
+            editDotView.frame = CGRectMake(-12.0, dotY, dotWidth, dotHeight);
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.3];
+            CGRect rect = CGRectMake(dotX, dotY , dotWidth, dotHeight);
+            editDotView.frame = rect;
+            [UIView  commitAnimations];
+            [self.contentView addSubview:editDotView];
+            
+        }
+        else
+        {
+            UIView *editDotView = [self viewWithTag:TagValue];
+            CGRect rect = CGRectMake(dotX, dotY , dotWidth, dotHeight);
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.3];
+            editDotView.frame = rect;
+            [UIView commitAnimations];
+        }
+        
+        CGRect rect2 = self.frame;
+        rect2.origin.x += 25;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        self.frame = rect2;
+        [UIView commitAnimations];
+        
+    }
+    else{
+        isEditing = NO;
+        CGRect rect = CGRectMake(-25.0, dotY , dotWidth , dotHeight);
+        UIView *editDotView = [self viewWithTag:TagValue];
+        if(editDotView)
+        {
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.3];
+            editDotView.frame = rect;
+            [UIView commitAnimations];
+        }
+        CGRect rect2 = self.frame;
+        if (rect2.origin.x == 25) {
+            rect2.origin.x -= 25;
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.3];
+            self.frame = rect2;
+            [UIView commitAnimations];
+        }
+        
+    }
 }
 
 - (void)prepareForReuse
