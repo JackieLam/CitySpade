@@ -385,7 +385,9 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
             // 1 HTTP Response
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                 succeedBlock();
+                });
             }
         }
         else {
@@ -429,10 +431,9 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
             // 1 HTTP Response
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                     succeedBlock();
-            }
-            else {
-                errorBlock(error);
+                });
             }
         }
         else {
