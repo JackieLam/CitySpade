@@ -27,6 +27,7 @@
 #import "NSString+RegEx.h"
 #import "SortTableView.h"
 #import "SwitchSegment.h"
+#import "BlockCache.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -43,8 +44,6 @@
 }
 
 @property (nonatomic, strong) NSArray *listings;
-@property (nonatomic, strong) NSMutableArray *pinsAll;
-@property (nonatomic, strong) NSMutableArray *pinsFilterRight;
 
 @property (nonatomic, strong) NSArray *placesClicked;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeCollectionView;
@@ -64,58 +63,43 @@
 
 - (void)viewDidLoad
 {
-    [super loadView];
-// Setup the dataArray
+    [super viewDidLoad];
+    [self registerNotification];
+    
+    // Setup the dataArray
     self.listings = [NSArray array];
     self.pinsAll = [NSMutableArray array];
     self.pinsFilterRight = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
-// Setup the navigation bar
+    // Setup the navigation bar
     [self setupMenuBarButtonItems];
     
-// Setup the map view
+    // Setup the map view
+    
     CGRect viewBounds = [UIScreen mainScreen].bounds;
     viewBounds.size.height = viewBounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
     self.ctmapView = [[REVClusterMapView alloc] initWithFrame:viewBounds];
-//    self.ctmapView.delegate = self;
-    // Setup the list view
-    self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
-    self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
-    UIView *containView = [[UIView alloc] initWithFrame:viewBounds];
-    [containView addSubview:self.ctlistView];
-    [containView addSubview:self.ctmapView];
-    [self.view addSubview:containView];
+    self.ctmapView.delegate = [CTMapViewDelegate sharedInstance];
+    [CTMapViewDelegate sharedInstance].forRent = YES;
+    //    self.ctmapView.delegate = self;
+    [self.view addSubview:self.ctmapView];
     
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = 40.747;
     coordinate.longitude = -74;
     self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
-    NSLog(@"visible map rect : (%f, %f, %f, %f)", self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height);
-    NSLog(@"center coordinate : (%f, %f)", self.ctmapView.centerCoordinate.latitude, self.ctmapView.centerCoordinate.longitude);
-    NSLog(@"region span : (%f, %f)", self.ctmapView.region.span.latitudeDelta, self.ctmapView.region.span.longitudeDelta);
-    NSLog(@"another point: (%f, %f)", self.ctmapView.centerCoordinate.latitude+self.ctmapView.region.span.latitudeDelta, self.ctmapView.centerCoordinate.longitude+self.ctmapView.region.span.longitudeDelta);
     previousZoomLevel = self.ctmapView.region.span.longitudeDelta;
     
-// Setup BottomBar
+    // Setup BottomBar
     [self setupBottomBar];
-
-// Setup collectionView
+    // Setup the list view
+    self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
+    self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
+    
+    // Setup collectionView
     [self setupCollectionView];
     
-// RESTfulEngine
-    self.listings = [AppCache getCachedListingItems];
-    if (!self.listings || [AppCache isListingItemsStale]) {
-        [self loadForAllListings:[NSNotification notificationWithName:kNotificationToLoadAllListings object:@{@"rent": @1} userInfo:nil]];
-    }
-    else {
-        [self resetAnnotationsWithResultArray:self.listings];
-    }
-    
-    [self addition];
-}
-
-- (void)addition
-{
+    // Setup the title
     UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
     NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -123,15 +107,15 @@
     [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
     
     self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
+    forRent = YES;
     self.title = @"For Rent";
-    [self registerNotification];
-    self.ctmapView.delegate = [CTMapViewDelegate sharedInstance];
 }
 
 #pragma mark - NSNotification
 - (void)registerNotification
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForAllListings:) name:kNotificationToLoadAllListings object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFromCache:) name:kNotificationShouldLoadFromCache object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePinsFilterRight:) name:kNotificationDidRightFilter object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCollectionViewData) name:kCollectionViewShouldShowUp object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPathOverlayOnAnnotationViews:) name:kPathOverLayShouldBeAdded object:nil];
@@ -181,66 +165,59 @@
 #pragma mark - Reload Listing(For Rent / For Sale)
 - (void)loadForAllListings:(NSNotification *)aNotification
 {
-    // Have to clear all the pins first
-    [self.pinsAll removeAllObjects];
-    [self.pinsFilterRight removeAllObjects];
-    
     NSDictionary *param = [aNotification object];
     
-    NSString *swLatKey = @"southwestlat";
-    NSString *swLngKey = @"southwestlng";
-    NSString *neLatKey = @"northeastlat";
-    NSString *neLngKey = @"northeastlng";
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = activityIndicator;
+    [activityIndicator startAnimating];
     
-    int blockCnt = 5;
-    double latGap = self.ctmapView.region.span.latitudeDelta / (float)blockCnt;
-    double lngGap = self.ctmapView.region.span.longitudeDelta / (float)blockCnt;
-    CLLocationDegrees swlat = self.ctmapView.region.center.latitude - self.ctmapView.region.span.latitudeDelta * 0.5;
-    CLLocationDegrees swlng = self.ctmapView.region.center.longitude - self.ctmapView.region.span.longitudeDelta * 0.5;
-    CLLocationDegrees nelat = swlat + latGap;
-    CLLocationDegrees nelng = swlng + lngGap;
-    NSString *swlatString = [NSString stringWithFormat:@"%f", swlat];
-    NSString *swlngString = [NSString stringWithFormat:@"%f", swlng];
-    NSString *nelatString = [NSString stringWithFormat:@"%f", nelat];
-    NSString *nelngString = [NSString stringWithFormat:@"%f", nelng];
-    NSDictionary *dict = @{swLatKey: swlatString, swLngKey: swlngString, neLatKey: nelatString, neLngKey: nelngString, @"rent": @1};
-    
-    // 如果拉取的For Rent和For Sale不一样，需要重新拉取
-    // 如果拉取的数据是一样的，不需要重新拉取
+    // 如果改变状态，需要把地图上的点全部去掉，清除pinsAll，清除BlockCache中的loadedBlockSet
     if ([param[@"rent"] boolValue] != forRent) {
-        
         forRent = [param[@"rent"] boolValue];
-        //Remove all annotaions first
-        [self.ctmapView removeAnnotations:self.ctmapView.annotations];
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        self.navigationItem.titleView = activityIndicator;
-        [activityIndicator startAnimating];
-        
-        [RESTfulEngine loadListingsWithQuery:param onSucceeded:^(NSMutableArray *resultArray) {
-            [activityIndicator stopAnimating];
-            self.listings = resultArray;
-            [AppCache cacheListingItems:self.listings];
-            self.navigationItem.titleView = nil;
-            self.navigationItem.title = forRent ? @"For Rent": @"For Sale";
-            [self resetAnnotationsWithResultArray:self.listings];
-        } onError:^(NSError *engineError) {
-            
-            [SVProgressHUD showErrorWithStatus:engineError.description];
-        }];
     }
+    
+    [RESTfulEngine loadListingsWithQuery:param onSucceeded:^(NSMutableArray *resultArray) {
+        [activityIndicator stopAnimating];
+        self.listings = resultArray;
+        [BlockCache cacheListingItems:self.listings block:param];
+        [BlockCache markOnTheMapWithBlock:param];
+        self.navigationItem.titleView = nil;
+        [self resetAnnotationsWithResultArray:self.listings];
+    } onError:^(NSError *engineError) {
+        
+        [SVProgressHUD showErrorWithStatus:engineError.description];
+    }];
 }
+
+- (void)loadFromCache:(NSNotification *)aNotification
+{
+    NSDictionary *param = [aNotification object];
+    
+    // 如果改变状态，需要把地图上的点全部去掉，清除pinsAll，清除BlockCache中的loadedBlockSet
+    if ([param[@"rent"] boolValue] != forRent) {
+        forRent = [param[@"rent"] boolValue];
+    }
+    
+    NSArray *listingsArray = [BlockCache getCachedListingItemsWithBlock:param];
+    [self resetAnnotationsWithResultArray:listingsArray];
+}
+
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
+    NSMutableArray *newAddAnnos = [NSMutableArray array];
     for (Listing __strong *listing in resultArray) {
         REVClusterPin *pin = [[REVClusterPin alloc] init];
         [pin configureWithListing:listing];
         listing = nil;
         [self.pinsAll addObject:pin];
+        [newAddAnnos addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
-
-    [self.ctmapView addAnnotations:self.pinsFilterRight];
+    NSLog(@"PINSALL -- %d", [self.pinsAll count]);
+    NSLog(@"NEWADDS -- %d", [newAddAnnos count]);
+    
+    [self.ctmapView addAnnotations:newAddAnnos];
 }
 
 #pragma mark - Adding PathOverlay

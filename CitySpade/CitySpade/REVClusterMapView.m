@@ -45,7 +45,11 @@
 
 - (void) setup
 {
-    annotationsCopy = nil;
+#if !__has_feature(objc_arc)
+    annotationsCopy = [[[NSMutableArray alloc] init] retain];
+#else
+    annotationsCopy = [NSMutableArray array];
+#endif
     
     self.minimumClusterLevel = 30000;
     self.blocks = 4;
@@ -195,10 +199,10 @@
     {
         [super removeAnnotations:self.annotations];
         self.showsUserLocation = self.showsUserLocation;
+        NSLog(@"[annotationsCopy count] : %d", [annotationsCopy count]);
+        NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
+        [super addAnnotations:add];
     }
-
-    NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-    [super addAnnotations:add];
     
     if( [delegate respondsToSelector:@selector(mapView:regionDidChangeAnimated:)] )
     {
@@ -208,9 +212,9 @@
 
 - (BOOL) mapViewDidZoom
 {
-    
-    if( fabs(zoomLevel - self.visibleMapRect.size.width * self.visibleMapRect.size.height) < 1)
+    if( fabs(zoomLevel - self.visibleMapRect.size.width * self.visibleMapRect.size.height) < 5000)
     {
+        // 地图奇怪地没有缩放的情况下都会出现visibleMapRect的值出现偏差，因此仅把值放到5000保证，其实5000对于地图来说缩放量很微小
         zoomLevel = self.visibleMapRect.size.width * self.visibleMapRect.size.height;
         return NO;
     }
@@ -241,15 +245,16 @@
 //reset the annotationsCopy
 - (void)addAnnotations:(NSArray *)annotations
 {
-#if !__has_feature(objc_arc)
-    [annotationsCopy release];
-#endif
-    annotationsCopy = [annotations copy];
+    [annotationsCopy addObjectsFromArray:annotations];
     
     NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
     
     [super addAnnotations:add];
 }
 
+- (void)clearAnnotationsCopy
+{
+    [annotationsCopy removeAllObjects];
+}
 
 @end

@@ -14,6 +14,10 @@
 #import "Constants.h"
 #import "NSString+Encryption.h"
 #import "FacebookDelegate.h"
+#import "CTMapViewController.h"
+#import "CTMapViewDelegate.h"
+#import "REVClusterMap.h"
+#import "BlockCache.h"
 
 #define headerColor [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
 #define colorOfSeparator [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
@@ -190,13 +194,29 @@
         }
     }
     else if (indexPath.section == 1) {
+        UINavigationController *nav = (UINavigationController *)self.menuContainerViewController.centerViewController;
+        CTMapViewController *mapVC = nav.viewControllers[0];
+        REVClusterMapView *mapView = mapVC.ctmapView;
+        // Set the forRent status of the mapVC's delegate accordingly
         if (indexPath.row == 0) {
-            //For Sale
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadAllListings object:@{@"rent": @0} userInfo:nil];
+            mapVC.title = @"For Sale";
+            mapVC.ctmapView.delegate.forRent = NO;
         }
         else if (indexPath.row == 1) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadAllListings object:@{@"rent": @1} userInfo:nil];
+            mapVC.title = @"For Rent";
+            mapVC.ctmapView.delegate.forRent = YES;
         }
+        // Remove all annotations
+        [mapView removeAnnotations:mapVC.ctmapView.annotations];
+        [mapView clearAnnotationsCopy];
+        [mapVC.pinsFilterRight removeAllObjects];
+        [mapVC.pinsAll removeAllObjects];
+        [BlockCache unmarkAllBlocks];
+        
+        // 重新设置偏离一下Center Coordinate目的只是为了触发CTMapViewDelegate里面的regionDidChange方法
+        NSLog(@"ORIGIN -- %lf, %lf, %lf, %lf", mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta);
+        [mapView setVisibleMapRect:MKMapRectMake(mapView.visibleMapRect.origin.x, mapView.visibleMapRect.origin.y+1, mapView.visibleMapRect.size.width, mapView.visibleMapRect.size.height)];
+        NSLog(@"AFTER -- %lf, %lf, %lf, %lf", mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta);
         
         [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
         [cell setBackgroundColor:CellSelectedColor];

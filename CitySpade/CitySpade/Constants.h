@@ -29,6 +29,7 @@
 #define kNotificationLoginSuccess @"didLoginSuccess"
 #define kNotificationRegisterSuccess @"didRegisterSuccess"
 #define kNotificationToLoadAllListings @"toLoadForRentListing"
+#define kNotificationShouldLoadFromCache @"shouldLoadFromCache"
 #define kNotificationToLoadFilteredListing @"toLoadFilteredListing"
 #define kNotificationDidRightFilter @"didRightFilter"
 #define kNotificationDidGetFacebookUserInfo @"didGetFacebookUserInfo"

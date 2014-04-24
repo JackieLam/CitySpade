@@ -11,6 +11,10 @@
 
 @interface CTMapViewDelegate : NSObject<MKMapViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
+@property (nonatomic) BOOL forRent;
+@property (nonatomic) double zoomLevel;
+@property (nonatomic, strong) NSMutableSet *requestBlocks;
+
 + (CTMapViewDelegate *)sharedInstance;
 
 @end

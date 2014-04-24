@@ -11,13 +11,15 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+@class CTMapViewDelegate;
+
 @interface REVClusterMapView : MKMapView <MKMapViewDelegate> {
     
     NSUInteger blocks;
     NSUInteger minimumClusterLevel;
     
-    //map上 -- 需要呈现的annotations的总个数（非cluster）
-    NSArray *annotationsCopy;
+    //map上 -- 需要呈现的annotations的总个数（非cluster），会不断地增加
+    NSMutableArray *annotationsCopy;
     
     double zoomLevel;
     
@@ -28,8 +30,9 @@
 @property (nonatomic,assign) NSUInteger minimumClusterLevel;
 
 /** Specifies the receiver‚Äôs delegate object. */
-@property(nonatomic,assign) id<MKMapViewDelegate> delegate;
+@property(nonatomic,assign) CTMapViewDelegate *delegate;
 
 - (void)addAnnotations:(NSArray *)annotations;
+- (void)clearAnnotationsCopy; 
 
 @end

@@ -41,12 +41,17 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadListingsWithQuery:(NSDictionary *)queryParam onSucceeded:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+//    [self detectNetWork];
     NSMutableString *paramSubstring = [NSMutableString string];
     if (queryParam != nil) {
-        for (NSString *key in queryParam.allKeys) {
-            [paramSubstring appendString:[NSString stringWithFormat:@"%@=%@", key, queryParam[key]]];
+        NSString *key;
+        int i = 0;
+        for (i = 0; i < [queryParam.allKeys count]-1; i++) {
+            key = queryParam.allKeys[i];
+            [paramSubstring appendString:[NSString stringWithFormat:@"%@=%@&", key, queryParam[key]]];
         }
+        key = queryParam.allKeys[i];
+        [paramSubstring appendString:[NSString stringWithFormat:@"%@=%@", key, queryParam[key]]];
     }
     
     NSMutableString *urlString = [NSMutableString stringWithString:HOST_URL];
