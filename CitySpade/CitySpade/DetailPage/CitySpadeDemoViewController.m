@@ -277,6 +277,7 @@ static const int navigationBarHeight = 44;
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
                 NSLog(@"AddToListing Success");
             } onError:^(NSError *engineError) {
+                favorBtn.selected = !favorBtn.selected;
                 NSLog(@"AddToListing Error");
             }];
         }
@@ -286,6 +287,7 @@ static const int navigationBarHeight = 44;
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:_listID userInfo:nil];
                 NSLog(@"Delete From Listing Success");
             } onError:^(NSError *engineError) {
+                favorBtn.selected = !favorBtn.selected;
                 NSLog(@"Delete From Listing Error");
             }];
         }

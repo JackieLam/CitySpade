@@ -432,14 +432,15 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                     succeedBlock();
             }
             else {
-                
+                errorBlock(error);
             }
         }
         else {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-            errorBlock(error);
-//            });
-            DLog(@"Error : %@", error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+                DLog(@"Error : %@", error);
+            });
+            
         }
     }];
     
@@ -550,7 +551,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)detectNetWork
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Could not connect to network!"];
+        [SVProgressHUD showErrorWithStatus:@"The Internet connection appears to be offline"];
     }
 }
 

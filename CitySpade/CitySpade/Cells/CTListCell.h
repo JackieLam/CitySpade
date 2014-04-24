@@ -28,8 +28,10 @@
 @property (nonatomic) double identiferNumber;
 @property (nonatomic, strong) REVClusterPin *pin;
 @property (nonatomic, assign) BOOL isSaved;
-@property (nonatomic, strong) UIImageView *likeImageView;
+@property (nonatomic, strong) UIButton *favorBtn;
 
 - (void)configureCellWithClusterPin:(REVClusterPin *)pin;
 - (void)configureCellWithListing:(Listing *)listing;
+- (void)setNormalState;
+- (void)setFavorState;
 @end
