@@ -11,6 +11,7 @@
 #import "NSString+Encryption.h"
 #import "Constants.h"
 #import "FacebookDelegate.h"
+#import <SystemConfiguration/SCNetworkReachability.h>
 
 //Part One
 NSString * const HOST_URL = @"http://www.cityspade.com/api/v1";
@@ -40,6 +41,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadListingsWithQuery:(NSDictionary *)queryParam onSucceeded:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     NSMutableString *paramSubstring = [NSMutableString string];
     if (queryParam != nil) {
         for (NSString *key in queryParam.allKeys) {
@@ -92,6 +94,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadListingDetailWithID:(int)idNumber
 {
+    [self detectNetWork];
     NSMutableString *urlString = [NSMutableString stringWithString:HOST_URL];
     [urlString appendString:@"/listings/"];
     [urlString appendString:[NSString stringWithFormat:@"%d.json", idNumber]];
@@ -125,6 +128,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loginWithName:(NSString*) loginName password:(NSString*) password onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     // 1 Calculation
     NSString *uuidString = [NSString getCFUUID];
     NSDictionary *dict = @{@"username": loginName, @"password": password, @"client_uuid": uuidString, @"cityspade": @"CitySpade"};
@@ -190,6 +194,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)logoutOnSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     // 1 Get the token
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
@@ -245,6 +250,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)registerWithUsername:(NSString *)userName password:(NSString *)password firstName:(NSString *)firstName lastName:(NSString *)lastName onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     NSMutableString *postHTTPBody = [NSMutableString stringWithFormat:@"username=%@&password=%@", userName, password];
     if (firstName != nil)
         [postHTTPBody appendString:[NSString stringWithFormat:@"&firstname=%@", firstName]];
@@ -305,6 +311,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadUserSaveList:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock;
 {
+    [self detectNetWork];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
     NSString *paramSubstring = [NSString stringWithFormat:@"?token=%@",token];
@@ -355,6 +362,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)addAListingToSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
     NSString *paramSubstring = [NSString stringWithFormat:@"?token=%@",token];
@@ -377,7 +385,9 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
             // 1 HTTP Response
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                 succeedBlock();
+                });
             }
         }
         else {
@@ -391,6 +401,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)deleteAListingFromSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
     
@@ -421,17 +432,16 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    //  Callback
                     succeedBlock();
                 });
             }
-            else {
-                
-            }
         }
         else {
-            DLog(@"Error : %@", error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+                DLog(@"Error : %@", error);
+            });
+            
         }
     }];
     
@@ -443,6 +453,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)getFacebookInfoWithAccessToken:(NSString *)accessToken onSucceeded:(DictionaryBlock)succededBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     NSMutableString *urlString = [NSMutableString stringWithString:@"https://graph.facebook.com/me?access_token="];
     [urlString appendString:accessToken];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -481,6 +492,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)facebookCallbackWithEmail:(NSString *)email uid:(NSString *)uid onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
+    [self detectNetWork];
     // 1 Setup post body
     NSString *postHTTPBody = [NSString stringWithFormat:@"email=%@&uid=%@", email, uid];
     // 2 Networking setup
@@ -537,4 +549,40 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     [postDataTask resume];
 }
 
++ (void)detectNetWork
+{
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"The Internet connection appears to be offline"];
+    }
+}
+
++ (BOOL)isConnectedToNetwork{
+    
+    //创建零地址，0.0.0.0的地址表示查询本机的网络连接状态
+    
+    struct sockaddr_storage zeroAddress;
+    
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.ss_len = sizeof(zeroAddress);
+    zeroAddress.ss_family = AF_INET;
+    
+    // Recover reachability flags
+    SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+    SCNetworkReachabilityFlags flags;
+    
+    //获得连接的标志
+    BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    CFRelease(defaultRouteReachability);
+    
+    //如果不能获取连接标志，则不能连接网络，直接返回
+    if (!didRetrieveFlags)
+    {
+        return NO;
+    }
+    //根据获得的连接标志进行判断
+    
+    BOOL isReachable = flags & kSCNetworkFlagsReachable;
+    BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
+    return (isReachable&&!needsConnection) ? YES : NO;
+}
 @end

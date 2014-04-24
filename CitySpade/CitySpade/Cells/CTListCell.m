@@ -30,7 +30,7 @@
 #define kEditingTag 2
 #define kVerticalLineTag1 3
 #define kVerticalLineTag2 4
-#define kLikeImageTag   5
+#define kfavorBtnTag   7
 #define cellBackgroundColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0]
 #define lineColor [UIColor colorWithRed:207.0/255.0 green:207.0/255.0 blue:207.0/255.0 alpha:1.0f]
 
@@ -51,8 +51,6 @@
 
 - (void)initCell
 {
-    self.likeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(170, 101, 15, 15)];
-    self.likeImageView.image = [UIImage imageNamed:@"LikePressed.png"];
     self.thumbImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, imageSize, imageSize)];
     self.thumbImageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
     [self addSubview:self.thumbImageView];
@@ -72,6 +70,10 @@
     verticalLine2.tag = kVerticalLineTag2;
     [self.rightView addSubview:verticalLine2];
     
+    self.favorBtn = [[UIButton alloc] initWithFrame:CGRectMake(170, 98, 20, 22)];
+    [self.favorBtn setImage:[UIImage imageNamed:@"LikePressed.png"] forState:UIControlStateNormal];
+    [self.favorBtn setImage:[UIImage imageNamed:@"LikeBefore"] forState:UIControlStateSelected];
+    self.favorBtn.tag = kfavorBtnTag;
     //Labels
     //titleLabel
     CGFloat labelLeftInset = 10;
@@ -131,29 +133,38 @@
     self.identiferNumber = pin.identiferNumber;
     self.thumbImageView.imageURL = pin.thumbImageLink;
     if (self.isSaved) {
-        [self.bedLabel setFrame:CGRectMake(22, 101, 40, 16)];
-        [self.bathLabel setFrame:CGRectMake(97, 101, 40, 16)];
-        UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
-        UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
-        [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 1.0f, bedViewHeight)];
-        [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 1.0f, bedViewHeight)];
-        if (![self.likeImageView superview]) {
-            [self.rightView addSubview:self.likeImageView];
-        }
+        [self setFavorState];
     }
     else{
-        [self.bedLabel setFrame:CGRectMake(32, 101, 40, 16)];
-        [self.bathLabel setFrame:CGRectMake(130, 101, 40, 16)];
-        UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
-        UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
-        [verticalLine1 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
-        [verticalLine2 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
-        if ([self.likeImageView superview]) {
-            [self.likeImageView removeFromSuperview];
-        }
+        [self setNormalState];
     }
 }
 
+- (void)setNormalState
+{
+    [self.bedLabel setFrame:CGRectMake(32, 101, 40, 16)];
+    [self.bathLabel setFrame:CGRectMake(130, 101, 40, 16)];
+    UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
+    UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
+    [verticalLine1 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+    [verticalLine2 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+    if ([self.favorBtn superview]) {
+        [self.favorBtn removeFromSuperview];
+    }
+}
+
+- (void)setFavorState
+{
+    [self.bedLabel setFrame:CGRectMake(22, 101, 40, 16)];
+    [self.bathLabel setFrame:CGRectMake(97, 101, 40, 16)];
+    UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
+    UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
+    [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 1.0f, bedViewHeight)];
+    [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 1.0f, bedViewHeight)];
+    if (![self.favorBtn superview]) {
+        [self.favorBtn addSubview:self.favorBtn];
+    }
+}
 - (void)configureCellWithListing:(Listing *)listing
 {
     self.titleLabel.text = listing.title;

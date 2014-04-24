@@ -55,5 +55,5 @@ typedef void (^ErrorBlock)(NSError* engineError);
 + (void)facebookCallbackWithEmail:(NSString *)email uid:(NSString *)uid onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock;
 
 //Part Five: 
-
++ (BOOL)isConnectedToNetwork;
 @end

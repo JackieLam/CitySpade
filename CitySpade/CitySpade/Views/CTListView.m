@@ -10,6 +10,8 @@
 #import "CTListCell.h"
 #import "REVClusterPin.h"
 #import "Listing.h"
+#import "RestfulEngine.h"
+#import "Constants.h"
 
 #define heightForLabel 30.0f
 #define heightForRow 127.0f
@@ -81,9 +83,21 @@
     if (!cell) {
         cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.frame = CGRectMake(0, 0, self.frame.size.width, heightForRow);
+        [cell.favorBtn addTarget:self action:@selector(clickFavorBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     REVClusterPin *pin = self.places[indexPath.row];
     cell.isSaved = [self isContainInSaveListing:(int)pin.identiferNumber];
+    cell.favorBtn.tag = indexPath.row + 7;
+    if (cell.isSaved) {
+        if (![cell.favorBtn superview]) {
+            [cell.rightView addSubview:cell.favorBtn];
+        }
+    }
+    else{
+        if ([cell.favorBtn superview]) {
+            [cell.favorBtn removeFromSuperview];
+        }
+    }
     [cell configureCellWithClusterPin:self.places[indexPath.row]];
     
     return cell;
@@ -106,5 +120,25 @@
         [self.saveList removeAllObjects];
     }
     [self.saveList addObjectsFromArray:[aNotification object]];
+}
+
+- (void)clickFavorBtn:(id)sender
+{
+    UIButton *favorBtn = (UIButton *)sender;
+    int index = (int)favorBtn.tag - 7;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    CTListCell *cell = (CTListCell *)[self cellForRowAtIndexPath:indexPath];
+    [cell setNormalState];
+    cell.isSaved = NO;
+    [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] onSucceeded:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] userInfo:nil];
+        NSLog(@"Delete From Listing Success");
+    } onError:^(NSError *engineError) {
+        [cell setFavorState];
+        cell.isSaved = YES;
+        NSLog(@"Delete From Listing Error");
+    }];
+    
+    
 }
 @end

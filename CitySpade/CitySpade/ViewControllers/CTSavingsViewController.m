@@ -16,6 +16,7 @@
 #import "AsynImageView.h"
 #import "CitySpadeDemoViewController.h"
 #import "Listing.h"
+#import "SVProgressHUD.h"
 
 #define TitleColor [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0]
 #define SegmentTintColor [UIColor colorWithRed:42/255.0 green:188/255.0 blue:184/255.0 alpha:1.0]
@@ -157,6 +158,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = TableViewBackGroundColor;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
+    [self.refreshControl addTarget:self action:@selector(reloadSaveListing:) forControlEvents:UIControlEventValueChanged];
     //设置navigationItem's leftBarButtonItem,rightBarButtonItem
     
     UIBarButtonItem *leftButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"userProfile"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPressed:)];
@@ -183,6 +187,7 @@
 
 - (void)reloadSaveListing:(NSNotification *)aNotification
 {
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
     [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
         if (self.saveList) {
             [self.saveList removeAllObjects];
@@ -190,9 +195,12 @@
         self.saveList = resultArray;
         [AppCache cacheSaveList:self.saveList];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+        [self.refreshControl endRefreshing];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
         [self.tableView reloadData];
     } onError:^(NSError *engineError) {
-        
+        [self.refreshControl endRefreshing];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
     }];
 }
 
@@ -244,21 +252,34 @@
     if (deleteSpecificRows)
     {
         NSMutableIndexSet *indicesOfItemsToDelete = [NSMutableIndexSet new];
-        
+        if ([RESTfulEngine isConnectedToNetwork]) {
+            [SVProgressHUD showWithStatus:@"Deleting"];
+        }
+        dispatch_group_t group = dispatch_group_create();
         for (NSIndexPath *selectionIndex in selectedRows)
         {
-            [indicesOfItemsToDelete addIndex:selectionIndex.row];
+            dispatch_group_enter(group);
+            
             Listing *listing = [self.saveList objectAtIndex:selectionIndex.row];
             [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)listing.internalBaseClassIdentifier] onSucceeded:^{
-                
+                [indicesOfItemsToDelete addIndex:selectionIndex.row];
+                dispatch_group_leave(group);
             } onError:^(NSError *engineError) {
+                dispatch_group_leave(group);
                 
             }];
         }
-        [self.saveList removeObjectsAtIndexes:indicesOfItemsToDelete];
-        [AppCache cacheSaveList:self.saveList];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
-        [self.tableView deleteRowsAtIndexPaths:selectedRows withRowAnimation:UITableViewRowAnimationAutomatic];
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        if ([RESTfulEngine isConnectedToNetwork]) {
+            [SVProgressHUD dismiss];
+        }
+        
+        if(indicesOfItemsToDelete.count > 0){
+            [self.saveList removeObjectsAtIndexes:indicesOfItemsToDelete];
+            [AppCache cacheSaveList:self.saveList];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+            [self.tableView deleteRowsAtIndexPaths:selectedRows withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
