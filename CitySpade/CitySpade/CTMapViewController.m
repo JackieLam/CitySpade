@@ -90,11 +90,18 @@
     self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
     previousZoomLevel = self.ctmapView.region.span.longitudeDelta;
     
-    // Setup BottomBar
-    [self setupBottomBar];
+    
     // Setup the list view
     self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
     self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
+    
+    UIView *containView = [[UIView alloc] initWithFrame:viewBounds];
+    [containView addSubview:self.ctlistView];
+    [containView addSubview:self.ctmapView];
+    [self.view addSubview:containView];
+    
+    // Setup BottomBar
+    [self setupBottomBar];
     
     // Setup collectionView
     [self setupCollectionView];
