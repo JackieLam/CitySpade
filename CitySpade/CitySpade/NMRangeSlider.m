@@ -107,6 +107,9 @@ NSUInteger DeviceSystemMajorVersion() {
 
 - (CGPoint) upperCenter
 {
+    if (!_upperHandle) {
+        return CGPointMake(185.5f, 10.0f);
+    }
     return _upperHandle.center;
 }
 
