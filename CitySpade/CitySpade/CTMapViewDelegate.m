@@ -13,6 +13,7 @@
 #import "RESTfulEngine.h"
 #import "MKMapView+Blocks.h"
 #import "BlockCache.h"
+#import "BlockStates.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -43,26 +44,19 @@
 #warning 临时性代码 - 限定放大以后不产生网络请求
     if ([arr count] > maxBlockThersold) return;
     
-    int internetCnt = 0;
-    int cacheCnt = 0;
+    int cnt = 0;
     for (int i = 0; i < [arr count]; i++) {
+        
         arr[i][@"rent"] = [NSNumber numberWithBool:self.forRent];
-        if ([BlockCache shouldRequestWithBlock:arr[i]]) {
-#warning 需要防止在请求没有返回结果的时候，重复请求
-//            if (!self.requestBlocks)
-//                self.requestBlocks = [NSMutableSet set];
-            
+        
+        if (![BlockStates blockIsOnMap:arr[i]] && ![BlockStates blockIsRequesting:arr[i]]) {
+            [BlockStates addRequestingBlock:arr[i]];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToLoadAllListings object:arr[i]];
-            internetCnt++;
-        }
-        else if (![BlockCache alreadyLoadFromCacheWithBlock:arr[i]]){
-            [BlockCache markOnTheMapWithBlock:arr[i]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationShouldLoadFromCache object:arr[i]];
-            cacheCnt++;
+            cnt++;
         }
     }
     
-    NSLog(@"REPORT : Internet -- %d; Cache -- %d", internetCnt, cacheCnt);
+    NSLog(@"REPORT : Request number - %d", cnt);
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation

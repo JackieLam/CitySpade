@@ -34,4 +34,5 @@
 - (void)configureCellWithListing:(Listing *)listing;
 - (void)setNormalState;
 - (void)setFavorState;
+
 @end

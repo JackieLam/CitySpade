@@ -59,6 +59,8 @@ static NSMutableSet *loadedBlockSet;    // 保存地图上已经从磁盘加载�
         return NO;
 }
 
+// 若磁盘中不存在： Should
+// 若磁盘中存在：Shouldn't
 + (BOOL)shouldRequestWithBlock:(NSDictionary *)paramDict
 {
     NSArray *path=NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);

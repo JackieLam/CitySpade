@@ -93,6 +93,7 @@
 		18A4F0FC18CAFB8900CFB2BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1817C7A1188D54C0003AC430 /* AVFoundation.framework */; };
 		18BB01BA19095EDB00E63A0C /* MKMapView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB01B719095EDB00E63A0C /* MKMapView+Blocks.m */; };
 		18BB01BB19095EDB00E63A0C /* BlockCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB01B919095EDB00E63A0C /* BlockCache.m */; };
+		18C09FA2190CD27A0064D12E /* BlockStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C09FA1190CD27A0064D12E /* BlockStates.m */; };
 		18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D052AE18B8F9A000D548FD /* CTLoginViewController.m */; };
 		18D052B118B8F9A000D548FD /* CTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */; };
 		18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E58B4018ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m */; };
@@ -268,6 +269,8 @@
 		18BB01B719095EDB00E63A0C /* MKMapView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+Blocks.m"; sourceTree = "<group>"; };
 		18BB01B819095EDB00E63A0C /* BlockCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockCache.h; sourceTree = "<group>"; };
 		18BB01B919095EDB00E63A0C /* BlockCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockCache.m; sourceTree = "<group>"; };
+		18C09FA0190CD27A0064D12E /* BlockStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlockStates.h; path = ViewControllers/BlockStates.h; sourceTree = "<group>"; };
+		18C09FA1190CD27A0064D12E /* BlockStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlockStates.m; path = ViewControllers/BlockStates.m; sourceTree = "<group>"; };
 		18D052AD18B8F9A000D548FD /* CTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTLoginViewController.h; path = ViewControllers/CTLoginViewController.h; sourceTree = "<group>"; };
 		18D052AE18B8F9A000D548FD /* CTLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTLoginViewController.m; path = ViewControllers/CTLoginViewController.m; sourceTree = "<group>"; };
 		18D052AF18B8F9A000D548FD /* CTLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTLoginViewController.xib; path = ViewControllers/CTLoginViewController.xib; sourceTree = "<group>"; };
@@ -693,6 +696,8 @@
 				18BB01B719095EDB00E63A0C /* MKMapView+Blocks.m */,
 				18BB01B819095EDB00E63A0C /* BlockCache.h */,
 				18BB01B919095EDB00E63A0C /* BlockCache.m */,
+				18C09FA0190CD27A0064D12E /* BlockStates.h */,
+				18C09FA1190CD27A0064D12E /* BlockStates.m */,
 			);
 			name = Block;
 			sourceTree = "<group>";
@@ -911,6 +916,7 @@
 				1893061D18A77E3900EA285E /* AppearanceSetter.m in Sources */,
 				189763CA1890FE6E006374E0 /* CTDetailView.m in Sources */,
 				18A0FA3D19024BD70067A438 /* TransportationBuslinesCell.m in Sources */,
+				18C09FA2190CD27A0064D12E /* BlockStates.m in Sources */,
 				18E58B4118ACE0BD00E38583 /* UIBarButtonItem+ProjectButton.m in Sources */,
 				186012D5189F3BEC002500E6 /* MapBottomBar.m in Sources */,
 				188054EE18B48CB800DE5A9C /* Listing.m in Sources */,

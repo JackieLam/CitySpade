@@ -187,7 +187,7 @@
         [activityIndicator stopAnimating];
         self.listings = resultArray;
         [BlockCache cacheListingItems:self.listings block:param];
-        [BlockCache markOnTheMapWithBlock:param];
+//        [BlockCache markOnTheMapWithBlock:param];
         self.navigationItem.titleView = nil;
         [self resetAnnotationsWithResultArray:self.listings];
     } onError:^(NSError *engineError) {
@@ -195,20 +195,6 @@
         [SVProgressHUD showErrorWithStatus:engineError.description];
     }];
 }
-
-- (void)loadFromCache:(NSNotification *)aNotification
-{
-    NSDictionary *param = [aNotification object];
-    
-    // 如果改变状态，需要把地图上的点全部去掉，清除pinsAll，清除BlockCache中的loadedBlockSet
-    if ([param[@"rent"] boolValue] != forRent) {
-        forRent = [param[@"rent"] boolValue];
-    }
-    
-    NSArray *listingsArray = [BlockCache getCachedListingItemsWithBlock:param];
-    [self resetAnnotationsWithResultArray:listingsArray];
-}
-
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {

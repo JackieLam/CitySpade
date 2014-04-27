@@ -11,6 +11,8 @@
 #import "NSString+Encryption.h"
 #import "Constants.h"
 #import "FacebookDelegate.h"
+#import "BlockCache.h"
+#import "BlockStates.h"
 #import <SystemConfiguration/SCNetworkReachability.h>
 
 //Part One
@@ -41,7 +43,17 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadListingsWithQuery:(NSDictionary *)queryParam onSucceeded:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock
 {
-//    [self detectNetWork];
+    [self detectNetWork];
+    
+//先检测是否应该从磁盘中获取内容
+    if (![BlockCache shouldRequestWithBlock:queryParam]) {
+        NSMutableArray *models = [BlockCache getCachedListingItemsWithBlock:queryParam];
+        succededBlock(models);
+        [BlockStates removeRequestingBlock:queryParam];
+        [BlockStates addOnMapBlock:queryParam];
+        return;
+    }
+    
     NSMutableString *paramSubstring = [NSMutableString string];
     if (queryParam != nil) {
         NSString *key;
@@ -83,6 +95,8 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                     }
                     if (!jsonError) {
                         // 3 Call back
+                        [BlockStates removeRequestingBlock:queryParam];
+                        [BlockStates addOnMapBlock:queryParam];
                         succededBlock(models);
                     }
                 });
