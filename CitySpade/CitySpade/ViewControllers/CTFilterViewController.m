@@ -65,12 +65,12 @@ static const int toolBarHeight = 50;
 - (void)setTableView
 {
     //SetTableView
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 74, 320, 568-80-10) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 74, 320, self.view.bounds.size.height-80-10) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    self.placesTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 110.0f, 300.0f, 568-66.0f)];
+    self.placesTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 110.0f, 300.0f, self.view.bounds.size.height-66.0f)];
     self.placesTableView.delegate = self;
     self.placesTableView.dataSource = self;
     self.placesTableView.alpha = 0.0f;
