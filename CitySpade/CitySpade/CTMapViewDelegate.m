@@ -13,6 +13,12 @@
 #import "RESTfulEngine.h"
 #import "MKMapView+Blocks.h"
 #import "BlockCache.h"
+#import "CTListCell.h"
+#import "CTDetailViewController.h"
+#import "Constants.h"
+#import "CitySpadeDemoViewController.h"
+#import "NSString+RegEx.h"
+#import "AsynImageView.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -144,4 +150,28 @@ didSelectAnnotationView:(MKAnnotationView *)view
     return CGSizeMake(cellWidth+cellGap, cellHeight);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    REVClusterPin *pin = self.placesClicked[indexPath.row];
+    MapCollectionCell *cell = (MapCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] init];
+    detailViewController.VCtitle = cell.titleLabel.text;
+    detailViewController.listID = [NSString stringWithFormat:@"%d", (int)pin.identiferNumber];
+    detailViewController.featureImage = cell.imageView.image;
+    detailViewController.featureImageUrl = cell.imageView.imageURL;
+    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
+    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportationLabel.text firstNumberInString] doubleValue]];
+    NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
+    NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
+    NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];
+    NSArray *basicFactDict = @[@{@"bargain" : bargain,
+                                 @"transportation" : transportation,
+                                 @"totalPrice" : price,
+                                 @"numberOfBed" : bed,
+                                 @"numberOfBath" : bath},
+                               @{@"lng": @40, @"lat": @70}];
+    detailViewController.preViewInfo = basicFactDict;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPushDetailViewController object:detailViewController userInfo:nil];
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+}
 @end
