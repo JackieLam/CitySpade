@@ -28,6 +28,8 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
 NSString * const POST_LISTING_PATH = @"/listings/:id/collect.json";
 NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
+#define kSearchGooglePlaceAPIKEY @"AIzaSyCpyBX6H5jOJS3yYfvv0Th_a2lCqKU-AlI"
+
 @interface RESTfulEngine()
 
 @property (nonatomic, strong) NSString *uniqueID;
@@ -589,5 +591,46 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     BOOL isReachable = flags & kSCNetworkFlagsReachable;
     BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
     return (isReachable&&!needsConnection) ? YES : NO;
+}
+//Part Six:
++ (void)searchPlacesWithName:(NSString *)name onSucceeded:(ArrayBlock)succeedBlock
+                     onError:(ErrorBlock)errorBlock;
+{
+    NSMutableString *urlString = [NSMutableString stringWithString:@"https://maps.googleapis.com/maps/api/place/autocomplete/json"];
+    
+    NSString *paramSubstring = [NSString stringWithFormat:@"?input=%@&sensor=true&key=%@",name,kSearchGooglePlaceAPIKEY];
+    [urlString appendString:paramSubstring];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            
+            // 1 HTTP Response
+            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *jsonError;
+                    NSMutableArray *placesArray = [NSMutableArray array];
+                    NSDictionary *dataJSON =
+                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    NSArray *dataArray = [dataJSON valueForKey:@"predictions"];
+                    for (NSDictionary *placesDic in dataArray) {
+                        [placesArray addObject:[placesDic valueForKey:@"description"]];
+                    }
+                    succeedBlock(placesArray);
+                    //                    NSLog(@"placesArray:%@",placesArray);
+                });
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+            });
+        }
+    }];
+    [dataTask resume];
+    
 }
 @end
