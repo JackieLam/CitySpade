@@ -10,6 +10,7 @@
 
 
 #define IS_PRE_IOS7() (DeviceSystemMajorVersion() < 7)
+#define UPPERCENTER CGPointMake(185.5f,10.0f)
 
 NSUInteger DeviceSystemMajorVersion() {
     static NSUInteger _deviceSystemMajorVersion = -1;
@@ -107,6 +108,9 @@ NSUInteger DeviceSystemMajorVersion() {
 
 - (CGPoint) upperCenter
 {
+    if (!_upperHandle) {
+        return UPPERCENTER;
+    }
     return _upperHandle.center;
 }
 

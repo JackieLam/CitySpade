@@ -107,6 +107,8 @@
 		18F3478918BC7280006EF9A7 /* NSString+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3478818BC7280006EF9A7 /* NSString+Encryption.m */; };
 		18FD0C0218B1C842000DBE87 /* BedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD0C0118B1C842000DBE87 /* BedSegment.m */; };
 		42052F121902741D00BBFE8E /* SwitchSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 42052F111902741D00BBFE8E /* SwitchSegment.m */; };
+		4250D09A190F669600D71E9C /* CTFilterControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4250D099190F669600D71E9C /* CTFilterControlCell.m */; };
+		4250D09D190F66A800D71E9C /* BTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4250D09C190F66A800D71E9C /* BTPickerView.m */; };
 		AC16CF5F06F34B96BE3F59D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C0D91A01D3846B28B06996B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -294,6 +296,10 @@
 		18FD0C0118B1C842000DBE87 /* BedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BedSegment.m; path = UI/BedSegment.m; sourceTree = "<group>"; };
 		42052F101902741D00BBFE8E /* SwitchSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwitchSegment.h; path = UI/SwitchSegment.h; sourceTree = "<group>"; };
 		42052F111902741D00BBFE8E /* SwitchSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchSegment.m; path = UI/SwitchSegment.m; sourceTree = "<group>"; };
+		4250D098190F669600D71E9C /* CTFilterControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFilterControlCell.h; path = Cells/CTFilterControlCell.h; sourceTree = "<group>"; };
+		4250D099190F669600D71E9C /* CTFilterControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFilterControlCell.m; path = Cells/CTFilterControlCell.m; sourceTree = "<group>"; };
+		4250D09B190F66A800D71E9C /* BTPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPickerView.h; path = UI/BTPickerView.h; sourceTree = "<group>"; };
+		4250D09C190F66A800D71E9C /* BTPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTPickerView.m; path = UI/BTPickerView.m; sourceTree = "<group>"; };
 		5C0D91A01D3846B28B06996B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -452,6 +458,8 @@
 		182D50B51890D7A60079A6DF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4250D098190F669600D71E9C /* CTFilterControlCell.h */,
+				4250D099190F669600D71E9C /* CTFilterControlCell.m */,
 				182D50B21890D77C0079A6DF /* CTListCell.h */,
 				182D50B31890D77C0079A6DF /* CTListCell.m */,
 				1893061418A4BE7F00EA285E /* CTCollectionCell.h */,
@@ -529,6 +537,8 @@
 		18645EFA18A88C62009CF97F /* Custom UIs */ = {
 			isa = PBXGroup;
 			children = (
+				4250D09B190F66A800D71E9C /* BTPickerView.h */,
+				4250D09C190F66A800D71E9C /* BTPickerView.m */,
 				18A086F119042344007CDC1B /* AsynImageView.h */,
 				18A086F219042344007CDC1B /* AsynImageView.m */,
 				18858BFE18AE162400F49974 /* NMRangeSlider.h */,
@@ -877,6 +887,7 @@
 				188054ED18B48CB800DE5A9C /* Images.m in Sources */,
 				186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */,
 				183991D118D307D600D2B07F /* AddressSavingCell.m in Sources */,
+				4250D09A190F669600D71E9C /* CTFilterControlCell.m in Sources */,
 				1812D9D419014F900040950F /* SortTableView.m in Sources */,
 				18F1EA6618C070F500182A87 /* MapCollectionCell.m in Sources */,
 				18A0FA4819024BD70067A438 /* Colleges.m in Sources */,
@@ -908,6 +919,7 @@
 				18A0FA3F19024BD70067A438 /* TransportationListCell.m in Sources */,
 				1863226918FCD7FD00A1851A /* CitySpadeListsModel.m in Sources */,
 				18A0FA4419024BD70067A438 /* BaseClass.m in Sources */,
+				4250D09D190F66A800D71E9C /* BTPickerView.m in Sources */,
 				18F3477A18BC4A71006EF9A7 /* FacebookDelegate.m in Sources */,
 				18BB01BA19095EDB00E63A0C /* MKMapView+Blocks.m in Sources */,
 				18A0FA3519024BD70067A438 /* CitySpadeBrokerInfoCell.m in Sources */,
