@@ -56,4 +56,6 @@ typedef void (^ErrorBlock)(NSError* engineError);
 
 //Part Five: 
 + (BOOL)isConnectedToNetwork;
++ (void)searchPlacesWithName:(NSString *)name onSucceeded:(ArrayBlock)succeedBlock
+                     onError:(ErrorBlock)errorBlock;
 @end

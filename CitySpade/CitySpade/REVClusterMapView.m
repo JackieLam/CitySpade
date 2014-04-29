@@ -11,6 +11,7 @@
 
 #import "REVClusterMapView.h"
 #import "REVClusterManager.h"
+#import "BlockStates.h"
 
 @interface REVClusterMapView (Private)
 - (void) setup;
@@ -195,18 +196,23 @@
 
 - (void) mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    if( [self mapViewDidZoom] )
-    {
-        [super removeAnnotations:self.annotations];
-        self.showsUserLocation = self.showsUserLocation;
-        NSLog(@"[annotationsCopy count] : %d", [annotationsCopy count]);
-        NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-        [super addAnnotations:add];
-    }
-    
     if( [delegate respondsToSelector:@selector(mapView:regionDidChangeAnimated:)] )
     {
         [delegate mapView:mapView regionDidChangeAnimated:animated];
+    }
+    
+    if( [self mapViewDidZoom] )
+    {
+        [super removeAnnotations:self.annotations];
+    }
+    
+    if ([annotationsCopy count] > 0) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [super addAnnotations:add];
+            });
+        });
     }
 }
 
@@ -245,11 +251,23 @@
 //reset the annotationsCopy
 - (void)addAnnotations:(NSArray *)annotations
 {
-    [annotationsCopy addObjectsFromArray:annotations];
-    
-    NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-    
-    [super addAnnotations:add];
+    if ([annotations count] > 0) {
+        [annotationsCopy addObjectsFromArray:annotations];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [super addAnnotations:add];
+            });
+        });
+        
+//        [[NSOperationQueue new] addOperationWithBlock:^{
+//            
+//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//                
+//            }];
+//        }];
+    }
 }
 
 - (void)clearAnnotationsCopy

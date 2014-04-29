@@ -81,23 +81,15 @@
     static NSString *CellIdentifier = @"ListCell";
     CTListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell = [[CTListCell alloc] initWithCTListCellStyle:CTListCellStyleSaved reuseIdentifier:CellIdentifier];
+//        cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.frame = CGRectMake(0, 0, self.frame.size.width, heightForRow);
         [cell.favorBtn addTarget:self action:@selector(clickFavorBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     REVClusterPin *pin = self.places[indexPath.row];
     cell.isSaved = [self isContainInSaveListing:(int)pin.identiferNumber];
     cell.favorBtn.tag = indexPath.row + 7;
-    if (cell.isSaved) {
-        if (![cell.favorBtn superview]) {
-            [cell.rightView addSubview:cell.favorBtn];
-        }
-    }
-    else{
-        if ([cell.favorBtn superview]) {
-            [cell.favorBtn removeFromSuperview];
-        }
-    }
+
     [cell configureCellWithClusterPin:self.places[indexPath.row]];
     
     return cell;
@@ -126,18 +118,43 @@
 {
     UIButton *favorBtn = (UIButton *)sender;
     int index = (int)favorBtn.tag - 7;
+    favorBtn.selected = !favorBtn.selected;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     CTListCell *cell = (CTListCell *)[self cellForRowAtIndexPath:indexPath];
-    [cell setNormalState];
-    cell.isSaved = NO;
-    [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] onSucceeded:^{
+    if (favorBtn.selected) {
+        REVClusterPin *pin = self.places[indexPath.row];
+        NSLog(@"bargain:%f",pin.bargainDouble);
+        NSLog(@"transportation:%f",pin.transportationDouble);
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        NSArray *images = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:pin.thumbImageLink forKey:@"url"]];
+        [dic setObject:images forKey:@"images"];
+        [dic setObject:[NSString stringWithFormat:@"%d",(int)pin.identiferNumber] forKey:@"id"];
+        [dic setObject:[NSString stringWithFormat:@"%d",pin.bedInt] forKey:@"beds"];
+        [dic setObject:pin.title forKey:@"title"];
+        [dic setObject:[NSString stringWithFormat:@"%d",pin.priceInt] forKey:@"price"];
+        [dic setObject:[NSString stringWithFormat:@"%d",pin.bathInt] forKey:@"baths"];
+        [dic setObject:pin.bargain forKey:@"bargain"];
+        [dic setObject:pin.transportation forKey:@"transportation"];
+        [dic setObject:@40 forKey:@"lng"];
+        [dic setObject:@70 forKey:@"lat"];
+        
+        [RESTfulEngine addAListingToSaveListWithId:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] onSucceeded:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
+            NSLog(@"AddToListing Success");
+        } onError:^(NSError *engineError) {
+            favorBtn.selected = !favorBtn.selected;
+            NSLog(@"AddToListing Error");
+        }];
+    }
+    else{
+        [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] onSucceeded:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] userInfo:nil];
         NSLog(@"Delete From Listing Success");
     } onError:^(NSError *engineError) {
-        [cell setFavorState];
-        cell.isSaved = YES;
+        favorBtn.selected = !favorBtn.selected;
         NSLog(@"Delete From Listing Error");
     }];
+    }
     
     
 }
