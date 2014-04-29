@@ -36,6 +36,22 @@
 
 @implementation CTListCell
 
+- (id)initWithCTListCellStyle:(CTListCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.backgroundColor = cellBackgroundColor;
+        UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(-moveoffset, 0, moveoffset, cellHeight)];
+        backgroundView.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:backgroundView];
+        [self initCell];
+        if (style == CTListCellStyleSaved) {
+            [self setFavorState];
+        }
+    }
+    return self;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -70,9 +86,10 @@
     verticalLine2.tag = kVerticalLineTag2;
     [self.rightView addSubview:verticalLine2];
     
-    self.favorBtn = [[UIButton alloc] initWithFrame:CGRectMake(170, 98, 20, 22)];
-    [self.favorBtn setImage:[UIImage imageNamed:@"LikePressed.png"] forState:UIControlStateNormal];
-    [self.favorBtn setImage:[UIImage imageNamed:@"LikeBefore"] forState:UIControlStateSelected];
+    self.favorBtn = [[UIButton alloc] initWithFrame:CGRectMake(155.5f, 95.0f, 45.0f, 25.0f)];
+    [self.favorBtn setImageEdgeInsets:UIEdgeInsetsMake(12.0/2, 30.0/2, 12.0/2, 30.0/2)];
+    [self.favorBtn setImage:[UIImage imageNamed:@"dislike"] forState:UIControlStateNormal];
+    [self.favorBtn setImage:[UIImage imageNamed:@"like"] forState:UIControlStateSelected];
     self.favorBtn.tag = kfavorBtnTag;
     //Labels
     //titleLabel
@@ -132,24 +149,19 @@
     self.bathLabel.text = [pin.baths stringByAppendingString:@"Baths"];
     self.identiferNumber = pin.identiferNumber;
     self.thumbImageView.imageURL = pin.thumbImageLink;
-    if (self.isSaved) {
-        [self setFavorState];
-    }
-    else{
-        [self setNormalState];
-    }
+    self.favorBtn.selected = self.isSaved;
 }
 
 - (void)setNormalState
 {
-    [self.bedLabel setFrame:CGRectMake(32, 101, 40, 16)];
-    [self.bathLabel setFrame:CGRectMake(130, 101, 40, 16)];
+    [self.bedLabel setFrame:CGRectMake(22, 101, 40, 16)];
+    [self.bathLabel setFrame:CGRectMake(97, 101, 40, 16)];
     UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
     UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
-    [verticalLine1 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
-    [verticalLine2 setFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
-    if ([self.favorBtn superview]) {
-        [self.favorBtn removeFromSuperview];
+    [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 1.0f, bedViewHeight)];
+    [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 1.0f, bedViewHeight)];
+    if (![self.favorBtn superview]) {
+        [self.rightView addSubview:self.favorBtn];
     }
 }
 
@@ -161,10 +173,9 @@
     UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
     [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 1.0f, bedViewHeight)];
     [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 1.0f, bedViewHeight)];
-    if (![self.favorBtn superview]) {
-        [self.favorBtn addSubview:self.favorBtn];
-    }
+    [self.rightView addSubview:self.favorBtn];
 }
+
 - (void)configureCellWithListing:(Listing *)listing
 {
     self.titleLabel.text = listing.title;

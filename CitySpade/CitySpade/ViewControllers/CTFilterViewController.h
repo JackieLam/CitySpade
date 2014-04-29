@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@class ANPopoverView;
-@class NMRangeSlider;
-@class BedSegment;
-
-@interface CTFilterViewController : UIViewController
-
-@property (nonatomic, strong) NMRangeSlider *rangeSlider;
-@property (nonatomic, strong) ANPopoverView *popoverView; 
+@interface CTFilterViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+{
+    BOOL isMerged1;
+    BOOL isMerged2;
+    NSArray *cellArray;
+    NSArray *searchResultPlaces;
+    BOOL shouldBeginEditing;
+}
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITableView *placesTableView;
 @property (nonatomic, strong) UIButton *applyButton;
-@property (nonatomic, strong) BedSegment *bedSegmentControl;
-@property (nonatomic, strong) BedSegment *bathSegmentControl; 
-
+@property (nonatomic, strong) UISearchBar *searchBar;
 @end

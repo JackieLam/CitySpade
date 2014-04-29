@@ -12,6 +12,11 @@
 @class REVClusterPin;
 @class AsynImageView;
 
+typedef NS_ENUM(NSInteger, CTListCellStyle) {
+    CTListCellStyleDefault,
+    CTListCellStyleSaved
+};
+
 @interface CTListCell : UITableViewCell
 {
     BOOL isEditing;
@@ -30,6 +35,7 @@
 @property (nonatomic, assign) BOOL isSaved;
 @property (nonatomic, strong) UIButton *favorBtn;
 
+- (id)initWithCTListCellStyle:(CTListCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)configureCellWithClusterPin:(REVClusterPin *)pin;
 - (void)configureCellWithListing:(Listing *)listing;
 - (void)setNormalState;

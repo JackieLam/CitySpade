@@ -29,6 +29,12 @@
         self.imageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 170)];
         self.imageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
         [self.contentView addSubview:self.imageView];
+        UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(6, 75, 11, 19)];
+        [leftButton setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+        [self.contentView addSubview:leftButton];
+        UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(305, 75, 11, 19)];
+        [rightButton setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
+        [self.contentView addSubview:rightButton];
     }
     return self;
 }
