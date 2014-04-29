@@ -17,7 +17,7 @@
 #import "CTMapViewController.h"
 #import "CTMapViewDelegate.h"
 #import "REVClusterMap.h"
-#import "BlockCache.h"
+#import "BlockStates.h"
 
 #define headerColor [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
 #define colorOfSeparator [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
@@ -211,12 +211,10 @@
         [mapView clearAnnotationsCopy];
         [mapVC.pinsFilterRight removeAllObjects];
         [mapVC.pinsAll removeAllObjects];
-        [BlockCache unmarkAllBlocks];
+        [BlockStates clearOnMapBlocks];
         
         // 重新设置偏离一下Center Coordinate目的只是为了触发CTMapViewDelegate里面的regionDidChange方法
-        NSLog(@"ORIGIN -- %lf, %lf, %lf, %lf", mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta);
         [mapView setVisibleMapRect:MKMapRectMake(mapView.visibleMapRect.origin.x, mapView.visibleMapRect.origin.y+1, mapView.visibleMapRect.size.width, mapView.visibleMapRect.size.height)];
-        NSLog(@"AFTER -- %lf, %lf, %lf, %lf", mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta);
         
         [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
         [cell setBackgroundColor:CellSelectedColor];

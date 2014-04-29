@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CitySpade/ViewControllers/CTLeftSideMenuViewController.m"
-            timestampString = "420048213.570476"
+            timestampString = "420431907.822996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -46,11 +46,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CitySpade/CTMapViewController.m"
-            timestampString = "420103645.633956"
+            timestampString = "420274449.218255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
             landmarkName = "-saveButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -221,29 +221,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CitySpade/BlockCache.m"
-            timestampString = "420103898.433685"
+            filePath = "CitySpade/REVClusterManager.m"
+            timestampString = "420433732.176596"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "+fileNameWithBlock:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CitySpade/ViewControllers/BlockStates.m"
-            timestampString = "420273838.409126"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "+blockIsRequesting:"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "+clusterAnnotationsForMapView:forAnnotations:blocks:minClusterLevel:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

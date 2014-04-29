@@ -187,12 +187,11 @@
         [activityIndicator stopAnimating];
         self.listings = resultArray;
         [BlockCache cacheListingItems:self.listings block:param];
-//        [BlockCache markOnTheMapWithBlock:param];
         self.navigationItem.titleView = nil;
         [self resetAnnotationsWithResultArray:self.listings];
     } onError:^(NSError *engineError) {
-        
-        [SVProgressHUD showErrorWithStatus:engineError.description];
+        [activityIndicator stopAnimating];
+        [SVProgressHUD showErrorWithStatus:@"Something went wrong"];
     }];
 }
 

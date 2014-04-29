@@ -38,8 +38,10 @@
     
     MKMapRect visibleMapRect = MKMapRectMake(tileStartX, tileStartY, tileWidth*(BLOCKS+1), tileHeight*(BLOCKS+1));
     
-    for (id<MKAnnotation> point in pins)
+    for (int i = 0; i < [pins count]; i++)
+//    for (id<MKAnnotation> point in pins)
     {
+        id<MKAnnotation> point = pins[i];
         MKMapPoint mapPoint = MKMapPointForCoordinate(point.coordinate);
         if( MKMapRectContainsPoint(visibleMapRect,mapPoint) )
         {
@@ -56,20 +58,29 @@
     }
     
     NSMutableArray *clusteredBlocks = [NSMutableArray array];
-    int i = 0;
-    int length = (BLOCKS+1)*(BLOCKS+1);
-    for ( ; i < length ; i ++ )
-    {
-        REVClusterBlock *block = [[REVClusterBlock alloc] init];
-        [clusteredBlocks addObject:block];
+    int i = 0, j = 0;
+//    int length = (BLOCKS+1)*(BLOCKS+1);
+    
+    for (i = 0; i < (BLOCKS+1); i++) {
+        for (j = 0; j < (BLOCKS+1); j++) {
+            REVClusterBlock *block = [[REVClusterBlock alloc] init];
+            block.blockRect = MKMapRectMake(tileStartX+tileWidth*j, tileStartY+tileHeight*i, tileWidth, tileHeight);
+            [clusteredBlocks addObject:block];
 #if !__has_feature(objc_arc)
-        [block release];
+            [block release];
 #endif
+        }
     }
+    
+//    for ( ; i < length ; i ++ )
+//    {
+//
+//    }
     
     for (REVClusterPin *pin in visibleAnnotations)
     {
         MKMapPoint mapPoint = MKMapPointForCoordinate(pin.coordinate);
+        
         
         double localPointX = mapPoint.x - tileStartX;
         double localPointY = mapPoint.y - tileStartY;
@@ -100,16 +111,20 @@
 {
     for ( REVClusterPin *pin in mapView.annotations )
     {
-        if( [pin isKindOfClass:[REVClusterPin class]] && [[pin nodes] count] > 0 )
-        {
-            MKMapPoint point1 =  MKMapPointForCoordinate([pin coordinate]);
-            MKMapPoint point2 =  MKMapPointForCoordinate([[cluster getClusteredAnnotation] coordinate]);
-            
-            if( MKMapPointEqualToPoint(point1,point2) )
-            {
-                return YES;
-            }
+        MKMapPoint pinMapPoint = MKMapPointForCoordinate(pin.coordinate);
+        if (MKMapRectContainsPoint(cluster.blockRect, pinMapPoint)) {
+            return YES; 
         }
+//        if( [pin isKindOfClass:[REVClusterPin class]] && [[pin nodes] count] > 0 )
+//        {
+//            MKMapPoint point1 =  MKMapPointForCoordinate([pin coordinate]);
+//            MKMapPoint point2 =  MKMapPointForCoordinate([[cluster getClusteredAnnotation] coordinate]);
+//            
+//            if( MKMapPointEqualToPoint(point1,point2) )
+//            {
+//                return YES;
+//            }
+//        }
     }
     return NO;
 }
