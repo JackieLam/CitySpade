@@ -37,6 +37,7 @@
 #define kCollectionViewShouldShowUp @"CollectionViewShouldShowUp"
 #define kPathOverLayShouldBeAdded @"PathOverLayShouldBeAdded"
 #define kShouldPushDetailViewController @"ShouldPushDetailViewController"
+#define kShouldMoveCell @"shouldMoveCell"
 //In the mysave view
 #define kNotificationAddSaveListing  @"addSaveListing"
 #define kNotificationDeleteSaveListing  @"deleteSaveListing"

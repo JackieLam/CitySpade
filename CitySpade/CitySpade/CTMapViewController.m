@@ -127,6 +127,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCollectionViewData) name:kCollectionViewShouldShowUp object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPathOverlayOnAnnotationViews:) name:kPathOverLayShouldBeAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushDetailViewController:) name:kShouldPushDetailViewController object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveColletionCell:) name:kShouldMoveCell object:nil];
 }
 
 - (void)setupBottomBar
@@ -245,6 +246,28 @@
     else {
         [self.collectionView reloadData];
     }
+}
+
+- (void)moveColletionCell:(NSNotification *)aNotification
+{
+    int isNext = [[aNotification object] intValue];
+    CGPoint offsetPoint = self.collectionView.contentOffset;
+    if (isNext == 1) {
+        offsetPoint.x += 320;
+    }
+    else{
+        offsetPoint.x -= 320;
+    }
+    if (offsetPoint.x <= 0) {
+        offsetPoint.x = 0;
+    }
+    else if(offsetPoint.x >= self.collectionView.contentSize.width){
+        offsetPoint.x -= 320;
+    }
+    [self.collectionView setContentOffset:offsetPoint animated:YES];
+//    NSLog(@"x:%f -- width:%f",offsetPoint.x,self.collectionView.contentSize.width);
+    
+    
 }
 
 - (void)viewAppearAnimation:(id)sender

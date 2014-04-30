@@ -7,6 +7,7 @@
 //
 
 #import "CitySpadeNearbyCell.h"
+#import "REVClusterMap.h"
 #import <MapKit/MapKit.h>
 
 @interface CitySpadeNearbyCell ()
@@ -31,12 +32,16 @@
         self.longtitude = [self.locationDictionary[@"lng"] floatValue];
         self.latitude = [self.locationDictionary[@"lat"] floatValue];
         self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, 130)];
-        
+        //触发viewForAnnotation
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(_latitude, _longtitude);
         CGFloat zoom = 0.01;
         MKCoordinateSpan span = MKCoordinateSpanMake(zoom, zoom);
         [_mapView setRegion:MKCoordinateRegionMake(location, span)];
         _mapView.scrollEnabled = _mapView.pitchEnabled = _mapView.zoomEnabled = NO;
+        REVClusterPin *pin = [[REVClusterPin alloc] init];
+        pin.coordinate = location;
+        [_mapView addAnnotation:pin];
+        _mapView.delegate = self;
         [self addSubview:_mapView];
     }
     return self;
@@ -48,5 +53,23 @@
     [super setFrame:frame];
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    if([annotation class] == MKUserLocation.class) {
+		return nil;
+	}
+    REVClusterPin *pin = (REVClusterPin *)annotation;
+    
+    MKAnnotationView *annView;
+    annView = (REVClusterAnnotationView*)
+    [mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
+    if( !annView )
+        annView = (REVClusterAnnotationView*)
+        [[REVClusterAnnotationView alloc] initWithAnnotation:annotation
+                                             reuseIdentifier:@"cluster"];
+    [(REVClusterAnnotationView *)annView configureAnnotationView:[pin nodeCount]];
+    annView.image = [UIImage imageNamed:@"pin"];
+    return annView;
+}
 
 @end

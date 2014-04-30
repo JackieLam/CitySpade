@@ -22,11 +22,12 @@
 #define SegmentTintColor [UIColor colorWithRed:42/255.0 green:188/255.0 blue:184/255.0 alpha:1.0]
 #define BarButtonTintColor [UIColor colorWithRed:151/255.0 green:151/255.0 blue:151/255.0 alpha:1.0]
 #define TableViewBackGroundColor [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0]
-
+#define kNoLoginViewTag 1
 @interface CTSavingsViewController ()
 @property (nonatomic, strong) NSMutableArray *saveList;
 @property (nonatomic, strong) UIBarButtonItem *myEditButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *trashButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *cancelButtonItem;
 @end
 
 @implementation CTSavingsViewController
@@ -61,7 +62,28 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if ([self isLogined]) {
+        UIImageView *noLoginImageView = (UIImageView*)[self.view viewWithTag:kNoLoginViewTag];
+        if (noLoginImageView) {
+            [noLoginImageView removeFromSuperview];
+        }
+        self.tableView.userInteractionEnabled = YES;
+        [self.tableView reloadData];
+    }
+    else{
+        UIImageView *noLoginImageView = (UIImageView*)[self.view viewWithTag:kNoLoginViewTag];
+        if (noLoginImageView == nil) {
+            noLoginImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_logined"]];
+            noLoginImageView.tag = kNoLoginViewTag;
+            [self.view addSubview:noLoginImageView];
+            [self.saveList removeAllObjects];
+            [self.tableView reloadData];
+            self.tableView.userInteractionEnabled = NO;
+        }
+        
+    }
     [self.tableView reloadData];
+    NSLog(@"isLogin:%d",[self isLogined]);
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -136,7 +158,20 @@
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
-    
+    else{
+        if (self.navigationItem.rightBarButtonItem != self.trashButtonItem) {
+            self.navigationItem.rightBarButtonItem = self.trashButtonItem;
+        }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView.editing) {
+        if ([[self.tableView indexPathsForSelectedRows] count] == 0 && self.navigationItem.rightBarButtonItem != self.cancelButtonItem) {
+            self.navigationItem.rightBarButtonItem = self.cancelButtonItem;
+        }
+    }
 }
 
 #pragma private method
@@ -171,7 +206,8 @@
     self.trashButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStyleDone target:self action:@selector(finishRempveItem)];
     self.trashButtonItem.tintColor = BarButtonTintColor;
     self.navigationItem.rightBarButtonItem = self.myEditButtonItem;
-    
+    self.cancelButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelRemoveItem)];
+    [self.cancelButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Avenir-Roman"size:15],NSFontAttributeName, BarButtonTintColor,NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
 }
 
 - (void)reloadSaveListingFromCache
@@ -233,12 +269,18 @@
 - (void)startRemoveItem
 {
     [self.tableView setEditing:YES animated:YES];
-    self.navigationItem.rightBarButtonItem = self.trashButtonItem;
+    self.navigationItem.rightBarButtonItem = self.cancelButtonItem;
 }
 
 - (void)finishRempveItem
 {
     [self performSelector:@selector(deleteButtonClicked)];
+    [self.tableView setEditing:NO animated:YES];
+    self.navigationItem.rightBarButtonItem = self.myEditButtonItem;
+}
+
+- (void)cancelRemoveItem
+{
     [self.tableView setEditing:NO animated:YES];
     self.navigationItem.rightBarButtonItem = self.myEditButtonItem;
 }
@@ -259,7 +301,6 @@
         for (NSIndexPath *selectionIndex in selectedRows)
         {
             dispatch_group_enter(group);
-            
             Listing *listing = [self.saveList objectAtIndex:selectionIndex.row];
             [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)listing.internalBaseClassIdentifier] onSucceeded:^{
                 [indicesOfItemsToDelete addIndex:selectionIndex.row];
@@ -288,5 +329,16 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)isLogined
+{
+    NSUserDefaults *defauts = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defauts objectForKey:kAccessToken];
+    if (token) {
+        return YES;
+    }
+    else{
+        return NO;
+    }
+}
 
 @end

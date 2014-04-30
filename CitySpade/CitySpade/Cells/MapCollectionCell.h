@@ -19,7 +19,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *bedLabel;
 @property (strong, nonatomic) IBOutlet UILabel *bathLabel;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
-
+@property (strong, nonatomic) UIButton *leftButton;
+@property (strong, nonatomic) UIButton *rightButton;
 - (void)configureCellWithClusterPin:(REVClusterPin *)pin;
 
 @end

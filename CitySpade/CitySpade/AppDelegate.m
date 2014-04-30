@@ -35,7 +35,11 @@
     CTLeftSideMenuViewController *leftSideMenu = [[CTLeftSideMenuViewController alloc] init];
     CTFilterViewController *rightSideMenu = [[CTFilterViewController alloc] init];
     CTMapViewController *mapViewController = [[CTMapViewController alloc] init];
-    
+    UINavigationController *filterNavController = [[UINavigationController alloc] initWithRootViewController:rightSideMenu];
+    filterNavController.navigationBar.opaque = YES;
+    filterNavController.navigationBar.translucent = NO;
+    [filterNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [filterNavController.navigationBar setShadowImage:[UIImage new]];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
 //    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:savingVC];
     navController.navigationBar.opaque = YES;
@@ -46,7 +50,7 @@
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController
                                                     containerWithCenterViewController:navController
                                                     leftMenuViewController:leftSideMenu
-                                                    rightMenuViewController:rightSideMenu];
+                                                    rightMenuViewController:filterNavController];
     container.panMode = MFSideMenuPanModeNone;
     container.shadow.enabled = NO;
     

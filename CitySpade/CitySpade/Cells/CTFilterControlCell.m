@@ -17,7 +17,7 @@
 #define titleTextColor [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0f]
 #define CTFilterCellPriceHeight 194.0/2
 #define CTFilterCellBargainHeight 126.0f/2
-#define CTFilterCellTransportationHeight 356.0f/2
+#define CTFilterCellTransportationHeight 126.0f/2
 #define CTFilterCellBedroomHeight 164.0f/2
 #define CTFilterCellBathroomHeight 164.0f/2
 #define BackGroundViewX 20.0f/2
@@ -29,7 +29,10 @@
 #define ExpendedRect CGRectMake(0, 0, 320, 175.5f)
 #define saleMaxValue 120000000
 #define rentMaxValue 120000
-
+#define BedSegmentRect CGRectMake(15, 41, 240, 36)
+#define PickerViewRect CGRectMake(10, 30, 249, 240)
+#define CellWidth 320.0f
+#define Changedheight 112.0f
 
 @implementation CTFilterControlCell
 
@@ -62,7 +65,7 @@
                 rect.size.height = CTFilterCellBargainHeight - BackGroundViewY;
                 self.backGroundView.image = [UIImage imageNamed:@"2white_bg"];
                 [self.backGroundView setFrame:rect];
-                self.bargainPickerView = [[BTPickerView alloc] initWithFrame:CGRectMake(15, 30, 240, 240) withState:BTPickerViewStateMerged];
+                self.bargainPickerView = [[BTPickerView alloc] initWithFrame:PickerViewRect withState:BTPickerViewStateMerged];
                 [self.bargainPickerView.headerButton addTarget:self action:@selector(changeViewHeight) forControlEvents:UIControlEventTouchUpInside];
                 [self.contentView addSubview:self.bargainPickerView];
                 isMerged = YES;
@@ -73,10 +76,10 @@
                 rect.size.height = CTFilterCellTransportationHeight - BackGroundViewY;
                 self.backGroundView.image = [UIImage imageNamed:@"2white_bg"];
                 [self.backGroundView setFrame:rect];
-                self.transportationPickerView = [[BTPickerView alloc] initWithFrame:CGRectMake(15, 30, 240, 240) withState:BTPickerViewStateExpended];
+                self.transportationPickerView = [[BTPickerView alloc] initWithFrame:PickerViewRect withState:BTPickerViewStateMerged];
                 [self.transportationPickerView.headerButton addTarget:self action:@selector(changeViewHeight) forControlEvents:UIControlEventTouchUpInside];
                 [self.contentView addSubview:self.transportationPickerView];
-                isMerged = NO;
+                isMerged = YES;
             }
                 break;
             case CTFilterCellStyleBedroom:{
@@ -115,7 +118,7 @@
         }
         [self.contentView addSubview:titleLabel];
         
-        CGRect cellRect = CGRectMake(0, 0, 320, rect.size.height+BackGroundViewY);
+        CGRect cellRect = CGRectMake(0, 0, CellWidth, rect.size.height+BackGroundViewY);
         [self setFrame:cellRect];
     }
     return self;
@@ -145,12 +148,12 @@
     CGRect rect = self.frame;
     CGRect bRect = self.backGroundView.frame;
     if (isMerged) {
-        rect.size.height -= 112;
-        bRect.size.height -= 112;
+        rect.size.height -= Changedheight;
+        bRect.size.height -= Changedheight;
     }
     else{
-        rect.size.height += 112;
-        bRect.size.height += 112;
+        rect.size.height += Changedheight;
+        bRect.size.height += Changedheight;
     }
     [self.backGroundView setFrame:bRect];
     [self setFrame:rect];
@@ -208,7 +211,6 @@
 {
     CGPoint lowerCenter;
     lowerCenter.x = slider.lowerCenter.x;
-//    NSLog(@"slider.lowerCenter -- %f upperCenter -- %f", slider.lowerCenter.x, slider.upperCenter.x);
     lowerCenter.y = slider.center.y - 30.0f;
     CGPoint upperCenter;
     upperCenter.x = slider.upperCenter.x;

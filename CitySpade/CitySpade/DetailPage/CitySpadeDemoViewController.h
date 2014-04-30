@@ -26,7 +26,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CitySpadeDemoViewController : UIViewController
+@interface CitySpadeDemoViewController : UIViewController<UIActivityItemSource>
 
 //Assigned by the pre-ViewController
 @property (nonatomic, copy) UIImage *featureImage;
