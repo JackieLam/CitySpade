@@ -18,6 +18,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
+#define toolbarColor [UIColor colorWithRed:60/255.0f green:193/255.0f blue:189/255.0f alpha:1.0f]
+#define toolbarTextColor [UIColor colorWithRed:184/255.0f green:255/255.0f blue:252/255.0f alpha:1.0f]
 #define saleMaxValue 120000000
 #define rentMaxValue 120000
 #define kTitleViewTag 1
@@ -139,15 +141,17 @@ static const int toolBarHeight = 50;
                                      self.view.frame.size.width,
                                      toolBarHeight);
     UIView *toolBarView = [[UIView alloc] initWithFrame:toolBarFrame];
-    toolBarView.backgroundColor = [UIColor colorWithRed:5/255.0f green:199/255.0f blue:191/255.0f alpha:0.9];
+    toolBarView.backgroundColor = toolbarColor;
     
     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 19, 46, 14)];
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     cancelButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:15.0f];
+    [cancelButton setTitleColor:toolbarTextColor forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(cancelFilter) forControlEvents:UIControlEventTouchUpInside];
     UIButton *resetButton = [[UIButton alloc] initWithFrame:CGRectMake(438.0f/2, 19, 40, 14)];
     [resetButton setTitle:@"Reset" forState:UIControlStateNormal];
     resetButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:15.0f];
+    [resetButton setTitleColor:toolbarTextColor forState:UIControlStateNormal];
     [resetButton addTarget:self action:@selector(resetFilter) forControlEvents:UIControlEventTouchUpInside];
     [toolBarView addSubview:cancelButton];
     [toolBarView addSubview:resetButton];
