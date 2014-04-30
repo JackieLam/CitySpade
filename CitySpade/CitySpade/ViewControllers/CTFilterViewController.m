@@ -14,6 +14,7 @@
 #import "RESTfulEngine.h"
 #import "Constants.h"
 #import "BTPickerView.h"
+#import "UIBarButtonItem+ProjectButton.h"
 #import <MFSideMenu.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -24,7 +25,7 @@
 #define rentMaxValue 120000
 #define kTitleViewTag 1
 
-static const int toolBarHeight = 50;
+static const int toolBarHeight = 52;
 
 @interface CTFilterViewController ()
 
@@ -38,8 +39,9 @@ static const int toolBarHeight = 50;
     //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView) name:@"reload" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToLoadAllListings object:nil];
     [self setTableView];
+    
     [self setTitleWithText:@"For Rent"];
-    [self setSearchBar];
+//    [self setSearchBar];
     [self setApplyButton];
     [self setToolBar];
     
@@ -67,7 +69,7 @@ static const int toolBarHeight = 50;
 - (void)setTableView
 {
     //SetTableView
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 74, 320, self.view.bounds.size.height-80-10) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -38, 320, self.view.bounds.size.height-78) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -87,28 +89,24 @@ static const int toolBarHeight = 50;
     cellArray = [NSArray arrayWithObjects:PriceCell,BargainCell,TransportationCell,BedrommCell,BathroomCell, nil];
 }
 
+- (void)setTitleAttribute
+{
+    UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
+    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
+    NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
+    [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
+    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
+    self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
+}
+
 - (void)setTitleWithText:(NSString *)title
 {
-    UIView *titleView = [self.view viewWithTag:kTitleViewTag];
-    if (titleView == nil) {
-        titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-50.0f, 66)];
-        titleView.backgroundColor = [UIColor whiteColor];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleView.bounds];
-        titleLabel.frame = CGRectOffset(titleLabel.frame, 0, 10);
-        titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:15.0f];
-        titleLabel.textColor = [UIColor colorWithRed:91.0/255.0 green:91.0/255.0 blue:91.0/255.0 alpha:1.0f];
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.text = @"For Rent";
-        [titleView addSubview:titleLabel];
-        [self.view addSubview:titleView];
-    }
-    UILabel *titleLabel = [[titleView subviews] objectAtIndex:0];
-    titleLabel.text = title;
+    self.title = title;
 }
 
 - (void)setSearchBar
 {
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 66.0f, 195.0f, 43.0f)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0, 195.0f, 43.0f)];
     self.searchBar.backgroundColor = [UIColor clearColor];
     self.searchBar.placeholder = @" New York NY             ";
     self.searchBar.userInteractionEnabled = YES;
@@ -119,25 +117,12 @@ static const int toolBarHeight = 50;
 
 - (void)setApplyButton
 {
-    UIView *whiteBg = [[UIView alloc] initWithFrame:CGRectMake(195.0f, 66.0f, self.view.frame.size.width-195.0f-25.0f, 43.0f)];
-    whiteBg.backgroundColor = [UIColor whiteColor];
-    self.applyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.applyButton.frame = CGRectMake(6, 6, 61, 31);
-    self.applyButton.layer.cornerRadius = 5.0f;
-    self.applyButton.backgroundColor = greenColor;
-    self.applyButton.titleLabel.textColor = [UIColor whiteColor];
-    self.applyButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:12.5];
-    [self.applyButton setTitle:@"Apply" forState:UIControlStateNormal];
-    [self.applyButton setTitle:@"Apply" forState:UIControlStateHighlighted];
-    [self.applyButton setTitle:@"Apply" forState:UIControlStateSelected];
-    [self.applyButton addTarget:self action:@selector(didApplyFiltering) forControlEvents:UIControlEventTouchUpInside];
-    [whiteBg addSubview:self.applyButton];
-    [self.view addSubview:whiteBg];
+    self.navigationItem.rightBarButtonItems = [UIBarButtonItem createEdgeButtonWithText:@"Filter" WithTarget:self action:@selector(didApplyFiltering)];
 }
 
 - (void)setToolBar {
     CGRect toolBarFrame = CGRectMake(0,
-                                     self.view.frame.size.height-toolBarHeight,
+                                     self.view.frame.size.height-toolBarHeight-64,
                                      self.view.frame.size.width,
                                      toolBarHeight);
     UIView *toolBarView = [[UIView alloc] initWithFrame:toolBarFrame];

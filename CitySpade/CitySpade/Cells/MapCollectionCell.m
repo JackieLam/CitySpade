@@ -9,6 +9,7 @@
 #import "MapCollectionCell.h"
 #import "REVClusterPin.h"
 #import "AsynImageView.h"
+#import "Constants.h"
 
 @implementation MapCollectionCell
 
@@ -29,12 +30,16 @@
         self.imageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 170)];
         self.imageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
         [self.contentView addSubview:self.imageView];
-        UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(6, 75, 11, 19)];
-        [leftButton setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
-        [self.contentView addSubview:leftButton];
-        UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(305, 75, 11, 19)];
-        [rightButton setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
-        [self.contentView addSubview:rightButton];
+        self.leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 75, 50, 50)];
+        self.leftButton.tag = -1;
+        [self.leftButton addTarget:self action:@selector(moveToNextCell:) forControlEvents:UIControlEventTouchUpInside];
+        [self.leftButton setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.leftButton];
+        self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(270, 75, 50, 50)];
+        self.rightButton.tag = 1;
+        [self.rightButton addTarget:self action:@selector(moveToNextCell:) forControlEvents:UIControlEventTouchUpInside];
+        [self.rightButton setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.rightButton];
     }
     return self;
 }
@@ -53,5 +58,11 @@
 - (void)prepareForReuse
 {
     [self.imageView cancelConnection];
+}
+
+- (void)moveToNextCell:(id)sender
+{
+    UIButton *button = (UIButton*)sender;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShouldMoveCell object:[NSString stringWithFormat:@"%d",button.tag]];
 }
 @end
