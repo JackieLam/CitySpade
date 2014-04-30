@@ -52,7 +52,8 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
         NSMutableArray *models = [BlockCache getCachedListingItemsWithBlock:queryParam];
         succededBlock(models);
         [BlockStates removeRequestingBlock:queryParam];
-        [BlockStates addOnMapBlock:queryParam];
+        if ([models count] != 0)
+            [BlockStates addOnMapBlock:queryParam];
         return;
     }
     
@@ -83,25 +84,26 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
             // 1 HTTP Response
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
+                NSError *jsonError;
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSError *jsonError;
-                    
-                    // 2 Serialize json
-                    NSMutableArray *listingsJSON =
-                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-                    NSMutableArray *models = [NSMutableArray array];
-                    for (id obj in listingsJSON) {
-                        Listing *newlisting = [Listing modelObjectWithDictionary:obj];
-                        [models addObject:newlisting];
-                    }
-                    if (!jsonError) {
-                        // 3 Call back
+                // 2 Serialize json
+                NSMutableArray *listingsJSON =
+                [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                NSMutableArray *models = [NSMutableArray array];
+                for (id obj in listingsJSON) {
+                    Listing *newlisting = [Listing modelObjectWithDictionary:obj];
+                    [models addObject:newlisting];
+                }
+                if (!jsonError) {
+                    // 3 Call back
+                    dispatch_async(dispatch_get_main_queue(), ^{
                         [BlockStates removeRequestingBlock:queryParam];
-                        [BlockStates addOnMapBlock:queryParam];
+                        if ([queryParam count] != 0) {
+                            [BlockStates addOnMapBlock:queryParam];
+                        }
                         succededBlock(models);
-                    }
-                });
+                    });
+                }
             }
         }
         else {

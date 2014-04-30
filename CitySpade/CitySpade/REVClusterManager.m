@@ -38,10 +38,10 @@
     
     MKMapRect visibleMapRect = MKMapRectMake(tileStartX, tileStartY, tileWidth*(BLOCKS+1), tileHeight*(BLOCKS+1));
     
-    for (int i = 0; i < [pins count]; i++)
-//    for (id<MKAnnotation> point in pins)
+//    for (int i = 0; i < [pins count]; i++)
+    for (id<MKAnnotation> point in pins)
     {
-        id<MKAnnotation> point = pins[i];
+//        id<MKAnnotation> point = pins[i];
         MKMapPoint mapPoint = MKMapPointForCoordinate(point.coordinate);
         if( MKMapRectContainsPoint(visibleMapRect,mapPoint) )
         {

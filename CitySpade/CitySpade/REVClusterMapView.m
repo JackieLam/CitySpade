@@ -16,6 +16,7 @@
 @interface REVClusterMapView (Private)
 - (void) setup;
 - (BOOL) mapViewDidZoom;
+
 @end
 
 @implementation REVClusterMapView
@@ -23,6 +24,7 @@
 @synthesize minimumClusterLevel;
 @synthesize blocks;
 @synthesize delegate;
+dispatch_queue_t calculationQueue;
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -52,6 +54,7 @@
     annotationsCopy = [NSMutableArray array];
 #endif
     
+    calculationQueue = dispatch_queue_create("calculation", DISPATCH_QUEUE_SERIAL);
     self.minimumClusterLevel = 30000;
     self.blocks = 4;
     
@@ -207,12 +210,17 @@
     }
     
     if ([annotationsCopy count] > 0) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //        dispatch_async(calculationQueue, ^{
+//        clock_t clock_start = clock();
+        
             NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [super addAnnotations:add];
-            });
-        });
+            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+        [super addAnnotations:add];
+//        clock_t clock_end = clock();
+//        NSLog(@"[AnnotationsCopy] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
+//            });
+//        });
     }
 }
 
@@ -252,21 +260,20 @@
 - (void)addAnnotations:(NSArray *)annotations
 {
     if ([annotations count] > 0) {
-        [annotationsCopy addObjectsFromArray:annotations];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+//        dispatch_async(calculationQueue, ^{
+//        clock_t clock_start = clock();
+        
+            [annotationsCopy addObjectsFromArray:annotations];
             NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [super addAnnotations:add];
-            });
-        });
-        
-//        [[NSOperationQueue new] addOperationWithBlock:^{
-//            
-//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//                
-//            }];
-//        }];
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+        [super addAnnotations:add];
+//        clock_t clock_end = clock();
+//        NSLog(@"[Annotations] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
+//            });
+//        });
     }
 }
 

@@ -208,7 +208,7 @@
 {
     CGPoint lowerCenter;
     lowerCenter.x = slider.lowerCenter.x;
-    NSLog(@"slider.lowerCenter -- %f upperCenter -- %f", slider.lowerCenter.x, slider.upperCenter.x);
+//    NSLog(@"slider.lowerCenter -- %f upperCenter -- %f", slider.lowerCenter.x, slider.upperCenter.x);
     lowerCenter.y = slider.center.y - 30.0f;
     CGPoint upperCenter;
     upperCenter.x = slider.upperCenter.x;

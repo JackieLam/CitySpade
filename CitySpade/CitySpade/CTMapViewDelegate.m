@@ -62,7 +62,7 @@
         }
     }
     
-    NSLog(@"REPORT : Request number - %d", cnt);
+//    NSLog(@"REPORT : Request number - %d", cnt);
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation

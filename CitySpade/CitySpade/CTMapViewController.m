@@ -206,8 +206,8 @@
         [newAddAnnos addObject:pin];
     }
     self.pinsFilterRight = self.pinsAll;
-    NSLog(@"PINSALL -- %d", [self.pinsAll count]);
-    NSLog(@"NEWADDS -- %d", [newAddAnnos count]);
+//    NSLog(@"PINSALL -- %d", [self.pinsAll count]);
+//    NSLog(@"NEWADDS -- %d", [newAddAnnos count]);
     
     [self.ctmapView addAnnotations:newAddAnnos];
 }
