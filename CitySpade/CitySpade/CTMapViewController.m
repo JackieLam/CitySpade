@@ -255,13 +255,18 @@
     if (isNext == 1) {
         offsetPoint.x += 320;
     }
-    else
+    else{
         offsetPoint.x -= 320;
-    [self.collectionView setContentOffset:offsetPoint animated:YES];
-    if (offsetPoint.x <= 0) {
-        offsetPoint.x += 320;
-        [self.collectionView setContentOffset:offsetPoint animated:YES];
     }
+    if (offsetPoint.x <= 0) {
+        offsetPoint.x = 0;
+    }
+    else if(offsetPoint.x >= self.collectionView.contentSize.width){
+        offsetPoint.x -= 320;
+    }
+    [self.collectionView setContentOffset:offsetPoint animated:YES];
+//    NSLog(@"x:%f -- width:%f",offsetPoint.x,self.collectionView.contentSize.width);
+    
     
 }
 
