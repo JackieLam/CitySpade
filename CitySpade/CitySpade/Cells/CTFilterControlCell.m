@@ -30,7 +30,7 @@
 #define saleMaxValue 120000000
 #define rentMaxValue 120000
 #define BedSegmentRect CGRectMake(15, 41, 240, 36)
-#define PickerViewRect CGRectMake(15, 30, 240, 240)
+#define PickerViewRect CGRectMake(10, 30, 249, 240)
 #define CellWidth 320.0f
 #define Changedheight 112.0f
 
