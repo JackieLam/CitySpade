@@ -10,7 +10,9 @@
 #import "REVClusterPin.h"
 #import "AsynImageView.h"
 #import "Constants.h"
-
+#define leftButtonRect CGRectMake(0, 60, 50, 50)
+#define rightButtonRect CGRectMake(270, 60, 50, 50)
+#define imageOffset -28.0f
 @implementation MapCollectionCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -30,15 +32,17 @@
         self.imageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 170)];
         self.imageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
         [self.contentView addSubview:self.imageView];
-        self.leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 75, 50, 50)];
-        self.leftButton.tag = -1;
+        self.leftButton = [[UIButton alloc] initWithFrame:leftButtonRect];
+        self.leftButton.tag = 0;
         [self.leftButton addTarget:self action:@selector(moveToNextCell:) forControlEvents:UIControlEventTouchUpInside];
         [self.leftButton setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];
+        [self.leftButton setImageEdgeInsets:UIEdgeInsetsMake(0, imageOffset, 0, 0)];
         [self.contentView addSubview:self.leftButton];
-        self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(270, 75, 50, 50)];
+        self.rightButton = [[UIButton alloc] initWithFrame:rightButtonRect];
         self.rightButton.tag = 1;
         [self.rightButton addTarget:self action:@selector(moveToNextCell:) forControlEvents:UIControlEventTouchUpInside];
         [self.rightButton setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
+        [self.rightButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, imageOffset)];
         [self.contentView addSubview:self.rightButton];
     }
     return self;
