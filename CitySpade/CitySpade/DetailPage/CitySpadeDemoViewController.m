@@ -203,6 +203,7 @@ static const int navigationBarHeight = 44;
 }
 
 #pragma mark -UITableViewController Delegate
+
 - (NSString *)headerNameAtIndex: (NSInteger)index {
     return @[@"Feature Image", @"Basic Facts", @"Transportation Info", @"Broker's Info", @"Nearby"][index];
 }
@@ -244,6 +245,7 @@ static const int navigationBarHeight = 44;
     return headerView;
 }
 
+#pragma mark - Click Button Method
 
 - (void)pressProcceedToBroker:(id)sender {
     CitySpadeBrokerWebViewController *webViewController = [[CitySpadeBrokerWebViewController alloc] init];
@@ -295,9 +297,9 @@ static const int navigationBarHeight = 44;
 }
 
 - (void)pressForwardBtn:(id)sender {
-    NSString *str = @"Test";
-    NSArray *objectsToShare = @[str];
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+
+    NSURL *url = [NSURL URLWithString:_baseList.originalUrl];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImage,@"See it on CitySpade",url] applicationActivities:nil];
     
     NSArray *excludedActivities = @[UIActivityTypePostToTwitter,
                                     UIActivityTypePostToWeibo,
@@ -318,5 +320,27 @@ static const int navigationBarHeight = 44;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - UIActivityItemSource
+
+-(id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType
+{
+    if ([activityType isEqualToString:UIActivityTypePostToFacebook] ||[activityType isEqualToString:UIActivityTypeMail]) {
+
+        NSDictionary *listDic1 = [self.preViewInfo objectAtIndex:0];
+        CGFloat bargain = [[listDic1 objectForKey:@"bargain"] floatValue];
+        CGFloat transportation = [[listDic1 objectForKey:@"transportation"] floatValue];
+        NSString *str = [NSString stringWithFormat:@"Check out this properity I found using the CitySpade Mobile app\n\nFor Sale:\n%@\n$%@\nBargain:%@\nTransportation:%@\n%@Beds\n%@Baths\n",self.VCtitle,[listDic1 objectForKey:@"totalPrice"],[NSString stringWithFormat:@"%.2f/10", bargain],[NSString stringWithFormat:@"%.2f/10", transportation],[listDic1 objectForKey:@"numberOfBed"],[listDic1 objectForKey:@"numberOfBath"]];
+        return str;
+    }
+    else{
+        return @"";
+    }
+    
+}
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
+{
+    return @"";
+}
 
 @end
