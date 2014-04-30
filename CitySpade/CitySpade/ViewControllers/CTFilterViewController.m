@@ -74,9 +74,7 @@ static const int toolBarHeight = 50;
     self.placesTableView.delegate = self;
     self.placesTableView.dataSource = self;
     self.placesTableView.alpha = 0.0f;
-    //Set TableViewCell
-    isMerged1 = YES;
-    isMerged2 = NO;
+    
     CTFilterControlCell *PriceCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStylePrice];
     CTFilterControlCell *BargainCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBargain];
     CTFilterControlCell *TransportationCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleTransportation];

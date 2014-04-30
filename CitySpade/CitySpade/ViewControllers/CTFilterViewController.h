@@ -10,8 +10,6 @@
 
 @interface CTFilterViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
-    BOOL isMerged1;
-    BOOL isMerged2;
     NSArray *cellArray;
     NSArray *searchResultPlaces;
     BOOL shouldBeginEditing;
