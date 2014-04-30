@@ -24,7 +24,7 @@
 @synthesize minimumClusterLevel;
 @synthesize blocks;
 @synthesize delegate;
-dispatch_queue_t calculationQueue;
+NSOperationQueue *calculationQueue;
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -54,7 +54,9 @@ dispatch_queue_t calculationQueue;
     annotationsCopy = [NSMutableArray array];
 #endif
     
-    calculationQueue = dispatch_queue_create("calculation", DISPATCH_QUEUE_SERIAL);
+    calculationQueue = [[NSOperationQueue alloc] init];
+    calculationQueue.name = @"Calculation";
+    calculationQueue.maxConcurrentOperationCount = 1; 
     self.minimumClusterLevel = 30000;
     self.blocks = 4;
     
@@ -199,28 +201,41 @@ dispatch_queue_t calculationQueue;
 
 - (void) mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    if( [delegate respondsToSelector:@selector(mapView:regionDidChangeAnimated:)] )
-    {
-        [delegate mapView:mapView regionDidChangeAnimated:animated];
-    }
-    
+//    mapView.zoomEnabled = NO;
+//    mapView.scrollEnabled = NO;
+//    mapView.pitchEnabled = NO;
+//    mapView.rotateEnabled = NO;
     if( [self mapViewDidZoom] )
     {
         [super removeAnnotations:self.annotations];
     }
-    
     if ([annotationsCopy count] > 0) {
-        //        dispatch_async(calculationQueue, ^{
-//        clock_t clock_start = clock();
-        
-            NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
+//        dispatch_async(calculationQueue, ^{
+        [calculationQueue addOperationWithBlock:^{
+            clock_t clock_start = clock();
             
-//            dispatch_async(dispatch_get_main_queue(), ^{
-        [super addAnnotations:add];
-//        clock_t clock_end = clock();
-//        NSLog(@"[AnnotationsCopy] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
+//            NSLog(@"before[annotationsCopy]: %d", [annotationsCopy count]);
+//            NSLog(@"before[mapView.annotations] : %d", [mapView.annotations count]);
+            NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
+//            NSLog(@"revMapView - add - %@", add);
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            
+            clock_t clock_end = clock();
+//            NSLog(@"[AnnotationsCopy] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                NSLog(@"before add : %d", [self.annotations count]);
+                [super addAnnotations:add];
+                NSLog(@"after add : %d", [self.annotations count]);
+            }];
+        }];
+        
 //            });
 //        });
+    }
+    
+    if( [delegate respondsToSelector:@selector(mapView:regionDidChangeAnimated:)] )
+    {
+        [delegate mapView:mapView regionDidChangeAnimated:animated];
     }
 }
 
@@ -263,17 +278,20 @@ dispatch_queue_t calculationQueue;
         
         
 //        dispatch_async(calculationQueue, ^{
-//        clock_t clock_start = clock();
-        
+        [calculationQueue addOperationWithBlock:^{
+            clock_t clock_start = clock();
+            
             [annotationsCopy addObjectsFromArray:annotations];
+//            NSLog(@"add annotation");
             NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-//
-//            dispatch_async(dispatch_get_main_queue(), ^{
-        [super addAnnotations:add];
-//        clock_t clock_end = clock();
-//        NSLog(@"[Annotations] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
-//            });
-//        });
+            clock_t clock_end = clock();
+//            NSLog(@"[Annotations] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
+            //
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [super addAnnotations:add];
+            }];
+        }];
     }
 }
 

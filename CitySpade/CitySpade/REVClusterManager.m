@@ -21,6 +21,7 @@
 //cluster the annos according to the viewBounds of the map
 + (NSArray *) clusterAnnotationsForMapView:(MKMapView *)mapView forAnnotations:(NSArray *)pins blocks:(NSUInteger)blocks minClusterLevel:(NSUInteger)minClusterLevel
 {
+    NSMutableArray *deepCopyAnnos = [mapView.annotations mutableCopy];
     NSMutableArray *visibleAnnotations = [NSMutableArray array];
     
     double tileX = mapView.visibleMapRect.origin.x;
@@ -45,7 +46,7 @@
         MKMapPoint mapPoint = MKMapPointForCoordinate(point.coordinate);
         if( MKMapRectContainsPoint(visibleMapRect,mapPoint) )
         {
-            if( ![mapView.annotations containsObject:point] )
+            if( ![deepCopyAnnos containsObject:point] )
             {
                 [visibleAnnotations addObject:point];
             }

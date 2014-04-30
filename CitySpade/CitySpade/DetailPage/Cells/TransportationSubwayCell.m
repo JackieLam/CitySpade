@@ -101,7 +101,7 @@
     [cell addSubview:textLabel];
     
     for ( NSUInteger i = 1; i < [subways count]; i++) {
-        CGRect iconFrame = CGRectMake( i * inset * 0.8 + (i-1)*transportIconSize, 0, transportIconSize, transportIconSize);
+        CGRect iconFrame = CGRectMake( i * inset * 0.8 + (i-1)*transportIconSize, 3, transportIconSize, transportIconSize);
         
         SubwayLines *currentSubway = subways[i];
         NSString *iconImageString = currentSubway.iconUrl;
