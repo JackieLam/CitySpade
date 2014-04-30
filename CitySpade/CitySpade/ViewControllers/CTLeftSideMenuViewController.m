@@ -18,6 +18,7 @@
 #import "CTMapViewDelegate.h"
 #import "REVClusterMap.h"
 #import "BlockStates.h"
+#import "CTWebViewController.h"
 
 #define headerColor [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
 #define colorOfSeparator [UIColor colorWithRed:21.0/255.0 green:21.0/255.0  blue:21.0/255.0  alpha:1]
@@ -25,6 +26,12 @@
 #define CellSelectedColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1]
 #define textNotSelectedColor [UIColor colorWithRed:177.0/255.0 green:177.0/255.0  blue:177.0/255.0  alpha:1]
 #define textSelectedColor [UIColor whiteColor]
+
+static NSString *blogUrl = @"http://www.cityspade.com/blog";
+static NSString *aboutUrl = @"http://www.cityspade.com/about";
+static NSString *supportUrl = @"http://www.cityspade.com/support";
+static NSString *privacyUrl = @"http://www.cityspade.com/privacy";
+static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
 
 @interface CTLeftSideMenuViewController()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
@@ -221,6 +228,14 @@
     }
     else if (indexPath.section == 2) {
         [cell setBackgroundColor:CellSelectedColor];
+        NSArray *urlStringArray = [NSArray arrayWithObjects:blogUrl, aboutUrl, supportUrl, privacyUrl, termofuseUrl, nil];
+        NSArray *titleArray = [NSArray arrayWithObjects:@"Blog", @"About", @"Support", @"Privacy", @"Term of Use", nil];
+        CTWebViewController *webViewController = [[CTWebViewController alloc] init];
+        webViewController.urlString = urlStringArray[indexPath.row];
+        webViewController.title = titleArray[indexPath.row];
+        UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
+        [navigationController pushViewController:webViewController animated:NO];
+        [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     }
 }
 

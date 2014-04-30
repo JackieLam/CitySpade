@@ -40,6 +40,7 @@
 		1845A2E919039D04003B764C /* NSString+RegEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 1845A2E819039D04003B764C /* NSString+RegEx.m */; };
 		184A2DD61904C19400A09EAB /* CitySpadeBrokerWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184A2DD51904C19400A09EAB /* CitySpadeBrokerWebViewController.xib */; };
 		184B65CB18D5FF07007358BE /* CTMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */; };
+		1851F412191118D9002FC608 /* CTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851F411191118D9002FC608 /* CTWebViewController.m */; };
 		186012C4189F2E00002500E6 /* REVAnnotationsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C5189F2E00002500E6 /* REVClusterBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012BE189F2E00002500E6 /* REVClusterBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 186012C0189F2E00002500E6 /* REVClusterManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -172,6 +173,8 @@
 		184A2DD51904C19400A09EAB /* CitySpadeBrokerWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySpadeBrokerWebViewController.xib; sourceTree = "<group>"; };
 		184B65C918D5FF07007358BE /* CTMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMapViewDelegate.h; sourceTree = "<group>"; };
 		184B65CA18D5FF07007358BE /* CTMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMapViewDelegate.m; sourceTree = "<group>"; };
+		1851F410191118D9002FC608 /* CTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTWebViewController.h; sourceTree = "<group>"; };
+		1851F411191118D9002FC608 /* CTWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTWebViewController.m; sourceTree = "<group>"; };
 		186012BB189F2E00002500E6 /* REVAnnotationsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVAnnotationsCollection.h; sourceTree = "<group>"; };
 		186012BC189F2E00002500E6 /* REVAnnotationsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REVAnnotationsCollection.m; sourceTree = "<group>"; };
 		186012BD189F2E00002500E6 /* REVClusterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REVClusterBlock.h; sourceTree = "<group>"; };
@@ -498,6 +501,17 @@
 			name = "MainView(Map)";
 			sourceTree = "<group>";
 		};
+		1851F413191118EE002FC608 /* LeftSide */ = {
+			isa = PBXGroup;
+			children = (
+				188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */,
+				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
+				1851F410191118D9002FC608 /* CTWebViewController.h */,
+				1851F411191118D9002FC608 /* CTWebViewController.m */,
+			);
+			name = LeftSide;
+			sourceTree = "<group>";
+		};
 		186012CE189F2E23002500E6 /* REVMapCluster */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,8 +612,7 @@
 				189D5F9D18CFFF9F00EE8EC9 /* CTDetailsViewController.h */,
 				189D5F9E18CFFF9F00EE8EC9 /* CTDetailsViewController.m */,
 				189D5F9F18CFFF9F00EE8EC9 /* CTDetailsViewController.xib */,
-				188F6CF9188E5E8600EAEEFD /* CTLeftSideMenuViewController.h */,
-				188F6CFA188E5E8600EAEEFD /* CTLeftSideMenuViewController.m */,
+				1851F413191118EE002FC608 /* LeftSide */,
 				182413B2188FC7560064B28F /* CTFilterViewController.h */,
 				182413B3188FC7560064B28F /* CTFilterViewController.m */,
 				18D052AD18B8F9A000D548FD /* CTLoginViewController.h */,
@@ -899,6 +912,7 @@
 				186012C6189F2E00002500E6 /* REVClusterManager.m in Sources */,
 				18A0FA3319024BD70067A438 /* CitySpadeBasicFactsCell.m in Sources */,
 				188054E018B4786F00DE5A9C /* KeyValueObserver.m in Sources */,
+				1851F412191118D9002FC608 /* CTWebViewController.m in Sources */,
 				18A0FA4B19024BD70067A438 /* CitySpadeRequestHandler.m in Sources */,
 				18A0FA3A19024BD70067A438 /* CitySpadeNearbyCell.m in Sources */,
 				18D052B018B8F9A000D548FD /* CTLoginViewController.m in Sources */,
