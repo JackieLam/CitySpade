@@ -14,6 +14,7 @@
 #import "constant.h"
 #import "BaseClass.h"
 #import "RESTfulEngine.h"
+#define kAccessToken @"ACCESS_TOKEN"
 
 static const int toolBarHeight = 50;
 static const int navigationBarHeight = 44;
@@ -29,6 +30,15 @@ static const int navigationBarHeight = 44;
 @end
 
 @implementation CitySpadeDemoViewController
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _featureImage = [UIImage imageNamed:@"imgplaceholder_long"];
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -256,6 +266,13 @@ static const int navigationBarHeight = 44;
 - (void)pressFavorBtn:(id)sender {
     if ( [sender isKindOfClass:[UIButton class]] ) {
         UIButton *favorBtn = (UIButton *)sender;
+        NSUserDefaults *defauts = [NSUserDefaults standardUserDefaults];
+        NSString *token = [defauts objectForKey:kAccessToken];
+        if (!token) {
+            [SVProgressHUD showWithStatus:@"Please login to save listing"];
+            return;
+        }
+        
         favorBtn.selected = !favorBtn.selected;
         if (favorBtn.selected) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];

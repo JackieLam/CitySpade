@@ -118,6 +118,12 @@
 {
     UIButton *favorBtn = (UIButton *)sender;
     int index = (int)favorBtn.tag - 7;
+    NSUserDefaults *defauts = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defauts objectForKey:kAccessToken];
+    if (!token) {
+        [SVProgressHUD showWithStatus:@"Please login to save listing"];
+        return;
+    }
     favorBtn.selected = !favorBtn.selected;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     CTListCell *cell = (CTListCell *)[self cellForRowAtIndexPath:indexPath];
