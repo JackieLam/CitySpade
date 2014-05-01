@@ -30,7 +30,7 @@
         }
         self = [arrayOfViews objectAtIndex:0];
         self.imageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 170)];
-        self.imageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
+        self.imageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_long"];
         [self.contentView addSubview:self.imageView];
         self.leftButton = [[UIButton alloc] initWithFrame:leftButtonRect];
         self.leftButton.tag = 0;
