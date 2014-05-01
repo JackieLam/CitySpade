@@ -37,7 +37,7 @@ static const int toolBarHeight = 52;
 {
     [super viewDidLoad];
     //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView) name:@"reload" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToLoadAllListings object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToggleRentSale object:nil];
     [self setTableView];
     
     [self setTitleWithText:@"For Rent"];

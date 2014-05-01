@@ -33,15 +33,20 @@
 #define kNotificationToLoadFilteredListing @"toLoadFilteredListing"
 #define kNotificationDidRightFilter @"didRightFilter"
 #define kNotificationDidGetFacebookUserInfo @"didGetFacebookUserInfo"
-//In the main view(map)
+// In the main view(map)
 #define kCollectionViewShouldShowUp @"CollectionViewShouldShowUp"
 #define kPathOverLayShouldBeAdded @"PathOverLayShouldBeAdded"
 #define kShouldPushDetailViewController @"ShouldPushDetailViewController"
 #define kShouldMoveCell @"shouldMoveCell"
-//In the mysave view
+#define kNotificationStateLabelShouldShowUp @"stateLabelShowUp"
+// In the mysave view
 #define kNotificationAddSaveListing  @"addSaveListing"
 #define kNotificationDeleteSaveListing  @"deleteSaveListing"
 #define kNotificationDidModifySaveListing  @"didModifySaveListing"
+// In the Left side bar(switch btw rent and sale)
+#define kNotificationToggleRentSale @"toggleRentSale"
+// RESTfulEngine - telling the RESTfulEngine how many blocks to load
+#define kNotificationBlocksCount @"blocksCount"
 
 #pragma mark - Other Constants
 

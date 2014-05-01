@@ -41,6 +41,7 @@
 {
     double previousZoomLevel;
     BOOL forRent;
+    int numBlocksToLoad;
 }
 
 @property (nonatomic, strong) NSArray *listings;
@@ -68,23 +69,22 @@
     [super viewDidLoad];
     [self registerNotification];
     
-    // Setup the dataArray
+// Setup the datas
     self.listings = [NSArray array];
     self.filterData = [NSDictionary dictionary];
     self.pinsAll = [NSMutableArray array];
     self.pinsFilterRight = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
-    // Setup the navigation bar
+    
+// Setup the navigation bar
     [self setupMenuBarButtonItems];
     
-    // Setup the map view
-    
+// Setup the map view
     CGRect viewBounds = [UIScreen mainScreen].bounds;
     viewBounds.size.height = viewBounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
     self.ctmapView = [[REVClusterMapView alloc] initWithFrame:viewBounds];
     self.ctmapView.delegate = [CTMapViewDelegate sharedInstance];
     [CTMapViewDelegate sharedInstance].forRent = YES;
-    //    self.ctmapView.delegate = self;
     [self.view addSubview:self.ctmapView];
     
     CLLocationCoordinate2D coordinate;
@@ -93,8 +93,7 @@
     self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
     previousZoomLevel = self.ctmapView.region.span.longitudeDelta;
     
-    
-    // Setup the list view
+// Setup the list view
     self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
     self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
     
@@ -102,14 +101,23 @@
     [containView addSubview:self.ctlistView];
     [containView addSubview:self.ctmapView];
     [self.view addSubview:containView];
+
+// Setup the state Label
+    self.stateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -30, self.view.frame.size.width, 30)];
+    self.stateLabel.backgroundColor = [UIColor colorWithRed:212.0/255.0 green:239.0/255.0 blue:237.0/255.0 alpha:0.8f];
+    self.stateLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f];
+    self.stateLabel.textColor = [UIColor colorWithRed:40.0/255.0 green:176.0/255.0 blue:170.0/255.0 alpha:1.0f];
+    self.stateLabel.textAlignment = NSTextAlignmentCenter;
+    self.stateLabel.text = [NSString stringWithFormat:@"TEMP"];
+    [self.ctmapView addSubview:self.stateLabel];
     
-    // Setup BottomBar
+// Setup BottomBar
     [self setupBottomBar];
     
-    // Setup collectionView
+// Setup collectionView
     [self setupCollectionView];
     
-    // Setup the title
+// Setup the title
     UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
     NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -119,6 +127,7 @@
     self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
     forRent = YES;
     self.title = @"For Rent";
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:forRent]}];
 }
 
 #pragma mark - NSNotification
@@ -130,6 +139,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPathOverlayOnAnnotationViews:) name:kPathOverLayShouldBeAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushDetailViewController:) name:kShouldPushDetailViewController object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveColletionCell:) name:kShouldMoveCell object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stateLabelShow:) name:kNotificationStateLabelShouldShowUp object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setBlocksToLoadCnt:) name:kNotificationBlocksCount object:nil];
 }
 
 - (void)setupBottomBar
@@ -173,6 +184,12 @@
 
 #pragma mark - 
 #pragma mark - Reload Listing(For Rent / For Sale)
+- (void)setBlocksToLoadCnt:(NSNotification *)aNotification
+{
+    NSNumber *num = [[aNotification object] objectForKey:@"total"];
+    numBlocksToLoad = [num intValue];
+}
+
 - (void)loadForAllListings:(NSNotification *)aNotification
 {
     NSDictionary *param = [aNotification object];
@@ -200,6 +217,9 @@
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
+    static int blockTotal = 0;
+    blockTotal++;
+
     NSMutableArray *newAddAnnos = [NSMutableArray array];
     for (Listing __strong *listing in resultArray) {
         REVClusterPin *pin = [[REVClusterPin alloc] init];
@@ -212,7 +232,12 @@
         }
     }
     
-    NSLog(@"我调用了一下网络/缓存请求");
+    if (blockTotal == numBlocksToLoad) {
+        blockTotal = 0;
+        NSString *content = [NSString stringWithFormat:@"Finished loading %d listings", [self.pinsAll count]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": content, @"still": [NSNumber numberWithBool:NO]}];
+    }
+    
     [self.ctmapView addAnnotations:newAddAnnos];
 }
 
@@ -437,6 +462,38 @@
     }
     else {
         [self viewDisappearAnimation:self.sortTableView];
+    }
+}
+
+#pragma mark - State Label
+- (void)stateLabelShow:(NSNotification *)aNotification
+{
+    NSDictionary *notiObj = [aNotification object];
+    self.stateLabel.text = notiObj[@"content"];
+    
+    if (self.stateLabel.frame.origin.y == -30.0f) {
+        CGRect appearRect = self.stateLabel.frame;
+        appearRect.origin.y += 30.0f;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationDelay:1.0];
+        [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+        self.stateLabel.frame = appearRect;
+        [UIView commitAnimations];
+    }
+    
+// 不停留显示立即收回
+    if ([notiObj[@"still"] isEqualToNumber:[NSNumber numberWithBool:NO]]) {
+        if (self.stateLabel.frame.origin.y == 0.0f) {
+            CGRect disappearRect = self.stateLabel.frame;
+            disappearRect.origin.y -= 30.0f;
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.3];
+            [UIView setAnimationDelay:2.5];
+            [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+            self.stateLabel.frame = disappearRect;
+            [UIView commitAnimations];
+        }
     }
 }
 

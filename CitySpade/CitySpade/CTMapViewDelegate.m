@@ -48,7 +48,10 @@
 {
     NSArray *arr = [mapView blocksParamWithSize:4];
 #warning 临时性代码 - 限定放大以后不产生网络请求
-    if ([arr count] > maxBlockThersold) return;
+    if ([arr count] > maxBlockThersold) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Zoom in to load more data", @"still": [NSNumber numberWithBool:NO]}];
+        return;
+    }
     
     int cnt = 0;
     for (int i = 0; i < [arr count]; i++) {
@@ -61,7 +64,10 @@
             cnt++;
         }
     }
-    
+    if (cnt > 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Loading...", @"still": [NSNumber numberWithBool:YES]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationBlocksCount object:@{@"total": [NSNumber numberWithInt:cnt]}];
+    }
     NSLog(@"REPORT : Request number - %d", cnt);
 }
 

@@ -16,11 +16,15 @@
 
 @interface CTMapViewController : UIViewController
 
+// View
 @property (nonatomic, strong) REVClusterMapView *ctmapView;
 @property (nonatomic, strong) MapBottomBar *mapBottomBar;
 @property (nonatomic, strong) CTListView *ctlistView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) SortTableView *sortTableView;
+@property (nonatomic, strong) UILabel *stateLabel;
+
+// Pins
 @property (nonatomic, strong) NSMutableArray *pinsAll;
 @property (nonatomic, strong) NSMutableArray *pinsFilterRight;
 
