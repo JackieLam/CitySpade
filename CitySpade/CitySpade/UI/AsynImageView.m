@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kActivityIndicatorTag 6
+
 @implementation AsynImageView
 
 @synthesize imageURL = _imageURL;
@@ -65,7 +66,7 @@
         }
         
         NSArray *lineArray = [self.imageURL componentsSeparatedByString:@"/"];
-        if (lineArray.count >= 3) {
+        if (lineArray.count > 5) {
             self.fileName = [NSString stringWithFormat:@"%@/%@%@", tmpPath2, [lineArray objectAtIndex:[lineArray count] - 3],[lineArray objectAtIndex:[lineArray count] - 2]];
             if(![[NSFileManager defaultManager] fileExistsAtPath:_fileName])
             {
@@ -77,6 +78,10 @@
                 [activityIndicator removeFromSuperview];
                 [activityIndicator stopAnimating];
             }
+        }
+        else{
+            [activityIndicator removeFromSuperview];
+            [activityIndicator stopAnimating];
         }
     }
 }
