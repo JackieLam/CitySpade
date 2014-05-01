@@ -51,5 +51,6 @@
 
 - (NSUInteger) nodeCount;
 - (void)configureWithListing:(Listing *)listing;
+- (BOOL)fitsFilterData:(NSDictionary *)filterData; 
 
 @end

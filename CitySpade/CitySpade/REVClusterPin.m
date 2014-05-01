@@ -63,4 +63,42 @@
     self.bathInt = (int)listing.baths;
 }
 
+- (BOOL)fitsFilterData:(NSDictionary *)filterData
+{
+    int lowerbound = [filterData[@"lowerBound"] intValue];
+    int higherbound = [filterData[@"higherBound"] intValue];
+    
+    // price range
+    if (!(lowerbound <= self.priceInt) || !(self.priceInt <= higherbound))
+        return NO;
+    
+    // baths
+    if ([filterData[@"baths"] isEqualToString:@"Any"]) { /*Skip and cont'*/ }
+    else if ([filterData[@"baths"] isEqualToString:@"4+"] && [self.baths intValue] >= 4) { /*Skip and cont'*/}
+    else if (![self.baths isEqualToString:filterData[@"baths"]])
+        return NO;
+    
+    // beds
+    if ([filterData[@"beds"] isEqualToString:@"Any"]) { /*Skip and cont'*/ }
+    else if ([filterData[@"beds"] isEqualToString:@"4+"] && [self.beds intValue] >= 4) { /*Skip and cont'*/}
+    else if (![self.beds isEqualToString:filterData[@"beds"]])
+        return NO;
+    
+    // bargain
+    NSString *bargainNum = [filterData[@"bargain"] firstNumberInString];
+    if ([filterData[@"bargain"] isEqualToString:@"Any"]) {/*Skip and cont'*/}
+    else if (self.bargainDouble > [bargainNum doubleValue]) {/*Skip and cont'*/}
+    else
+        return NO;
+    
+    // transportation
+    NSString *transNum = [filterData[@"transportation"] firstNumberInString];
+    if ([filterData[@"transportation"] isEqualToString:@"Any"]) {/*Skip and cont'*/}
+    else if (self.transportationDouble > [transNum doubleValue]) {/*Skip and cont'*/}
+    else
+        return NO;
+    
+    return YES;
+}
+
 @end

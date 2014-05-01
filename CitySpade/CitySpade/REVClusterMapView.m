@@ -223,9 +223,9 @@ NSOperationQueue *calculationQueue;
             clock_t clock_end = clock();
 //            NSLog(@"[AnnotationsCopy] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                NSLog(@"before add : %d", [self.annotations count]);
+//                NSLog(@"before add : %d", [self.annotations count]);
                 [super addAnnotations:add];
-                NSLog(@"after add : %d", [self.annotations count]);
+//                NSLog(@"after add : %d", [self.annotations count]);
             }];
         }];
         
@@ -279,12 +279,12 @@ NSOperationQueue *calculationQueue;
         
 //        dispatch_async(calculationQueue, ^{
         [calculationQueue addOperationWithBlock:^{
-            clock_t clock_start = clock();
+//            clock_t clock_start = clock();
             
             [annotationsCopy addObjectsFromArray:annotations];
 //            NSLog(@"add annotation");
             NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotations blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-            clock_t clock_end = clock();
+//            clock_t clock_end = clock();
 //            NSLog(@"[Annotations] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
             //
             //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -298,6 +298,12 @@ NSOperationQueue *calculationQueue;
 - (void)clearAnnotationsCopy
 {
     [annotationsCopy removeAllObjects];
+}
+
+- (void)resetAnnotationsCopy:(NSArray *)annosArray
+{
+    [annotationsCopy removeAllObjects];
+    [annotationsCopy addObjectsFromArray:annosArray];
 }
 
 @end

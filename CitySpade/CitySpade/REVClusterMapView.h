@@ -33,6 +33,7 @@
 @property(nonatomic,assign) CTMapViewDelegate *delegate;
 
 - (void)addAnnotations:(NSArray *)annotations;
-- (void)clearAnnotationsCopy; 
+- (void)clearAnnotationsCopy;
+- (void)resetAnnotationsCopy:(NSArray *)annosArray;
 
 @end

@@ -44,10 +44,12 @@
 }
 
 @property (nonatomic, strong) NSArray *listings;
-
 @property (nonatomic, strong) NSArray *placesClicked;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeCollectionView;
-//Drawing related property
+// FilterDictionary
+@property (nonatomic, strong) NSDictionary *filterData;
+
+// Drawing related property
 @property (nonatomic, strong) UIView *pathOverlay;
 @property (nonatomic, strong) UIPanGestureRecognizer *panDrawGesture;
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
@@ -68,6 +70,7 @@
     
     // Setup the dataArray
     self.listings = [NSArray array];
+    self.filterData = [NSDictionary dictionary];
     self.pinsAll = [NSMutableArray array];
     self.pinsFilterRight = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -122,7 +125,6 @@
 - (void)registerNotification
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadForAllListings:) name:kNotificationToLoadAllListings object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFromCache:) name:kNotificationShouldLoadFromCache object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePinsFilterRight:) name:kNotificationDidRightFilter object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCollectionViewData) name:kCollectionViewShouldShowUp object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPathOverlayOnAnnotationViews:) name:kPathOverLayShouldBeAdded object:nil];
@@ -204,12 +206,13 @@
         [pin configureWithListing:listing];
         listing = nil;
         [self.pinsAll addObject:pin];
-        [newAddAnnos addObject:pin];
+        if ([pin fitsFilterData:self.filterData] || [self.filterData count] == 0) {
+            [newAddAnnos addObject:pin];
+            [self.pinsFilterRight addObject:pin];
+        }
     }
-    self.pinsFilterRight = self.pinsAll;
-//    NSLog(@"PINSALL -- %d", [self.pinsAll count]);
-//    NSLog(@"NEWADDS -- %d", [newAddAnnos count]);
     
+    NSLog(@"我调用了一下网络/缓存请求");
     [self.ctmapView addAnnotations:newAddAnnos];
 }
 
@@ -265,9 +268,6 @@
         offsetPoint.x -= 320;
     }
     [self.collectionView setContentOffset:offsetPoint animated:YES];
-//    NSLog(@"x:%f -- width:%f",offsetPoint.x,self.collectionView.contentSize.width);
-    
-    
 }
 
 - (void)viewAppearAnimation:(id)sender
@@ -477,35 +477,15 @@
     }
 }
 
-#pragma mark - Filter Helper Method
-#pragma mark - Notification
+#pragma mark - Filtering
 // 由Notification调用
 - (void)updatePinsFilterRight:(NSNotification *)aNotification
 {
-    self.pinsFilterRight = [NSMutableArray array];
-    NSDictionary *filterData = [aNotification object];
-    int lowerbound = [filterData[@"lowerBound"] intValue];
-    int higherbound = [filterData[@"higherBound"] intValue];
-    
+    [self.pinsFilterRight removeAllObjects];
+    self.filterData = [aNotification object];
     for (REVClusterPin *pin in self.pinsAll) {
-        NSString *price = [pin.subtitle firstNumberInString];
-
-        //price range
-        if (!(lowerbound <= [price intValue]) || !([price intValue] <= higherbound))
-            continue;
-        
-        //baths1
-        if ([filterData[@"baths"] isEqualToString:@"Any"]) { /*Skip continue;*/ }
-        else if ([filterData[@"baths"] isEqualToString:@"4+"] && [pin.baths intValue] >= 4) { /*Skip continue;*/}
-        else if (![pin.baths isEqualToString:filterData[@"baths"]]) continue;
-        
-        //beds
-        if ([filterData[@"beds"] isEqualToString:@"Any"]) { /*Skip continue;*/ }
-        else if ([filterData[@"beds"] isEqualToString:@"4+"] && [pin.beds intValue] >= 4) { /*Skip continue;*/}
-        else if (![pin.beds isEqualToString:filterData[@"beds"]]) continue;
-        
-        
-        [self.pinsFilterRight addObject:pin];
+        if ([pin fitsFilterData:self.filterData])
+            [self.pinsFilterRight addObject:pin];
     }
     
     //whether it is in drawing mode
@@ -513,16 +493,10 @@
         self.pinsFilterRight = [self pinsFilterDrawAndRightFromPinsFilterRight:self.pinsFilterRight];
     }
     
-    
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+    [self.ctmapView resetAnnotationsCopy:self.pinsFilterRight]; //需要reset一下底层的mapView
     [self.ctmapView addAnnotations:self.pinsFilterRight];
     [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
-}
-
-- (NSMutableArray *)pinsFilterRightFromPinsAll:(NSMutableArray *)pinsAll
-{
-    NSMutableArray *pinsFilterRight = [NSMutableArray array];
-    return pinsFilterRight;
 }
 
 - (NSMutableArray *)pinsFilterDrawAndRightFromPinsFilterRight:(NSMutableArray *)pinsFilterRight
