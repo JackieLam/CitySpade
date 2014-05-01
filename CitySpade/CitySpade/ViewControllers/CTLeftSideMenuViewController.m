@@ -282,6 +282,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
                     || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
                     [FBSession.activeSession closeAndClearTokenInformation];
                 }
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLogoutSuccess object:nil];
                 UITableViewCell *nameCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                 nameCell.textLabel.text = @"Login";
                 nameCell.textLabel.textColor = textNotSelectedColor;

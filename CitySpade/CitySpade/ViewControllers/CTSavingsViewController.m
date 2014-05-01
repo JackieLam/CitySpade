@@ -48,6 +48,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addListingFromToSaveListing:) name:kNotificationAddSaveListing object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteListingFromSaveListing:) name:kNotificationDeleteSaveListing object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSaveListingFromCache) name:kNotificationLoginSuccess object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector
+            (removAllSaveListing) name:kNotificationLogoutSuccess object:nil];
         [self reloadSaveListingFromCache];
     }
     return self;
@@ -83,7 +85,6 @@
         
     }
     [self.tableView reloadData];
-    NSLog(@"isLogin:%d",[self isLogined]);
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -181,7 +182,6 @@
 - (void)setUpAppearance
 {
     //设置NavigationItem Title
-    
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 110, 100, 30)];
     [titleLabel setTextColor:TitleColor];
     [titleLabel setText:@"My Saves"];
@@ -242,6 +242,12 @@
     }];
 }
 
+- (void)removAllSaveListing
+{
+    [self.saveList removeAllObjects];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+}
+
 - (void)addListingFromToSaveListing:(NSNotification *)aNotification
 {
     Listing *listing = [[Listing alloc] initWithDictionary:[aNotification object]];
@@ -254,7 +260,6 @@
 {
     NSString *identifierString = [aNotification object];
     int identifierNumber = [identifierString intValue];
-    NSLog(@"delete:%d",identifierNumber);
     int index = 0;
     for (Listing *listing in self.saveList) {
         if ((int)listing.internalBaseClassIdentifier == identifierNumber) {
@@ -290,41 +295,52 @@
 - (void)deleteButtonClicked
 {
     NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
-    
+    NSMutableArray *rowsToDelete = [NSMutableArray array];
+    NSMutableArray *rowsToCount = [NSMutableArray array];
     BOOL deleteSpecificRows = selectedRows.count > 0;
     
     if (deleteSpecificRows)
     {
-        NSMutableIndexSet *indicesOfItemsToDelete = [NSMutableIndexSet new];
         if ([RESTfulEngine isConnectedToNetwork]) {
             [SVProgressHUD showWithStatus:@"Deleting"];
         }
-        dispatch_group_t group = dispatch_group_create();
-        for (NSIndexPath *selectionIndex in selectedRows)
-        {
-            dispatch_group_enter(group);
+        for (NSIndexPath *selectionIndex in selectedRows) {
             Listing *listing = [self.saveList objectAtIndex:selectionIndex.row];
-            [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)listing.internalBaseClassIdentifier] onSucceeded:^{
-                [indicesOfItemsToDelete addIndex:selectionIndex.row];
-                dispatch_group_leave(group);
+            [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d", (int)listing.internalBaseClassIdentifier] onSucceeded:^{
+                [rowsToDelete addObject:selectionIndex];
+                [rowsToCount addObject:selectionIndex];
+                if (rowsToCount.count == selectedRows.count) {
+                    [self deleteRows:rowsToDelete];
+                    if ([RESTfulEngine isConnectedToNetwork]) {
+                        [SVProgressHUD dismiss];
+                    }
+                }
             } onError:^(NSError *engineError) {
-                dispatch_group_leave(group);
-                
+                [rowsToCount addObject:selectionIndex];
+                if (rowsToCount.count == selectedRows.count) {
+                    [self deleteRows:rowsToDelete];
+                    if ([RESTfulEngine isConnectedToNetwork]) {
+                        [SVProgressHUD dismiss];
+                    }
+                }
             }];
         }
-        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-        if ([RESTfulEngine isConnectedToNetwork]) {
-            [SVProgressHUD dismiss];
-        }
-        
-        if(indicesOfItemsToDelete.count > 0){
-            [self.saveList removeObjectsAtIndexes:indicesOfItemsToDelete];
-            [AppCache cacheSaveList:self.saveList];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
-            [self.tableView deleteRowsAtIndexPaths:selectedRows withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
     }
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)deleteRows:(NSArray*)deletedRows
+{
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
+    for (NSIndexPath *selectionIndex in deletedRows) {
+        [indexSet addIndex:selectionIndex.row];
+    }
+    if (deletedRows.count > 0) {
+        [self.saveList removeObjectsAtIndexes:indexSet];
+        [AppCache cacheSaveList:self.saveList];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+        [self.tableView deleteRowsAtIndexPaths:deletedRows withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    self.navigationItem.rightBarButtonItem = self.myEditButtonItem;
 }
 
 - (void)backButtonPressed:(id)sender {
