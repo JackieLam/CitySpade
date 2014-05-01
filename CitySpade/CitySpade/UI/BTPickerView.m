@@ -18,19 +18,19 @@
 #define kHeadButtonHeight 20.0f
 #define kPickViewHeight 15.0f
 
-- (id)initWithFrame:(CGRect)frame withState:(BTPickerViewState)state{
-    
+- (id)initWithFrame:(CGRect)frame withState:(BTPickerViewState)state withPickerViewData:(NSArray *)pickViewData withTableViewBlock:(VoidBlock)aTableViewBlock withCellBlock:(VoidBlock)aCellBlock
+{
     self = [super initWithFrame:frame];
     if (self) {
-        
-        self.arrRecords = [NSArray arrayWithObjects:@"Any",@"0+",@"1+",@"2+",@"3+",@"4+",@"5+",@"6+",@"7+",
-                           @"8+",@"9+", nil];
+        self.arrRecords = pickViewData;
         if (state == BTPickerViewStateMerged) {
             isPickerViewShowed = NO;
         }
         else{
             isPickerViewShowed = YES;
         }
+        self.tableViewBlock = aTableViewBlock;
+        self.cellBlock = aCellBlock;
         [self showPicker];
     }
     return self;
@@ -48,7 +48,7 @@
     pickerView.dataSource = self;
     [pickerView selectRow:self.arrRecords.count/2 inComponent:0 animated:YES];
     self.headerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, self.frame.size.width, kHeadButtonHeight)];
-    [self.headerButton setTitle:@"Any" forState:UIControlStateNormal];
+    [self.headerButton setTitle:[self.arrRecords objectAtIndex:0] forState:UIControlStateNormal];
     self.headerButton.titleLabel.font = kPickerViewTextFont;
     [self.headerButton setTitleEdgeInsets:kHeadButtonTextInset];
     [self.headerButton setImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
@@ -102,6 +102,9 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [self.headerButton setTitle:[self.arrRecords objectAtIndex:row] forState:UIControlStateNormal];
+    [self clickButton];
+    self.cellBlock();
+    self.tableViewBlock();
 }
 
 - (UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view

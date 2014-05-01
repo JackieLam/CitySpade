@@ -11,7 +11,7 @@ typedef NS_ENUM(NSInteger, BTPickerViewState) {
     BTPickerViewStateMerged,
     BTPickerViewStateExpended
 };
-
+typedef void(^VoidBlock)(void);
 @interface BTPickerView : UIView<UIActionSheetDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UISearchBarDelegate>{
     
     UIPickerView *pickerView;
@@ -29,7 +29,12 @@ typedef NS_ENUM(NSInteger, BTPickerViewState) {
 
 @property (nonatomic, retain) NSArray *arrRecords;
 @property (nonatomic, strong) UIButton *headerButton;
-- (id)initWithFrame:(CGRect)frame withState:(BTPickerViewState)state;
+@property (nonatomic, strong) VoidBlock tableViewBlock;
+@property (nonatomic, strong) VoidBlock cellBlock;
+- (id)initWithFrame:(CGRect)frame withState:(BTPickerViewState)state
+                                  withPickerViewData:(NSArray*)pickViewData
+                                  withTableViewBlock:(VoidBlock)aTableViewBlock
+                                  withCellBlock:(VoidBlock)aCellBlock;
 - (void)showPicker;
 
 @end

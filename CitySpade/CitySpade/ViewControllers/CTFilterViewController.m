@@ -79,11 +79,15 @@ static const int toolBarHeight = 52;
     self.placesTableView.dataSource = self;
     self.placesTableView.alpha = 0.0f;
     
-    CTFilterControlCell *PriceCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStylePrice];
-    CTFilterControlCell *BargainCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBargain];
-    CTFilterControlCell *TransportationCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleTransportation];
-    CTFilterControlCell *BedrommCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBedroom];
-    CTFilterControlCell *BathroomCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBathroom];
+    CTFilterControlCell *PriceCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStylePrice withTableViewBlock:nil];
+    CTFilterControlCell *BargainCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBargain withTableViewBlock:^{
+        [self.tableView reloadData];
+    }];
+    CTFilterControlCell *TransportationCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleTransportation withTableViewBlock:^{
+        [self.tableView reloadData];
+    }];
+    CTFilterControlCell *BedrommCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBedroom withTableViewBlock:nil];
+    CTFilterControlCell *BathroomCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBathroom withTableViewBlock:nil];
     [BargainCell.bargainPickerView.headerButton addTarget:self action:@selector(reloadTableView) forControlEvents:UIControlEventTouchUpInside];
     [TransportationCell.transportationPickerView.headerButton addTarget:self action:@selector(reloadTableView) forControlEvents:UIControlEventTouchUpInside];
     cellArray = [NSArray arrayWithObjects:PriceCell,BargainCell,TransportationCell,BedrommCell,BathroomCell, nil];
