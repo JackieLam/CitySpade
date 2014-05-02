@@ -68,7 +68,6 @@
 {
     [super viewDidLoad];
     [self registerNotification];
-    
 // Setup the datas
     self.listings = [NSArray array];
     self.filterData = [NSDictionary dictionary];

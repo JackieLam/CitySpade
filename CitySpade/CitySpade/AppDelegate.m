@@ -22,7 +22,6 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    [NSThread sleepForTimeInterval:1.0f];
     return YES;
 }
 
@@ -30,7 +29,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     CTSavingsViewController *savingVC = [[CTSavingsViewController alloc] init];
     CTLeftSideMenuViewController *leftSideMenu = [[CTLeftSideMenuViewController alloc] init];
     CTFilterViewController *rightSideMenu = [[CTFilterViewController alloc] init];
@@ -51,6 +50,11 @@
                                                     containerWithCenterViewController:navController
                                                     leftMenuViewController:leftSideMenu
                                                     rightMenuViewController:filterNavController];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(menuStateEventOccurred:)
+                                                 name:MFSideMenuStateNotificationEvent
+                                               object:nil];
+    
     container.panMode = MFSideMenuPanModeNone;
     container.shadow.enabled = NO;
     
@@ -77,6 +81,17 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [FBAppCall handleDidBecomeActive];
+}
+
+#pragma mark - MFSideMenu Event
+- (void)menuStateEventOccurred:(NSNotification *)notification {
+    MFSideMenuContainerViewController *containerViewController = notification.object;
+    if (containerViewController.menuState == MFSideMenuStateLeftMenuOpen) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+    else if (containerViewController.menuState == MFSideMenuStateClosed) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    }
 }
 
 @end
