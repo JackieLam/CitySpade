@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @class Listing;
 @class REVClusterPin;
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, CTListCellStyle) {
 @property (nonatomic, strong) REVClusterPin *pin;
 @property (nonatomic, assign) BOOL isSaved;
 @property (nonatomic, strong) UIButton *favorBtn;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 
 - (id)initWithCTListCellStyle:(CTListCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)configureCellWithClusterPin:(REVClusterPin *)pin;

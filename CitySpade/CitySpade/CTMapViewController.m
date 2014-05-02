@@ -212,15 +212,12 @@
     } onError:^(NSError *engineError) {
         [activityIndicator stopAnimating];
         self.navigationItem.titleView = nil;
-        [SVProgressHUD showErrorWithStatus:@"Fail loading data"];
+        [SVProgressHUD showImage:[UIImage imageNamed:@"heartbreakicon"] status:@"Fail loading data"];
     }];
 }
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
-//    static int blockTotal = 0;
-//    blockTotal++;
-
     NSMutableArray *newAddAnnos = [NSMutableArray array];
     for (Listing __strong *listing in resultArray) {
         REVClusterPin *pin = [[REVClusterPin alloc] init];
@@ -233,9 +230,6 @@
         }
     }
     
-//    if (blockTotal == numBlocksToLoad) {
-//        blockTotal = 0;
-//    }
     if ([newAddAnnos count] > 0) {
         NSString *content = [NSString stringWithFormat:@"Loading %d more listings", [newAddAnnos count]];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": content, @"still": [NSNumber numberWithBool:NO]}];

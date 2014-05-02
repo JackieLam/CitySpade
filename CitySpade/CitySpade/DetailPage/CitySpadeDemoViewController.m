@@ -269,7 +269,7 @@ static const int navigationBarHeight = 44;
         NSUserDefaults *defauts = [NSUserDefaults standardUserDefaults];
         NSString *token = [defauts objectForKey:kAccessToken];
         if (!token) {
-            [SVProgressHUD showWithStatus:@"Please login to save listing"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"User-Profile"] status:@"Please login to save listings"];
             return;
         }
         

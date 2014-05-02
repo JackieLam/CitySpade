@@ -150,6 +150,7 @@
     self.identiferNumber = pin.identiferNumber;
     self.thumbImageView.imageURL = pin.thumbImageLink;
     self.favorBtn.selected = self.isSaved;
+    self.coordinate = pin.coordinate;
 }
 
 - (void)setNormalState
@@ -187,6 +188,7 @@
     self.identiferNumber = listing.internalBaseClassIdentifier;
     Images *image = (Images *)[listing.images firstObject];
     self.thumbImageView.imageURL = [NSString stringWithFormat:@"%@%@", image.url, [image.sizes firstObject]];
+    self.coordinate = CLLocationCoordinate2DMake(listing.lat, listing.lng);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -169,7 +169,7 @@ didSelectAnnotationView:(MKAnnotationView *)view
                                  @"totalPrice" : price,
                                  @"numberOfBed" : bed,
                                  @"numberOfBath" : bath},
-                               @{@"lng": @40, @"lat": @70}];
+                               @{@"lng": [NSNumber numberWithDouble:pin.coordinate.longitude], @"lat": [NSNumber numberWithDouble:pin.coordinate.latitude]}];
     detailViewController.preViewInfo = basicFactDict;
     [[NSNotificationCenter defaultCenter] postNotificationName:kShouldPushDetailViewController object:detailViewController userInfo:nil];
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];

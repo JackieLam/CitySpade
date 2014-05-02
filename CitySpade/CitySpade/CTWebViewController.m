@@ -83,7 +83,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:@"Check out internet connection"];
+    [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
 }
 
 @end

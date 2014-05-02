@@ -28,7 +28,9 @@
 
 - (void)setupBottomBar
 {
-    CGRect saveButtonRect = CGRectMake(27, 16, 50, 23);
+#warning 暂时取消Save Button
+//    CGRect saveButtonRect = CGRectMake(27, 16, 50, 23);
+    CGRect saveButtonRect = CGRectMake(0, 0, 0, 0);
     CGRect drawButtonRect = CGRectMake(255, 16, 50, 23);
     CGRect tempImageViewRect = CGRectMake(126, 8, 72, 38);
 //SaveButton

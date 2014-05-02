@@ -216,6 +216,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         [mapVC.pinsFilterRight removeAllObjects];
         [mapVC.pinsAll removeAllObjects];
         [BlockStates clearOnMapBlocks];
+        [BlockStates clearRequestingBlocks];
         
         // 这里发送一个信号为了让filterVC里面的rangeSlider改变数值
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:indexPath.row]}];

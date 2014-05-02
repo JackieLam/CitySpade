@@ -45,9 +45,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadListingsWithQuery:(NSDictionary *)queryParam onSucceeded:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
-    
-//先检测是否应该从磁盘中获取内容
+// 先检测是否应该从磁盘中获取内容
     if (![BlockCache shouldRequestWithBlock:queryParam]) {
         NSMutableArray *models = [BlockCache getCachedListingItemsWithBlock:queryParam];
         succededBlock(models);
@@ -56,6 +54,16 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
             [BlockStates addOnMapBlock:queryParam];
         return;
     }
+    
+// 若没有网络，应该直接告诉用户，然后终止API
+    if (![self isConnectedToNetwork]) {
+        [BlockStates removeRequestingBlock:queryParam];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+        });
+        return;
+    }
+
     
     NSMutableString *paramSubstring = [NSMutableString string];
     if (queryParam != nil) {
@@ -105,8 +113,15 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                     });
                 }
             }
+            else {
+                [BlockStates removeRequestingBlock:queryParam];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorBlock(error);
+                });
+            }
         }
         else {
+            [BlockStates removeRequestingBlock:queryParam];
             dispatch_async(dispatch_get_main_queue(), ^{
                 errorBlock(error);
             });
@@ -117,7 +132,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadListingDetailWithID:(int)idNumber
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     NSMutableString *urlString = [NSMutableString stringWithString:HOST_URL];
     [urlString appendString:@"/listings/"];
     [urlString appendString:[NSString stringWithFormat:@"%d.json", idNumber]];
@@ -151,7 +169,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loginWithName:(NSString*) loginName password:(NSString*) password onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     // 1 Calculation
     NSString *uuidString = [NSString getCFUUID];
     NSDictionary *dict = @{@"username": loginName, @"password": password, @"client_uuid": uuidString, @"cityspade": @"CitySpade"};
@@ -217,7 +238,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)logoutOnSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     // 1 Get the token
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
@@ -273,7 +297,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)registerWithUsername:(NSString *)userName password:(NSString *)password firstName:(NSString *)firstName lastName:(NSString *)lastName onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     NSMutableString *postHTTPBody = [NSMutableString stringWithFormat:@"username=%@&password=%@", userName, password];
     if (firstName != nil)
         [postHTTPBody appendString:[NSString stringWithFormat:@"&firstname=%@", firstName]];
@@ -334,7 +361,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)loadUserSaveList:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock;
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
     NSString *paramSubstring = [NSString stringWithFormat:@"?token=%@",token];
@@ -385,7 +415,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)addAListingToSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
     NSString *paramSubstring = [NSString stringWithFormat:@"?token=%@",token];
@@ -424,7 +457,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)deleteAListingFromSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults objectForKey:kAccessToken];
     
@@ -476,7 +512,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)getFacebookInfoWithAccessToken:(NSString *)accessToken onSucceeded:(DictionaryBlock)succededBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     NSMutableString *urlString = [NSMutableString stringWithString:@"https://graph.facebook.com/me?access_token="];
     [urlString appendString:accessToken];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -515,7 +554,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
 + (void)facebookCallbackWithEmail:(NSString *)email uid:(NSString *)uid onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
-    [self detectNetWork];
+    if (![self isConnectedToNetwork]) {
+        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        return;
+    }
     // 1 Setup post body
     NSString *postHTTPBody = [NSString stringWithFormat:@"email=%@&uid=%@", email, uid];
     // 2 Networking setup
@@ -570,13 +612,6 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     }];
     
     [postDataTask resume];
-}
-
-+ (void)detectNetWork
-{
-    if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"The Internet connection appears to be offline"];
-    }
 }
 
 + (BOOL)isConnectedToNetwork{

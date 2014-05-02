@@ -56,7 +56,7 @@
                                 @"totalPrice" : price,
                                 @"numberOfBed" : bed,
                                 @"numberOfBath" : bath},
-                               @{@"lng": @40, @"lat": @70}];
+                               @{@"lng": [NSNumber numberWithDouble:cell.coordinate.longitude], @"lat": [NSNumber numberWithDouble:cell.coordinate.latitude]}];
     detailViewController.preViewInfo = basicFactDict;
     detailViewController.isSaved = cell.isSaved;
     detailViewController.indexPath = indexPath;
