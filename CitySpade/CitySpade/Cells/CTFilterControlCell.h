@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, CTFilterCellStyle) {
     CTFilterCellStyleBedroom,
     CTFilterCellStyleBathroom
 };
+typedef void(^VoidBlock)(void);
 
 @interface CTFilterControlCell : UITableViewCell
 {
@@ -30,7 +31,7 @@ typedef NS_ENUM(NSInteger, CTFilterCellStyle) {
 @property (nonatomic, strong) BTPickerView *transportationPickerView;
 @property (nonatomic, strong) BedSegment *bedSegmentControl;
 @property (nonatomic, strong) BedSegment *bathSegmentControl;
-- (id)initWithStyle:(CTFilterCellStyle)style;
+- (id)initWithStyle:(CTFilterCellStyle)style withTableViewBlock:(VoidBlock)aTableViewBlock;
 - (NSString*)selectedItem;
 - (void)setSliderWithMaxValue:(float)maxValue minValue:(float)minValue;
 - (void)resetControl;

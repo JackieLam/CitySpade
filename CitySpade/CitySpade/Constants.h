@@ -27,6 +27,7 @@
 #pragma mark - Notification
 
 #define kNotificationLoginSuccess @"didLoginSuccess"
+#define kNotificationLogoutSuccess @"didLogOutSuccess"
 #define kNotificationRegisterSuccess @"didRegisterSuccess"
 #define kNotificationToLoadAllListings @"toLoadForRentListing"
 #define kNotificationShouldLoadFromCache @"shouldLoadFromCache"

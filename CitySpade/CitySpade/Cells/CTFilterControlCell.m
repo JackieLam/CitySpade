@@ -36,7 +36,7 @@
 
 @implementation CTFilterControlCell
 
-- (id)initWithStyle:(CTFilterCellStyle)style
+- (id)initWithStyle:(CTFilterCellStyle)style withTableViewBlock:(VoidBlock)aTableViewBlock
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
@@ -65,7 +65,12 @@
                 rect.size.height = CTFilterCellBargainHeight - BackGroundViewY;
                 self.backGroundView.image = [UIImage imageNamed:@"2white_bg"];
                 [self.backGroundView setFrame:rect];
-                self.bargainPickerView = [[BTPickerView alloc] initWithFrame:PickerViewRect withState:BTPickerViewStateMerged];
+                NSArray *pickerViewData = [NSArray arrayWithObjects:@"Any",@"1+",@"2+",@"3+",@"4+",@"5+",@"6+",@"7+",
+                                           @"8+",@"9+", nil];
+                
+                self.bargainPickerView = [[BTPickerView alloc] initWithFrame:PickerViewRect withState:BTPickerViewStateMerged withPickerViewData:pickerViewData withTableViewBlock:aTableViewBlock withCellBlock:^{
+                    [self changeViewHeight];
+                }];
                 [self.bargainPickerView.headerButton addTarget:self action:@selector(changeViewHeight) forControlEvents:UIControlEventTouchUpInside];
                 [self.contentView addSubview:self.bargainPickerView];
                 isMerged = YES;
@@ -76,7 +81,11 @@
                 rect.size.height = CTFilterCellTransportationHeight - BackGroundViewY;
                 self.backGroundView.image = [UIImage imageNamed:@"2white_bg"];
                 [self.backGroundView setFrame:rect];
-                self.transportationPickerView = [[BTPickerView alloc] initWithFrame:PickerViewRect withState:BTPickerViewStateMerged];
+                NSArray *pickerViewData = [NSArray arrayWithObjects:@"Any",@"1+",@"2+",@"3+",@"4+",@"5+",@"6+",@"7+",
+                                           @"8+",@"9+", nil];
+                self.transportationPickerView = [[BTPickerView alloc] initWithFrame:PickerViewRect withState:BTPickerViewStateMerged withPickerViewData:pickerViewData withTableViewBlock:aTableViewBlock withCellBlock:^{
+                    [self changeViewHeight];
+                }];
                 [self.transportationPickerView.headerButton addTarget:self action:@selector(changeViewHeight) forControlEvents:UIControlEventTouchUpInside];
                 [self.contentView addSubview:self.transportationPickerView];
                 isMerged = YES;
