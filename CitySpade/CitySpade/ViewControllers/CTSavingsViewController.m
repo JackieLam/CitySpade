@@ -17,6 +17,7 @@
 #import "CitySpadeDemoViewController.h"
 #import "Listing.h"
 #import "SVProgressHUD.h"
+#import <MFSideMenu.h>
 
 #define TitleColor [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0]
 #define SegmentTintColor [UIColor colorWithRed:42/255.0 green:188/255.0 blue:184/255.0 alpha:1.0]
@@ -196,7 +197,7 @@
     self.tableView.backgroundColor = TableViewBackGroundColor;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
     [self.refreshControl addTarget:self action:@selector(reloadSaveListing:) forControlEvents:UIControlEventValueChanged];
     //设置navigationItem's leftBarButtonItem,rightBarButtonItem
     
@@ -225,7 +226,7 @@
 
 - (void)reloadSaveListing:(NSNotification *)aNotification
 {
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"刷新中..."];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading..."];
     [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
         if (self.saveList) {
             [self.saveList removeAllObjects];
@@ -234,11 +235,11 @@
         [AppCache cacheSaveList:self.saveList];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
         [self.refreshControl endRefreshing];
-        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
         [self.tableView reloadData];
     } onError:^(NSError *engineError) {
         [self.refreshControl endRefreshing];
-        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
     }];
 }
 
@@ -328,6 +329,11 @@
 }
 
 - (void)backButtonPressed:(id)sender {
+    [self.menuContainerViewController toggleLeftSideMenuCompletion:^{
+//        [self setupMenuBarButtonItems];
+    }];
+    UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
+    [navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

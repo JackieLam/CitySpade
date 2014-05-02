@@ -211,14 +211,15 @@
         [self resetAnnotationsWithResultArray:self.listings];
     } onError:^(NSError *engineError) {
         [activityIndicator stopAnimating];
-        [SVProgressHUD showErrorWithStatus:@"Something went wrong"];
+        self.navigationItem.titleView = nil;
+        [SVProgressHUD showErrorWithStatus:@"Fail loading data"];
     }];
 }
 
 - (void)resetAnnotationsWithResultArray:(NSArray *)resultArray
 {
-    static int blockTotal = 0;
-    blockTotal++;
+//    static int blockTotal = 0;
+//    blockTotal++;
 
     NSMutableArray *newAddAnnos = [NSMutableArray array];
     for (Listing __strong *listing in resultArray) {
@@ -232,9 +233,11 @@
         }
     }
     
-    if (blockTotal == numBlocksToLoad) {
-        blockTotal = 0;
-        NSString *content = [NSString stringWithFormat:@"Finished loading %d listings", [self.pinsAll count]];
+//    if (blockTotal == numBlocksToLoad) {
+//        blockTotal = 0;
+//    }
+    if ([newAddAnnos count] > 0) {
+        NSString *content = [NSString stringWithFormat:@"Loading %d more listings", [newAddAnnos count]];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": content, @"still": [NSNumber numberWithBool:NO]}];
     }
     
@@ -476,7 +479,7 @@
         appearRect.origin.y += 30.0f;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.3];
-        [UIView setAnimationDelay:1.0];
+        [UIView setAnimationDelay:0.0];
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
         self.stateLabel.frame = appearRect;
         [UIView commitAnimations];
@@ -489,7 +492,7 @@
             disappearRect.origin.y -= 30.0f;
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationDuration:0.3];
-            [UIView setAnimationDelay:2.5];
+            [UIView setAnimationDelay:1.0f];
             [UIView setAnimationCurve:UIViewAnimationCurveLinear];
             self.stateLabel.frame = disappearRect;
             [UIView commitAnimations];

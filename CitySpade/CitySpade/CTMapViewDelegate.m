@@ -65,8 +65,8 @@
         }
     }
     if (cnt > 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Loading...", @"still": [NSNumber numberWithBool:YES]}];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationBlocksCount object:@{@"total": [NSNumber numberWithInt:cnt]}];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Loading more...", @"still": [NSNumber numberWithBool:YES]}];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationBlocksCount object:@{@"total": [NSNumber numberWithInt:cnt]}];
     }
     NSLog(@"REPORT : Request number - %d", cnt);
 }

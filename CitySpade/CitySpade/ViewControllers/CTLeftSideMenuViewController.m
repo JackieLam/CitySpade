@@ -43,7 +43,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
 @property (nonatomic, strong) NSDictionary *rowTitles;
 @property (nonatomic, strong) NSArray *numberOfRows;
 @property (nonatomic, strong) NSDictionary *thumbImageBaseName;
-@property (nonatomic, strong) CTSavingsViewController *savingsVC;
+
 @end
 
 @implementation CTLeftSideMenuViewController
@@ -78,7 +78,6 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
     [self.view addSubview:self.tableView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserName:) name:kNotificationLoginSuccess object:nil];
-    self.savingsVC = [[CTSavingsViewController alloc] init];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -190,14 +189,12 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         }
         else if (indexPath.row == 1) {
             //My Saves
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.savingsVC];
-            nav.navigationBar.opaque = YES;
-            nav.navigationBar.translucent = NO;
-            [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-            [nav.navigationBar setShadowImage:[UIImage new]];
-            [self presentViewController:nav animated:YES completion:nil];
-            //[self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            CTSavingsViewController *savingsVC = [[CTSavingsViewController alloc] init];
             [cell setBackgroundColor:CellSelectedColor];
+            
+            UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
+            [navigationController pushViewController:savingsVC animated:NO];
+            [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
         }
     }
     else if (indexPath.section == 1) {

@@ -117,7 +117,7 @@ static const int toolBarHeight = 52;
 
 - (void)setApplyButton
 {
-    self.navigationItem.rightBarButtonItems = [UIBarButtonItem createEdgeButtonWithText:@"Filter" WithTarget:self action:@selector(didApplyFiltering)];
+    self.navigationItem.rightBarButtonItems = [UIBarButtonItem createEdgeButtonWithText:@"Apply" WithTarget:self action:@selector(didApplyFiltering)];
 }
 
 - (void)setToolBar {
