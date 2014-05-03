@@ -78,5 +78,4 @@
     cell.textLabel.textColor = [UIColor colorWithRed:96.0f/255.0 green:95.0f/255.0 blue:95.0f/255.0 alpha:1.0f];
 }
 
-
 @end

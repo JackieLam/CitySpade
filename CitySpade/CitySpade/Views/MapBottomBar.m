@@ -28,16 +28,15 @@
 
 - (void)setupBottomBar
 {
-#warning 暂时取消Save Button
-//    CGRect saveButtonRect = CGRectMake(27, 16, 50, 23);
-    CGRect saveButtonRect = CGRectMake(0, 0, 0, 0);
+    CGRect saveButtonRect = CGRectMake(27, 16, 50, 23);
     CGRect drawButtonRect = CGRectMake(255, 16, 50, 23);
     CGRect tempImageViewRect = CGRectMake(126, 8, 72, 38);
 //SaveButton
     self.saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.saveButton.frame = saveButtonRect;
     self.saveButton.backgroundColor = [UIColor clearColor];
-    [self.saveButton setTitle:@"Save" forState:UIControlStateNormal];
+#warning 暂时取消Save Button
+    [self.saveButton setTitle:@" " forState:UIControlStateNormal];
     [self.saveButton.titleLabel setFont:[UIFont fontWithName:@"Avenir-Roman" size:15.0f]];
     [self.saveButton setTitleColor:[UIColor colorWithRed:172.0/255.0 green:255.0/255.0 blue:250.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self addSubview:self.saveButton];

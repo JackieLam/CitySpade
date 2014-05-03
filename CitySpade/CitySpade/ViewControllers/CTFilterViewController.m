@@ -251,7 +251,6 @@ static const int toolBarHeight = 52;
     filterData[@"transportation"] = [cell2 selectedItem];
     filterData[@"beds"] = [cell3 selectedItem];
     filterData[@"baths"] = [cell4 selectedItem];
-    NSLog(@"filterData:%@",filterData);
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
     [self.searchBar resignFirstResponder];

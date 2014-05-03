@@ -21,7 +21,6 @@
 #import "DataModels.h"
 #import "Constants.h"
 #import "MapCollectionCell.h"
-#import "AppCache.h"
 #import "CTMapViewDelegate.h"
 #import "MainTableViewDelegate.h"
 #import "NSString+RegEx.h"
@@ -77,7 +76,7 @@
     
 // Setup the navigation bar
     [self setupMenuBarButtonItems];
-    
+        
 // Setup the map view
     CGRect viewBounds = [UIScreen mainScreen].bounds;
     viewBounds.size.height = viewBounds.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
@@ -380,18 +379,18 @@
 -(void)segmentAction:(UISegmentedControl*)sender
 {
     if (sender.selectedSegmentIndex == 0) {
+        [self.mapBottomBar resetBarState:BarStateMapDefault];
+        [self.sortTableView removeFromSuperview];
         [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-            [self.mapBottomBar resetBarState:BarStateMapDefault];
-            self.sortTableView = nil;
+            // 方法放这里的话会有延迟
         }];
     }
     else {
+        [self.mapBottomBar resetBarState:BarStateList];
         [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-            [self.mapBottomBar resetBarState:BarStateList];
             [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
             CGRect bottomBarFrame = self.mapBottomBar.frame;
             self.sortTableView = [[SortTableView alloc] initWithFrame:CGRectMake(bottomBarFrame.origin.x, bottomBarFrame.origin.y, bottomBarFrame.size.width, 0) delegate:self];
-            //            self.sortTableView.backgroundColor = [UIColor redColor];
             [self.view addSubview:self.sortTableView];
         }];
     }
@@ -605,8 +604,7 @@
         default:
             break;
     }
-    self.ctlistView.places = [self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor]];
-    [self.ctlistView reloadData];
+    [self.ctlistView loadPlacesToListAndReloadData:[self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor]]];
 }
 
 @end

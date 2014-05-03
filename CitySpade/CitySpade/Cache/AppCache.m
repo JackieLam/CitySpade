@@ -153,8 +153,11 @@ static int kCacheMemoryLimit;
 
 + (NSMutableArray *)getCachedSaveList
 {
-    NSLog(@"%@",[self getSavingListPath]);
-    return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForFile:[self getSavingListPath]]];
+    NSData *data = [self dataForFile:[self getSavingListPath]];
+    if (data != nil)
+        return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    else
+        return [NSMutableArray array];
 }
 
 + (BOOL)isSaveListStale

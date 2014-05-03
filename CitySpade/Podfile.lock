@@ -1,19 +1,16 @@
 PODS:
   - LBBlurredImage (0.2.0)
   - MFSideMenu (0.5.4)
-  - Reveal-iOS-SDK (1.0.3)
   - SVProgressHUD (1.0)
 
 DEPENDENCIES:
   - LBBlurredImage
   - MFSideMenu
-  - Reveal-iOS-SDK
   - SVProgressHUD
 
 SPEC CHECKSUMS:
   LBBlurredImage: 26bacd10063a6e886de6a374f4727c3cefb22fc2
   MFSideMenu: f59e25c080097a701e108459c207fb22e1f62c30
-  Reveal-iOS-SDK: f2525cb560a564fdc086316e89ec45ced6977fd3
   SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1
