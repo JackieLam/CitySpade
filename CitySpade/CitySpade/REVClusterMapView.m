@@ -201,36 +201,19 @@ NSOperationQueue *calculationQueue;
 
 - (void) mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-//    mapView.zoomEnabled = NO;
-//    mapView.scrollEnabled = NO;
-//    mapView.pitchEnabled = NO;
-//    mapView.rotateEnabled = NO;
     if( [self mapViewDidZoom] )
     {
         [super removeAnnotations:self.annotations];
     }
     if ([annotationsCopy count] > 0) {
-//        dispatch_async(calculationQueue, ^{
+        
         [calculationQueue addOperationWithBlock:^{
-            clock_t clock_start = clock();
-            
-//            NSLog(@"before[annotationsCopy]: %d", [annotationsCopy count]);
-//            NSLog(@"before[mapView.annotations] : %d", [mapView.annotations count]);
             NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
-//            NSLog(@"revMapView - add - %@", add);
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            
-            clock_t clock_end = clock();
-//            NSLog(@"[AnnotationsCopy] %f",(clock_end-clock_start)/(double)CLOCKS_PER_SEC);
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//                NSLog(@"before add : %d", [self.annotations count]);
+
                 [super addAnnotations:add];
-//                NSLog(@"after add : %d", [self.annotations count]);
             }];
         }];
-        
-//            });
-//        });
     }
     
     if( [delegate respondsToSelector:@selector(mapView:regionDidChangeAnimated:)] )

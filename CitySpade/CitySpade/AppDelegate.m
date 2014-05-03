@@ -30,7 +30,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    CTSavingsViewController *savingVC = [[CTSavingsViewController alloc] init];
     CTLeftSideMenuViewController *leftSideMenu = [[CTLeftSideMenuViewController alloc] init];
     CTFilterViewController *rightSideMenu = [[CTFilterViewController alloc] init];
     CTMapViewController *mapViewController = [[CTMapViewController alloc] init];
@@ -40,7 +39,6 @@
     [filterNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [filterNavController.navigationBar setShadowImage:[UIImage new]];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:savingVC];
     navController.navigationBar.opaque = YES;
     navController.navigationBar.translucent = NO;
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar_shadow"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
@@ -62,8 +60,6 @@
     [AppearanceSetter setBarButtonAppearance];
     [AppearanceSetter setSearchBarAppearance];
     
-// test
-//    self.window.rootViewController = navController;
     self.window.rootViewController = container;
     [self.window makeKeyAndVisible];
 

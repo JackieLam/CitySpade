@@ -40,7 +40,6 @@
     const char *str = [self UTF8String];
     char resultCStr[100];
     int j = 0;
-    bool didfind = NO;
     
     for (int i = 0; i < strlen(str); i++) {
         if (str[i] != '@')

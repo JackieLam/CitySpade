@@ -47,7 +47,7 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
     NSArray *arr = [mapView blocksParamWithSize:4];
-#warning 临时性代码 - 限定放大以后不产生网络请求
+// 限定放大以后不产生网络请求, 提示用户缩小地图
     if ([arr count] > maxBlockThersold) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Zoom in to load more data", @"still": [NSNumber numberWithBool:NO]}];
         return;
@@ -91,8 +91,8 @@ didSelectAnnotationView:(MKAnnotationView *)view
     if (annotation.nodes == nil) self.placesClicked = [NSArray arrayWithObject:annotation];
     else
         self.placesClicked = [NSArray arrayWithArray:annotation.nodes];
-    //zoom in if click on a cluster less than 20
-    if ([annotation.nodes count] > 20) {
+    //zoom in if click on a cluster less than 40
+    if ([annotation.nodes count] > 40) {
         CLLocationCoordinate2D centerCoordinate = [annotation coordinate];
         MKCoordinateSpan newSpan = MKCoordinateSpanMake(mapView.region.span.latitudeDelta/2.0, mapView.region.span.longitudeDelta/2.0);
         [mapView setRegion:MKCoordinateRegionMake(centerCoordinate, newSpan)

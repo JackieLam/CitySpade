@@ -7,7 +7,7 @@
 //
 
 #import "CTMapViewController.h"
-#import "CTDetailViewController.h"
+#import "CitySpadeDemoViewController.h"
 #import "CTListView.h"
 #import "CTDetailView.h"
 #import "MFSideMenu.h"
@@ -370,7 +370,7 @@
 #pragma mark - Push DetailViewController
 - (void)pushDetailViewController:(NSNotification *)aNotification
 {
-    CTDetailViewController *detailViewController = [aNotification object];
+    CitySpadeDemoViewController *detailViewController = [aNotification object];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

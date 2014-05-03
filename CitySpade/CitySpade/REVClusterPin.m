@@ -19,6 +19,7 @@
 @synthesize title,coordinate,subtitle;
 @synthesize nodes;
 @synthesize beds, baths, bargain, transportation;
+@synthesize priceInt, bargainDouble, transportationDouble, bedInt, bathInt;
 
 - (NSUInteger) nodeCount
 {

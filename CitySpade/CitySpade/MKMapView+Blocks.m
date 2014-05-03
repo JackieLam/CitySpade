@@ -35,8 +35,6 @@
     
     int numberOfTileWidth = ceil(self.visibleMapRect.size.width/tileWidth)+1;
     int numberOfTileHeight = ceil(self.visibleMapRect.size.height/tileHeight)+1;
-    MKMapRect expandMapRect = MKMapRectMake(tileStartX, tileStartY-tileHeight, numberOfTileWidth*tileWidth, numberOfTileHeight*tileHeight);   //扩大一点的地图，保证能完全覆盖到visibleMap
-    
     
     for (int i = 0; i < numberOfTileHeight; i++) {
         MKMapPoint swMapPoint = MKMapPointMake(tileStartX, tileStartY + tileHeight * i);

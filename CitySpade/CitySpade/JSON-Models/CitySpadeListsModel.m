@@ -32,7 +32,6 @@
     CitySpadeRequestHandler *handler = [[CitySpadeRequestHandler alloc] init];
     
     [handler fetchListingForURL:listURL WithCompletionHandler:^(NSDictionary *listDictionary) {
-        NSLog(@"%@", listDictionary);
         [self handlerListDictionary:listDictionary];
         completionHandler( _infoDictionary );
         

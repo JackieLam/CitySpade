@@ -57,7 +57,10 @@
                 if ( !jsonError ) {
                     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                     
-                    completionHandler(listJSON);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionHandler(listJSON);
+                    });
+                    
                 } else {
                     NSLog(@"json Error!");
                 }
@@ -65,7 +68,7 @@
                 NSLog(@"bad response!");
             }
         } else {
-            NSLog(@"dataTask error!");
+            NSLog(@"dataTask error : %@", error);
         }
     }];
     
@@ -93,14 +96,15 @@
                 
 //                NSLog(@"download image success!");
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                completionHandler( URLToPathMap );
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionHandler( URLToPathMap );
+                });
             } else {
                 NSLog(@"copy error: %@ exist!", copyError);
             }
             
         } else {
-            NSLog(@"download task error!");
+            NSLog(@"download task error : %@", error);
         }
     }];
     
