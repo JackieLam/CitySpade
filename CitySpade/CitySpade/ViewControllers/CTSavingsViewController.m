@@ -85,11 +85,6 @@
         }
         
     }
-    [self.tableView reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
