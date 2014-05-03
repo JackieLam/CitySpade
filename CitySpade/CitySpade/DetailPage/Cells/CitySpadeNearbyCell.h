@@ -11,4 +11,7 @@
 @interface CitySpadeNearbyCell : CitySpadeCell
 
 @property (nonatomic, weak) NSDictionary *locationDictionary;
+
+- (void)setLocationDictionary:(NSDictionary *)locationDictionary;
+
 @end

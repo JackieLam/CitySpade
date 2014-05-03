@@ -10,7 +10,8 @@
 #import "REVClusterMap.h"
 #import <MapKit/MapKit.h>
 
-@interface CitySpadeNearbyCell ()
+@interface CitySpadeNearbyCell ()<MKMapViewDelegate>
+
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic) CGFloat latitude;
 @property (nonatomic) CGFloat longtitude;
@@ -72,4 +73,15 @@
     return annView;
 }
 
+- (void)setLocationDictionary:(NSDictionary *)locationDictionary
+{
+    if (!_locationDictionary)
+        _locationDictionary = [NSDictionary dictionary];
+    _locationDictionary = locationDictionary;
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake([_locationDictionary[@"lat"] floatValue], [_locationDictionary[@"lng"] floatValue]);
+    [_mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 500, 500)];
+    REVClusterPin *pin = [[REVClusterPin alloc] init];
+    pin.coordinate = location;
+    [_mapView addAnnotation:pin];
+}
 @end

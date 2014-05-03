@@ -210,7 +210,7 @@
     } onError:^(NSError *engineError) {
         [activityIndicator stopAnimating];
         self.navigationItem.titleView = nil;
-        [SVProgressHUD showImage:[UIImage imageNamed:@"heartbreakicon"] status:@"Fail loading data"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Fail loading new listings", @"still": [NSNumber numberWithBool:NO]}];
     }];
 }
 

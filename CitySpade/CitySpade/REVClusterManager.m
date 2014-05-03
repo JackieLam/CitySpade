@@ -53,7 +53,7 @@
         }
     }
     
-    if( zoomLevel > minClusterLevel )
+    if( zoomLevel > minClusterLevel && [visibleAnnotations count] < 20)
     {
         return visibleAnnotations;
     }
