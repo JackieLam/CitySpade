@@ -50,7 +50,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteListingFromSaveListing:) name:kNotificationDeleteSaveListing object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSaveListingFromCache) name:kNotificationLoginSuccess object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector
-            (removAllSaveListing) name:kNotificationLogoutSuccess object:nil];
+            (removeAllSaveListing) name:kNotificationLogoutSuccess object:nil];
         [self reloadSaveListingFromCache];
     }
     return self;
@@ -80,16 +80,10 @@
             noLoginImageView.tag = kNoLoginViewTag;
             [self.view addSubview:noLoginImageView];
             [self.saveList removeAllObjects];
-            [self.tableView reloadData];
             self.tableView.userInteractionEnabled = NO;
         }
         
     }
-    [self.tableView reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -218,6 +212,7 @@
     self.saveList = [AppCache getCachedSaveList];
     if (self.saveList) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+        [self.tableView reloadData];
     }
     if (!self.saveList || [AppCache isSaveListStale]){
         [self reloadSaveListing:nil];
@@ -243,7 +238,7 @@
     }];
 }
 
-- (void)removAllSaveListing
+- (void)removeAllSaveListing
 {
     [self.saveList removeAllObjects];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
@@ -364,5 +359,6 @@
         return NO;
     }
 }
+
 
 @end
