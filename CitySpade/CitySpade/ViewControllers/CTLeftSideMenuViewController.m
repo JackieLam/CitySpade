@@ -43,7 +43,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
 @property (nonatomic, strong) NSDictionary *rowTitles;
 @property (nonatomic, strong) NSArray *numberOfRows;
 @property (nonatomic, strong) NSDictionary *thumbImageBaseName;
-
+@property (nonatomic, strong) CTSavingsViewController *savingVC;
 @end
 
 @implementation CTLeftSideMenuViewController
@@ -76,7 +76,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    
+    self.savingVC = [[CTSavingsViewController alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserName:) name:kNotificationLoginSuccess object:nil];
 }
 
@@ -189,11 +189,11 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         }
         else if (indexPath.row == 1) {
             //My Saves
-            CTSavingsViewController *savingsVC = [[CTSavingsViewController alloc] init];
+//            CTSavingsViewController *savingsVC = [[CTSavingsViewController alloc] init];
             [cell setBackgroundColor:CellSelectedColor];
-            
+//            [self.savingVC.tableView reloadData];
             UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
-            [navigationController pushViewController:savingsVC animated:NO];
+            [navigationController pushViewController:self.savingVC animated:NO];
             [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
         }
     }
