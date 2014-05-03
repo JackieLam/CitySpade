@@ -144,8 +144,9 @@ static const int navigationBarHeight = 44;
     [toolBarView addSubview:favorBtn];
     
     //share
-    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(282, 16, 20, 22)];
+    UIButton *shareBtn = [[UIButton alloc] initWithFrame:CGRectMake(270, 1, 50, 50)];
     [shareBtn setImage:[UIImage imageNamed:@"Share-"] forState:UIControlStateNormal];
+    [shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
     [shareBtn addTarget:self action:@selector(pressForwardBtn:) forControlEvents:UIControlEventTouchUpInside];
     [toolBarView addSubview:shareBtn];
     
@@ -294,6 +295,9 @@ static const int navigationBarHeight = 44;
             
             [RESTfulEngine addAListingToSaveListWithId:_listID onSucceeded:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
+                if (self.indexPath) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:self.indexPath];
+                }
                 NSLog(@"AddToListing Success");
             } onError:^(NSError *engineError) {
                 favorBtn.selected = !favorBtn.selected;
@@ -304,6 +308,9 @@ static const int navigationBarHeight = 44;
             
             [RESTfulEngine deleteAListingFromSaveListWithId:_listID onSucceeded:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:_listID userInfo:nil];
+                if (self.indexPath) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:self.indexPath];
+                }
                 NSLog(@"Delete From Listing Success");
             } onError:^(NSError *engineError) {
                 favorBtn.selected = !favorBtn.selected;
@@ -330,10 +337,6 @@ static const int navigationBarHeight = 44;
 }
 
 - (void)back:(id)sender {
-    if (self.indexPath) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableView" object:self.indexPath];
-    }
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
