@@ -55,9 +55,8 @@
 - (void)refreshTableView:(NSNotification *)aNotification
 {
     NSIndexPath *indexPath = [aNotification object];
-    if (indexPath) {
-        NSArray *indexPathArray = [NSArray arrayWithObject:indexPath];
-        [self reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (indexPath.length) {
+        [self reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     else{
         [self reloadData];
