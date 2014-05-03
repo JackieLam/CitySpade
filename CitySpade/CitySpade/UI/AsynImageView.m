@@ -75,6 +75,11 @@
             else
             {
                 self.image = [UIImage imageWithContentsOfFile:_fileName];
+                if (!self.image) {
+                    self.image = _placeholderImage;
+                    [[NSFileManager defaultManager] removeItemAtPath:_fileName error:nil];
+                }
+
                 [activityIndicator removeFromSuperview];
                 [activityIndicator stopAnimating];
             }
@@ -144,6 +149,10 @@
     if([loadData writeToFile:_fileName atomically:YES])
     {
         self.image = [UIImage imageWithContentsOfFile:_fileName];
+        if (!self.image) {
+            self.image = _placeholderImage;
+            [[NSFileManager defaultManager] removeItemAtPath:_fileName error:nil];
+        }
         [self removeActivityIndicatorView];
     }
     connection = nil;
