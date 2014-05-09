@@ -22,7 +22,7 @@ static NSMutableSet *loadedBlockSet;    // 保存地图上已经从磁盘加载�
 
 + (NSString *)fileNameWithBlock:(NSDictionary *)paramDict
 {
-    NSArray *path=NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSArray *path=NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *docDir=[path objectAtIndex:0];
     NSDate *date = [NSDate date];
     NSString *dateStr = [NSString stringWithFormat:@"%@",date];
@@ -63,7 +63,7 @@ static NSMutableSet *loadedBlockSet;    // 保存地图上已经从磁盘加载�
 // 若磁盘中存在：Shouldn't
 + (BOOL)shouldRequestWithBlock:(NSDictionary *)paramDict
 {
-    NSArray *path=NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSArray *path=NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *docDir=[path objectAtIndex:0];
     NSDate *date = [NSDate date];
     NSString *dateStr = [NSString stringWithFormat:@"%@",date];

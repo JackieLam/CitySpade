@@ -82,9 +82,13 @@
     NSURLSessionDownloadTask *downloadTask = [_session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         if ( !error ) {
             NSFileManager *fileManager = [NSFileManager defaultManager];
-            NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+            NSArray *urls = [fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask];
             NSURL *documentsDirectory = urls[0];
-            NSURL *destinationPath = [documentsDirectory URLByAppendingPathComponent:[location lastPathComponent]];
+            NSURL *temp = [documentsDirectory URLByAppendingPathComponent:@"DetailView"];
+            if (![fileManager fileExistsAtPath:[temp path]]) {
+                [fileManager createDirectoryAtPath:[temp path] withIntermediateDirectories:YES attributes:nil error:nil];
+            }
+            NSURL *destinationPath = [temp URLByAppendingPathComponent:[location lastPathComponent]];
             NSError *copyError;
             
             [fileManager removeItemAtURL:destinationPath error: NULL];
