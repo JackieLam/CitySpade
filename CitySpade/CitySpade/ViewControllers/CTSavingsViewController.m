@@ -63,8 +63,9 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     if ([self isLogined]) {
         UIImageView *noLoginImageView = (UIImageView*)[self.view viewWithTag:kNoLoginViewTag];
         if (noLoginImageView) {
@@ -84,6 +85,7 @@
         }
         
     }
+    
 }
 
 - (void)didReceiveMemoryWarning
