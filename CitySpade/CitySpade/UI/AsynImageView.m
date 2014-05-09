@@ -52,8 +52,8 @@
         activityIndicator.tag = kActivityIndicatorTag;
         [activityIndicator startAnimating];
         [self addSubview:activityIndicator];
-        NSArray *path=NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-        NSString *docDir=[path objectAtIndex:0];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *docDir=[paths objectAtIndex:0];
         NSDate *date = [NSDate date];
         NSString *dateStr = [NSString stringWithFormat:@"%@",date];
         NSString *tmpPath = [docDir stringByAppendingPathComponent:@"AsynImage"];
