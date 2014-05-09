@@ -104,7 +104,7 @@
             }
             
         } else {
-            NSLog(@"download task error : %@", error);
+//            NSLog(@"download task error : %@", error);
         }
     }];
     
