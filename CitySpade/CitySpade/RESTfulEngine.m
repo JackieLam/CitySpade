@@ -284,11 +284,15 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                 });
             }
             else {
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorBlock(nil);
+                });
             }
         }
         else {
-            DLog(@"Error : %@", error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(nil);
+            });
         }
     }];
     

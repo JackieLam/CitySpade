@@ -291,7 +291,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
                 [defaults removeObjectForKey:kUserName];
                 [defaults synchronize];
             } onError:^(NSError *engineError) {
-                // TODO: Log out fail
+                [SVProgressHUD showErrorWithStatus:@"Loggout failed for some reason"];
             }];
         }
             break;
