@@ -403,6 +403,11 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                     }
                 });
             }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorBlock(error);
+                });
+            }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
