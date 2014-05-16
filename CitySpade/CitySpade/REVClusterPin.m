@@ -59,7 +59,7 @@
     
     self.priceInt = (int)listing.price;
     self.bargainDouble = [[listing.bargain firstNumberInString] doubleValue];
-    self.transportationDouble = [[listing.bargain firstNumberInString] doubleValue];
+    self.transportationDouble = [[listing.transportation firstNumberInString] doubleValue];
     self.bedInt = (int)listing.beds;
     self.bathInt = (int)listing.baths;
 }

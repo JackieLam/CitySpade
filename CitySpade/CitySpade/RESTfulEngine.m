@@ -227,8 +227,6 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                     [SVProgressHUD showErrorWithStatus:errorInfo];
                     errorBlock(nil);
                 });
-
-                
             }
         }
     }];
