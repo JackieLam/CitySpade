@@ -189,12 +189,12 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         }
         else if (indexPath.row == 1) {
             //My Saves
-//            CTSavingsViewController *savingsVC = [[CTSavingsViewController alloc] init];
             [cell setBackgroundColor:CellSelectedColor];
-//            [self.savingVC.tableView reloadData];
             UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
-            [navigationController pushViewController:self.savingVC animated:NO];
-            [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            if(![navigationController.topViewController isKindOfClass:[CTSavingsViewController class]]){
+                [navigationController pushViewController:self.savingVC animated:NO];
+                [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            }
         }
     }
     else if (indexPath.section == 1) {

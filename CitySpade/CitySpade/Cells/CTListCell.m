@@ -145,8 +145,20 @@
     self.priceLabel.text = pin.subtitle;
     self.bargainLabel.text = [NSString stringWithFormat:@"Bargain(price):%@", pin.bargain];
     self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", pin.transportation];
-    self.bedLabel.text = [pin.beds stringByAppendingString:@"Beds"];
-    self.bathLabel.text = [pin.baths stringByAppendingString:@"Baths"];
+    int numberOfBed = [pin.beds intValue];
+    if (numberOfBed > 1) {
+        self.bedLabel.text = [NSString stringWithFormat:@"%dBeds", numberOfBed];
+    }
+    else{
+        self.bedLabel.text = [NSString stringWithFormat:@"%dBed", numberOfBed];
+    }
+    int numberOfBath = [pin.baths intValue];
+    if (numberOfBath > 1) {
+        self.bathLabel.text = [NSString stringWithFormat:@"%dBaths", numberOfBath];
+    }
+    else{
+        self.bathLabel.text = [NSString stringWithFormat:@"%dBath", numberOfBath];
+    }
     self.identiferNumber = pin.identiferNumber;
     self.thumbImageView.imageURL = pin.thumbImageLink;
     self.favorBtn.selected = self.isSaved;
@@ -183,8 +195,20 @@
     self.priceLabel.text = [NSString stringWithFormat:@"$%d", (int)listing.price];
     self.bargainLabel.text = [NSString stringWithFormat:@"Bargain(price):%@", listing.bargain];
     self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", listing.transportation];
-    self.bedLabel.text = [[NSString stringWithFormat:@"%d", (int)listing.beds] stringByAppendingString:@"Beds"];
-    self.bathLabel.text = [[NSString stringWithFormat:@"%d", (int)listing.baths] stringByAppendingString:@"Baths"];
+    int numberOfBed = (int)listing.beds;
+    if (numberOfBed > 1) {
+        self.bedLabel.text = [NSString stringWithFormat:@"%dBeds", numberOfBed];
+    }
+    else{
+        self.bedLabel.text = [NSString stringWithFormat:@"%dBed", numberOfBed];
+    }
+    int numberOfBath = (int)listing.baths;
+    if (numberOfBath > 1) {
+        self.bathLabel.text = [NSString stringWithFormat:@"%dBaths", numberOfBath];
+    }
+    else{
+        self.bathLabel.text = [NSString stringWithFormat:@"%dBath", numberOfBath];
+    }
     self.identiferNumber = listing.internalBaseClassIdentifier;
     Images *image = (Images *)[listing.images firstObject];
     self.thumbImageView.imageURL = [NSString stringWithFormat:@"%@%@", image.url, [image.sizes firstObject]];
