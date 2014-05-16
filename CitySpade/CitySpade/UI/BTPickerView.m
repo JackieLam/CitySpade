@@ -116,7 +116,8 @@
     label.textColor = kPickerViewTextColor;
     return label;
 }
-- (float)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
 {
     return 15;
 }
