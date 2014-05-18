@@ -55,11 +55,9 @@
 - (void)refreshTableView:(NSNotification *)aNotification
 {
     NSIndexPath *indexPath = [aNotification object];
-    if (indexPath.length) {
-        [self reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    else{
-        [self reloadData];
+    if (indexPath) {
+        CTListCell *cell = (CTListCell*)[self cellForRowAtIndexPath:indexPath];
+        [cell changeState];
     }
 }
 
@@ -126,6 +124,7 @@
     favorBtn.selected = !favorBtn.selected;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     CTListCell *cell = (CTListCell *)[self cellForRowAtIndexPath:indexPath];
+    cell.isSaved = !cell.isSaved;
     if (favorBtn.selected) {
         REVClusterPin *pin = self.places[indexPath.row];
         NSLog(@"bargain:%f",pin.bargainDouble);
@@ -145,19 +144,18 @@
         
         [RESTfulEngine addAListingToSaveListWithId:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] onSucceeded:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddSaveListing object:dic userInfo:nil];
-            NSLog(@"AddToListing Success");
+            
         } onError:^(NSError *engineError) {
             favorBtn.selected = !favorBtn.selected;
-            NSLog(@"AddToListing Error");
+            cell.isSaved = !cell.isSaved;
         }];
     }
     else{
         [RESTfulEngine deleteAListingFromSaveListWithId:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] onSucceeded:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDeleteSaveListing object:[NSString stringWithFormat:@"%d",(int)cell.identiferNumber] userInfo:nil];
-        NSLog(@"Delete From Listing Success");
     } onError:^(NSError *engineError) {
         favorBtn.selected = !favorBtn.selected;
-        NSLog(@"Delete From Listing Error");
+        cell.isSaved = !cell.isSaved;
     }];
     }
     

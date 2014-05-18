@@ -189,6 +189,18 @@
     [self.rightView addSubview:self.favorBtn];
 }
 
+- (void)changeState
+{
+    self.favorBtn.selected = !self.favorBtn.selected;
+    self.isSaved = !self.isSaved;
+    if (self.favorBtn.selected) {
+        [self setFavorState];
+    }
+    else{
+        [self setNormalState];
+    }
+}
+
 - (void)configureCellWithListing:(Listing *)listing
 {
     self.titleLabel.text = listing.title;
