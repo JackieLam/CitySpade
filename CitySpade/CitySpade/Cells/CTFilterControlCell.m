@@ -270,7 +270,7 @@
 - (void)resetControl
 {
     if (self.rangeSlider) {
-        if (self.rangeSlider.upperValue > rentMaxValue) {
+        if (self.rangeSlider.maximumValue > rentMaxValue) {
             [self setSliderWithMaxValue:saleMaxValue minValue:0];
         }
         else

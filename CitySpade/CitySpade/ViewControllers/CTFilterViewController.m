@@ -180,6 +180,7 @@ static const int toolBarHeight = 52;
         [cell setSliderWithMaxValue:saleMaxValue minValue:0];
         [self setTitleWithText:@"For Sale"];
     }
+    [cell resetControl];
 }
 
 #pragma mark - Toolbar button method
