@@ -57,7 +57,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     if (![self isConnectedToNetwork]) {
         [BlockStates removeRequestingBlock:queryParam];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         return;
     }
@@ -132,7 +132,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         return;
     }
@@ -171,7 +171,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
@@ -241,7 +241,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
@@ -307,7 +307,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
@@ -374,7 +374,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
@@ -436,7 +436,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
@@ -481,7 +481,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
@@ -539,7 +539,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
@@ -584,7 +584,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 {
     if (![self isConnectedToNetwork]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         errorBlock(nil);
         return;
