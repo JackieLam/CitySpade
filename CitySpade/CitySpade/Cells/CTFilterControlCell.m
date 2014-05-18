@@ -33,6 +33,7 @@
 #define PickerViewRect CGRectMake(10, 30, 249, 240)
 #define CellWidth 320.0f
 #define Changedheight 112.0f
+#define popoverViewCenter CGPointMake(92.75, 43.0)
 
 @implementation CTFilterControlCell
 
@@ -58,7 +59,8 @@
                 rect.size.height = CTFilterCellPriceHeight - BackGroundViewY;
                 self.backGroundView.image = [UIImage imageNamed:@"1white_bg"];
                 [self.backGroundView setFrame:rect];
-                [self setSliderWithMaxValue:120000 minValue:0];
+                [self setSliderWithMaxValue:rentMaxValue minValue:0];
+                self.popoverView.center = popoverViewCenter;
                 break;
             case CTFilterCellStyleBargain:{
                 [titleLabel setText:@"Bargain(Price)"];
@@ -228,16 +230,13 @@
     middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5;
     middleCenter.y = lowerCenter.y;
     self.popoverView.center = middleCenter;
-    
     if (slider.upperValue > rentMaxValue) {
         // It is in the for sale status
         self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%dM - %dM", [slider getChangedLowerValue]/1000000, [slider getChangedUpperValue]/1000000];
-//        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%dM - %dM", (int)slider.lowerValue/1000000, (int)slider.upperValue/1000000];
     }
     else {
         // It is in the for rent status
         self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", [slider getChangedLowerValue], [slider getChangedUpperValue]];
-//        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
     }
 }
 
@@ -276,6 +275,7 @@
         }
         else
             [self setSliderWithMaxValue:rentMaxValue minValue:0];
+        self.popoverView.center = popoverViewCenter;
     }
     if (self.bargainPickerView) {
         [self.bargainPickerView.headerButton setTitle:@"Any" forState:UIControlStateNormal];
