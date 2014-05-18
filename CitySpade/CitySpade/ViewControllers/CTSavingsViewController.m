@@ -71,7 +71,7 @@
         if (noLoginImageView) {
             [noLoginImageView removeFromSuperview];
         }
-        self.tableView.userInteractionEnabled = YES;
+        self.tableView.scrollEnabled = YES;
         [self.tableView reloadData];
     }
     else{
@@ -81,7 +81,7 @@
             noLoginImageView.tag = kNoLoginViewTag;
             [self.view addSubview:noLoginImageView];
             [self.saveList removeAllObjects];
-            self.tableView.userInteractionEnabled = NO;
+            self.tableView.scrollEnabled = NO;
         }
         
     }
