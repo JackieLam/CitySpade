@@ -231,11 +231,13 @@
     
     if (slider.upperValue > rentMaxValue) {
         // It is in the for sale status
-        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%dM - %dM", (int)slider.lowerValue/1000000, (int)slider.upperValue/1000000];
+        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%dM - %dM", [slider getChangedLowerValue]/1000000, [slider getChangedUpperValue]/1000000];
+//        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%dM - %dM", (int)slider.lowerValue/1000000, (int)slider.upperValue/1000000];
     }
     else {
         // It is in the for rent status
-        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
+        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", [slider getChangedLowerValue], [slider getChangedUpperValue]];
+//        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", (int)slider.lowerValue, (int)slider.upperValue];
     }
 }
 
@@ -253,6 +255,17 @@
     else{
         return [self.bathSegmentControl titleForSegmentAtIndex:self.bathSegmentControl.selectedSegmentIndex];
     }
+}
+
+- (NSDictionary*)getSliderRangeValue
+{
+    if (self.rangeSlider) {
+        NSString *lowerValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedLowerValue]];
+        NSString *upperValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedUpperValue]];
+        NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[lowerValueString,upperValueString]  forKeys:@[@"lowerBound",@"higherBound"]];
+        return dic;
+    }
+    return nil;
 }
 
 - (void)resetControl

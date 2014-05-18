@@ -224,6 +224,66 @@ NSUInteger DeviceSystemMajorVersion() {
     [self setNeedsLayout];
 }
 
+- (int)getChangedLowerValue
+{
+    float lowerValue = self.lowerValue;
+    float quarterValue = _maximumValue/4.0f;
+    float twoquartersValue = _maximumValue/2.0f;
+    float threequartersValue = quarterValue + twoquartersValue;
+    if (lowerValue <= quarterValue) {
+        lowerValue /= 6.0f;
+    }
+    else if (lowerValue <= twoquartersValue){
+        lowerValue -= quarterValue;
+        lowerValue *= 7/30.0f;
+//        lowerValue += 5000;
+        lowerValue += _maximumValue/24.0f;
+    }
+    else if (lowerValue <= threequartersValue){
+        lowerValue -= twoquartersValue;
+        lowerValue *= 14/15.0f;
+//        lowerValue += 12000;
+        lowerValue += _maximumValue/10.0f;
+    }
+    else{
+        lowerValue -= threequartersValue;
+        lowerValue *= 8/3.0f;
+//        lowerValue += 40000;
+        lowerValue += _maximumValue/3.0f;
+    }
+    
+    return (int)lowerValue;
+}
+
+- (int)getChangedUpperValue
+{
+    float upperValue = self.upperValue;
+    float quarterValue = _maximumValue/4.0f;
+    float twoquartersValue = _maximumValue/2.0f;
+    float threequartersValue = quarterValue + twoquartersValue;
+    if (upperValue <= quarterValue) {
+        upperValue /= 6.0f;
+    }
+    else if (upperValue <= twoquartersValue){
+        upperValue -= quarterValue;
+        upperValue *= 7/30.0f;
+        upperValue += _maximumValue/24.0f;
+//        upperValue += 5000;
+    }
+    else if (upperValue <= threequartersValue){
+        upperValue -= twoquartersValue;
+        upperValue *= 14/15.0f;
+//        upperValue += 12000;
+        upperValue += _maximumValue/10.0f;
+    }
+    else{
+        upperValue -= threequartersValue;
+        upperValue *= 8/3.0f;
+//        upperValue += 40000;
+        upperValue += _maximumValue/3.0f;
+    }
+    return (int)upperValue;
+}
 //ON-Demand images. If the images are not set, then the default values are loaded.
 
 - (UIImage *)trackBackgroundImage

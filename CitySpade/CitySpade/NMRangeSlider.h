@@ -78,6 +78,9 @@
 
 - (void)setUpperValue:(float)upperValue animated:(BOOL) animated;
 
-- (void) setLowerValue:(float) lowerValue upperValue:(float) upperValue animated:(BOOL)animated;
+- (void)setLowerValue:(float) lowerValue upperValue:(float) upperValue animated:(BOOL)animated;
+
+- (int)getChangedLowerValue;
+- (int)getChangedUpperValue;
 
 @end
