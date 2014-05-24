@@ -63,7 +63,7 @@
                 self.popoverView.center = popoverViewCenter;
                 break;
             case CTFilterCellStyleBargain:{
-                [titleLabel setText:@"Bargain(Price)"];
+                [titleLabel setText:@"Cost-Efficiency"];
                 rect.size.height = CTFilterCellBargainHeight - BackGroundViewY;
                 self.backGroundView.image = [UIImage imageNamed:@"2white_bg"];
                 [self.backGroundView setFrame:rect];
