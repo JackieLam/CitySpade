@@ -49,6 +49,8 @@
     
     int numberOfBed = [_basicFactsDictionary[@"numberOfBed"] intValue];
     int numberOfBath = [_basicFactsDictionary[@"numberOfBath"] intValue];
-    _bedBathLabel.text = [NSString stringWithFormat:@"%d Bed | %d Bath", numberOfBed, numberOfBath];
+    NSString *isBedPlural = numberOfBed > 1 ? @"s":@"";
+    NSString *isBathPlural = numberOfBath > 1 ? @"s":@"";
+    _bedBathLabel.text = [NSString stringWithFormat:@"%d Bed%@ | %d Bath%@", numberOfBed,isBedPlural ,numberOfBath,isBathPlural];
 }
 @end
