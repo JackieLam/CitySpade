@@ -54,8 +54,21 @@
     self.bargainLabel.text = pin.bargain;
     self.transportationLabel.text = pin.transportation;
     self.priceLabel.text = pin.subtitle;
-    self.bedLabel.text = pin.beds;
-    self.bathLabel.text = pin.baths;
+//    self.bedLabel.text = pin.beds;
+    NSString *bedString = [NSString stringWithFormat:@"%d Bed",pin.bedInt];
+    if (pin.bedInt > 1) {
+        self.bedLabel.text = [bedString stringByAppendingString:@"s"];
+    }
+    else
+        self.bedLabel.text = bedString;
+    NSString *bathString = [NSString stringWithFormat:@"%d Bath",pin.bathInt];
+    if (pin.bathInt > 1) {
+        self.bathLabel.text = [bathString stringByAppendingString:@"s"];
+    }
+    else
+        self.bathLabel.text = bathString;
+    
+    
     self.imageView.imageURL = pin.thumbImageLink;
 }
 

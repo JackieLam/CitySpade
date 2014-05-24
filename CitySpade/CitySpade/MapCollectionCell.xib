@@ -59,29 +59,15 @@
                         <color key="textColor" red="0.16078431372549018" green="0.73725490196078436" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Beds" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UY9-sW-rtU">
-                        <rect key="frame" x="214" y="200" width="30" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 Beds" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UY9-sW-rtU">
+                        <rect key="frame" x="205" y="200" width="39" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12.5"/>
                         <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jW4-Gp-Q2R">
-                        <rect key="frame" x="198" y="200" width="15" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12.5"/>
-                        <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7du-5O-pkI">
-                        <rect key="frame" x="252" y="200" width="15" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12.5"/>
-                        <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Baths" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FbT-Bt-fOz">
-                        <rect key="frame" x="265" y="200" width="35" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 Baths" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FbT-Bt-fOz">
+                        <rect key="frame" x="258" y="200" width="44" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12.5"/>
                         <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
@@ -99,8 +85,8 @@
             <size key="customSize" width="338" height="118"/>
             <connections>
                 <outlet property="bargainLabel" destination="7yn-1G-mUJ" id="Vne-Mp-Ue9"/>
-                <outlet property="bathLabel" destination="7du-5O-pkI" id="zGL-Zp-naG"/>
-                <outlet property="bedLabel" destination="jW4-Gp-Q2R" id="Igg-5t-wjk"/>
+                <outlet property="bathLabel" destination="FbT-Bt-fOz" id="z4F-uW-yCi"/>
+                <outlet property="bedLabel" destination="UY9-sW-rtU" id="jif-GL-buk"/>
                 <outlet property="imageView" destination="88x-Ka-eoe" id="lSo-cs-Ksk"/>
                 <outlet property="priceLabel" destination="hUc-zv-3y9" id="jiZ-tE-LaF"/>
                 <outlet property="titleLabel" destination="ZTn-od-OP1" id="ggu-v7-ab1"/>
