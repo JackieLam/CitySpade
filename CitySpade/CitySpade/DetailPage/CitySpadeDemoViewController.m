@@ -323,7 +323,13 @@ static const int navigationBarHeight = 44;
 - (void)pressForwardBtn:(id)sender {
 
     NSURL *url = [NSURL URLWithString:_baseList.originalUrl];
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImage,@"I found this property via CitySpade iPhone App",url] applicationActivities:nil];
+    UIActivityViewController *activityViewController;
+    if (url == nil) {
+        activityViewController  = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImage,@"I found this property via CitySpade iPhone App"] applicationActivities:nil];
+    }
+    else{
+        activityViewController  = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImage,@"I found this property via CitySpade iPhone App",url] applicationActivities:nil];
+    }
     
     NSArray *excludedActivities = @[UIActivityTypePostToTwitter,
                                     UIActivityTypePostToWeibo,
