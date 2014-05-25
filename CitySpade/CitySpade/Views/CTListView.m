@@ -127,8 +127,6 @@
     cell.isSaved = !cell.isSaved;
     if (favorBtn.selected) {
         REVClusterPin *pin = self.places[indexPath.row];
-        NSLog(@"bargain:%f",pin.bargainDouble);
-        NSLog(@"transportation:%f",pin.transportationDouble);
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         NSArray *images = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:pin.thumbImageLink forKey:@"url"]];
         [dic setObject:images forKey:@"images"];
