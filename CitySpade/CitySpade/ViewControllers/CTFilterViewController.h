@@ -11,11 +11,7 @@
 @interface CTFilterViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
     NSArray *cellArray;
-    NSArray *searchResultPlaces;
-    BOOL shouldBeginEditing;
 }
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UITableView *placesTableView;
 @property (nonatomic, strong) UIButton *applyButton;
-@property (nonatomic, strong) UISearchBar *searchBar;
 @end

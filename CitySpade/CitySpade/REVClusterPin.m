@@ -70,7 +70,7 @@
     int higherbound = [filterData[@"higherBound"] intValue];
     
     // price range
-    if (!(lowerbound <= self.priceInt) || !(self.priceInt <= higherbound))
+    if (!(lowerbound <= self.priceInt) || ((!(self.priceInt <= higherbound)) && higherbound > 0))
         return NO;
     
     // baths

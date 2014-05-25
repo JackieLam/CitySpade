@@ -33,6 +33,7 @@ typedef void(^VoidBlock)(void);
 @property (nonatomic, strong) BedSegment *bathSegmentControl;
 - (id)initWithStyle:(CTFilterCellStyle)style withTableViewBlock:(VoidBlock)aTableViewBlock;
 - (NSString*)selectedItem;
+- (NSDictionary*)getSliderRangeValue;
 - (void)setSliderWithMaxValue:(float)maxValue minValue:(float)minValue;
 - (void)resetControl;
 @end

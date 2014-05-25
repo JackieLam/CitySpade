@@ -8,9 +8,16 @@
 
 #import "NMRangeSlider.h"
 
+#define rentScale1 1500.0f/3000.0f
+#define rentScale2 1000.0f/3000.0f
+#define rentScale3 4000.0f/3000.0f
+#define rentScale4 5500.0f/3000.0f
+#define saleScale1 350000.0f/3000000.0f
+#define saleScale2 450000.0f/3000000.0f
+#define saleScale3 3200000.0f/3000000.0f
+#define saleScale4 8000000.0f/3000000.0f
 
 #define IS_PRE_IOS7() (DeviceSystemMajorVersion() < 7)
-#define UPPERCENTER CGPointMake(185.5f,10.0f)
 
 NSUInteger DeviceSystemMajorVersion() {
     static NSUInteger _deviceSystemMajorVersion = -1;
@@ -108,9 +115,6 @@ NSUInteger DeviceSystemMajorVersion() {
 
 - (CGPoint) upperCenter
 {
-    if (!_upperHandle) {
-        return UPPERCENTER;
-    }
     return _upperHandle.center;
 }
 
@@ -224,6 +228,107 @@ NSUInteger DeviceSystemMajorVersion() {
     [self setNeedsLayout];
 }
 
+- (int)getChangedLowerValueWithType:(int)type
+{
+    float lowerValue = self.lowerValue;
+    float quarterValue = _maximumValue/4.0f;
+    float twoquartersValue = _maximumValue/2.0f;
+    float threequartersValue = quarterValue + twoquartersValue;
+    //For Rent
+    if (type == 0) {
+        if (lowerValue <= quarterValue) {
+            lowerValue *= rentScale1;
+        }
+        else if (lowerValue <= twoquartersValue){
+            lowerValue -= quarterValue;
+            lowerValue *= rentScale2;
+            lowerValue += 1500;
+        }
+        else if (lowerValue <= threequartersValue){
+            lowerValue -= twoquartersValue;
+            lowerValue *= rentScale3;
+            lowerValue += 2500;
+        }
+        else{
+            lowerValue -= threequartersValue;
+            lowerValue *= rentScale4;
+            lowerValue += 6500;
+        }
+    }
+    else{
+        if (lowerValue <= quarterValue) {
+            lowerValue *= saleScale1;
+        }
+        else if (lowerValue <= twoquartersValue){
+            lowerValue -= quarterValue;
+            lowerValue *= saleScale2;
+            lowerValue += 350000.0f;
+        }
+        else if (lowerValue <= threequartersValue){
+            lowerValue -= twoquartersValue;
+            lowerValue *= saleScale3;
+            lowerValue += 800000.0f;
+        }
+        else{
+            lowerValue -= threequartersValue;
+            lowerValue *= saleScale4;
+            lowerValue += 4000000.0f;
+        }
+    }
+    
+    
+    return (int)lowerValue;
+}
+
+- (int)getChangedUpperValueWithType:(int)type
+{
+    float upperValue = self.upperValue;
+    float quarterValue = _maximumValue/4.0f;
+    float twoquartersValue = _maximumValue/2.0f;
+    float threequartersValue = quarterValue + twoquartersValue;
+    if (type == 0) {
+        if (upperValue <= quarterValue) {
+            upperValue *= 1500.0f/3000.0f;
+        }
+        else if (upperValue <= twoquartersValue){
+            upperValue -= quarterValue;
+            upperValue *= 1000.0f/3000.0f;
+            upperValue += 1500;
+        }
+        else if (upperValue <= threequartersValue){
+            upperValue -= twoquartersValue;
+            upperValue *= 4000.0f/3000.0f;
+            upperValue += 2500;
+        }
+        else{
+            upperValue -= threequartersValue;
+            upperValue *= 5500.0f/3000.0f;
+            upperValue += 6500;
+        }
+    }
+    else{
+        if (upperValue <= quarterValue) {
+            upperValue *= 350000.0f/3000000.0f;
+        }
+        else if (upperValue <= twoquartersValue){
+            upperValue -= quarterValue;
+            upperValue *= 450000.0f/3000000.0f;
+            upperValue += 350000.0f;
+        }
+        else if (upperValue <= threequartersValue){
+            upperValue -= twoquartersValue;
+            upperValue *= 3200000.0f/3000000.0f;
+            upperValue += 800000.0f;
+        }
+        else{
+            upperValue -= threequartersValue;
+            upperValue *= 8000000.0f/3000000.0f;
+            upperValue += 4000000.0f;
+        }
+    }
+    
+    return (int)upperValue;
+}
 //ON-Demand images. If the images are not set, then the default values are loaded.
 
 - (UIImage *)trackBackgroundImage

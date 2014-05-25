@@ -9,11 +9,8 @@
 #import "CTFilterViewController.h"
 #import "CTFilterControlCell.h"
 #import "BTPickerView.h"
-#import "BedSegment.h"
-#import "NMRangeSlider.h"
 #import "RESTfulEngine.h"
 #import "Constants.h"
-#import "BTPickerView.h"
 #import "UIBarButtonItem+ProjectButton.h"
 #import <MFSideMenu.h>
 #import <QuartzCore/QuartzCore.h>
@@ -21,9 +18,10 @@
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 #define toolbarColor [UIColor colorWithRed:60/255.0f green:193/255.0f blue:189/255.0f alpha:1.0f]
 #define toolbarTextColor [UIColor colorWithRed:184/255.0f green:255/255.0f blue:252/255.0f alpha:1.0f]
-#define saleMaxValue 120000000
-#define rentMaxValue 120000
+#define saleMaxValue 12000000
+#define rentMaxValue 12000
 #define kTitleViewTag 1
+#define kFilterControlCellNum 5
 
 static const int toolBarHeight = 52;
 
@@ -36,27 +34,12 @@ static const int toolBarHeight = 52;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView) name:@"reload" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToggleRentSale object:nil];
     [self setTableView];
-    
     [self setTitleWithText:@"For Rent"];
-//    [self setSearchBar];
     [self setApplyButton];
     [self setToolBar];
     
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    //    [self updateRangeLabel:self.rangeSlider];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [self dismissSearchControllerWhileStayingActive];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,10 +57,6 @@ static const int toolBarHeight = 52;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    self.placesTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 110.0f, 300.0f, self.view.bounds.size.height-66.0f)];
-    self.placesTableView.delegate = self;
-    self.placesTableView.dataSource = self;
-    self.placesTableView.alpha = 0.0f;
     
     CTFilterControlCell *PriceCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStylePrice withTableViewBlock:nil];
     CTFilterControlCell *BargainCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBargain withTableViewBlock:^{
@@ -106,17 +85,6 @@ static const int toolBarHeight = 52;
 - (void)setTitleWithText:(NSString *)title
 {
     self.title = title;
-}
-
-- (void)setSearchBar
-{
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0, 195.0f, 43.0f)];
-    self.searchBar.backgroundColor = [UIColor clearColor];
-    self.searchBar.placeholder = @" New York NY             ";
-    self.searchBar.userInteractionEnabled = YES;
-    self.searchBar.delegate = self;
-    shouldBeginEditing = YES;
-    [self.view addSubview:self.searchBar];
 }
 
 - (void)setApplyButton
@@ -161,32 +129,14 @@ static const int toolBarHeight = 52;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.tableView) {
-        return 5;
-    }
-    else{
-        return searchResultPlaces.count;
-    }
+    return kFilterControlCellNum;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.tableView) {
-        CTFilterControlCell *cell = [cellArray objectAtIndex:indexPath.row];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else{
-        static NSString *cellIdentifier = @"PlacesAutocompleteCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        cell.textLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:16.0];
-        cell.textLabel.text = [searchResultPlaces objectAtIndex:indexPath.row];
-        return cell;
-    }
+    CTFilterControlCell *cell = [cellArray objectAtIndex:indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
 }
 
 #pragma mark - Table View Delegate
@@ -195,44 +145,6 @@ static const int toolBarHeight = 52;
 {
     UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
     return cell.frame.size.height;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.searchBar.text = [searchResultPlaces objectAtIndex:indexPath.row];
-    [self dismissSearchControllerWhileStayingActive];
-}
-
-#pragma mark - UISearchBar Delegate
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if ([searchBar isFirstResponder]) {
-        shouldBeginEditing = NO;
-        static NSTimer *searchWordTimer;
-        
-        if (searchWordTimer) {
-            
-            if ([searchWordTimer isValid]) {
-                [searchWordTimer invalidate];
-            }
-            
-            searchWordTimer = nil;
-        }
-        searchWordTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(handleSearchForSearchString:) userInfo:searchText repeats:NO];
-    }
-}
-
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    if (shouldBeginEditing) {
-        NSTimeInterval animationDuration = 0.3;
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:animationDuration];
-        self.placesTableView.alpha = 0.75;
-        [self.view addSubview:self.placesTableView];
-        [UIView commitAnimations];
-    }
-    BOOL boolToReturn = shouldBeginEditing;
-    shouldBeginEditing = YES;
-    return boolToReturn;
 }
 
 #pragma mark - Apply Filtering
@@ -244,43 +156,13 @@ static const int toolBarHeight = 52;
     CTFilterControlCell *cell2 = [cellArray objectAtIndex:2];
     CTFilterControlCell *cell3 = [cellArray objectAtIndex:3];
     CTFilterControlCell *cell4 = [cellArray objectAtIndex:4];
-    NSMutableDictionary *filterData = [NSMutableDictionary dictionary];
-    filterData[@"lowerBound"] = [NSString stringWithFormat:@"%d", (int)cell.rangeSlider.lowerValue];
-    filterData[@"higherBound"] = [NSString stringWithFormat:@"%d", (int)cell.rangeSlider.upperValue];
+    NSMutableDictionary *filterData = [NSMutableDictionary dictionaryWithDictionary:[cell getSliderRangeValue]];
     filterData[@"bargain"] = [cell1 selectedItem];
     filterData[@"transportation"] = [cell2 selectedItem];
     filterData[@"beds"] = [cell3 selectedItem];
     filterData[@"baths"] = [cell4 selectedItem];
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
-    [self.searchBar resignFirstResponder];
-    [self dismissSearchControllerWhileStayingActive];
-}
-
-#pragma mark - search for Text
-
-- (void)handleSearchForSearchString:(id)sender {
-    
-    NSString *searchtext = [(NSString *)[sender userInfo] stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"search:%@",searchtext);
-    [RESTfulEngine searchPlacesWithName:searchtext onSucceeded:^(NSMutableArray *resultArray) {
-        searchResultPlaces = resultArray;
-        [self.placesTableView reloadData];
-    } onError:^(NSError *engineError) {
-        
-    }];
-}
-
-#pragma mark - dismiss PlacesTableview
-
-- (void)dismissSearchControllerWhileStayingActive {
-    NSTimeInterval animationDuration = 0.3;
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:animationDuration];
-    self.placesTableView.alpha = 0.0;
-    [self.placesTableView removeFromSuperview];
-    [UIView commitAnimations];
-    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - Reset the slider's value range
@@ -298,6 +180,7 @@ static const int toolBarHeight = 52;
         [cell setSliderWithMaxValue:saleMaxValue minValue:0];
         [self setTitleWithText:@"For Sale"];
     }
+    [cell resetControl];
 }
 
 #pragma mark - Toolbar button method

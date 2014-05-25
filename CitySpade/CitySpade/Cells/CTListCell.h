@@ -42,5 +42,5 @@ typedef NS_ENUM(NSInteger, CTListCellStyle) {
 - (void)configureCellWithListing:(Listing *)listing;
 - (void)setNormalState;
 - (void)setFavorState;
-
+- (void)changeState;
 @end

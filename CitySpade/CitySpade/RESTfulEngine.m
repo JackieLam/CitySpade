@@ -30,8 +30,6 @@ NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
 NSString * const POST_LISTING_PATH = @"/listings/:id/collect.json";
 NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 
-#define kSearchGooglePlaceAPIKEY @"AIzaSyCpyBX6H5jOJS3yYfvv0Th_a2lCqKU-AlI"
-
 @interface RESTfulEngine()
 
 @property (nonatomic, strong) NSString *uniqueID;
@@ -59,7 +57,7 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     if (![self isConnectedToNetwork]) {
         [BlockStates removeRequestingBlock:queryParam];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No internet connection"];
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
         });
         return;
     }
@@ -133,7 +131,9 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)loadListingDetailWithID:(int)idNumber
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
         return;
     }
     NSMutableString *urlString = [NSMutableString stringWithString:HOST_URL];
@@ -170,7 +170,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)loginWithName:(NSString*) loginName password:(NSString*) password onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     // 1 Calculation
@@ -237,7 +240,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)logoutOnSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     // 1 Get the token
@@ -300,7 +306,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)registerWithUsername:(NSString *)userName password:(NSString *)password firstName:(NSString *)firstName lastName:(NSString *)lastName onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     NSMutableString *postHTTPBody = [NSMutableString stringWithFormat:@"username=%@&password=%@", userName, password];
@@ -364,7 +373,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)loadUserSaveList:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock;
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -423,7 +435,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)addAListingToSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -465,7 +480,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)deleteAListingFromSaveListWithId:(NSString *)idNumber onSucceeded:(VoidBlock)succeedBlock onError:(ErrorBlock)errorBlock
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -520,7 +538,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)getFacebookInfoWithAccessToken:(NSString *)accessToken onSucceeded:(DictionaryBlock)succededBlock onError:(ErrorBlock)errorBlock
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     NSMutableString *urlString = [NSMutableString stringWithString:@"https://graph.facebook.com/me?access_token="];
@@ -562,7 +583,10 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
 + (void)facebookCallbackWithEmail:(NSString *)email uid:(NSString *)uid onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock
 {
     if (![self isConnectedToNetwork]) {
-        [SVProgressHUD showErrorWithStatus:@"Not connnected to internet"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
         return;
     }
     // 1 Setup post body
@@ -650,45 +674,5 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
     return (isReachable&&!needsConnection) ? YES : NO;
 }
-//Part Six:
-+ (void)searchPlacesWithName:(NSString *)name onSucceeded:(ArrayBlock)succeedBlock
-                     onError:(ErrorBlock)errorBlock;
-{
-    NSMutableString *urlString = [NSMutableString stringWithString:@"https://maps.googleapis.com/maps/api/place/autocomplete/json"];
-    
-    NSString *paramSubstring = [NSString stringWithFormat:@"?input=%@&sensor=true&key=%@",name,kSearchGooglePlaceAPIKEY];
-    [urlString appendString:paramSubstring];
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (!error) {
-            
-            // 1 HTTP Response
-            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
-            if (httpResp.statusCode == 200) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSError *jsonError;
-                    NSMutableArray *placesArray = [NSMutableArray array];
-                    NSDictionary *dataJSON =
-                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-                    NSArray *dataArray = [dataJSON valueForKey:@"predictions"];
-                    for (NSDictionary *placesDic in dataArray) {
-                        [placesArray addObject:[placesDic valueForKey:@"description"]];
-                    }
-                    succeedBlock(placesArray);
-                    //                    NSLog(@"placesArray:%@",placesArray);
-                });
-            }
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                errorBlock(error);
-            });
-        }
-    }];
-    [dataTask resume];
-    
-}
+
 @end

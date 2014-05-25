@@ -143,7 +143,7 @@
 {
     self.titleLabel.text = pin.title;
     self.priceLabel.text = pin.subtitle;
-    self.bargainLabel.text = [NSString stringWithFormat:@"Bargain(price):%@", pin.bargain];
+    self.bargainLabel.text = [NSString stringWithFormat:@"Cost-Efficiency:%@", pin.bargain];
     self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", pin.transportation];
     int numberOfBed = [pin.beds intValue];
     if (numberOfBed > 1) {
@@ -189,11 +189,23 @@
     [self.rightView addSubview:self.favorBtn];
 }
 
+- (void)changeState
+{
+    self.favorBtn.selected = !self.favorBtn.selected;
+    self.isSaved = !self.isSaved;
+    if (self.favorBtn.selected) {
+        [self setFavorState];
+    }
+    else{
+        [self setNormalState];
+    }
+}
+
 - (void)configureCellWithListing:(Listing *)listing
 {
     self.titleLabel.text = listing.title;
     self.priceLabel.text = [NSString stringWithFormat:@"$%d", (int)listing.price];
-    self.bargainLabel.text = [NSString stringWithFormat:@"Bargain(price):%@", listing.bargain];
+    self.bargainLabel.text = [NSString stringWithFormat:@"Cost-Efficiency:%@", listing.bargain];
     self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", listing.transportation];
     int numberOfBed = (int)listing.beds;
     if (numberOfBed > 1) {
