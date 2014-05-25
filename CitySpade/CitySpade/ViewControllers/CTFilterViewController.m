@@ -18,8 +18,8 @@
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 #define toolbarColor [UIColor colorWithRed:60/255.0f green:193/255.0f blue:189/255.0f alpha:1.0f]
 #define toolbarTextColor [UIColor colorWithRed:184/255.0f green:255/255.0f blue:252/255.0f alpha:1.0f]
-#define saleMaxValue 120000000
-#define rentMaxValue 120000
+#define saleMaxValue 12000000
+#define rentMaxValue 12000
 #define kTitleViewTag 1
 #define kFilterControlCellNum 5
 

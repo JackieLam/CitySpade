@@ -27,8 +27,8 @@
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 #define MerGedRect CGRectMake(0, 0, 320, 63.0f)
 #define ExpendedRect CGRectMake(0, 0, 320, 175.5f)
-#define saleMaxValue 120000000
-#define rentMaxValue 120000
+#define saleMaxValue 12000000
+#define rentMaxValue 12000
 #define BedSegmentRect CGRectMake(15, 41, 240, 36)
 #define PickerViewRect CGRectMake(10, 30, 249, 240)
 #define CellWidth 320.0f
@@ -230,13 +230,51 @@
     middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5;
     middleCenter.y = lowerCenter.y;
     self.popoverView.center = middleCenter;
+    int type = 0;
     if (slider.upperValue > rentMaxValue) {
-        // It is in the for sale status
-        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%dM - %dM", [slider getChangedLowerValue]/1000000, [slider getChangedUpperValue]/1000000];
+        type = 1;
     }
-    else {
-        // It is in the for rent status
-        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%d - %d", [slider getChangedLowerValue], [slider getChangedUpperValue]];
+    int upperValue = [slider getChangedUpperValueWithType:type];
+    int lowerValue = [slider getChangedLowerValueWithType:type];
+    NSMutableString *upperValueString;
+    NSMutableString *lowerValueString;
+    if (type == 1) {
+        if (upperValue / 1000000 > 0) {
+            upperValueString = [NSMutableString stringWithFormat:@"%.2fM",upperValue/1000000.0f];
+        }
+        else{
+            upperValueString = [NSMutableString stringWithFormat:@"%dK",upperValue/1000];
+        }
+        if (lowerValue / 1000000 > 0) {
+            lowerValueString = [NSMutableString stringWithFormat:@"%.2fM",lowerValue/1000000.0f];
+        }
+        else{
+            lowerValueString = [NSMutableString stringWithFormat:@"%dK",lowerValue/1000];
+        }
+    }
+    else{
+        upperValueString = [NSMutableString stringWithFormat:@"%d",upperValue];
+        if (upperValue >= 1000 ) {
+            [upperValueString insertString:@"," atIndex:upperValueString.length-3];
+        }
+        lowerValueString = [NSMutableString stringWithFormat:@"%d",lowerValue];
+        if (lowerValue >= 1000) {
+            [lowerValueString insertString:@"," atIndex:lowerValueString.length-3];
+        }
+    }
+    if ((int)slider.lowerValue == 0) {
+        if ((type == 0 && (int)slider.upperValue == rentMaxValue) || (type == 1 && (int)slider.upperValue == saleMaxValue)) {
+            self.popoverView.textLabel.text = @"Any Price";
+        }
+        else{
+            self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%@ or less", upperValueString];
+        }
+    }
+    else if((type == 0 && (int)slider.upperValue == rentMaxValue) || (type == 1 && (int)slider.upperValue == saleMaxValue)){
+        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%@ or more", lowerValueString];
+    }
+    else{
+        self.popoverView.textLabel.text = [NSString stringWithFormat:@"$%@ - $%@", lowerValueString,upperValueString];
     }
 }
 
@@ -259,8 +297,19 @@
 - (NSDictionary*)getSliderRangeValue
 {
     if (self.rangeSlider) {
-        NSString *lowerValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedLowerValue]];
-        NSString *upperValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedUpperValue]];
+        NSString *lowerValueString;
+        NSString *upperValueString;
+        int type = 0;
+        if (self.rangeSlider.maximumValue > rentMaxValue) {
+            type = 1;
+        }
+        lowerValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedLowerValueWithType:type]];
+        if ((type == 0 && self.rangeSlider.upperValue == rentMaxValue) || (type == 1 && self.rangeSlider.upperValue == saleMaxValue)) {
+            upperValueString = @"-1";
+        }
+        else{
+            upperValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedUpperValueWithType:type]];
+        }
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[lowerValueString,upperValueString]  forKeys:@[@"lowerBound",@"higherBound"]];
         return dic;
     }
