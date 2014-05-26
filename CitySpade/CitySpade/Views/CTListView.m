@@ -38,6 +38,7 @@
         self.backgroundColor = tableViewBackgroundColor;
         self.rowHeight = heightForRow;
         self.dataSource = self;
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.saveList = [NSMutableArray array];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSaveListing:) name:@"didModifySaveListing" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableView:) name:@"refreshTableView" object:nil];
@@ -47,7 +48,7 @@
 
 - (void)loadPlacesToListAndReloadData:(NSArray *)places
 {
-    self.totalCountLabel.text = [NSString stringWithFormat:@"%d results total", [places count]];
+    self.totalCountLabel.text = [NSString stringWithFormat:@"%lu results total", (unsigned long)[places count]];
     self.places = places;
     [self reloadData];
 }
@@ -79,8 +80,8 @@
     CTListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[CTListCell alloc] initWithCTListCellStyle:CTListCellStyleSaved reuseIdentifier:CellIdentifier];
-//        cell = [[CTListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.frame = CGRectMake(0, 0, self.frame.size.width, heightForRow);
+
         [cell.favorBtn addTarget:self action:@selector(clickFavorBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     REVClusterPin *pin = self.places[indexPath.row];

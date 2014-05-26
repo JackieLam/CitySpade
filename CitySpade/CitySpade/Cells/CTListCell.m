@@ -18,7 +18,7 @@
 #define infoViewWidth cellWidth-cellHeight
 #define infoViewHeight 96.0f
 #define bedViewWidth 100.0f
-#define bedViewHeight 25.0f
+#define bedViewHeight 24.0f
 #define bathViewWidth bedViewWidth
 #define bathViewHeight bedViewHeight
 #define moveoffset 30.0f
@@ -32,7 +32,7 @@
 #define kVerticalLineTag2 4
 #define kfavorBtnTag   7
 #define cellBackgroundColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0]
-#define lineColor [UIColor colorWithRed:207.0/255.0 green:207.0/255.0 blue:207.0/255.0 alpha:1.0f]
+#define lineColor [UIColor colorWithRed:216.0/255.0 green:216.0/255.0 blue:216.0/255.0 alpha:1.0f]
 
 @implementation CTListCell
 
@@ -69,19 +69,25 @@
 {
     self.thumbImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(0, 0, imageSize, imageSize)];
     self.thumbImageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_square"];
+    self.thumbImageView.layer.shadowRadius = 1;
+    self.thumbImageView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.thumbImageView.layer.shadowOpacity = 0.15;
     [self addSubview:self.thumbImageView];
     
     //Info view and the lines
     self.rightView = [[UIView alloc] initWithFrame:CGRectMake(imageSize, 0, infoViewWidth, cellHeight)];
     self.rightView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.9];
-    UIView *horizontalLine = [[UIView alloc] initWithFrame:CGRectMake(0, infoViewHeight, infoViewWidth, 1.0f)];
+    self.rightView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.rightView.layer.shadowOpacity = 0.15;
+    self.rightView.layer.shadowRadius = 1;
+    UIView *horizontalLine = [[UIView alloc] initWithFrame:CGRectMake(0, infoViewHeight, infoViewWidth, 0.5f)];
     horizontalLine.backgroundColor = lineColor;
     [self.rightView addSubview:horizontalLine];
-    UIView *verticalLine1 = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+    UIView *verticalLine1 = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 0.5f, bedViewHeight)];
     verticalLine1.backgroundColor = lineColor;
     verticalLine1.tag = kVerticalLineTag1;
     [self.rightView addSubview:verticalLine1];
-    UIView *verticalLine2 = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 1.0f, bedViewHeight)];
+    UIView *verticalLine2 = [[UIView alloc] initWithFrame:CGRectMake(bedViewWidth, infoViewHeight, 0.5f, bedViewHeight)];
     verticalLine2.backgroundColor = lineColor;
     verticalLine2.tag = kVerticalLineTag2;
     [self.rightView addSubview:verticalLine2];
@@ -143,8 +149,25 @@
 {
     self.titleLabel.text = pin.title;
     self.priceLabel.text = pin.subtitle;
-    self.bargainLabel.text = [NSString stringWithFormat:@"Cost-Efficiency:%@", pin.bargain];
-    self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", pin.transportation];
+    
+    NSMutableAttributedString *bargainStr = [[NSMutableAttributedString alloc]
+                                             initWithString:[NSString stringWithFormat:@"Cost-Efficiency: %@", pin.bargain]];
+    [bargainStr addAttribute: NSFontAttributeName
+                       value: [UIFont fontWithName:@"Avenir-Roman" size:9.0f]
+                      range: NSMakeRange(0,16)];
+    [bargainStr addAttribute: NSFontAttributeName
+                       value: [UIFont fontWithName:@"Avenir-Heavy" size:9.0f]
+                       range: NSMakeRange(17,pin.bargain.length)];
+    NSMutableAttributedString *transportationStr = [[NSMutableAttributedString alloc]
+                                                    initWithString:[NSString stringWithFormat:@"Transportation: %@", pin.transportation]];
+    [transportationStr addAttribute: NSFontAttributeName
+                       value: [UIFont fontWithName:@"Avenir-Roman" size:9.0f]
+                       range: NSMakeRange(0,15)];
+    [transportationStr addAttribute: NSFontAttributeName
+                       value: [UIFont fontWithName:@"Avenir-Heavy" size:9.0f]
+                       range: NSMakeRange(16,pin.transportation.length)];
+    self.bargainLabel.attributedText = bargainStr;
+    self.transportLabel.attributedText = transportationStr;
     int numberOfBed = [pin.beds intValue];
     if (numberOfBed > 1) {
         self.bedLabel.text = [NSString stringWithFormat:@"%dBeds", numberOfBed];
@@ -171,8 +194,8 @@
     [self.bathLabel setFrame:CGRectMake(97, 101, 40, 16)];
     UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
     UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
-    [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 1.0f, bedViewHeight)];
-    [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 1.0f, bedViewHeight)];
+    [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 0.5f, bedViewHeight)];
+    [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 0.5f, bedViewHeight)];
     if (![self.favorBtn superview]) {
         [self.rightView addSubview:self.favorBtn];
     }
@@ -184,8 +207,8 @@
     [self.bathLabel setFrame:CGRectMake(97, 101, 40, 16)];
     UIView *verticalLine1 = [self.rightView viewWithTag:kVerticalLineTag1];
     UIView *verticalLine2 = [self.rightView viewWithTag:kVerticalLineTag2];
-    [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 1.0f, bedViewHeight)];
-    [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 1.0f, bedViewHeight)];
+    [verticalLine1 setFrame:CGRectMake(80.0f, infoViewHeight, 0.5f, bedViewHeight)];
+    [verticalLine2 setFrame:CGRectMake(155.5f, infoViewHeight, 0.5f, bedViewHeight)];
     [self.rightView addSubview:self.favorBtn];
 }
 

@@ -63,10 +63,9 @@
                 _busLabel.text = [_busLabel.text stringByAppendingString:[NSString stringWithFormat:@", %@", bus.lineName]];
             }
         }
+        
         [_busLabel sizeToFit];
-
     }
-
 }
 
 @end

@@ -114,17 +114,18 @@ static const int navigationBarHeight = 44;
 - (void)initInfoTableView {
     CGRect infoTableFrame = [[UIScreen mainScreen] bounds];
     infoTableFrame.size.height -= navigationBarHeight;
-    infoTableFrame.origin.y -= headerHegiht;
+    infoTableFrame.origin.y -= 35;
     self.infotableView = [[UITableView alloc] initWithFrame:infoTableFrame style:UITableViewStyleGrouped];
     _infotableView.dataSource = self;
     _infotableView.delegate = self;
+    _infotableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _infotableView.tableHeaderView.hidden = YES;
     [self.view addSubview:_infotableView];
 }
 
 - (void)initToolBar {
     CGRect toolBarFrame = CGRectMake(0,
-                                     _infotableView.frame.size.height - headerHegiht*2,
+                                     _infotableView.frame.size.height - 35*2,
                                      self.view.frame.size.width,
                                      toolBarHeight);
     UIView *toolBarView = [[UIView alloc] initWithFrame:toolBarFrame];
@@ -199,7 +200,8 @@ static const int navigationBarHeight = 44;
         [cell ConfigureCellWithItem:_baseList];
     }
     cell.layer.shadowOpacity = 0.15;
-    cell.layer.shadowOffset = CGSizeMake(1.5, 1.5);
+    cell.layer.shadowRadius = 1;
+    cell.layer.shadowOffset = CGSizeMake(1, 1*tan(M_PI*60/180));
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -233,7 +235,6 @@ static const int navigationBarHeight = 44;
         return 0;
     } else {
         return headerHegiht;
-
     }
 }
 
@@ -245,14 +246,13 @@ static const int navigationBarHeight = 44;
     UIView *headerView = [[UIView alloc] init];
     
     UILabel *headerLabel = [[UILabel alloc] init];
-    headerLabel.frame = CGRectMake(inset, inset * 0.5, 0, 0);
+    headerLabel.frame = CGRectMake(inset, -5, 0, 0);
     headerLabel.font = [UIFont fontWithName:@"AvenirNext-Bold"
                                        size:sessionHeaderFontSize];
     headerLabel.text = [self headerNameAtIndex:section];
     [headerLabel sizeToFit];
     
     [headerView addSubview:headerLabel];
-    
     return headerView;
 }
 

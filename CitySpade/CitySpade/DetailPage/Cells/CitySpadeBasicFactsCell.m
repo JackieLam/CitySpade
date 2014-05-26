@@ -13,7 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *bargainLabel;
 @property (weak, nonatomic) IBOutlet UILabel *transportationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *bedBathLabel;
+@property (strong, nonatomic) IBOutlet UILabel *bedLabel;
+@property (strong, nonatomic) IBOutlet UILabel *bathLabel;
 
 @end
 
@@ -51,6 +52,8 @@
     int numberOfBath = [_basicFactsDictionary[@"numberOfBath"] intValue];
     NSString *isBedPlural = numberOfBed > 1 ? @"s":@"";
     NSString *isBathPlural = numberOfBath > 1 ? @"s":@"";
-    _bedBathLabel.text = [NSString stringWithFormat:@"%d Bed%@ | %d Bath%@", numberOfBed,isBedPlural ,numberOfBath,isBathPlural];
+    _bedLabel.text = [NSString stringWithFormat:@"%dBed%@", numberOfBed,isBedPlural];
+    _bathLabel.text = [NSString stringWithFormat:@"%dBath%@", numberOfBath,isBathPlural];
 }
+
 @end

@@ -26,6 +26,8 @@
         _transportationsTable.scrollEnabled = NO;
         _transportationsTable.dataSource = self;
         _transportationsTable.delegate = self;
+        _transportationsTable.separatorColor = [UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1.0];
+        _transportationsTable.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
         [self addSubview:_transportationsTable];
     }
     return self;
