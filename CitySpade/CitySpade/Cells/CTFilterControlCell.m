@@ -46,11 +46,7 @@
         [titleLabel setTextColor:titleTextColor];
         [titleLabel setFont:titleFont];
         CGRect rect = BackGroundViewFrame;
-        //        self.backGroundView = [[UIImageView alloc] initWithFrame:BackGroundViewFrame];
-        //        self.backGroundView.backgroundColor = [UIColor clearColor];
-        //        self.backGroundView.image = [UIImage imageNamed:@"2white_bg"];
         self.backGroundView = [[UIImageView alloc] initWithFrame:BackGroundViewFrame];
-//        self.backGroundView.backgroundColor = [UIColor whiteColor];
         self.backGroundView.userInteractionEnabled = NO;
         [self.contentView addSubview:self.backGroundView];
         switch (style) {
@@ -123,6 +119,30 @@
                     [self.bathSegmentControl setSelectedSegmentIndex:0];
                     [self.contentView addSubview:self.bathSegmentControl];
                 }
+                break;
+            case CTFilterCellStyleSegment:{
+                rect.size.height = 10.0f;
+                UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 270+10, 35)];
+                self.rentSegmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"For Sale", @"For Rent", nil]];
+                self.rentSegmentControl.backgroundColor = [UIColor whiteColor];
+                [self.rentSegmentControl setFrame:CGRectMake(-3, 3, 270 + 6, 30)];
+                [self.rentSegmentControl setSelectedSegmentIndex:0];
+                NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"AvenirNext-DemiBold"size:12.5],NSFontAttributeName ,[UIColor colorWithRed:41/255.0 green:188/255.0 blue:184/255.0 alpha:1.0],NSForegroundColorAttributeName, nil];
+                [self.rentSegmentControl setTitleTextAttributes:dic forState:UIControlStateNormal];
+                [self.rentSegmentControl setContentOffset:CGSizeMake(2, 2) forSegmentAtIndex:0];
+                [self.rentSegmentControl setContentOffset:CGSizeMake(-2, 2) forSegmentAtIndex:1];
+                //segmentControl backFroundView
+                UISegmentedControl *bcg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@" ", @" ", nil]];
+                [self.rentSegmentControl setTintColor:[UIColor colorWithRed:41/255.0 green:188/255.0 blue:184/255.0 alpha:1.0]];
+                [bcg setFrame:CGRectMake(-3, 3, 270 + 6, 30)];
+                [bcg setTintColor:[UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0]];
+                [bcg setUserInteractionEnabled:NO];
+                [bcg setImage:nil forSegmentAtIndex:0];
+                [header addSubview:self.rentSegmentControl];
+                [header addSubview:bcg];
+//                header.backgroundColor = [UIColor whiteColor];
+                [self.contentView addSubview:header];
+            }
                 break;
             default:
                 break;
@@ -289,8 +309,11 @@
     else if(self.bedSegmentControl){
         return [self.bedSegmentControl titleForSegmentAtIndex:self.bedSegmentControl.selectedSegmentIndex];
     }
-    else{
+    else if(self.bathSegmentControl){
         return [self.bathSegmentControl titleForSegmentAtIndex:self.bathSegmentControl.selectedSegmentIndex];
+    }
+    else{
+        return [NSString stringWithFormat:@"%d",self.rentSegmentControl.selectedSegmentIndex];
     }
 }
 
@@ -338,5 +361,9 @@
     if (self.bathSegmentControl) {
         [self.bathSegmentControl setSelectedSegmentIndex:0];
     }
+    if (self.rentSegmentControl) {
+        [self.rentSegmentControl setSelectedSegmentIndex:0];
+    }
 }
+
 @end
