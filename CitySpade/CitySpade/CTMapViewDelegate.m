@@ -24,7 +24,6 @@
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
 #define cellGap 0.0f //20.0f
-#define maxBlockThersold 40 // 表示放大到一定程度后，不产生网络请求
 
 @interface CTMapViewDelegate()
 
@@ -48,7 +47,7 @@
 {
     NSArray *arr = [mapView blocksParamWithSize:4];
 // 限定放大以后不产生网络请求, 提示用户缩小地图
-    if ([arr count] > maxBlockThersold) {
+    if ([arr count] == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Zoom in to load more data", @"still": [NSNumber numberWithBool:NO]}];
         return;
     }

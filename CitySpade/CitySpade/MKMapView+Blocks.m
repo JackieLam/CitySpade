@@ -11,6 +11,7 @@
 #define tileWidthiPhone 11036.124
 #define tileHeightiPhone4 14346.9609
 #define tileHeightiPhone5 17381.8945
+#define maxBlockThersold 40 // 表示放大到一定程度后，不产生网络请求
 
 @implementation MKMapView (Blocks)
 
@@ -44,6 +45,10 @@
         for (int cnt = 1; cnt < numberOfTileWidth; cnt++) {
             swMapPoint.x += tileWidth;
             [resultArray addObject:[self paramDictWithSWMapPoint:swMapPoint tileWidth:tileWidth tileHeight:tileHeight]];
+            if ([resultArray count] > maxBlockThersold) {
+                [resultArray removeAllObjects];
+                return resultArray;
+            }
         }
     }
     
