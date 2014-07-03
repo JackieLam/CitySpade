@@ -201,6 +201,11 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         UINavigationController *nav = (UINavigationController *)self.menuContainerViewController.centerViewController;
         CTMapViewController *mapVC = nav.viewControllers[0];
         REVClusterMapView *mapView = mapVC.ctmapView;
+        if (indexPath.row == mapVC.ctmapView.delegate.forRent) {
+            [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            [cell setBackgroundColor:CellSelectedColor];
+            return;
+        }
         // Set the forRent status of the mapVC's delegate accordingly
         if (indexPath.row == 0) {
             mapVC.title = @"For Sale";
