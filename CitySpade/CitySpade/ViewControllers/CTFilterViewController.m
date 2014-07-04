@@ -22,6 +22,8 @@
 #define rentMaxValue 12000
 #define kTitleViewTag 1
 #define kFilterControlCellNum 6
+#define kTitleForRent @"For Rent"
+#define kTitleForSale @"For Sale"
 
 static const int toolBarHeight = 52;
 
@@ -164,6 +166,13 @@ static const int toolBarHeight = 52;
     filterData[@"transportation"] = [cell3 selectedItem];
     filterData[@"beds"] = [cell4 selectedItem];
     filterData[@"baths"] = [cell5 selectedItem];
+    BOOL isRent = [filterData[@"rent"] boolValue];
+    if (isRent) {
+        [self setTitleWithText:kTitleForRent];
+    }
+    else{
+        [self setTitleWithText:kTitleForSale];
+    }
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
 }
@@ -177,11 +186,11 @@ static const int toolBarHeight = 52;
     CTFilterControlCell *cell = [cellArray objectAtIndex:1];
     if (forRent){
         [cell setSliderWithMaxValue:rentMaxValue minValue:0];
-        [self setTitleWithText:@"For Rent"];
+        [self setTitleWithText:kTitleForRent];
     }
     else{
         [cell setSliderWithMaxValue:saleMaxValue minValue:0];
-        [self setTitleWithText:@"For Sale"];
+        [self setTitleWithText:kTitleForSale];
     }
     [cell resetControl];
 }
@@ -199,5 +208,6 @@ static const int toolBarHeight = 52;
         [cell resetControl];
     }
     [self.tableView reloadData];
+    [self setTitleWithText:kTitleForRent];
 }
 @end

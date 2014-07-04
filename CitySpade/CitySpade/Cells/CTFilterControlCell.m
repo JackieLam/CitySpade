@@ -33,7 +33,7 @@
 #define PickerViewRect CGRectMake(10, 30, 249, 240)
 #define CellWidth 320.0f
 #define Changedheight 112.0f
-#define popoverViewCenter CGPointMake(92.75, 43.0)
+#define popoverViewCenter CGPointMake(87.5, 43.0)
 
 @implementation CTFilterControlCell
 
@@ -197,7 +197,7 @@
         self.popoverView.backgroundColor = [UIColor clearColor];
     }
     if (!self.rangeSlider) {
-        self.rangeSlider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(28, 63, 200, 20)];
+        self.rangeSlider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(31, 63, 200, 20)];
         UIImage* image = nil;
         
         image = [UIImage imageNamed:@"slider_bg"];
@@ -247,7 +247,8 @@
     upperCenter.x = slider.upperCenter.x;
     upperCenter.y = slider.center.y - 30.0f;
     CGPoint middleCenter;
-    middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5;
+    //－12.5是为了使popverView居中
+    middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5 - 12.5;
     middleCenter.y = lowerCenter.y;
     self.popoverView.center = middleCenter;
     int type = 0;
