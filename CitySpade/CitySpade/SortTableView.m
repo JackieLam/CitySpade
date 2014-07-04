@@ -21,7 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.elementArray = @[@"Price: High to low", @"Price: Low to high", @"Bargain: High to low", @"Bargain: Low to high", @"Transportation: High to low", @"Transportation: Low to high"];
+        self.elementArray = @[@"Price: High to low", @"Price: Low to high", @"Cost-Efficiency: High to low", @"Cost-Efficiency: Low to high", @"Transportation: High to low", @"Transportation: Low to high"];
         self.backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
         self.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.separatorInset = UIEdgeInsetsZero;
