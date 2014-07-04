@@ -72,7 +72,8 @@
             [noLoginImageView removeFromSuperview];
         }
         self.tableView.scrollEnabled = YES;
-        [self.tableView reloadData];
+        [self reloadSaveListingFromCache];
+//        [self.tableView reloadData];
     }
     else{
         UIImageView *noLoginImageView = (UIImageView*)[self.view viewWithTag:kNoLoginViewTag];
