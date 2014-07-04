@@ -75,6 +75,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.scrollsToTop = NO;
     [self.view addSubview:self.tableView];
     self.savingVC = [[CTSavingsViewController alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserName:) name:kNotificationLoginSuccess object:nil];

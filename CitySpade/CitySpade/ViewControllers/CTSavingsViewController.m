@@ -193,6 +193,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = TableViewBackGroundColor;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    self.tableView.scrollsToTop = YES;
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
     [self.refreshControl addTarget:self action:@selector(reloadSaveListing:) forControlEvents:UIControlEventValueChanged];

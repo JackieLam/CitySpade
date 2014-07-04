@@ -29,6 +29,7 @@
         self.delegate = self;
         self.dataSource = self;
         self.sortDelegate = delegate;
+        self.scrollsToTop = NO;
     }
     return self;
 }

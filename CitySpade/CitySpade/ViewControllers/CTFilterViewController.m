@@ -59,6 +59,7 @@ static const int toolBarHeight = 52;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.scrollsToTop = NO;
     [self.view addSubview:self.tableView];
     CTFilterControlCell *SegmentCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleSegment withTableViewBlock:nil];
     CTFilterControlCell *PriceCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStylePrice withTableViewBlock:nil];

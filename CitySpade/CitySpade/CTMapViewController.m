@@ -94,7 +94,7 @@
 // Setup the list view
     self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
     self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
-    
+    self.ctlistView.scrollsToTop = YES;
     UIView *containView = [[UIView alloc] initWithFrame:viewBounds];
     [containView addSubview:self.ctlistView];
     [containView addSubview:self.ctmapView];
@@ -177,6 +177,7 @@
     self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(viewDisappearAnimation:)];
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
+    self.collectionView.scrollsToTop = NO;
     [self.view addSubview:self.collectionView];
 }
 
