@@ -201,7 +201,7 @@
     [_titleView setTitleColor:[UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
     [_titleView addTarget:self action:@selector(dropDown) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = _titleView;
-    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(71, 54, 168, 107) withCitys:@[kNewYorkCity,kPhiladelphiaCity] withBlock:^(id title) {
+    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(76, 52, 168, 107) withCitys:@[kNewYorkCity,kPhiladelphiaCity] withBlock:^(id title) {
         [_titleView setTitle:title forState:UIControlStateNormal];
         [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
         [self.ctmapView setRegion:[self regionForCity:title] animated:YES];
