@@ -27,6 +27,7 @@
 #import "SortTableView.h"
 #import "SwitchSegment.h"
 #import "BlockCache.h"
+#import "CityPopoverView.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -35,6 +36,10 @@
 #define botttomHeight 44.0f
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 #define sortTableViewOriginY self.ctmapView.frame.size.height - 52
+#define kNewYorkCity @"New York City"
+#define kNewYorkCityCoordinate CLLocationCoordinate2DMake(40.747, -74)
+#define kPhiladelphiaCity @"Philadelphia"
+#define kPhiladelphiaCityCoordinate CLLocationCoordinate2DMake(39.950,-75.10)
 
 @interface CTMapViewController()<SortTableViewDelegate>
 {
@@ -54,7 +59,8 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panDrawGesture;
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
 @property (nonatomic, strong) UIBezierPath *path;
-
+@property (nonatomic, strong) UIButton *titleView;
+@property (nonatomic, strong) CityPopoverView *cityPoperView;
 @property (nonatomic) float collectionViewOriginY;
 
 @end
@@ -116,15 +122,10 @@
     [self setupCollectionView];
     
 // Setup the title
-    UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
-    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
-    NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
-    [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
-    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
-    
-    self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
+    [self setTitle];
+
     forRent = YES;
-    self.title = @"For Rent";
+//    self.title = @"For Rent";
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:forRent]}];
 }
 
@@ -181,6 +182,32 @@
     [self.view addSubview:self.collectionView];
 }
 
+- (void)setTitle
+{
+    //设置titleTextAttributes
+    UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
+    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
+    NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
+    [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
+    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
+    self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
+    //设置标题按钮
+    _titleView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    _titleView.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
+    [_titleView setTitle:kNewYorkCity forState:UIControlStateNormal];
+    [_titleView setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2*12)];
+    [_titleView setImage:[UIImage imageNamed:@"triangle"] forState:UIControlStateNormal];
+    [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
+    [_titleView setTitleColor:[UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [_titleView addTarget:self action:@selector(dropDown) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = _titleView;
+    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(71, 54, 168, 107) withCitys:@[kNewYorkCity,kPhiladelphiaCity] withBlock:^(id title) {
+        [_titleView setTitle:title forState:UIControlStateNormal];
+        [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
+        [self.ctmapView setRegion:[self regionForCity:title] animated:YES];
+    }];
+}
+
 #pragma mark - 
 #pragma mark - Reload Listing(For Rent / For Sale)
 - (void)setBlocksToLoadCnt:(NSNotification *)aNotification
@@ -206,11 +233,11 @@
         [activityIndicator stopAnimating];
         self.listings = resultArray;
         [BlockCache cacheListingItems:self.listings block:param];
-        self.navigationItem.titleView = nil;
+        self.navigationItem.titleView = self.titleView;
         [self resetAnnotationsWithResultArray:self.listings];
     } onError:^(NSError *engineError) {
         [activityIndicator stopAnimating];
-        self.navigationItem.titleView = nil;
+        self.navigationItem.titleView = self.titleView;
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Fail loading new listings", @"still": [NSNumber numberWithBool:NO]}];
     }];
 }
@@ -414,6 +441,7 @@
 
 - (void)drawButtonClicked:(id)sender
 {
+    self.navigationItem.titleView = nil;
     self.navigationItem.title = @"Draw";
     [self.mapBottomBar resetBarState:BarStateMapDraw];
     self.ctmapView.zoomEnabled = NO;
@@ -425,9 +453,9 @@
 
 - (void)cancelButtonClicked:(id)sender
 {
-    if (forRent) self.navigationItem.title = @"For Rent";
-    else self.navigationItem.title = @"For Sale";
-    
+//    if (forRent) self.navigationItem.title = @"For Rent";
+//    else self.navigationItem.title = @"For Sale";
+    self.navigationItem.titleView = _titleView;
     if (self.path) {
         [self.path removeAllPoints];
         self.shapeLayer.path = [self.path CGPath];
@@ -608,4 +636,24 @@
     [self.ctlistView loadPlacesToListAndReloadData:[self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor]]];
 }
 
+#pragma mark - TitleButton Method
+
+- (void)dropDown
+{
+    if ([_cityPoperView superview]) {
+        [_cityPoperView pushOutCityTableView];
+    }else{
+        [_cityPoperView pushInCityTableView];
+    }
+}
+
+- (MKCoordinateRegion)regionForCity:(NSString*)city
+{
+    if ([city isEqualToString:kNewYorkCity]) {
+        return MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
+    }
+    else/* if ([city isEqualToString:kPhiladelphiaCity])*/{
+        return MKCoordinateRegionMake(kPhiladelphiaCityCoordinate, self.ctmapView.region.span);
+    }
+}
 @end
