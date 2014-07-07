@@ -206,7 +206,18 @@
     self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(76, 52, 168, 107) withCitys:@[kNewYorkCity,kPhiladelphiaCity] withBlock:^(id title) {
         [_titleView setTitle:title forState:UIControlStateNormal];
         [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
-        [self.ctmapView setRegion:[self regionForCity:title] animated:YES];
+        MKCoordinateRegion region = [self regionForCity:title];
+        CLLocationCoordinate2D coordinate = self.ctmapView.region.center;
+        CLLocationDegrees leftDegrees = region.center.longitude - region.span.longitudeDelta/2.0;
+        CLLocationDegrees rightDegrees = region.center.longitude + region.span.longitudeDelta/2.0;
+        CLLocationDegrees bottomDegrees = region.center.latitude - region.span.latitudeDelta/2.0;
+        CLLocationDegrees topDegrees = region.center.latitude + region.span.latitudeDelta/2.0;
+        if (coordinate.longitude >= leftDegrees && coordinate.longitude <= rightDegrees && coordinate.latitude >= bottomDegrees && coordinate.latitude <= topDegrees) {
+            //坐标在范围内，无需移动
+        }
+        else{
+            [self.ctmapView setRegion:[self regionForCity:title] animated:YES];
+        }
     }];
 }
 
