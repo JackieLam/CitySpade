@@ -39,7 +39,7 @@ static const int toolBarHeight = 52;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToggleRentSale object:nil];
     [self setTableView];
     [self setTitleAttribute];
-    [self setTitleWithText:@"For Rent"];
+    [self setTitleWithText:kTitleForRent];
     [self setApplyButton];
     [self setToolBar];
     
@@ -169,11 +169,14 @@ static const int toolBarHeight = 52;
     filterData[@"baths"] = [cell5 selectedItem];
     BOOL isRent = [filterData[@"rent"] boolValue];
     if (isRent) {
+        [cell1 setSliderWithMaxValue:rentMaxValue minValue:0];
         [self setTitleWithText:kTitleForRent];
     }
     else{
+        [cell1 setSliderWithMaxValue:saleMaxValue minValue:0];
         [self setTitleWithText:kTitleForSale];
     }
+    [cell1 resetControl];
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
 }
