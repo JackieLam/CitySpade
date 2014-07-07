@@ -113,6 +113,11 @@ didSelectAnnotationView:(MKAnnotationView *)view
     [[NSNotificationCenter defaultCenter] postNotificationName:kPathOverLayShouldBeAdded object:views userInfo:nil];
 }
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    [mapView setRegion:MKCoordinateRegionMake(userLocation.coordinate, mapView.region.span) animated:YES];
+    mapView.showsUserLocation = NO;
+}
 
 #pragma mark - UICollectionView DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

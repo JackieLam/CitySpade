@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) SortTableView *sortTableView;
 @property (nonatomic, strong) UILabel *stateLabel;
-
+@property (nonatomic, strong) UIButton *locationBtn;
 // Pins
 @property (nonatomic, strong) NSMutableArray *pinsAll;
 @property (nonatomic, strong) NSMutableArray *pinsFilterRight;

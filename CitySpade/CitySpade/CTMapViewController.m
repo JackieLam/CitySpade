@@ -124,6 +124,8 @@
 // Setup the title
     [self setTitle];
 
+// Setup locationBtn
+    [self setLocationButton];
     forRent = YES;
 //    self.title = @"For Rent";
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:forRent]}];
@@ -206,6 +208,15 @@
         [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
         [self.ctmapView setRegion:[self regionForCity:title] animated:YES];
     }];
+}
+
+- (void)setLocationButton
+{
+    self.locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(290, 100, 30, 30)];
+    [self.locationBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
+    [self.locationBtn addTarget:self action:@selector(dragLocationButtonMoving:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+    [self.locationBtn addTarget:self action:@selector(locationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.locationBtn];
 }
 
 #pragma mark - 
@@ -410,11 +421,12 @@
         [self.mapBottomBar resetBarState:BarStateMapDefault];
         [self.sortTableView removeFromSuperview];
         [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-            // 方法放这里的话会有延迟
+            self.locationBtn.hidden = NO;
         }];
     }
     else {
         [self.mapBottomBar resetBarState:BarStateList];
+        self.locationBtn.hidden = YES;
         [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
             [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
             CGRect bottomBarFrame = self.mapBottomBar.frame;
@@ -655,5 +667,32 @@
     else/* if ([city isEqualToString:kPhiladelphiaCity])*/{
         return MKCoordinateRegionMake(kPhiladelphiaCityCoordinate, self.ctmapView.region.span);
     }
+}
+
+#pragma mark - LocationBtn Method
+
+- (void)locationButtonClicked:(UIButton*)sender
+{
+    self.ctmapView.showsUserLocation = YES;
+}
+
+- (void)dragLocationButtonMoving:(UIButton*) button withEvent:event
+{
+    CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    CGSize mainSize = [UIScreen mainScreen].bounds.size;
+    double length = button.frame.size.width/2.0;
+    if (newPoint.x < length) {
+        newPoint.x = length;
+    }
+    else if (newPoint.x + length > mainSize.width){
+        newPoint.x = mainSize.width - length;
+    }
+    if (newPoint.y < length) {
+        newPoint.y = length;
+    }
+    else if(newPoint.y + length + 116 > mainSize.height){
+        newPoint.y = mainSize.height - length - 116;
+    }
+    button.center = newPoint;
 }
 @end
