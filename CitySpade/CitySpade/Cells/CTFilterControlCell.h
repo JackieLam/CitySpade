@@ -19,7 +19,8 @@ typedef NS_ENUM(NSInteger, CTFilterCellStyle) {
     CTFilterCellStyleBathroom,
     CTFilterCellStyleSegment
 };
-typedef void(^VoidBlock)(void);
+typedef void (^VoidBlock)(void);
+typedef void (^SegmentBlock)(BOOL forRent);
 
 @interface CTFilterControlCell : UITableViewCell
 {
@@ -33,9 +34,11 @@ typedef void(^VoidBlock)(void);
 @property (nonatomic, strong) BedSegment *bedSegmentControl;
 @property (nonatomic, strong) BedSegment *bathSegmentControl;
 @property (nonatomic, strong) UISegmentedControl *rentSegmentControl;
+@property (nonatomic, strong) SegmentBlock rentSegmentBlock;
 - (id)initWithStyle:(CTFilterCellStyle)style withTableViewBlock:(VoidBlock)aTableViewBlock;
 - (NSString*)selectedItem;
 - (NSDictionary*)getSliderRangeValue;
 - (void)setSliderWithMaxValue:(float)maxValue minValue:(float)minValue;
+- (void)setSliderWithMaxValueWithoutReset:(float)maxValue minValue:(float)minValue;
 - (void)resetControl;
 @end

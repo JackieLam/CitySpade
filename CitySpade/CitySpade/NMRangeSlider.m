@@ -16,6 +16,10 @@
 #define saleScale2 450000.0f/3000000.0f
 #define saleScale3 3200000.0f/3000000.0f
 #define saleScale4 8000000.0f/3000000.0f
+#define oneQuarterValue 43.75
+#define twoQuarterValue 87.5
+#define threeQuarterValue 131.25f
+#define fourQuarterValue 175.0f
 
 #define IS_PRE_IOS7() (DeviceSystemMajorVersion() < 7)
 
@@ -134,7 +138,7 @@ NSUInteger DeviceSystemMajorVersion() {
         value = MIN(value, _lowerMaximumValue);
     }
     
-    value = MIN(value, _upperValue - _minimumRange);
+//    value = MIN(value, _upperValue - _minimumRange);
     
     _lowerValue = value;
     
@@ -157,7 +161,7 @@ NSUInteger DeviceSystemMajorVersion() {
         value = MAX(value, _upperMinimumValue);
     }
     
-    value = MAX(value, _lowerValue+_minimumRange);
+//    value = MAX(value, _lowerValue+_minimumRange);
     
     _upperValue = value;
 
@@ -228,107 +232,46 @@ NSUInteger DeviceSystemMajorVersion() {
     [self setNeedsLayout];
 }
 
-- (int)getChangedLowerValueWithType:(int)type
+- (int)getOriginedValueWithValue:(float)x
 {
-    float lowerValue = self.lowerValue;
-    float quarterValue = _maximumValue/4.0f;
-    float twoquartersValue = _maximumValue/2.0f;
-    float threequartersValue = quarterValue + twoquartersValue;
-    //For Rent
-    if (type == 0) {
-        if (lowerValue <= quarterValue) {
-            lowerValue *= rentScale1;
-        }
-        else if (lowerValue <= twoquartersValue){
-            lowerValue -= quarterValue;
-            lowerValue *= rentScale2;
-            lowerValue += 1500;
-        }
-        else if (lowerValue <= threequartersValue){
-            lowerValue -= twoquartersValue;
-            lowerValue *= rentScale3;
-            lowerValue += 2500;
-        }
-        else{
-            lowerValue -= threequartersValue;
-            lowerValue *= rentScale4;
-            lowerValue += 6500;
-        }
-    }
-    else{
-        if (lowerValue <= quarterValue) {
-            lowerValue *= saleScale1;
-        }
-        else if (lowerValue <= twoquartersValue){
-            lowerValue -= quarterValue;
-            lowerValue *= saleScale2;
-            lowerValue += 350000.0f;
-        }
-        else if (lowerValue <= threequartersValue){
-            lowerValue -= twoquartersValue;
-            lowerValue *= saleScale3;
-            lowerValue += 800000.0f;
-        }
-        else{
-            lowerValue -= threequartersValue;
-            lowerValue *= saleScale4;
-            lowerValue += 4000000.0f;
-        }
-    }
-    
-    
-    return (int)lowerValue;
+    x -= 12.5;
+    return self.maximumValue * x / 175.0f;
 }
 
-- (int)getChangedUpperValueWithType:(int)type
+- (int)getChangedValueWithType:(int)type withValue:(float)x
 {
-    float upperValue = self.upperValue;
-    float quarterValue = _maximumValue/4.0f;
-    float twoquartersValue = _maximumValue/2.0f;
-    float threequartersValue = quarterValue + twoquartersValue;
+    x -= 12.5;
     if (type == 0) {
-        if (upperValue <= quarterValue) {
-            upperValue *= 1500.0f/3000.0f;
+        if (x <= oneQuarterValue) {
+            return 1500 * x/oneQuarterValue;
         }
-        else if (upperValue <= twoquartersValue){
-            upperValue -= quarterValue;
-            upperValue *= 1000.0f/3000.0f;
-            upperValue += 1500;
+        else if (x <= twoQuarterValue){
+            return 1500 + 1000 * (x - oneQuarterValue)/oneQuarterValue;
         }
-        else if (upperValue <= threequartersValue){
-            upperValue -= twoquartersValue;
-            upperValue *= 4000.0f/3000.0f;
-            upperValue += 2500;
+        else if (x <= threeQuarterValue){
+            return 1500 + 1000 + 4000 * (x - twoQuarterValue)/oneQuarterValue;
         }
         else{
-            upperValue -= threequartersValue;
-            upperValue *= 5500.0f/3000.0f;
-            upperValue += 6500;
+            return 1500 + 1000 + 4000 + 5500 * (x - threeQuarterValue)/oneQuarterValue;
         }
     }
     else{
-        if (upperValue <= quarterValue) {
-            upperValue *= 350000.0f/3000000.0f;
+        if (x <= oneQuarterValue) {
+            return 350000 * x/oneQuarterValue;
         }
-        else if (upperValue <= twoquartersValue){
-            upperValue -= quarterValue;
-            upperValue *= 450000.0f/3000000.0f;
-            upperValue += 350000.0f;
+        else if (x <= twoQuarterValue){
+            return 350000 + 450000 * (x - oneQuarterValue)/oneQuarterValue;
         }
-        else if (upperValue <= threequartersValue){
-            upperValue -= twoquartersValue;
-            upperValue *= 3200000.0f/3000000.0f;
-            upperValue += 800000.0f;
+        else if (x <= threeQuarterValue){
+            return 350000 + 450000 + 320000 * (x - twoQuarterValue)/oneQuarterValue;
         }
         else{
-            upperValue -= threequartersValue;
-            upperValue *= 8000000.0f/3000000.0f;
-            upperValue += 4000000.0f;
+            return 350000 + 450000 + 320000 + 800000 * (x - threeQuarterValue)/oneQuarterValue;
         }
     }
-    
-    return (int)upperValue;
 }
+
+
 //ON-Demand images. If the images are not set, then the default values are loaded.
 
 - (UIImage *)trackBackgroundImage

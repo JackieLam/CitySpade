@@ -74,6 +74,15 @@ static const int toolBarHeight = 52;
     [BargainCell.bargainPickerView.headerButton addTarget:self action:@selector(reloadTableView) forControlEvents:UIControlEventTouchUpInside];
     [TransportationCell.transportationPickerView.headerButton addTarget:self action:@selector(reloadTableView) forControlEvents:UIControlEventTouchUpInside];
     cellArray = [NSArray arrayWithObjects:SegmentCell,PriceCell,BargainCell,TransportationCell,BedrommCell,BathroomCell, nil];
+    SegmentBlock block = ^(BOOL forRent){
+        if (forRent) {
+            [PriceCell setSliderWithMaxValueWithoutReset:rentMaxValue minValue:0.0f];
+        }
+        else{
+            [PriceCell setSliderWithMaxValueWithoutReset:saleMaxValue minValue:0.0f];
+        }
+    };
+    SegmentCell.rentSegmentBlock = block;
 }
 
 - (void)setTitleAttribute
@@ -169,14 +178,11 @@ static const int toolBarHeight = 52;
     filterData[@"baths"] = [cell5 selectedItem];
     BOOL isRent = [filterData[@"rent"] boolValue];
     if (isRent) {
-        [cell1 setSliderWithMaxValue:rentMaxValue minValue:0];
         [self setTitleWithText:kTitleForRent];
     }
     else{
-        [cell1 setSliderWithMaxValue:saleMaxValue minValue:0];
         [self setTitleWithText:kTitleForSale];
     }
-    [cell1 resetControl];
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
 }

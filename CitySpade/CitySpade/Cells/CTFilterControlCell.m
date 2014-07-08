@@ -140,6 +140,8 @@
                 [bcg setImage:nil forSegmentAtIndex:0];
                 [header addSubview:self.rentSegmentControl];
                 [header addSubview:bcg];
+                [self.rentSegmentControl addTarget:self action:@selector(doClickRentSegment:) forControlEvents:UIControlEventValueChanged];
+                [self.rentSegmentControl setSelectedSegmentIndex:1];
 //                header.backgroundColor = [UIColor whiteColor];
                 [self.contentView addSubview:header];
             }
@@ -238,6 +240,20 @@
     
 }
 
+- (void)setSliderWithMaxValueWithoutReset:(float)maxValue minValue:(float)minValue
+{
+    CGPoint lowerCenter = self.rangeSlider.lowerCenter;
+    CGPoint upperCenter = self.rangeSlider.upperCenter;
+    float lowerValue = self.rangeSlider.lowerValue;
+    float upperValue = self.rangeSlider.upperValue;
+    self.rangeSlider.minimumValue = minValue;
+    self.rangeSlider.maximumValue = maxValue;
+    upperValue = [self.rangeSlider getOriginedValueWithValue:upperCenter.x];
+    lowerValue = [self.rangeSlider getOriginedValueWithValue:lowerCenter.x];
+    [self.rangeSlider setLowerValue:lowerValue upperValue:upperValue animated:NO];
+    [self updateRangeLabel:self.rangeSlider];
+}
+
 - (void)updateRangeLabel:(NMRangeSlider *)slider
 {
     CGPoint lowerCenter;
@@ -252,11 +268,11 @@
     middleCenter.y = lowerCenter.y;
     self.popoverView.center = middleCenter;
     int type = 0;
-    if (slider.upperValue > rentMaxValue) {
+    if (slider.maximumValue > rentMaxValue) {
         type = 1;
     }
-    int upperValue = [slider getChangedUpperValueWithType:type];
-    int lowerValue = [slider getChangedLowerValueWithType:type];
+    int upperValue = [slider getChangedValueWithType:type withValue:upperCenter.x];
+    int lowerValue = [slider getChangedValueWithType:type withValue:lowerCenter.x];
     NSMutableString *upperValueString;
     NSMutableString *lowerValueString;
     if (type == 1) {
@@ -327,12 +343,12 @@
         if (self.rangeSlider.maximumValue > rentMaxValue) {
             type = 1;
         }
-        lowerValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedLowerValueWithType:type]];
+        lowerValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedValueWithType:type withValue:self.rangeSlider.lowerCenter.x]];
         if ((type == 0 && self.rangeSlider.upperValue == rentMaxValue) || (type == 1 && self.rangeSlider.upperValue == saleMaxValue)) {
             upperValueString = @"-1";
         }
         else{
-            upperValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedUpperValueWithType:type]];
+            upperValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedValueWithType:type withValue:self.rangeSlider.upperCenter.x]];
         }
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[lowerValueString,upperValueString]  forKeys:@[@"lowerBound",@"higherBound"]];
         return dic;
@@ -343,11 +359,7 @@
 - (void)resetControl
 {
     if (self.rangeSlider) {
-        if (self.rangeSlider.maximumValue > rentMaxValue) {
-            [self setSliderWithMaxValue:saleMaxValue minValue:0];
-        }
-        else
-            [self setSliderWithMaxValue:rentMaxValue minValue:0];
+        [self setSliderWithMaxValue:rentMaxValue minValue:0];
         self.popoverView.center = popoverViewCenter;
     }
     if (self.bargainPickerView) {
@@ -363,8 +375,12 @@
         [self.bathSegmentControl setSelectedSegmentIndex:0];
     }
     if (self.rentSegmentControl) {
-        [self.rentSegmentControl setSelectedSegmentIndex:0];
+        [self.rentSegmentControl setSelectedSegmentIndex:1];
     }
 }
 
+- (void)doClickRentSegment:(id)sender
+{
+    self.rentSegmentBlock(self.rentSegmentControl.selectedSegmentIndex);
+}
 @end

@@ -80,7 +80,7 @@
 
 - (void)setLowerValue:(float) lowerValue upperValue:(float) upperValue animated:(BOOL)animated;
 
-- (int)getChangedLowerValueWithType:(int)type;
-- (int)getChangedUpperValueWithType:(int)type;
+- (int)getOriginedValueWithValue:(float)x;
+- (int)getChangedValueWithType:(int)type withValue:(float)x;
 
 @end
