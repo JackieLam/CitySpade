@@ -91,10 +91,11 @@
     [CTMapViewDelegate sharedInstance].forRent = YES;
     [self.view addSubview:self.ctmapView];
     
-    CLLocationCoordinate2D coordinate;
-    coordinate.latitude = 40.747;
-    coordinate.longitude = -74;
-    self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
+//    CLLocationCoordinate2D coordinate;
+//    coordinate.latitude = 40.747;
+//    coordinate.longitude = -74;
+    self.ctmapView.region = MKCoordinateRegionMakeWithDistance(kNewYorkCityCoordinate, 5000, 5000);
+//    self.ctmapView.region = [self regionForCity:kNewYorkCity];
     previousZoomLevel = self.ctmapView.region.span.longitudeDelta;
     
 // Setup the list view
