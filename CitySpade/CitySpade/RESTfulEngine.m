@@ -16,7 +16,7 @@
 #import <SystemConfiguration/SCNetworkReachability.h>
 
 //Part One
-NSString * const HOST_URL = @"http://www.cityspade.com/api/v1";
+NSString * const HOST_URL = @"http://www.cityspade.com/api/v2";
 NSString * const LISTINGS_PATH = @"/listings.json?";
 
 //Part Two
@@ -93,10 +93,11 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                 NSError *jsonError;
                 
                 // 2 Serialize json
-                NSMutableArray *listingsJSON =
+                NSDictionary *listingsDic =
                 [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                NSArray *listings = [listingsDic objectForKey:@"listings"];
                 NSMutableArray *models = [NSMutableArray array];
-                for (id obj in listingsJSON) {
+                for (id obj in listings) {
                     Listing *newlisting = [Listing modelObjectWithDictionary:obj];
                     [models addObject:newlisting];
                 }
