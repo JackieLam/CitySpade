@@ -209,11 +209,9 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         }
         // Set the forRent status of the mapVC's delegate accordingly
         if (indexPath.row == 0) {
-            mapVC.title = @"For Sale";
             mapVC.ctmapView.delegate.forRent = NO;
         }
         else if (indexPath.row == 1) {
-            mapVC.title = @"For Rent";
             mapVC.ctmapView.delegate.forRent = YES;
         }
         // Remove all annotations
@@ -223,9 +221,6 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         [mapVC.pinsAll removeAllObjects];
         [BlockStates clearOnMapBlocks];
         [BlockStates clearRequestingBlocks];
-        
-        // 这里发送一个信号为了让filterVC里面的rangeSlider改变数值
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:indexPath.row]}];
         // 重新设置偏离一下Center Coordinate目的只是为了触发CTMapViewDelegate里面的regionDidChange方法
         [mapView setVisibleMapRect:MKMapRectMake(mapView.visibleMapRect.origin.x, mapView.visibleMapRect.origin.y+1, mapView.visibleMapRect.size.width, mapView.visibleMapRect.size.height)];
         

@@ -36,7 +36,7 @@ static const int toolBarHeight = 52;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToggleRentSale object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToggleRentSale object:nil];
     [self setTableView];
     [self setTitleAttribute];
     [self setTitleWithText:kTitleForRent];
@@ -187,6 +187,7 @@ static const int toolBarHeight = 52;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
 }
 
+/*
 #pragma mark - Reset the slider's value range
 
 - (void)resetSliderValueRange:(NSNotification *)aNotification
@@ -203,7 +204,7 @@ static const int toolBarHeight = 52;
         [self setTitleWithText:kTitleForSale];
     }
     [cell resetControl];
-}
+}*/
 
 #pragma mark - Toolbar button method
 

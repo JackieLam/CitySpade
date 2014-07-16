@@ -28,6 +28,7 @@
 #import "SwitchSegment.h"
 #import "BlockCache.h"
 #import "CityPopoverView.h"
+#import "BlockStates.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -131,7 +132,7 @@
     [self setLocationButton];
     forRent = YES;
 //    self.title = @"For Rent";
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:forRent]}];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:forRent]}];
 }
 
 #pragma mark - NSNotification
@@ -590,6 +591,18 @@
 {
     [self.pinsFilterRight removeAllObjects];
     self.filterData = [aNotification object];
+    if ([[self.filterData objectForKey:@"rent"] boolValue] != forRent) {
+        forRent = !forRent;
+        self.ctmapView.delegate.forRent = forRent;
+        [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+        [self.ctmapView clearAnnotationsCopy];
+        [self.pinsFilterRight removeAllObjects];
+        [self.pinsAll removeAllObjects];
+        [BlockStates clearOnMapBlocks];
+        [BlockStates clearRequestingBlocks];
+        [self.ctmapView setVisibleMapRect:MKMapRectMake(self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y+1, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height)];
+        return;
+    }
     for (REVClusterPin *pin in self.pinsAll) {
         if ([pin fitsFilterData:self.filterData])
             [self.pinsFilterRight addObject:pin];
