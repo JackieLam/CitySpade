@@ -156,7 +156,6 @@ didSelectAnnotationView:(MKAnnotationView *)view
     CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] init];
     detailViewController.VCtitle = cell.titleLabel.text;
     detailViewController.listID = [NSString stringWithFormat:@"%d", (int)pin.identiferNumber];
-    detailViewController.featureImage = cell.imageView.image;
     detailViewController.featureImageUrl = cell.imageView.imageURL;
     NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
     NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportationLabel.text firstNumberInString] doubleValue]];
