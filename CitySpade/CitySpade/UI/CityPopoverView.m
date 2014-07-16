@@ -29,7 +29,7 @@
         _touchView = [[UIButton alloc] initWithFrame: [UIScreen mainScreen].bounds];
         [_touchView addTarget:self action:@selector(pushOutCityTableView) forControlEvents:UIControlEventTouchUpInside];
        
-        _cityTableView = [[UITableView alloc] initWithFrame:CGRectMake(2, 8.5, frame.size.width-5, kCityCellHeight*2)];
+        _cityTableView = [[UITableView alloc] initWithFrame:CGRectMake(2, 8.5, frame.size.width-5, kCityCellHeight*3)];
         _cityTableView.dataSource = self;
         _cityTableView.delegate = self;
         _cityTableView.backgroundColor = [UIColor clearColor];

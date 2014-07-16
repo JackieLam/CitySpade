@@ -39,7 +39,9 @@
 #define kNewYorkCity @"New York City"
 #define kNewYorkCityCoordinate CLLocationCoordinate2DMake(40.747, -74)
 #define kPhiladelphiaCity @"Philadelphia"
-#define kPhiladelphiaCityCoordinate CLLocationCoordinate2DMake(39.950,-75.10)
+#define kPhiladelphiaCityCoordinate CLLocationCoordinate2DMake(39.950,-75.166667)
+#define kBostonCity @"Boston"
+#define kBostonCoordinate CLLocationCoordinate2DMake(42.358056,-71.063611)
 
 @interface CTMapViewController()<SortTableViewDelegate>
 {
@@ -204,7 +206,7 @@
     [_titleView setTitleColor:[UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
     [_titleView addTarget:self action:@selector(dropDown) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = _titleView;
-    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(76, 52, 168, 107) withCitys:@[kNewYorkCity,kPhiladelphiaCity] withBlock:^(id title) {
+    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(76, 52, 168, 155) withCitys:@[kNewYorkCity,kPhiladelphiaCity,kBostonCity] withBlock:^(id title) {
         [_titleView setTitle:title forState:UIControlStateNormal];
         [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
         MKCoordinateRegion region = [self regionForCity:title];
@@ -676,8 +678,11 @@
     if ([city isEqualToString:kNewYorkCity]) {
         return MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
     }
-    else/* if ([city isEqualToString:kPhiladelphiaCity])*/{
+    else if ([city isEqualToString:kPhiladelphiaCity]) {
         return MKCoordinateRegionMake(kPhiladelphiaCityCoordinate, self.ctmapView.region.span);
+    }
+    else {
+        return MKCoordinateRegionMake(kBostonCoordinate, self.ctmapView.region.span);
     }
 }
 
