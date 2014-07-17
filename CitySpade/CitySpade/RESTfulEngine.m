@@ -404,10 +404,11 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                     NSError *jsonError;
                     
                     // 2 Serialize json
-                    NSMutableArray *listingsJSON =
-                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    NSArray *listings = [jsonDictionary objectForKey:@"listings"];
+                    
                     NSMutableArray *models = [NSMutableArray array];
-                    for (id obj in listingsJSON) {
+                    for (id obj in listings) {
                         Listing *listing = [Listing modelObjectWithDictionary:obj];
                         [models addObject:listing];
                     }
