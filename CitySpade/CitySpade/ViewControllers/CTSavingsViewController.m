@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UIBarButtonItem *myEditButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *trashButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *cancelButtonItem;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, assign) BOOL isUpdated;
 @end
 
 @implementation CTSavingsViewController
@@ -60,7 +62,7 @@
 {
     [super viewDidLoad];
     [self setUpAppearance];
-    
+    _isUpdated = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -177,13 +179,13 @@
 - (void)setUpAppearance
 {
     //设置NavigationItem Title
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 110, 100, 30)];
-    [titleLabel setTextColor:TitleColor];
-    [titleLabel setText:@"My Saves"];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16];
-    titleLabel.textColor = [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1.0];
-    self.navigationItem.titleView = titleLabel;
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 110, 100, 30)];
+    [_titleLabel setTextColor:TitleColor];
+    [_titleLabel setText:@"My Saves"];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16];
+    _titleLabel.textColor = [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1.0];
+    self.navigationItem.titleView = _titleLabel;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -212,8 +214,34 @@
 {
     self.saveList = [AppCache getCachedSaveList];
     if (self.saveList) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
-        [self.tableView reloadData];
+        if (_isUpdated == NO) {
+            _isUpdated = YES;
+            UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [indicatorView startAnimating];
+            self.navigationItem.titleView = indicatorView;
+            [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
+                if (self.saveList) {
+                    [self.saveList removeAllObjects];
+                }
+                self.saveList = resultArray;
+                [AppCache cacheSaveList:self.saveList];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+                [indicatorView stopAnimating];
+                self.navigationItem.titleView = _titleLabel;
+//                [self.refreshControl endRefreshing];
+//                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
+                [self.tableView reloadData];
+            } onError:^(NSError *engineError) {
+                [indicatorView stopAnimating];
+                self.navigationItem.titleView = _titleLabel;
+//                [self.refreshControl endRefreshing];
+//                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
+            }];
+        }
+        else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+            [self.tableView reloadData];
+        }
     }
     if (!self.saveList || [AppCache isSaveListStale]){
         [self reloadSaveListing:nil];
@@ -241,6 +269,7 @@
 
 - (void)removeAllSaveListing
 {
+    _isUpdated = NO;
     [self.saveList removeAllObjects];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
 }
