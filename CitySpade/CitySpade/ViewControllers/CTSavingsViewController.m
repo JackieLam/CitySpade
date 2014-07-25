@@ -50,10 +50,6 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addListingFromToSaveListing:) name:kNotificationAddSaveListing object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteListingFromSaveListing:) name:kNotificationDeleteSaveListing object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSaveListingFromCache) name:kNotificationLoginSuccess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector
-            (removeAllSaveListing) name:kNotificationLogoutSuccess object:nil];
-        [self reloadSaveListingFromCache];
     }
     return self;
 }
@@ -75,7 +71,6 @@
         }
         self.tableView.scrollEnabled = YES;
         [self reloadSaveListingFromCache];
-//        [self.tableView reloadData];
     }
     else{
         UIImageView *noLoginImageView = (UIImageView*)[self.view viewWithTag:kNoLoginViewTag];
@@ -86,9 +81,7 @@
             [self.saveList removeAllObjects];
             self.tableView.scrollEnabled = NO;
         }
-        
     }
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -220,22 +213,18 @@
             [indicatorView startAnimating];
             self.navigationItem.titleView = indicatorView;
             [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
-                if (self.saveList) {
-                    [self.saveList removeAllObjects];
+                if (_saveList) {
+                    [_saveList removeAllObjects];
                 }
-                self.saveList = resultArray;
-                [AppCache cacheSaveList:self.saveList];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+                _saveList = resultArray;
+                [AppCache cacheSaveList:_saveList];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:_saveList];
                 [indicatorView stopAnimating];
                 self.navigationItem.titleView = _titleLabel;
-//                [self.refreshControl endRefreshing];
-//                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
                 [self.tableView reloadData];
             } onError:^(NSError *engineError) {
                 [indicatorView stopAnimating];
                 self.navigationItem.titleView = _titleLabel;
-//                [self.refreshControl endRefreshing];
-//                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
             }];
         }
         else {
@@ -252,12 +241,12 @@
 {
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading..."];
     [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
-        if (self.saveList) {
-            [self.saveList removeAllObjects];
+        if (_saveList) {
+            [_saveList removeAllObjects];
         }
-        self.saveList = resultArray;
-        [AppCache cacheSaveList:self.saveList];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+        _saveList = resultArray;
+        [AppCache cacheSaveList:_saveList];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:_saveList];
         [self.refreshControl endRefreshing];
         self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
         [self.tableView reloadData];

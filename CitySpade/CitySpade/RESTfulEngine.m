@@ -14,7 +14,10 @@
 #import "BlockCache.h"
 #import "BlockStates.h"
 #import <SystemConfiguration/SCNetworkReachability.h>
-
+/*
+ Memory Leak With NSURLSession:
+ https://github.com/iOSDevTraining/books-and-movies/commit/bc8821448f312772dcc47b25b8e743c25d1a13c7
+ */
 //Part One
 NSString * const HOST_URL = @"http://www.cityspade.com/api/v2";
 NSString * const LISTINGS_PATH = @"/listings.json?";
@@ -393,7 +396,9 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
+    
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [session invalidateAndCancel];
         if (!error) {
             
             // 1 HTTP Response

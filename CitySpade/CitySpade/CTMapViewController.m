@@ -246,9 +246,11 @@
 {
     NSDictionary *param = [aNotification object];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = activityIndicator;
-    [activityIndicator startAnimating];
+    if (self.navigationItem.titleView == _titleView) {
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.navigationItem.titleView = activityIndicator;
+        [activityIndicator startAnimating];
+    }
     
     // 如果改变状态，需要把地图上的点全部去掉，清除pinsAll，清除BlockCache中的loadedBlockSet
     if ([param[@"rent"] boolValue] != forRent) {
@@ -256,14 +258,14 @@
     }
     
     [RESTfulEngine loadListingsWithQuery:param onSucceeded:^(NSMutableArray *resultArray) {
-        [activityIndicator stopAnimating];
+//        [activityIndicator stopAnimating];
         self.listings = resultArray;
         [BlockCache cacheListingItems:self.listings block:param];
-        self.navigationItem.titleView = self.titleView;
+        self.navigationItem.titleView = _titleView;
         [self resetAnnotationsWithResultArray:self.listings];
     } onError:^(NSError *engineError) {
-        [activityIndicator stopAnimating];
-        self.navigationItem.titleView = self.titleView;
+//        [activityIndicator stopAnimating];
+        self.navigationItem.titleView = _titleView;
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Fail loading new listings", @"still": [NSNumber numberWithBool:NO]}];
     }];
 }
