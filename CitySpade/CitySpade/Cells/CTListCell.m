@@ -118,13 +118,13 @@
     [self.rightView addSubview:self.priceLabel];
 //bargainLabel
     self.bargainLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelLeftInset, 60, labelWidth, 12)];
-    self.bargainLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:9.0f];
+    self.bargainLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:10.0f];
     self.bargainLabel.textColor = labelGrayColor;
     self.bargainLabel.text = @"Bargain(price): 8.5/10";
     [self.rightView addSubview:self.bargainLabel];
 //transportLabel
     self.transportLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelLeftInset, 76, labelWidth, 12)];
-    self.transportLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:9.0f];
+    self.transportLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:10.0f];
     self.transportLabel.textColor = labelGrayColor;
     self.transportLabel.text = @"Transportation:7.5/10";
     [self.rightView addSubview:self.transportLabel];
@@ -153,18 +153,18 @@
     NSMutableAttributedString *bargainStr = [[NSMutableAttributedString alloc]
                                              initWithString:[NSString stringWithFormat:@"Cost-Efficiency: %@", pin.bargain]];
     [bargainStr addAttribute: NSFontAttributeName
-                       value: [UIFont fontWithName:@"Avenir-Roman" size:9.0f]
+                       value: [UIFont fontWithName:@"Avenir-Roman" size:11.0f]
                       range: NSMakeRange(0,16)];
     [bargainStr addAttribute: NSFontAttributeName
-                       value: [UIFont fontWithName:@"Avenir-Heavy" size:9.0f]
+                       value: [UIFont fontWithName:@"Avenir-Heavy" size:11.0f]
                        range: NSMakeRange(17,pin.bargain.length)];
     NSMutableAttributedString *transportationStr = [[NSMutableAttributedString alloc]
                                                     initWithString:[NSString stringWithFormat:@"Transportation: %@", pin.transportation]];
     [transportationStr addAttribute: NSFontAttributeName
-                       value: [UIFont fontWithName:@"Avenir-Roman" size:9.0f]
+                       value: [UIFont fontWithName:@"Avenir-Roman" size:11.0f]
                        range: NSMakeRange(0,15)];
     [transportationStr addAttribute: NSFontAttributeName
-                       value: [UIFont fontWithName:@"Avenir-Heavy" size:9.0f]
+                       value: [UIFont fontWithName:@"Avenir-Heavy" size:11.0f]
                        range: NSMakeRange(16,pin.transportation.length)];
     self.bargainLabel.attributedText = bargainStr;
     self.transportLabel.attributedText = transportationStr;
@@ -228,8 +228,27 @@
 {
     self.titleLabel.text = listing.title;
     self.priceLabel.text = [NSString stringWithFormat:@"$%d", (int)listing.price];
-    self.bargainLabel.text = [NSString stringWithFormat:@"Cost-Efficiency:%@", listing.bargain];
-    self.transportLabel.text = [NSString stringWithFormat:@"Transportation:%@", listing.transportation];
+    NSMutableAttributedString *bargainStr = [[NSMutableAttributedString alloc]
+                                             initWithString:[NSString stringWithFormat:@"Cost-Efficiency: %@", listing.bargain]];
+    [bargainStr addAttribute: NSFontAttributeName
+                       value: [UIFont fontWithName:@"Avenir-Roman" size:11.0f]
+                       range: NSMakeRange(0,16)];
+    [bargainStr addAttribute: NSFontAttributeName
+                       value: [UIFont fontWithName:@"Avenir-Heavy" size:11.0f]
+                       range: NSMakeRange(17,listing.bargain.length)];
+    NSMutableAttributedString *transportationStr = [[NSMutableAttributedString alloc]
+                                                    initWithString:[NSString stringWithFormat:@"Transportation: %@", listing.transportation]];
+    [transportationStr addAttribute: NSFontAttributeName
+                              value: [UIFont fontWithName:@"Avenir-Roman" size:11.0f]
+                              range: NSMakeRange(0,15)];
+    [transportationStr addAttribute: NSFontAttributeName
+                              value: [UIFont fontWithName:@"Avenir-Heavy" size:11.0f]
+                              range: NSMakeRange(16,listing.transportation.length)];
+    self.bargainLabel.attributedText = bargainStr;
+    self.transportLabel.attributedText = transportationStr;
+    
+//    self.bargainLabel.text = [NSString stringWithFormat:@"Cost-Efficiency: %@", listing.bargain];
+//    self.transportLabel.text = [NSString stringWithFormat:@"Transportation: %@", listing.transportation];
     int numberOfBed = (int)listing.beds;
     if (numberOfBed > 1) {
         self.bedLabel.text = [NSString stringWithFormat:@"%dBeds", numberOfBed];
