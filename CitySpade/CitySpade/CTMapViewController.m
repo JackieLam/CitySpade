@@ -713,7 +713,8 @@
         default:
             break;
     }
-    [self.ctlistView loadPlacesToListAndReloadData:[self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor]]];
+    NSSortDescriptor *imageDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbImageLink" ascending:NO];
+    [self.ctlistView loadPlacesToListAndReloadData:[self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor, imageDescriptor]]];
 }
 
 #pragma mark - TitleButton Method
