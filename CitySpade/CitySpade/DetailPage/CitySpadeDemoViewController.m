@@ -362,9 +362,9 @@ static const int navigationBarHeight = 44;
     if ([activityType isEqualToString:UIActivityTypePostToFacebook] ||[activityType isEqualToString:UIActivityTypeMail]) {
 
         NSDictionary *listDic1 = [self.preViewInfo objectAtIndex:0];
-        CGFloat bargain = [[listDic1 objectForKey:@"bargain"] floatValue];
-        CGFloat transportation = [[listDic1 objectForKey:@"transportation"] floatValue];
-        NSString *str = [NSString stringWithFormat:@"Check out this properity I found via CitySpade iPhone app\n\nBasic Info:\n%@\n$%@\nBargain rating:%@\nTransportation rating:%@\n%@Beds\n%@Baths\n",self.VCtitle,[listDic1 objectForKey:@"totalPrice"],[NSString stringWithFormat:@"%.2f/10", bargain],[NSString stringWithFormat:@"%.2f/10", transportation],[listDic1 objectForKey:@"numberOfBed"],[listDic1 objectForKey:@"numberOfBath"]];
+        NSString *bargain = [listDic1 objectForKey:@"bargain"];
+        NSString *transportation = [listDic1 objectForKey:@"transportation"];
+        NSString *str = [NSString stringWithFormat:@"Check out this properity I found via CitySpade iPhone app\n\nBasic Info:\n%@\n$%@\nCost-Efficiency rating:%@\nTransportation rating:%@\n%@Beds\n%@Baths\n",self.VCtitle,[listDic1 objectForKey:@"totalPrice"],bargain, transportation, [listDic1 objectForKey:@"numberOfBed"],[listDic1 objectForKey:@"numberOfBath"]];
         return str;
     }
     else{

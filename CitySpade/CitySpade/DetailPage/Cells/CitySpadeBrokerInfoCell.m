@@ -34,7 +34,12 @@
 - (void)ConfigureCellWithItem: (BaseClass *)list {
     if ( list ) {
         NSArray *nameArray = [list.contactName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        _contactName.text = [NSString stringWithFormat:@"%@ %@", nameArray[0], nameArray[1]];
+        if (nameArray.count == 1) {
+            _contactName.text = nameArray[0];
+        }
+        else {
+            _contactName.text = [NSString stringWithFormat:@"%@ %@", nameArray[0], nameArray[1]];
+        }
         _contactTel.text = list.contactTel;
         NSURL *imagePath = [[CitySpadeModelManager sharedManager] imagePathForImageURL:list.originalIconUrl];
         
