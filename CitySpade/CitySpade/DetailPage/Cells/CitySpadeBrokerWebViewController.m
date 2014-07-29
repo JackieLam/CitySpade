@@ -71,7 +71,7 @@
                                                       constant:-20];
         self.navigationItem.leftBarButtonItem = backNavigationItem;
     }
-    [self.view addConstraint:topConstraint];
+//    [self.view addConstraint:topConstraint];
     self.navigationController.navigationBar.translucent = NO;
     
     self.webView.delegate = self;
