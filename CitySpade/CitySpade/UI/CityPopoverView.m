@@ -40,6 +40,13 @@
     return self;
 }
 
+- (void)reloadWithCities:(NSArray *)cities
+{
+    self.cityArray = cities;
+    [_cityTableView reloadData];
+    [_cityTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionBottom];
+}
+
 #pragma mark - TableView Datasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -51,7 +58,7 @@
             cell.textLabel.font = kSelectedCellFont;
             cell.textLabel.textColor = kSelectedCellTextColor;
         }
-        else{
+        else {
             cell.textLabel.font = kDeselectedCellFont;
             cell.textLabel.textColor = kDeselectedCellTextColor;
         }
@@ -77,7 +84,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.textLabel.font = kSelectedCellFont;
     cell.textLabel.textColor = kSelectedCellTextColor;
-    self.citySelectedBlock(cell.textLabel.text);
+    self.citySelectedBlock(indexPath.row);
     [self pushOutCityTableView];
 }
 

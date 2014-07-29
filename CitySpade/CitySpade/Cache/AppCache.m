@@ -179,4 +179,22 @@ static int kCacheMemoryLimit;
     NSString *saveListingPath = [NSString stringWithFormat:@"%@%@",[defaults objectForKey:@"USER_NAME"],kSaveListArchive];
     return saveListingPath;
 }
+
++ (void)cacheCities:(NSArray *)cities
+{
+    NSString *path = [[AppCache cacheDirectory] stringByAppendingPathComponent:@"cities"];
+    [[NSKeyedArchiver archivedDataWithRootObject:cities] writeToFile:path atomically:true];
+}
+
++ (NSArray *)getCachedCities
+{
+    NSString *path = [[AppCache cacheDirectory] stringByAppendingPathComponent:@"cities"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSArray *cities = nil;
+    if (data) {
+        cities = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
+    
+    return cities;
+}
 @end

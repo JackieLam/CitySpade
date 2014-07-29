@@ -29,6 +29,7 @@
 #import "BlockCache.h"
 #import "CityPopoverView.h"
 #import "BlockStates.h"
+#import "AppCache.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -37,11 +38,17 @@
 #define botttomHeight 44.0f
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 #define sortTableViewOriginY self.ctmapView.frame.size.height - 52
-#define kNewYorkCity @"New York City"
+#define kNewYorkCity @"New York"
+#define kNewYorkCityLat 40.747
+#define kNewYorkCityLng -74
 #define kNewYorkCityCoordinate CLLocationCoordinate2DMake(40.747, -74)
 #define kPhiladelphiaCity @"Philadelphia"
+#define kPhiladelphiaCityLat 39.950
+#define kPhiladelphiaCityLng -75.166667
 #define kPhiladelphiaCityCoordinate CLLocationCoordinate2DMake(39.950,-75.166667)
 #define kBostonCity @"Boston"
+#define kBostonCityLat 42.358056
+#define kBostonCityLng -71.063611
 #define kBostonCoordinate CLLocationCoordinate2DMake(42.358056,-71.063611)
 
 @interface CTMapViewController()<SortTableViewDelegate>
@@ -65,7 +72,7 @@
 @property (nonatomic, strong) UIButton *titleView;
 @property (nonatomic, strong) CityPopoverView *cityPoperView;
 @property (nonatomic) float collectionViewOriginY;
-
+@property (nonatomic, strong) NSArray *cities;
 @end
 
 @implementation CTMapViewController {
@@ -207,10 +214,26 @@
     [_titleView setTitleColor:[UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
     [_titleView addTarget:self action:@selector(dropDown) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = _titleView;
-    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(76, 52, 168, 155) withCitys:@[kNewYorkCity,kPhiladelphiaCity,kBostonCity] withBlock:^(id title) {
-        [_titleView setTitle:title forState:UIControlStateNormal];
+    
+    _cities = [AppCache getCachedCities];
+    if (_cities == nil) {
+        _cities = @[
+                    @{@"name": kNewYorkCity, @"lat": @kNewYorkCityLat, @"lng": @kNewYorkCityLng},
+                    @{@"name": kPhiladelphiaCity, @"lat": @kPhiladelphiaCityLat, @"lng": @kPhiladelphiaCityLng},
+                    @{@"name": kBostonCity, @"lat": @kBostonCityLat, @"lng": @kBostonCityLng},
+                    ];
+    }
+    NSMutableArray *cityName = [NSMutableArray array];
+    for (NSDictionary *dic in _cities) {
+        [cityName addObject:dic[@"name"]];
+    }
+    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(76, 52, 168, 155) withCitys:cityName withBlock:^(NSInteger index) {
+        NSDictionary *city = [_cities objectAtIndex:index];
+        [_titleView setTitle:city[@"name"] forState:UIControlStateNormal];
         [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
-        MKCoordinateRegion region = [self regionForCity:title];
+        MKCoordinateRegion region = MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
+        CLLocationCoordinate2D coordinate2d = CLLocationCoordinate2DMake([city[@"lat"] doubleValue], [city[@"lng"] doubleValue]);
+        region = MKCoordinateRegionMake(coordinate2d, self.ctmapView.region.span);
         CLLocationCoordinate2D coordinate = self.ctmapView.region.center;
         CLLocationDegrees leftDegrees = region.center.longitude - region.span.longitudeDelta/2.0;
         CLLocationDegrees rightDegrees = region.center.longitude + region.span.longitudeDelta/2.0;
@@ -220,8 +243,20 @@
             //坐标在范围内，无需移动
         }
         else{
-            [self.ctmapView setRegion:[self regionForCity:title] animated:YES];
+            [self.ctmapView setRegion:region animated:YES];
         }
+    }];
+    
+    [RESTfulEngine loadCityList:^(NSMutableArray *resultArray) {
+        _cities = (NSArray *)resultArray;
+        [AppCache cacheCities:_cities];
+        NSMutableArray *cityNames = [NSMutableArray array];
+        for (NSDictionary *dic in _cities) {
+            [cityNames addObject:dic[@"name"]];
+        }
+        [_cityPoperView reloadWithCities:cityNames];
+    } onError:^(NSError *engineError) {
+        
     }];
 }
 
@@ -687,9 +722,17 @@
         [_cityPoperView pushInCityTableView];
     }
 }
-
+/*
 - (MKCoordinateRegion)regionForCity:(NSString*)city
 {
+    for (NSDictionary *dic in self.cities) {
+        if ([dic[@"name"] isEqualToString:city]) {
+            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([dic[@"lat"] doubleValue], [dic[@"lng"] doubleValue]);
+            return MKCoordinateRegionMake(coordinate, self.ctmapView.region.span);
+        }
+    }
+    return MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
+ 
     if ([city isEqualToString:kNewYorkCity]) {
         return MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
     }
@@ -699,7 +742,7 @@
     else {
         return MKCoordinateRegionMake(kBostonCoordinate, self.ctmapView.region.span);
     }
-}
+}*/
 
 #pragma mark - LocationBtn Method
 
