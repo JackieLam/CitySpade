@@ -527,7 +527,10 @@
     }
     
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
-    [self.ctmapView addAnnotations:self.pinsFilterRight];
+//    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+    [self.ctmapView resetAnnotationsCopy:self.pinsFilterRight];
+    [self.ctmapView setVisibleMapRect:MKMapRectMake(self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y+1, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height)];
+//    [self.ctmapView addAnnotations:self.pinsFilterRight];
     
     self.ctmapView.zoomEnabled = YES;
     self.ctmapView.scrollEnabled = YES;
@@ -652,7 +655,8 @@
     
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
     [self.ctmapView resetAnnotationsCopy:self.pinsFilterRight]; //需要reset一下底层的mapView
-    [self.ctmapView addAnnotations:self.pinsFilterRight];
+    [self.ctmapView setVisibleMapRect:MKMapRectMake(self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y+1, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height)];
+//    [self.ctmapView addAnnotations:self.pinsFilterRight];
     [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
 }
 
