@@ -157,8 +157,10 @@ didSelectAnnotationView:(MKAnnotationView *)view
     detailViewController.VCtitle = cell.titleLabel.text;
     detailViewController.listID = [NSString stringWithFormat:@"%d", (int)pin.identiferNumber];
     detailViewController.featureImageUrl = cell.imageView.imageURL;
-    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
-    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportationLabel.text firstNumberInString] doubleValue]];
+    NSString *bargain = cell.bargainLabel.text;
+    NSString *transportation = cell.transportationLabel.text;
+//    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
+//    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportationLabel.text firstNumberInString] doubleValue]];
     NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
     NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
     NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];
