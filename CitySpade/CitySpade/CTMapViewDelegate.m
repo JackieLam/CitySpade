@@ -24,7 +24,6 @@
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
 #define cellGap 0.0f //20.0f
-#define maxBlockThersold 40 // 表示放大到一定程度后，不产生网络请求
 
 @interface CTMapViewDelegate()
 
@@ -48,7 +47,7 @@
 {
     NSArray *arr = [mapView blocksParamWithSize:4];
 // 限定放大以后不产生网络请求, 提示用户缩小地图
-    if ([arr count] > maxBlockThersold) {
+    if ([arr count] == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Zoom in to load more data", @"still": [NSNumber numberWithBool:NO]}];
         return;
     }
@@ -114,6 +113,11 @@ didSelectAnnotationView:(MKAnnotationView *)view
     [[NSNotificationCenter defaultCenter] postNotificationName:kPathOverLayShouldBeAdded object:views userInfo:nil];
 }
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    [mapView setRegion:MKCoordinateRegionMake(userLocation.coordinate, mapView.region.span) animated:YES];
+    mapView.showsUserLocation = NO;
+}
 
 #pragma mark - UICollectionView DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -152,10 +156,11 @@ didSelectAnnotationView:(MKAnnotationView *)view
     CitySpadeDemoViewController *detailViewController = [[CitySpadeDemoViewController alloc] init];
     detailViewController.VCtitle = cell.titleLabel.text;
     detailViewController.listID = [NSString stringWithFormat:@"%d", (int)pin.identiferNumber];
-    detailViewController.featureImage = cell.imageView.image;
     detailViewController.featureImageUrl = cell.imageView.imageURL;
-    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
-    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportationLabel.text firstNumberInString] doubleValue]];
+    NSString *bargain = cell.bargainLabel.text;
+    NSString *transportation = cell.transportationLabel.text;
+//    NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
+//    NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportationLabel.text firstNumberInString] doubleValue]];
     NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
     NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
     NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];

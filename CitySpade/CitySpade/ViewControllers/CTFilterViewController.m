@@ -21,7 +21,9 @@
 #define saleMaxValue 12000000
 #define rentMaxValue 12000
 #define kTitleViewTag 1
-#define kFilterControlCellNum 5
+#define kFilterControlCellNum 6
+#define kTitleForRent @"For Rent"
+#define kTitleForSale @"For Sale"
 
 static const int toolBarHeight = 52;
 
@@ -34,9 +36,10 @@ static const int toolBarHeight = 52;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToggleRentSale object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSliderValueRange:) name:kNotificationToggleRentSale object:nil];
     [self setTableView];
-    [self setTitleWithText:@"For Rent"];
+    [self setTitleAttribute];
+    [self setTitleWithText:kTitleForRent];
     [self setApplyButton];
     [self setToolBar];
     
@@ -56,8 +59,9 @@ static const int toolBarHeight = 52;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.scrollsToTop = NO;
     [self.view addSubview:self.tableView];
-    
+    CTFilterControlCell *SegmentCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleSegment withTableViewBlock:nil];
     CTFilterControlCell *PriceCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStylePrice withTableViewBlock:nil];
     CTFilterControlCell *BargainCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBargain withTableViewBlock:^{
         [self.tableView reloadData];
@@ -69,13 +73,22 @@ static const int toolBarHeight = 52;
     CTFilterControlCell *BathroomCell = [[CTFilterControlCell alloc] initWithStyle:CTFilterCellStyleBathroom withTableViewBlock:nil];
     [BargainCell.bargainPickerView.headerButton addTarget:self action:@selector(reloadTableView) forControlEvents:UIControlEventTouchUpInside];
     [TransportationCell.transportationPickerView.headerButton addTarget:self action:@selector(reloadTableView) forControlEvents:UIControlEventTouchUpInside];
-    cellArray = [NSArray arrayWithObjects:PriceCell,BargainCell,TransportationCell,BedrommCell,BathroomCell, nil];
+    cellArray = [NSArray arrayWithObjects:SegmentCell,PriceCell,BargainCell,TransportationCell,BedrommCell,BathroomCell, nil];
+    SegmentBlock block = ^(BOOL forRent){
+        if (forRent) {
+            [PriceCell setSliderWithMaxValueWithoutReset:rentMaxValue minValue:0.0f];
+        }
+        else{
+            [PriceCell setSliderWithMaxValueWithoutReset:saleMaxValue minValue:0.0f];
+        }
+    };
+    SegmentCell.rentSegmentBlock = block;
 }
 
 - (void)setTitleAttribute
 {
-    UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
-    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
+    UIColor *red = [UIColor colorWithRed:91.0f/255.0f green:91.0f/255.0f blue:91.0f/255.0f alpha:1.0];
+    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:15.0f];
     NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
     [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
     [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
@@ -156,32 +169,42 @@ static const int toolBarHeight = 52;
     CTFilterControlCell *cell2 = [cellArray objectAtIndex:2];
     CTFilterControlCell *cell3 = [cellArray objectAtIndex:3];
     CTFilterControlCell *cell4 = [cellArray objectAtIndex:4];
-    NSMutableDictionary *filterData = [NSMutableDictionary dictionaryWithDictionary:[cell getSliderRangeValue]];
-    filterData[@"bargain"] = [cell1 selectedItem];
-    filterData[@"transportation"] = [cell2 selectedItem];
-    filterData[@"beds"] = [cell3 selectedItem];
-    filterData[@"baths"] = [cell4 selectedItem];
+    CTFilterControlCell *cell5 = [cellArray objectAtIndex:5];
+    NSMutableDictionary *filterData = [NSMutableDictionary dictionaryWithDictionary:[cell1 getSliderRangeValue]];
+    filterData[@"rent"] = [cell selectedItem];
+    filterData[@"bargain"] = [cell2 selectedItem];
+    filterData[@"transportation"] = [cell3 selectedItem];
+    filterData[@"beds"] = [cell4 selectedItem];
+    filterData[@"baths"] = [cell5 selectedItem];
+    BOOL isRent = [filterData[@"rent"] boolValue];
+    if (isRent) {
+        [self setTitleWithText:kTitleForRent];
+    }
+    else{
+        [self setTitleWithText:kTitleForSale];
+    }
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidRightFilter object:filterData];
 }
 
+/*
 #pragma mark - Reset the slider's value range
 
 - (void)resetSliderValueRange:(NSNotification *)aNotification
 {
     NSDictionary *param = [aNotification object];
     BOOL forRent = [param[@"rent"] boolValue];
-    CTFilterControlCell *cell = [cellArray objectAtIndex:0];
+    CTFilterControlCell *cell = [cellArray objectAtIndex:1];
     if (forRent){
         [cell setSliderWithMaxValue:rentMaxValue minValue:0];
-        [self setTitleWithText:@"For Rent"];
+        [self setTitleWithText:kTitleForRent];
     }
     else{
         [cell setSliderWithMaxValue:saleMaxValue minValue:0];
-        [self setTitleWithText:@"For Sale"];
+        [self setTitleWithText:kTitleForSale];
     }
     [cell resetControl];
-}
+}*/
 
 #pragma mark - Toolbar button method
 
@@ -196,5 +219,6 @@ static const int toolBarHeight = 52;
         [cell resetControl];
     }
     [self.tableView reloadData];
+    [self setTitleWithText:kTitleForRent];
 }
 @end

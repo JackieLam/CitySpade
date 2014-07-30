@@ -29,7 +29,6 @@
 @interface CitySpadeDemoViewController : UIViewController<UIActivityItemSource>
 
 //Assigned by the pre-ViewController
-@property (nonatomic, copy) UIImage *featureImage;
 @property (nonatomic, copy) NSString *featureImageUrl;
 @property (nonatomic, copy) NSArray *preViewInfo;
 @property (nonatomic, copy) NSString *VCtitle;

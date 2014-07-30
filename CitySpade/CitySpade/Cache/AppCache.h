@@ -17,4 +17,6 @@
 + (void)cacheSaveList:(NSArray *)saveListing;
 + (NSMutableArray *)getCachedSaveList;
 + (BOOL)isSaveListStale;
++ (void)cacheCities:(NSArray *)cities;
++ (NSArray *)getCachedCities;
 @end

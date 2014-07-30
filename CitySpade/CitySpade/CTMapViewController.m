@@ -27,6 +27,9 @@
 #import "SortTableView.h"
 #import "SwitchSegment.h"
 #import "BlockCache.h"
+#import "CityPopoverView.h"
+#import "BlockStates.h"
+#import "AppCache.h"
 
 #define cellHeight 231.0f //130.0f
 #define cellWidth 320.0f //290.0f
@@ -35,6 +38,18 @@
 #define botttomHeight 44.0f
 #define greenColor [UIColor colorWithRed:41.0/255.0 green:188.0/255.0 blue:184.0/255.0 alpha:1.0f]
 #define sortTableViewOriginY self.ctmapView.frame.size.height - 52
+#define kNewYorkCity @"New York"
+#define kNewYorkCityLat 40.747
+#define kNewYorkCityLng -74
+#define kNewYorkCityCoordinate CLLocationCoordinate2DMake(40.747, -74)
+#define kPhiladelphiaCity @"Philadelphia"
+#define kPhiladelphiaCityLat 39.950
+#define kPhiladelphiaCityLng -75.166667
+#define kPhiladelphiaCityCoordinate CLLocationCoordinate2DMake(39.950,-75.166667)
+#define kBostonCity @"Boston"
+#define kBostonCityLat 42.358056
+#define kBostonCityLng -71.063611
+#define kBostonCoordinate CLLocationCoordinate2DMake(42.358056,-71.063611)
 
 @interface CTMapViewController()<SortTableViewDelegate>
 {
@@ -54,9 +69,10 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panDrawGesture;
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
 @property (nonatomic, strong) UIBezierPath *path;
-
+@property (nonatomic, strong) UIButton *titleView;
+@property (nonatomic, strong) CityPopoverView *cityPoperView;
 @property (nonatomic) float collectionViewOriginY;
-
+@property (nonatomic, strong) NSArray *cities;
 @end
 
 @implementation CTMapViewController {
@@ -85,16 +101,17 @@
     [CTMapViewDelegate sharedInstance].forRent = YES;
     [self.view addSubview:self.ctmapView];
     
-    CLLocationCoordinate2D coordinate;
-    coordinate.latitude = 40.747;
-    coordinate.longitude = -74;
-    self.ctmapView.region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
+//    CLLocationCoordinate2D coordinate;
+//    coordinate.latitude = 40.747;
+//    coordinate.longitude = -74;
+    self.ctmapView.region = MKCoordinateRegionMakeWithDistance(kNewYorkCityCoordinate, 5000, 5000);
+//    self.ctmapView.region = [self regionForCity:kNewYorkCity];
     previousZoomLevel = self.ctmapView.region.span.longitudeDelta;
     
 // Setup the list view
     self.ctlistView = [[CTListView alloc] initWithFrame:viewBounds];
     self.ctlistView.delegate = [MainTableViewDelegate sharedInstance];
-    
+    self.ctlistView.scrollsToTop = YES;
     UIView *containView = [[UIView alloc] initWithFrame:viewBounds];
     [containView addSubview:self.ctlistView];
     [containView addSubview:self.ctmapView];
@@ -116,16 +133,13 @@
     [self setupCollectionView];
     
 // Setup the title
-    UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
-    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
-    NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
-    [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
-    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
-    
-    self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
+    [self setTitle];
+
+// Setup locationBtn
+    [self setLocationButton];
     forRent = YES;
-    self.title = @"For Rent";
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:forRent]}];
+//    self.title = @"For Rent";
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:forRent]}];
 }
 
 #pragma mark - NSNotification
@@ -177,7 +191,82 @@
     self.swipeCollectionView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(viewDisappearAnimation:)];
     self.swipeCollectionView.direction = UISwipeGestureRecognizerDirectionDown;
     [self.collectionView addGestureRecognizer:self.swipeCollectionView];
+    self.collectionView.scrollsToTop = NO;
     [self.view addSubview:self.collectionView];
+}
+
+- (void)setTitle
+{
+    //设置titleTextAttributes
+    UIColor *red = [UIColor colorWithRed:73.0f/255.0f green:73.0f/255.0f blue:73.0f/255.0f alpha:1.0];
+    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
+    NSMutableDictionary *navBarTextAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
+    [navBarTextAttributes setObject:font forKey:NSFontAttributeName];
+    [navBarTextAttributes setObject:red forKey:NSForegroundColorAttributeName ];
+    self.navigationController.navigationBar.titleTextAttributes = navBarTextAttributes;
+    //设置标题按钮
+    _titleView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    _titleView.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16.0f];
+    [_titleView setTitle:kNewYorkCity forState:UIControlStateNormal];
+    [_titleView setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2*12)];
+    [_titleView setImage:[UIImage imageNamed:@"triangle"] forState:UIControlStateNormal];
+    [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
+    [_titleView setTitleColor:[UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [_titleView addTarget:self action:@selector(dropDown) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = _titleView;
+    
+    _cities = [AppCache getCachedCities];
+    if (_cities == nil) {
+        _cities = @[
+                    @{@"name": kNewYorkCity, @"lat": @kNewYorkCityLat, @"lng": @kNewYorkCityLng},
+                    @{@"name": kPhiladelphiaCity, @"lat": @kPhiladelphiaCityLat, @"lng": @kPhiladelphiaCityLng},
+                    @{@"name": kBostonCity, @"lat": @kBostonCityLat, @"lng": @kBostonCityLng},
+                    ];
+    }
+    NSMutableArray *cityName = [NSMutableArray array];
+    for (NSDictionary *dic in _cities) {
+        [cityName addObject:dic[@"name"]];
+    }
+    self.cityPoperView = [[CityPopoverView alloc] initWithFrame:CGRectMake(76, 52, 168, 155) withCitys:cityName withBlock:^(NSInteger index) {
+        NSDictionary *city = [_cities objectAtIndex:index];
+        [_titleView setTitle:city[@"name"] forState:UIControlStateNormal];
+        [_titleView setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -2*_titleView.titleLabel.frame.size.width)];
+        MKCoordinateRegion region = MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
+        CLLocationCoordinate2D coordinate2d = CLLocationCoordinate2DMake([city[@"lat"] doubleValue], [city[@"lng"] doubleValue]);
+        region = MKCoordinateRegionMake(coordinate2d, self.ctmapView.region.span);
+        CLLocationCoordinate2D coordinate = self.ctmapView.region.center;
+        CLLocationDegrees leftDegrees = region.center.longitude - region.span.longitudeDelta/2.0;
+        CLLocationDegrees rightDegrees = region.center.longitude + region.span.longitudeDelta/2.0;
+        CLLocationDegrees bottomDegrees = region.center.latitude - region.span.latitudeDelta/2.0;
+        CLLocationDegrees topDegrees = region.center.latitude + region.span.latitudeDelta/2.0;
+        if (coordinate.longitude >= leftDegrees && coordinate.longitude <= rightDegrees && coordinate.latitude >= bottomDegrees && coordinate.latitude <= topDegrees) {
+            //坐标在范围内，无需移动
+        }
+        else{
+            [self.ctmapView setRegion:region animated:YES];
+        }
+    }];
+    
+    [RESTfulEngine loadCityList:^(NSMutableArray *resultArray) {
+        _cities = (NSArray *)resultArray;
+        [AppCache cacheCities:_cities];
+        NSMutableArray *cityNames = [NSMutableArray array];
+        for (NSDictionary *dic in _cities) {
+            [cityNames addObject:dic[@"name"]];
+        }
+        [_cityPoperView reloadWithCities:cityNames];
+    } onError:^(NSError *engineError) {
+        
+    }];
+}
+
+- (void)setLocationButton
+{
+    self.locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(290, 100, 30, 30)];
+    [self.locationBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
+    [self.locationBtn addTarget:self action:@selector(dragLocationButtonMoving:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+    [self.locationBtn addTarget:self action:@selector(locationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.locationBtn];
 }
 
 #pragma mark - 
@@ -192,9 +281,11 @@
 {
     NSDictionary *param = [aNotification object];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = activityIndicator;
-    [activityIndicator startAnimating];
+    if (self.navigationItem.titleView == _titleView) {
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.navigationItem.titleView = activityIndicator;
+        [activityIndicator startAnimating];
+    }
     
     // 如果改变状态，需要把地图上的点全部去掉，清除pinsAll，清除BlockCache中的loadedBlockSet
     if ([param[@"rent"] boolValue] != forRent) {
@@ -202,14 +293,14 @@
     }
     
     [RESTfulEngine loadListingsWithQuery:param onSucceeded:^(NSMutableArray *resultArray) {
-        [activityIndicator stopAnimating];
+//        [activityIndicator stopAnimating];
         self.listings = resultArray;
         [BlockCache cacheListingItems:self.listings block:param];
-        self.navigationItem.titleView = nil;
+        self.navigationItem.titleView = _titleView;
         [self resetAnnotationsWithResultArray:self.listings];
     } onError:^(NSError *engineError) {
-        [activityIndicator stopAnimating];
-        self.navigationItem.titleView = nil;
+//        [activityIndicator stopAnimating];
+        self.navigationItem.titleView = _titleView;
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationStateLabelShouldShowUp object:@{@"content": @"Fail loading new listings", @"still": [NSNumber numberWithBool:NO]}];
     }];
 }
@@ -382,13 +473,15 @@
         [self.mapBottomBar resetBarState:BarStateMapDefault];
         [self.sortTableView removeFromSuperview];
         [UIView transitionFromView:self.ctlistView toView:self.ctmapView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-            // 方法放这里的话会有延迟
+            self.locationBtn.hidden = NO;
         }];
     }
     else {
         [self.mapBottomBar resetBarState:BarStateList];
+        self.locationBtn.hidden = YES;
         [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-            [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
+            NSSortDescriptor *imageDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbImageLink" ascending:NO];
+            [self.ctlistView loadPlacesToListAndReloadData:[self.pinsFilterRight sortedArrayUsingDescriptors:@[imageDescriptor]]];
             CGRect bottomBarFrame = self.mapBottomBar.frame;
             self.sortTableView = [[SortTableView alloc] initWithFrame:CGRectMake(bottomBarFrame.origin.x, bottomBarFrame.origin.y, bottomBarFrame.size.width, 0) delegate:self];
             [self.view addSubview:self.sortTableView];
@@ -413,6 +506,7 @@
 
 - (void)drawButtonClicked:(id)sender
 {
+    self.navigationItem.titleView = nil;
     self.navigationItem.title = @"Draw";
     [self.mapBottomBar resetBarState:BarStateMapDraw];
     self.ctmapView.zoomEnabled = NO;
@@ -424,9 +518,9 @@
 
 - (void)cancelButtonClicked:(id)sender
 {
-    if (forRent) self.navigationItem.title = @"For Rent";
-    else self.navigationItem.title = @"For Sale";
-    
+//    if (forRent) self.navigationItem.title = @"For Rent";
+//    else self.navigationItem.title = @"For Sale";
+    self.navigationItem.titleView = _titleView;
     if (self.path) {
         [self.path removeAllPoints];
         self.shapeLayer.path = [self.path CGPath];
@@ -434,7 +528,10 @@
     }
     
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
-    [self.ctmapView addAnnotations:self.pinsFilterRight];
+//    [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+    [self.ctmapView resetAnnotationsCopy:self.pinsFilterRight];
+    [self.ctmapView setVisibleMapRect:MKMapRectMake(self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y+1, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height)];
+//    [self.ctmapView addAnnotations:self.pinsFilterRight];
     
     self.ctmapView.zoomEnabled = YES;
     self.ctmapView.scrollEnabled = YES;
@@ -535,6 +632,18 @@
 {
     [self.pinsFilterRight removeAllObjects];
     self.filterData = [aNotification object];
+    if ([[self.filterData objectForKey:@"rent"] boolValue] != forRent) {
+        forRent = !forRent;
+        self.ctmapView.delegate.forRent = forRent;
+        [self.ctmapView removeAnnotations:self.ctmapView.annotations];
+        [self.ctmapView clearAnnotationsCopy];
+        [self.pinsFilterRight removeAllObjects];
+        [self.pinsAll removeAllObjects];
+        [BlockStates clearOnMapBlocks];
+        [BlockStates clearRequestingBlocks];
+        [self.ctmapView setVisibleMapRect:MKMapRectMake(self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y+1, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height)];
+        return;
+    }
     for (REVClusterPin *pin in self.pinsAll) {
         if ([pin fitsFilterData:self.filterData])
             [self.pinsFilterRight addObject:pin];
@@ -547,7 +656,8 @@
     
     [self.ctmapView removeAnnotations:self.ctmapView.annotations];
     [self.ctmapView resetAnnotationsCopy:self.pinsFilterRight]; //需要reset一下底层的mapView
-    [self.ctmapView addAnnotations:self.pinsFilterRight];
+    [self.ctmapView setVisibleMapRect:MKMapRectMake(self.ctmapView.visibleMapRect.origin.x, self.ctmapView.visibleMapRect.origin.y+1, self.ctmapView.visibleMapRect.size.width, self.ctmapView.visibleMapRect.size.height)];
+//    [self.ctmapView addAnnotations:self.pinsFilterRight];
     [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
 }
 
@@ -604,7 +714,66 @@
         default:
             break;
     }
-    [self.ctlistView loadPlacesToListAndReloadData:[self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor]]];
+    NSSortDescriptor *imageDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbImageLink" ascending:NO];
+    [self.ctlistView loadPlacesToListAndReloadData:[self.ctlistView.places sortedArrayUsingDescriptors:@[sortDescriptor, imageDescriptor]]];
 }
 
+#pragma mark - TitleButton Method
+
+- (void)dropDown
+{
+    if ([_cityPoperView superview]) {
+        [_cityPoperView pushOutCityTableView];
+    }else{
+        [_cityPoperView pushInCityTableView];
+    }
+}
+/*
+- (MKCoordinateRegion)regionForCity:(NSString*)city
+{
+    for (NSDictionary *dic in self.cities) {
+        if ([dic[@"name"] isEqualToString:city]) {
+            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([dic[@"lat"] doubleValue], [dic[@"lng"] doubleValue]);
+            return MKCoordinateRegionMake(coordinate, self.ctmapView.region.span);
+        }
+    }
+    return MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
+ 
+    if ([city isEqualToString:kNewYorkCity]) {
+        return MKCoordinateRegionMake(kNewYorkCityCoordinate, self.ctmapView.region.span);
+    }
+    else if ([city isEqualToString:kPhiladelphiaCity]) {
+        return MKCoordinateRegionMake(kPhiladelphiaCityCoordinate, self.ctmapView.region.span);
+    }
+    else {
+        return MKCoordinateRegionMake(kBostonCoordinate, self.ctmapView.region.span);
+    }
+}*/
+
+#pragma mark - LocationBtn Method
+
+- (void)locationButtonClicked:(UIButton*)sender
+{
+    self.ctmapView.showsUserLocation = YES;
+}
+
+- (void)dragLocationButtonMoving:(UIButton*) button withEvent:event
+{
+    CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    CGSize mainSize = [UIScreen mainScreen].bounds.size;
+    double length = button.frame.size.width/2.0;
+    if (newPoint.x < length) {
+        newPoint.x = length;
+    }
+    else if (newPoint.x + length > mainSize.width){
+        newPoint.x = mainSize.width - length;
+    }
+    if (newPoint.y < length) {
+        newPoint.y = length;
+    }
+    else if(newPoint.y + length + 116 > mainSize.height){
+        newPoint.y = mainSize.height - length - 116;
+    }
+    button.center = newPoint;
+}
 @end

@@ -14,9 +14,12 @@
 #import "BlockCache.h"
 #import "BlockStates.h"
 #import <SystemConfiguration/SCNetworkReachability.h>
-
+/*
+ Memory Leak With NSURLSession:
+ https://github.com/iOSDevTraining/books-and-movies/commit/bc8821448f312772dcc47b25b8e743c25d1a13c7
+ */
 //Part One
-NSString * const HOST_URL = @"http://www.cityspade.com/api/v1";
+NSString * const HOST_URL = @"http://www.cityspade.com/api/v2";
 NSString * const LISTINGS_PATH = @"/listings.json?";
 
 //Part Two
@@ -29,6 +32,7 @@ NSString * const CALLBACK_PATH = @"/auth/callback.json";
 NSString * const SAVED_LISTING_PATH = @"/account/savinglists.json";
 NSString * const POST_LISTING_PATH = @"/listings/:id/collect.json";
 NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
+NSString * const CITY_PATH = @"/listings/cities.json";
 
 @interface RESTfulEngine()
 
@@ -93,10 +97,11 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                 NSError *jsonError;
                 
                 // 2 Serialize json
-                NSMutableArray *listingsJSON =
+                NSDictionary *listingsDic =
                 [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                NSArray *listings = [listingsDic objectForKey:@"listings"];
                 NSMutableArray *models = [NSMutableArray array];
-                for (id obj in listingsJSON) {
+                for (id obj in listings) {
                     Listing *newlisting = [Listing modelObjectWithDictionary:obj];
                     [models addObject:newlisting];
                 }
@@ -392,7 +397,9 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
+    
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [session invalidateAndCancel];
         if (!error) {
             
             // 1 HTTP Response
@@ -403,10 +410,11 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
                     NSError *jsonError;
                     
                     // 2 Serialize json
-                    NSMutableArray *listingsJSON =
-                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    NSArray *listings = [jsonDictionary objectForKey:@"listings"];
+                    
                     NSMutableArray *models = [NSMutableArray array];
-                    for (id obj in listingsJSON) {
+                    for (id obj in listings) {
                         Listing *listing = [Listing modelObjectWithDictionary:obj];
                         [models addObject:listing];
                     }
@@ -643,6 +651,52 @@ NSString * const DELETE_LISTING_PATH = @"/listings/:id/uncollect.json";
     }];
     
     [postDataTask resume];
+}
+
++ (void)loadCityList:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock
+{
+    if (![self isConnectedToNetwork]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showImage:[UIImage imageNamed:@"erroricon"] status:@"No Internet connection"];
+        });
+        errorBlock(nil);
+        return;
+    }
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", HOST_URL, CITY_PATH];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession * session = [NSURLSession sessionWithConfiguration:config];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [session invalidateAndCancel];
+        if (!error) {
+            
+            // 1 HTTP Response
+            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *jsonError;
+                    
+                    // 2 Serialize json
+                    NSMutableArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                    succededBlock(jsonArray);
+                });
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorBlock(error);
+                });
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                errorBlock(error);
+            });
+        }
+    }];
+    [dataTask resume];
 }
 
 + (BOOL)isConnectedToNetwork{

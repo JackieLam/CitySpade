@@ -13,6 +13,7 @@
 #import "CitySpadeBrokerWebViewController.h"
 #import "constant.h"
 #import "BaseClass.h"
+#import "AsynImageView.h"
 #import "RESTfulEngine.h"
 #define kAccessToken @"ACCESS_TOKEN"
 
@@ -23,7 +24,7 @@ static const int navigationBarHeight = 44;
 @property (strong, nonatomic) UIView *backgroundView;
 @property (strong, nonatomic) UITableView *infotableView;
 @property (strong, nonatomic) NSString *brokerTitle;
-@property (strong, nonatomic) UIImageView *featureImageView;
+@property (nonatomic, strong) AsynImageView *featureImageView;
 @property (atomic, strong) CitySpadeModelManager *manager;
 @property (nonatomic, strong) BaseClass *baseList;
 
@@ -35,7 +36,9 @@ static const int navigationBarHeight = 44;
 {
     self = [super init];
     if (self) {
-        _featureImage = [UIImage imageNamed:@"imgplaceholder_long"];
+        _featureImageView = [[AsynImageView alloc] initWithFrame:CGRectZero];
+        _featureImageView.placeholderImage = [UIImage imageNamed:@"imgplaceholder_long"];
+//        _featureImage = [UIImage imageNamed:@"imgplaceholder_long"];
     }
     return self;
 }
@@ -173,10 +176,16 @@ static const int navigationBarHeight = 44;
         if ( indexPath.section == 0 ) {
             //feature image
             cell = (CitySpadeCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            [_featureImageView setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, featureImageCellHeight)];
+            /*
+            _featureImageView.layer.shadowRadius = 1;
+            _featureImageView.layer.shadowOffset = CGSizeMake(0, 1);
+            _featureImageView.layer.shadowOpacity = 0.15;*/
+            /*
             _featureImageView = [[UIImageView alloc] init];
             CGRect featureImageViewFrame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, featureImageCellHeight);
             [_featureImageView setFrame:featureImageViewFrame];
-            [_featureImageView setImage:_featureImage];
+            [_featureImageView setImage:_featureImage];*/
             [cell addSubview:_featureImageView];
         } else if ( indexPath.section == 1 ) {
             //Basic Facts
@@ -325,10 +334,10 @@ static const int navigationBarHeight = 44;
     NSURL *url = [NSURL URLWithString:_baseList.originalUrl];
     UIActivityViewController *activityViewController;
     if (url == nil) {
-        activityViewController  = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImage,@"I found this property via CitySpade iPhone App"] applicationActivities:nil];
+        activityViewController  = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImageView.image,@"I found this property via CitySpade iPhone App"] applicationActivities:nil];
     }
     else{
-        activityViewController  = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImage,@"I found this property via CitySpade iPhone App",url] applicationActivities:nil];
+        activityViewController  = [[UIActivityViewController alloc] initWithActivityItems:@[self,self.featureImageView.image,@"I found this property via CitySpade iPhone App",url] applicationActivities:nil];
     }
     
     NSArray *excludedActivities = @[UIActivityTypePostToTwitter,
@@ -353,9 +362,9 @@ static const int navigationBarHeight = 44;
     if ([activityType isEqualToString:UIActivityTypePostToFacebook] ||[activityType isEqualToString:UIActivityTypeMail]) {
 
         NSDictionary *listDic1 = [self.preViewInfo objectAtIndex:0];
-        CGFloat bargain = [[listDic1 objectForKey:@"bargain"] floatValue];
-        CGFloat transportation = [[listDic1 objectForKey:@"transportation"] floatValue];
-        NSString *str = [NSString stringWithFormat:@"Check out this properity I found via CitySpade iPhone app\n\nBasic Info:\n%@\n$%@\nBargain rating:%@\nTransportation rating:%@\n%@Beds\n%@Baths\n",self.VCtitle,[listDic1 objectForKey:@"totalPrice"],[NSString stringWithFormat:@"%.2f/10", bargain],[NSString stringWithFormat:@"%.2f/10", transportation],[listDic1 objectForKey:@"numberOfBed"],[listDic1 objectForKey:@"numberOfBath"]];
+        NSString *bargain = [listDic1 objectForKey:@"bargain"];
+        NSString *transportation = [listDic1 objectForKey:@"transportation"];
+        NSString *str = [NSString stringWithFormat:@"Check out this properity I found via CitySpade iPhone app\n\nBasic Info:\n%@\n$%@\nCost-Efficiency rating:%@\nTransportation rating:%@\n%@Beds\n%@Baths\n",self.VCtitle,[listDic1 objectForKey:@"totalPrice"],bargain, transportation, [listDic1 objectForKey:@"numberOfBed"],[listDic1 objectForKey:@"numberOfBath"]];
         return str;
     }
     else{
@@ -369,4 +378,11 @@ static const int navigationBarHeight = 44;
     return @"";
 }
 
+- (void)setFeatureImageUrl:(NSString *)featureImageUrl
+{
+    if (_featureImageUrl != featureImageUrl) {
+        _featureImageUrl = featureImageUrl;
+        _featureImageView.imageURL = featureImageUrl;
+    }
+}
 @end

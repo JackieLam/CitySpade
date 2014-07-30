@@ -75,6 +75,7 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.scrollsToTop = NO;
     [self.view addSubview:self.tableView];
     self.savingVC = [[CTSavingsViewController alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserName:) name:kNotificationLoginSuccess object:nil];
@@ -201,13 +202,16 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         UINavigationController *nav = (UINavigationController *)self.menuContainerViewController.centerViewController;
         CTMapViewController *mapVC = nav.viewControllers[0];
         REVClusterMapView *mapView = mapVC.ctmapView;
+        if (indexPath.row == mapVC.ctmapView.delegate.forRent) {
+            [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+            [cell setBackgroundColor:CellSelectedColor];
+            return;
+        }
         // Set the forRent status of the mapVC's delegate accordingly
         if (indexPath.row == 0) {
-            mapVC.title = @"For Sale";
             mapVC.ctmapView.delegate.forRent = NO;
         }
         else if (indexPath.row == 1) {
-            mapVC.title = @"For Rent";
             mapVC.ctmapView.delegate.forRent = YES;
         }
         // Remove all annotations
@@ -217,9 +221,6 @@ static NSString *termofuseUrl = @"http://www.cityspade.com/terms";
         [mapVC.pinsAll removeAllObjects];
         [BlockStates clearOnMapBlocks];
         [BlockStates clearRequestingBlocks];
-        
-        // 这里发送一个信号为了让filterVC里面的rangeSlider改变数值
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationToggleRentSale object:@{@"rent": [NSNumber numberWithBool:indexPath.row]}];
         // 重新设置偏离一下Center Coordinate目的只是为了触发CTMapViewDelegate里面的regionDidChange方法
         [mapView setVisibleMapRect:MKMapRectMake(mapView.visibleMapRect.origin.x, mapView.visibleMapRect.origin.y+1, mapView.visibleMapRect.size.width, mapView.visibleMapRect.size.height)];
         

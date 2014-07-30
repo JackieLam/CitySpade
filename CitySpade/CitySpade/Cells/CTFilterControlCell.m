@@ -33,7 +33,7 @@
 #define PickerViewRect CGRectMake(10, 30, 249, 240)
 #define CellWidth 320.0f
 #define Changedheight 112.0f
-#define popoverViewCenter CGPointMake(92.75, 43.0)
+#define popoverViewCenter CGPointMake(87.5, 43.0)
 
 @implementation CTFilterControlCell
 
@@ -46,11 +46,7 @@
         [titleLabel setTextColor:titleTextColor];
         [titleLabel setFont:titleFont];
         CGRect rect = BackGroundViewFrame;
-        //        self.backGroundView = [[UIImageView alloc] initWithFrame:BackGroundViewFrame];
-        //        self.backGroundView.backgroundColor = [UIColor clearColor];
-        //        self.backGroundView.image = [UIImage imageNamed:@"2white_bg"];
         self.backGroundView = [[UIImageView alloc] initWithFrame:BackGroundViewFrame];
-//        self.backGroundView.backgroundColor = [UIColor whiteColor];
         self.backGroundView.userInteractionEnabled = NO;
         [self.contentView addSubview:self.backGroundView];
         switch (style) {
@@ -124,6 +120,32 @@
                     [self.contentView addSubview:self.bathSegmentControl];
                 }
                 break;
+            case CTFilterCellStyleSegment:{
+                rect.size.height = 10.0f;
+                UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 270+10, 35)];
+                self.rentSegmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"For Sale", @"For Rent", nil]];
+                self.rentSegmentControl.backgroundColor = [UIColor whiteColor];
+                [self.rentSegmentControl setFrame:CGRectMake(-3, 3, 270 + 6, 30)];
+                [self.rentSegmentControl setSelectedSegmentIndex:0];
+                NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"AvenirNext-DemiBold"size:12.5],NSFontAttributeName ,[UIColor colorWithRed:41/255.0 green:188/255.0 blue:184/255.0 alpha:1.0],NSForegroundColorAttributeName, nil];
+                [self.rentSegmentControl setTitleTextAttributes:dic forState:UIControlStateNormal];
+                [self.rentSegmentControl setContentOffset:CGSizeMake(2, 2) forSegmentAtIndex:0];
+                [self.rentSegmentControl setContentOffset:CGSizeMake(-2, 2) forSegmentAtIndex:1];
+                //segmentControl backFroundView
+                UISegmentedControl *bcg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@" ", @" ", nil]];
+                [self.rentSegmentControl setTintColor:[UIColor colorWithRed:41/255.0 green:188/255.0 blue:184/255.0 alpha:1.0]];
+                [bcg setFrame:CGRectMake(-3, 3, 270 + 6, 30)];
+                [bcg setTintColor:[UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0]];
+                [bcg setUserInteractionEnabled:NO];
+                [bcg setImage:nil forSegmentAtIndex:0];
+                [header addSubview:self.rentSegmentControl];
+                [header addSubview:bcg];
+                [self.rentSegmentControl addTarget:self action:@selector(doClickRentSegment:) forControlEvents:UIControlEventValueChanged];
+                [self.rentSegmentControl setSelectedSegmentIndex:1];
+//                header.backgroundColor = [UIColor whiteColor];
+                [self.contentView addSubview:header];
+            }
+                break;
             default:
                 break;
         }
@@ -177,7 +199,7 @@
         self.popoverView.backgroundColor = [UIColor clearColor];
     }
     if (!self.rangeSlider) {
-        self.rangeSlider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(28, 63, 200, 20)];
+        self.rangeSlider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(31, 63, 200, 20)];
         UIImage* image = nil;
         
         image = [UIImage imageNamed:@"slider_bg"];
@@ -218,6 +240,20 @@
     
 }
 
+- (void)setSliderWithMaxValueWithoutReset:(float)maxValue minValue:(float)minValue
+{
+    CGPoint lowerCenter = self.rangeSlider.lowerCenter;
+    CGPoint upperCenter = self.rangeSlider.upperCenter;
+    float lowerValue = self.rangeSlider.lowerValue;
+    float upperValue = self.rangeSlider.upperValue;
+    self.rangeSlider.minimumValue = minValue;
+    self.rangeSlider.maximumValue = maxValue;
+    upperValue = [self.rangeSlider getOriginedValueWithValue:upperCenter.x];
+    lowerValue = [self.rangeSlider getOriginedValueWithValue:lowerCenter.x];
+    [self.rangeSlider setLowerValue:lowerValue upperValue:upperValue animated:NO];
+    [self updateRangeLabel:self.rangeSlider];
+}
+
 - (void)updateRangeLabel:(NMRangeSlider *)slider
 {
     CGPoint lowerCenter;
@@ -227,15 +263,16 @@
     upperCenter.x = slider.upperCenter.x;
     upperCenter.y = slider.center.y - 30.0f;
     CGPoint middleCenter;
-    middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5;
+    //－12.5是为了使popverView居中
+    middleCenter.x = (lowerCenter.x + upperCenter.x) * 0.5 - 12.5;
     middleCenter.y = lowerCenter.y;
     self.popoverView.center = middleCenter;
     int type = 0;
-    if (slider.upperValue > rentMaxValue) {
+    if (slider.maximumValue > rentMaxValue) {
         type = 1;
     }
-    int upperValue = [slider getChangedUpperValueWithType:type];
-    int lowerValue = [slider getChangedLowerValueWithType:type];
+    int upperValue = [slider getChangedValueWithType:type withValue:upperCenter.x];
+    int lowerValue = [slider getChangedValueWithType:type withValue:lowerCenter.x];
     NSMutableString *upperValueString;
     NSMutableString *lowerValueString;
     if (type == 1) {
@@ -289,8 +326,11 @@
     else if(self.bedSegmentControl){
         return [self.bedSegmentControl titleForSegmentAtIndex:self.bedSegmentControl.selectedSegmentIndex];
     }
-    else{
+    else if(self.bathSegmentControl){
         return [self.bathSegmentControl titleForSegmentAtIndex:self.bathSegmentControl.selectedSegmentIndex];
+    }
+    else{
+        return [NSString stringWithFormat:@"%d",self.rentSegmentControl.selectedSegmentIndex];
     }
 }
 
@@ -303,12 +343,12 @@
         if (self.rangeSlider.maximumValue > rentMaxValue) {
             type = 1;
         }
-        lowerValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedLowerValueWithType:type]];
+        lowerValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedValueWithType:type withValue:self.rangeSlider.lowerCenter.x]];
         if ((type == 0 && self.rangeSlider.upperValue == rentMaxValue) || (type == 1 && self.rangeSlider.upperValue == saleMaxValue)) {
             upperValueString = @"-1";
         }
         else{
-            upperValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedUpperValueWithType:type]];
+            upperValueString = [NSString stringWithFormat:@"%d",[self.rangeSlider getChangedValueWithType:type withValue:self.rangeSlider.upperCenter.x]];
         }
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[lowerValueString,upperValueString]  forKeys:@[@"lowerBound",@"higherBound"]];
         return dic;
@@ -319,11 +359,7 @@
 - (void)resetControl
 {
     if (self.rangeSlider) {
-        if (self.rangeSlider.maximumValue > rentMaxValue) {
-            [self setSliderWithMaxValue:saleMaxValue minValue:0];
-        }
-        else
-            [self setSliderWithMaxValue:rentMaxValue minValue:0];
+        [self setSliderWithMaxValue:rentMaxValue minValue:0];
         self.popoverView.center = popoverViewCenter;
     }
     if (self.bargainPickerView) {
@@ -338,5 +374,13 @@
     if (self.bathSegmentControl) {
         [self.bathSegmentControl setSelectedSegmentIndex:0];
     }
+    if (self.rentSegmentControl) {
+        [self.rentSegmentControl setSelectedSegmentIndex:1];
+    }
+}
+
+- (void)doClickRentSegment:(id)sender
+{
+    self.rentSegmentBlock(self.rentSegmentControl.selectedSegmentIndex);
 }
 @end

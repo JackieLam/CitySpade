@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UIBarButtonItem *myEditButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *trashButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *cancelButtonItem;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, assign) BOOL isUpdated;
 @end
 
 @implementation CTSavingsViewController
@@ -48,10 +50,6 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addListingFromToSaveListing:) name:kNotificationAddSaveListing object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteListingFromSaveListing:) name:kNotificationDeleteSaveListing object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSaveListingFromCache) name:kNotificationLoginSuccess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector
-            (removeAllSaveListing) name:kNotificationLogoutSuccess object:nil];
-        [self reloadSaveListingFromCache];
     }
     return self;
 }
@@ -60,7 +58,7 @@
 {
     [super viewDidLoad];
     [self setUpAppearance];
-    
+    _isUpdated = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -72,7 +70,7 @@
             [noLoginImageView removeFromSuperview];
         }
         self.tableView.scrollEnabled = YES;
-        [self.tableView reloadData];
+        [self reloadSaveListingFromCache];
     }
     else{
         UIImageView *noLoginImageView = (UIImageView*)[self.view viewWithTag:kNoLoginViewTag];
@@ -83,9 +81,7 @@
             [self.saveList removeAllObjects];
             self.tableView.scrollEnabled = NO;
         }
-        
     }
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,12 +134,9 @@
         
         detailViewController.VCtitle = cell.titleLabel.text;
         detailViewController.listID = [NSString stringWithFormat:@"%d", (int)cell.identiferNumber];
-        if(cell.thumbImageView.image != cell.thumbImageView.placeholderImage){
-            detailViewController.featureImage = cell.thumbImageView.image;
-        }
         detailViewController.featureImageUrl = cell.thumbImageView.imageURL;
-        NSNumber *bargain = [NSNumber numberWithDouble:[[cell.bargainLabel.text firstNumberInString] doubleValue]];
-        NSNumber *transportation = [NSNumber numberWithDouble:[[cell.transportLabel.text firstNumberInString] doubleValue]];
+        NSString *bargain = [cell.bargainLabel.text substringFromIndex:17];
+        NSString *transportation = [cell.transportLabel.text substringFromIndex:16];
         NSNumber *price = [NSNumber numberWithInt:[[cell.priceLabel.text firstNumberInString] intValue]];
         NSNumber *bed = [NSNumber numberWithInt:[[cell.bedLabel.text firstNumberInString] intValue]];
         NSNumber *bath = [NSNumber numberWithInt:[[cell.bathLabel.text firstNumberInString] intValue]];
@@ -179,19 +172,20 @@
 - (void)setUpAppearance
 {
     //设置NavigationItem Title
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 110, 100, 30)];
-    [titleLabel setTextColor:TitleColor];
-    [titleLabel setText:@"My Saves"];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16];
-    titleLabel.textColor = [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1.0];
-    self.navigationItem.titleView = titleLabel;
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 110, 100, 30)];
+    [_titleLabel setTextColor:TitleColor];
+    [_titleLabel setText:@"My Saves"];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16];
+    _titleLabel.textColor = [UIColor colorWithRed:90/255.0 green:90/255.0 blue:90/255.0 alpha:1.0];
+    self.navigationItem.titleView = _titleLabel;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = TableViewBackGroundColor;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    self.tableView.scrollsToTop = YES;
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
     [self.refreshControl addTarget:self action:@selector(reloadSaveListing:) forControlEvents:UIControlEventValueChanged];
@@ -213,8 +207,30 @@
 {
     self.saveList = [AppCache getCachedSaveList];
     if (self.saveList) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
-        [self.tableView reloadData];
+        if (_isUpdated == NO) {
+            _isUpdated = YES;
+            UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [indicatorView startAnimating];
+            self.navigationItem.titleView = indicatorView;
+            [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
+                if (_saveList) {
+                    [_saveList removeAllObjects];
+                }
+                _saveList = resultArray;
+                [AppCache cacheSaveList:_saveList];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:_saveList];
+                [indicatorView stopAnimating];
+                self.navigationItem.titleView = _titleLabel;
+                [self.tableView reloadData];
+            } onError:^(NSError *engineError) {
+                [indicatorView stopAnimating];
+                self.navigationItem.titleView = _titleLabel;
+            }];
+        }
+        else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+            [self.tableView reloadData];
+        }
     }
     if (!self.saveList || [AppCache isSaveListStale]){
         [self reloadSaveListing:nil];
@@ -225,12 +241,12 @@
 {
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading..."];
     [RESTfulEngine loadUserSaveList:^(NSMutableArray *resultArray) {
-        if (self.saveList) {
-            [self.saveList removeAllObjects];
+        if (_saveList) {
+            [_saveList removeAllObjects];
         }
-        self.saveList = resultArray;
-        [AppCache cacheSaveList:self.saveList];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
+        _saveList = resultArray;
+        [AppCache cacheSaveList:_saveList];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:_saveList];
         [self.refreshControl endRefreshing];
         self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull down to refresh"];
         [self.tableView reloadData];
@@ -242,6 +258,7 @@
 
 - (void)removeAllSaveListing
 {
+    _isUpdated = NO;
     [self.saveList removeAllObjects];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidModifySaveListing object:self.saveList];
 }

@@ -32,14 +32,16 @@
         _nameLabel.hidden = YES;
         [self addSubview:_nameLabel];
         
-        self.busLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x + _nameLabel.frame.size.width, 10, 0, 0)];
+        self.busLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x, 10, 0, 0)];
         _busLabel.textColor = [UIColor colorWithRed:102 / 255.0
                                               green:102 / 255.0
                                                blue:102 / 255.0
                                               alpha:1.0];
-        _busLabel.text = @"";
+        //不与_nameLabel重叠(考虑到换行的效果)
+        _busLabel.text = @"               ";
         _busLabel.font = [UIFont fontWithName:@"Avenir-Roman" size:13];
-        _busLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _busLabel.lineBreakMode = NSLineBreakByClipping;
+        _busLabel.numberOfLines = 0;
         [self addSubview:_busLabel];
 
     }
@@ -63,8 +65,8 @@
                 _busLabel.text = [_busLabel.text stringByAppendingString:[NSString stringWithFormat:@", %@", bus.lineName]];
             }
         }
-        
-        [_busLabel sizeToFit];
+        CGSize fitSize = [_busLabel sizeThatFits:CGSizeMake(self.frame.size.width-30, 1000)];
+        _busLabel.frame = CGRectMake(_nameLabel.frame.origin.x, 10, fitSize.width, fitSize.height);
     }
 }
 

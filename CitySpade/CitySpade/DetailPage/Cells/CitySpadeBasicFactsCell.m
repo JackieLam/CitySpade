@@ -39,12 +39,24 @@
 }
 
 - (void)ConfigureCellWithItem:(BaseClass *)list {
+    _bargainLabel.text = _basicFactsDictionary[@"bargain"];
+    _transportationLabel.text = _basicFactsDictionary[@"transportation"];
+    /*
     CGFloat bargain = [_basicFactsDictionary[@"bargain"] floatValue];
-    _bargainLabel.text = [NSString stringWithFormat:@"%.2f/10", bargain];
+    if (bargain > 0) {
+        _bargainLabel.text = [NSString stringWithFormat:@"%.2f/10", bargain];
+    }
+    else {
+        _bargainLabel.text = @"---";
+    }
     
     CGFloat transportation = [_basicFactsDictionary[@"transportation"] floatValue];
-    _transportationLabel.text = [NSString stringWithFormat:@"%.2f/10", transportation];
-    
+    if (transportation > 0) {
+        _transportationLabel.text = [NSString stringWithFormat:@"%.2f/10", transportation];
+    }
+    else {
+        _transportationLabel.text = @"---";
+    }*/
     int totalPrice = [_basicFactsDictionary[@"totalPrice"] intValue];
     _totalPriceLabel.text = [NSString stringWithFormat:@"$%d", totalPrice];
     

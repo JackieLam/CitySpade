@@ -54,7 +54,8 @@ typedef void (^ErrorBlock)(NSError* engineError);
 + (void)getFacebookInfoWithAccessToken:(NSString *)accessToken onSucceeded:(DictionaryBlock)succeedBlock onError:(ErrorBlock)errorBlock;
 + (void)facebookCallbackWithEmail:(NSString *)email uid:(NSString *)uid onSucceeded:(VoidBlock)succeededBlock onError:(ErrorBlock)errorBlock;
 
-//Part Five: 
+//Part Five:
++ (void)loadCityList:(ArrayBlock)succededBlock onError:(ErrorBlock)errorBlock;
 + (BOOL)isConnectedToNetwork;
 
 @end
