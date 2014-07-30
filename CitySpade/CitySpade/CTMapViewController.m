@@ -480,7 +480,8 @@
         [self.mapBottomBar resetBarState:BarStateList];
         self.locationBtn.hidden = YES;
         [UIView transitionFromView:self.ctmapView toView:self.ctlistView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-            [self.ctlistView loadPlacesToListAndReloadData:self.pinsFilterRight];
+            NSSortDescriptor *imageDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbImageLink" ascending:NO];
+            [self.ctlistView loadPlacesToListAndReloadData:[self.pinsFilterRight sortedArrayUsingDescriptors:@[imageDescriptor]]];
             CGRect bottomBarFrame = self.mapBottomBar.frame;
             self.sortTableView = [[SortTableView alloc] initWithFrame:CGRectMake(bottomBarFrame.origin.x, bottomBarFrame.origin.y, bottomBarFrame.size.width, 0) delegate:self];
             [self.view addSubview:self.sortTableView];
